@@ -1,0 +1,40 @@
+%! TeX program = pdflatex
+\documentclass{msc}
+
+% INPUTS
+\input{globals/packages}
+\input{globals/colorscheme}
+
+% CONFIG
+\input{globals/macros}
+\input{globals/mathdefs}
+\input{globals/knowledges.kl}
+\input{globals/metadata}
+
+
+% DOCUMENT
+\begin{document}
+% FRONT MATTER
+\makeauthors
+\makeabstract
+\paperkeywords
+\maketitle
+
+
+% MAIN MATTER
+\section{Introduction}
+
+\section{Conclusion}
+
+\section*{Akcnowledgements}
+\acknowledge
+
+% BACKMATTER
+%\printbibliography
+\bibliographystyle{msclike}
+\bibliography{globals/papers.bib}
+
+\clearpage
+\appendix
+
+\end{document}
