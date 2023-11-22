@@ -1,0 +1,43 @@
+%! TeX program = xelatex
+%! TeX root = paper-name.tex
+\documentclass[conference]{IEEEtran}
+
+% INPUTS
+\input{globals/packages}
+\input{globals/colorscheme}
+
+% CONFIG
+\input{globals/macros}
+\input{globals/mathdefs}
+\input{globals/knowledges.kl}
+
+\input{globals/metadata}
+
+% DOCUMENT
+\begin{document}
+
+
+% FRONT MATTER
+\maketitle
+\makeabstract
+\acknowledge
+
+
+% MAIN MATTER
+\section{Introduction}
+
+\section{Conclusion}
+
+% BACKMATTER
+\bibliographystyle{IEEEtran}
+\bibliography{globals/ressources}
+
+\appendices\pagenumbering{roman}
+\setlength\textwidth{390pt}
+\setlength\oddsidemargin{31pt}
+\onecolumn
+
+% APPENDIX
+
+
+\end{document}
