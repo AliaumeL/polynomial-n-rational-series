@@ -1,0 +1,37 @@
+%! TeX program = xelatex
+%! TeX root = paper-name.tex
+\documentclass[a4paper,UKenglish,cleveref, autoref, thm-restate]{lipics-v2021}
+
+% INPUTS
+\input{globals/packages}
+\input{globals/colorscheme}
+
+\bibliographystyle{plainurl}
+% CONFIG
+%\input{globals/macros}
+%\input{globals/mathdefs}
+%\input{globals/knowledges.kl}
+\input{globals/metadata}
+
+
+% DOCUMENT
+\begin{document}
+
+% FRONT MATTER
+\maketitle
+%\makeabstract
+%\acknowledge
+
+
+% MAIN MATTER
+\section{Introduction}
+
+\section{Conclusion}
+
+% BACKMATTER
+\nocite{*}
+\bibliography{globals/papers}
+
+\appendix
+
+\end{document}
