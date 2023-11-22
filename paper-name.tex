@@ -1,0 +1,38 @@
+%! TeX program = xelatex
+%! TeX root = paper-name.tex
+\documentclass{lmcs}
+
+% INPUTS
+\input{globals/packages}
+\input{globals/colorscheme}
+
+% CONFIG
+\input{globals/macros}
+\input{globals/mathdefs}
+\input{globals/knowledges.kl}
+
+
+% DOCUMENT
+\begin{document}
+
+\input{globals/metadata}
+
+% FRONT MATTER
+\maketitle
+\makeabstract
+\acknowledge
+
+
+% MAIN MATTER
+\section{Introduction}
+
+\section{Conclusion}
+
+% BACKMATTER
+\nocite{*}
+\bibliographystyle{alphaurl}
+\bibliography{globals/papers}
+
+\appendix
+
+\end{document}
