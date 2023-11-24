@@ -3,3 +3,31 @@
 % of mathematical macros.
 %
 %
+
+\newcommand{\defined}{\mathrel{:=}}
+\newcommand{\seqof}[2]{(#1)_{#2}}
+\newcommand{\setof}[2]{\mathopen{\{} #1 \mid #2 \mathclose{\}}}
+\newcommand{\set}[1]{\mathopen{\{} #1 \mathclose{\}}}
+
+\newcommand{\MSO}{\mathsf{MSO}}
+
+% functions
+
+\newcommand{\dom}{\operatorname{dom}}
+
+\NewDocumentCommand{\vcount}{ m }{ {{\#}#1} }
+% sets
+
+\NewDocumentCommand{\card}{ O{} m }{ \mathopen{|} #2  \mathclose{|}_{#1}}
+\newcommand{\Nat}{\mathbb{N}}
+\newcommand{\Rel}{\mathbb{Z}}
+\newcommand{\Rat}{\mathbb{Q}}
+
+% GOOD POLYNOMIALS
+\newcommand{\CoveredPoly}{\mathcal{P}}
+\newcommand{\CorrectPoly}{\mathcal{Q}}
+
+
+% Restrictions
+\newcommand{\restr}[2]{{#1}_{| #2}}
+

@@ -1,0 +1,502 @@
+%! TeX program = xelatex
+\documentclass[a4paper,11pt]{article}
+
+% INPUTS
+\input{globals/packages}
+\input{globals/colorscheme}
+
+% CONFIG
+\input{globals/macros}
+\input{globals/mathdefs}
+\input{globals/knowledges.kl}
+\input{globals/metadata}
+
+
+% DOCUMENT
+\begin{document}
+
+% FRONT MATTER
+\maketitle
+\makeabstract
+\acknowledge
+
+
+% MAIN MATTER
+\section{Introduction}
+
+There has been recent interest in $\Rel$ and $\Nat$-rational series exhibiting
+\emph{polynomial growth} \cite{doueneau2021pebble,bojanczyk2022transducers}.
+This computational model, in the counting case, can be traced back to a model
+introduced by \textcite{schutzenberger1965finite}. It has been recently proven
+that one can decide the growth rate of such functions, and decide whether they
+are aperiodic in the case of $\Rel$-rational series \cite{LOPEZ23b}. It was
+conjectured in the PhD thesis of one of the authors, that the membership
+problem of $\Nat$-rational series among $\Rel$-rational series was decidable
+under the assumption of polynomial growth. This conjecture was based on a
+result of \textcite{KARH77}, which we will disprove in \cref{sec:c-example}. We
+then provide in \cref{sec:proof} a corrected version of the theorem, together
+with a valid proof. As a consequence, it does not invalidate the stated
+conjecture.
+
+
+\AP Before stating the result, let us introduce the necessary vocabulary on
+rational series, together with concrete examples so that no doubt is allowed as
+to their meaning. A $\Rel$-rational series $f \colon \Sigma \to \Rel$ is
+\intro{commutative} whenever $f(uv) = f(vu)$ for all $u,v \in \Sigma^*$. A
+polynomial $P \in \Rel[\seqof{X_a}{a \in \Sigma}]$ is a \intro{$\Rel$-rational
+polynomial} if there exists a \reintro{commutative} $\Rel$-rational series $f$
+such that $f(w) = P(\seqof{ \card[a]{w} }{a \in \Sigma})$. Similarly, a
+\intro{$\Nat$-rational polynomial} if the \reintro{commutative} $\Rel$-rational
+series is in fact $\Nat$-rational.
+
+\begin{example}
+    With $\Sigma \defined \set{1}$,
+    the polynomials $X_1$, and $X_1^2 + 3$ are \kl{$\Nat$-rational polynomial},
+    but $- X_1$ is a \kl{$\Rel$-rational polynomial} that is 
+    not a \kl{$\Nat$-rational polynomial}.
+\end{example}
+
+\begin{example}
+    Over a binary alphabet $\Sigma \defined \set{a,b}$,
+    the polynomial $P(X_a, X_b) \defined (X_a - X_b)^2$
+    is a \kl{$\Rel$-rational polynomial} that is \kl{non-negative},
+    but is
+    not a \kl{$\Nat$-rational polynomial}.
+\end{example}
+
+
+\AP Let us now give some vocabulary on polynomials with multiple indeterminate
+over $\Rel$. 
+A \intro{monomial} is a product of variables and integers.
+\begin{example}
+    $XY$ is a \kl{monomial}, $3 X$ is a \kl{monomial}, 
+    but $X + Y$ or $2X^2 + XY$ are not.
+\end{example}
+A polynomial $P \in \Rel[X_1, \dots, X_k]$ has \intro{non-negative}
+if $P(n_1, \dots, n_k) \geq 0$ for all $n_1, \dots, n_k \geq 0$. Beware that we
+do not consider negative values, as the numbers $n_i$ will ultimately count the
+number of occurrences of a letter in a word.
+\begin{example}
+    The polynomial $(X - Y)^2$ is \kl{non-negative},
+    and so is the polynomial $X^3$, but the polynomial
+    $X^2 - 2X$ is not.
+\end{example}
+In a polynomial $P \in \Rel[X_1, \dots, X_k]$, a monomial 
+is a \intro{maximal monomial} if it is a maximal element
+for the visibility ordering of polynomials \emph{in $\Rat$}
+among monomials with non-zero coefficients in $P$.\footnote{
+    One could equivalently define maximal elements by removing the (non-zero)
+    multiplicative constant of the monomials, and then
+    considering the usual divisibility relation of $\Rel$ polynomials.
+}
+\begin{example}
+    In the polynomial 
+    $P(X,Y) \defined X^2 - 2XY + X^2 + X + Y$, the \reintro{maximal monomials}
+    are $X^2$, $-2 XY$, and $X^2$.
+\end{example}
+A \kl{monomial} has \intro{positive coefficient} in a polynomial $P$
+if its multiplicative constant is positive.
+\begin{example}
+    In the polynomial $P(X,Y) \defined (X - Y)^2$, 
+    the \kl{positive monomials} are
+    $X^2$ and $Y^2$.
+\end{example}
+
+We are now ready to restate the theorem
+of \citeauthor{KARH77}, in terms of its
+class $\CoveredPoly$ of polynomials defined as follows:
+\begin{definition}[{\cite[Section 3, page 3]{KARH77}}]
+    Let $\vec{X}$ be a finite tuple of indeterminate.
+    The class $\CoveredPoly[\vec{X}]$
+    is the class of polynomials $P \in \Rel[\vec{X}]$
+    that are \kl{non-negative}
+    and such that every \kl{maximal monomial} has a \kl{positive coefficient}.
+    When the indeterminate are clear from the context, we write
+    this class $\CoveredPoly$.
+\end{definition}
+
+\begin{theorem}[{\cite[Theorem 3.3, page 4]{KARH77}}] 
+    Let $\Sigma$ be a finite alphabet.
+    The set of \kl{$\Nat$-rational polynomials} over $\Sigma$
+    coincides with $\CoveredPoly[\seqof{X_a}{a \in \Sigma}]$.
+\end{theorem}
+
+\section{The Counter Example}
+\label{sec:c-example}
+
+Let us now introduce the counter example that was found trying to
+replicate the original proof. Notice that the counter example
+will use three indeterminate, because we will prove
+in \cref{sec:proof} that \citeauthor{KARH77}’s theorem holds
+on polynomial with at most two indeterminate.
+
+\begin{definition}[Counter Example Polynomial]
+    \label{def:bad-polynomial}
+    We define $P(X,Y,Z) \defined Z (X + Y)^2 + 2 (X - Y)^2$.
+\end{definition}
+
+\begin{theorem}
+    \label{thm:counter-example}
+    Over $\Sigma \defined \set{a,b,c}$,
+    there exists a polynomial $P \in \CoveredPoly$ that is not
+    a \kl{$\Nat$-rational polynomial}. Namely,
+    $P$ is the polynomial of \cref{def:bad-polynomial}.
+\end{theorem}
+\begin{proof}
+    Let us write $X,Y,Z$ instead of $X_a, X_b, X_c$ to improve
+    readability.
+    It is clear that $P$ is \kl{non-negative}. We can develop
+    the expression of $P$ to 
+    obtain
+    $P = ZX^2 + ZY^2 + 2ZXY + 2X^2 -4XY + 2Y^2$.
+    The \kl{maximal monomials} of $P$
+    are $ZX^2$, $ZY^2$, and $2ZXY$, all of which have
+    \kl{positive coefficients}.
+
+    Assume by contradiction that $P$ is a \kl{$\Nat$-rational polynomial}.
+    There exists a \kl{commutative}
+    $\Nat$-rational series $f \colon \Sigma \to \Nat$
+    such that $P(\card[a]{w}, \card[b]{w}, \card[c]{w}) = f(w)$.
+    Remark that $P(X,Y,Z) = 0$
+    if and only if $Z(X+Y)^2 = -2 (X-Y)^2$. Hence,
+    $P(X,Y,Z)=0$ if and only if $Z = 0$ and $X = Y$, or 
+    $Z \neq 0$, and $X = Y = 0$.
+
+    Now, let us consider the language $L \defined \setof{w}{ f(w) = 0}$. By the
+    above computation, we conclude that $L = \setof{ w \in \set{a,b}^* }{
+    \card[a]{w} = \card[b]{w} } \cup \set{ c }^*$.
+    Because $L \cap \set{a,b}^*$ is notoriously not a regular language, we
+    conclude that $L$ is not a regular language.
+    However, $L = f^{-1}(\set{0})$, which is a regular language
+    because $f$ is a $\Nat$-rational series (\textbf{TODO: cite some result?}).
+\end{proof}
+
+\begin{corollary}
+    The result stated in \cite[Theorem 3.3]{KARH77} is false
+    for all polynomials with at least $3$ indeterminate.
+\end{corollary}
+
+As we will see in the next section, the characterization
+of \kl{$\Nat$-rational polynomials} using the set $\CoveredPoly$
+holds when the polynomials have at most $2$ indeterminate. This shows
+that the examples in \cite{KARH77} are not invalidated, as they
+all use at most two indeterminate.
+
+\section{The Corrected Theorem}
+\label{sec:proof}
+
+Let us now provide another class of polynomials, $\CorrectPoly$. The definition
+will involve fixing the value of indeterminate, for which we use the following
+notation: $\restr{P(X,Y)}{X = 1}$ is the polynomial $P(1,Y)$. More generally,
+if $\nu$ is a partial function from $\vec{X}$ to $\Nat$, the restriction
+$\restr{P(\vec{X})}{\nu}$ is the polynomial with indeterminate $\vec{Y}
+\defined \vec{X} - \dom(\nu)$ obtained by fixing the variables of the
+domain of $\nu$.
+
+
+\begin{definition}
+    Let $\vec{X}$ be a finite tuple of indeterminate.
+    The class $\CorrectPoly[\vec{X}]$ is the collection of
+    polynomials $P \in \Rel[\vec{X}]$ such that
+    $P$ is 
+    such that, for every partial function $\nu \colon \vec{X} \to \Nat$,
+    every \kl{maximal monomial} of
+    $\restr{P}{\nu}$ has a \kl{positive coefficient}.
+\end{definition}
+
+First, let us remark that $\CorrectPoly \subseteq \CoveredPoly$, because
+polynomials in $\CorrectPoly$ are \kl{non-negative}.
+
+Before proving that $\CorrectPoly$ captures \kl{$\Nat$-rational polynomials},
+let us first check that the counter example provided in
+\cref{thm:counter-example} is not in $\CorrectPoly$. For that, notice that for
+$P$ defined in \cref{def:bad-polynomial}, $P(X,Y,1) = 3X^2 + 3Y^2 - 2XY$, which
+has a negative coefficient for a \kl{maximal monomial}, namely $-2XY$.
+
+Let us now prove that \kl{$\Nat$-rational polynomials} are
+in $\CorrectPoly$.
+To simplify the reasoning, we will use results on $\Nat$-polyregular
+functions, also known as, polyregular functions with unary output.
+
+\begin{lemma}
+    The \kl{$\Nat$-rational polynomials} are in $\CorrectPoly$.
+\end{lemma}
+\begin{proof}[Proof Idea]
+    Let $P$ be a \kl{$\Nat$-rational polynomial}.
+    Let $\Sigma$  be the finite alphabet such that
+    $P \in \Rel[\seqof{X_a}{a \in \Sigma}]$,
+    and $f \colon \Sigma^* \to \Nat$ be the \kl{commutative}
+    $\Nat$-rational series computing $P$.
+    Because $f$ has polynomial growth, and is a $\Nat$-rational series,
+    it is a $\Nat$-polyregular function \textbf{CITE}.
+    In particular, 
+    there exists a tuple $\vec{x}$ of free variables
+    $\MSO$ formulas $\psi_1(\vec{x}), \dots, \psi_n(\vec{x})$,
+    and positive coefficients $\alpha_1, \dots, \alpha_n \in \Nat$,
+    such that
+    \begin{equation*}
+        f(w) = \left(\sum_{i = 1}^n \alpha_i \vcount{\psi_i}\right)(w) \quad .
+    \end{equation*}
+
+    \textbf{TODO: only look at words of the form $\prod_{a \in \Sigma} a^{k_a}$,
+    because this is enough}.
+    \textbf{TODO: this has positive maximal coefficients}.
+    Furthermore, this remains true when restricting the language.
+\end{proof}
+
+\begin{fact}
+    \label{fact:n-poly-n-poly}
+    Let $P \in \Nat[\vec{X}]$. Then, $P$
+    is a \kl{$\Nat$-rational polynomial}.
+\end{fact}
+
+
+The core of the upcoming proof of \cref{lem:correct-to-n-rat} relies on the
+following observation: if a polynomial $P$ is written $X^p + Q$, where all
+terms of $Q$ have degree less than $p$, then one can find some large enough $K$
+so that $X^p - (X - K)^p + Q$ also has a positive maximal coefficient.
+It works because $X^p - (X - K)^p = K X^{p-1} + \cdots$, hence
+the maximal coefficient can be chosen arbitrarily large by increasing
+$K$.
+This
+trick will work similarly in multivariate polynomials, and the overall
+proof scheme works as follows: for a bounded number of possible
+values of $X$, we can fix the variable, and have one less item to work on.
+For large enough values of $X$ (typically greater than some $K$), we can guarantee that
+$X^p - (X - K)^p + Q$ has positive maximal coefficients, hence
+can be computed by a $\Nat$-rational series, while
+$(X - K)^p$ is clearly computable by a $\Nat$-rational series,
+hence $(X^p - (X - K)^p + Q) + (X - K)^p$ is computable
+as the sum of two $\Nat$-rational series, and we have
+concluded that our original polynomial was a
+\kl{$\Nat$-rational polynomial}. There are a number of problems in generalizing
+this proof scheme:
+\begin{itemize}
+    \item We will have to guarantee that every polynomial considered
+        is non-negative
+    \item We do not only need to check that the \kl{maximal monomials}
+        have \kl{positive coefficient}, but that it is the case
+        when fixing arbitrarily many variables! (this
+        covers the first point too)
+\end{itemize}
+
+\begin{lemma}
+    Let $\vec{X}$ be a tuple of indeterminate, $Y$ be a fresh indeterminate,
+    $\vec{p} \colon \vec{X}Y \to \Nat$,
+    and $M \defined \times \prod_{X \in \vec{X}} X^{p(X)}$.
+    Then, for all $K \geq 0$,
+    $\Delta_{Y,K} \defined Y^p M - (Y - K)^p M$ has \kl{maximal monomials} with
+    \kl{positive coefficients} of weight at least $K$, regardless of
+    the variables fixed, as long as the (potential)
+    value of $Y$ is greater
+    than $K$.
+\end{lemma}
+\begin{proof}
+    Let us first remark that
+    \begin{equation*}
+        \Delta_{Y,K}
+        = KY^{p-1} M + Q M
+        \quad .
+    \end{equation*}
+    In particular, there is a unique \kl{maximal monomial} for $\Delta_{Y,K}$,
+    which is precisely $K Y^{p-1} M$, because all monomials
+    in $Q M$ divide (strictly) $Y^{p-1} M$.
+    Let us fix a variable,
+    $X$ to any (non-zero) value $p > 0$. Then
+    The \kl{maximal monomial} of $\restr{\Delta_{Y,K}}{X = p}$
+    is exactly $\restr{KY^{p-1}M}{X = p}$, which remains
+    with a \kl{positive coefficient}, that is proportional to $K$.
+    Let us fix $Y$ to some value $K + l$, with $l > 0$,
+    then
+    $\restr{\Delta_{Y,K}}{Y = K + l}
+    = (K + l)^p M - l^p M
+    = ((K + l) - l) (\sum_{i = 1}^{p-1} (K + l)^i l^{p-i}) M
+    = K \alpha M
+    $
+    which remains a monomial with a \kl{positive coefficient},
+    that is proportional to $K$.
+\end{proof}
+
+
+We can refine the above lemma to use it in the case where
+we do not have a single
+monomial.
+
+\begin{lemma}
+    \label{lem:delta-cool}
+    Let $\vec{X}$ be a tuple of indeterminate, and $Y$ be a fresh indeterminate.
+    Let $P \in \Rel[\vec{X}Y]$ be in $\CorrectPoly$, and $\alpha Y^p M$ be a
+    \kl{maximal monomial} of $P$, with $\alpha > 0$.
+    Then, there exists $K \geq 0$
+    such that $\Delta_{K} \defined P - \alpha (Y - K)^p M$
+    has \kl{positive coefficients} for \kl{maximal monomials}
+    in any partial evaluation that satisfies $Y > K$ (if it
+    gives a value to $Y$).
+\end{lemma}
+\begin{proof}
+    Let $N$ be greater than the sum of the absolute values of all coefficients
+    appearing in $P$, and let $K = 2 N$.
+
+    Let us remark that
+    \begin{equation*}
+        \Delta_K = \underbrace{(P - \alpha Y^p M)}_{\text{ left hand side }}
+        + \underbrace{\alpha (Y^p M - (Y - K)^p M)}_{\text{ right hand side }}
+        \quad .
+    \end{equation*}
+    an that for every partial evaluation $\nu$ that sends $Y$ to a value
+    greater than $K$,
+    we have that $\restr{(Y^p M - (Y - K)^p M)}{\nu}$ has
+    \kl{maximal monomials} with \kl{positive coefficients}
+    proportional to $K$ (note that here ``proportional"
+    implies that they are greater than $K$, because we multiply by positive
+    integers).
+    
+    To conclude, it is just a game of describing how
+    \kl{maximal monomials} of $\restr{\Delta_Y}{\nu}$
+    can appear. If the \kl{maximal monomial} is obtained
+    by summing an element of the left hand side with an element
+    of the right hand side, it needs to be a \kl{maximal monomial}
+    of the right hand side, and the large value of $K$ guarantees
+    that the sum of coefficients is positive.
+    If it only appears on the right hand side, it is even better.
+    If it only appears on the left hand side, then
+    in particular it means that the monomial does not
+    divide $\restr{Y^p M}{\nu}$, hence has the same value
+    in $\restr{\Delta_K}{\nu}$ or in $\restr{P}{\nu}$,
+    which is guaranteed to be positive because $P \in \CorrectPoly$.
+
+    In particular, we conclude from this that
+    $\Delta_Y \geq 0$, on all tuples such that $Y > K$.
+\end{proof}
+
+Note that we cannot conclude in the above lemma that the result is in
+$\CorrectPoly$, because we have a restriction on the range where the variable
+$Y$ can be taken.
+
+\begin{lemma}
+    \label{lem:correct-to-n-rat}
+    Polynomials in $\CorrectPoly$ are
+    \kl{$\Nat$-rational polynomials}.
+\end{lemma}
+\begin{proof}[Proof Sketch]
+    We prove by induction on the number $d$ of variables
+    and the ``higman ordering of polynomials" (we look at the multiset
+    of tuples of things ...) that for every selection
+    $K_1, \dots, K_n$ of lower bounds for the different variables
+    (that can be $0$),
+    functions that are in $\CorrectPoly$ \emph{over tuples of size
+    at least nanania} can be computed by a $\Nat$-rational series
+    that outputs $0$ outside the domain and the correct value
+    inside.
+
+    For $d = 0$,
+    the result is true because
+    a constant function is a \kl{$\Nat$-rational polynomial}
+    if and only if it is \kl{non-negative}.
+
+    Let us now assume that $d > 0$, and in particular
+    there is a variable $Y$.
+    Consider $P \in \CorrectPoly[\vec{X} Y]$.
+    If $Y$ appears at least one in $P$, then it must appear
+    in one of the \kl{maximal monomials} of $P$. Otherwise,
+    $P \in \CorrectPoly[\vec{X}]$ and we conclude using the
+    induction hypothesis.
+    Let $\alpha Y^p M$ be a \kl{maximal monomial} in $P$.
+    Using \cref{lem:delta-cool},
+    we know that there exists $K$ such that
+    $P - \alpha (Y - K)^p M$ almost belongs to $\CorrectPoly$,
+    and has a strictly smaller "degree multiset".
+    By induction hypothesis,
+    we conclude that
+    the following function is a $\Nat$-rational series
+    (beware that we have to consider the lower bounds to apply
+    the induction hypothesis):
+    \begin{equation*}
+        A \defined
+        \begin{cases}
+            0 & \text{ if some variable is bounded by its } K_i \\
+            0 & \text{ otherwise if  } Y \leq K \\
+            P - \alpha(Y - K)^pM & \text{ otherwise }
+        \end{cases}
+        \quad .
+    \end{equation*}
+
+    Because $\alpha \geq 0$, it is an easy check
+    that the following function is also a $\Nat$-rational series
+    \begin{equation*}
+        B \defined
+        \begin{cases}
+            0 & \text{ if some variable is bounded by its } K_i \\
+            0 & \text{ otherwise if } Y \leq K \\
+            \alpha(Y - K)^pM & \text{ otherwise }
+        \end{cases}
+    \end{equation*}
+
+    Remark that by fixing some of the variables
+    to values 
+    below the bounds $K_i$ (and potentially $K$ for $Y$)
+    we obtain a \emph{finite} number of polynomials with strictly fewer
+    indeterminate.
+    As a consequence, the following function is computable
+    as a $\Nat$-rational series:
+    \begin{equation*}
+        C \defined
+        \begin{cases}
+            P & \text{ if some variable is bounded by its } K_i \\
+            P & \text{ otherwise if } Y \leq K \\
+            0 & \text{ otherwise }
+        \end{cases}
+        \quad .
+    \end{equation*}
+
+    We conclude because
+    $P = A + B + C$, all of which are $\Nat$-rational series.
+\end{proof}
+
+\begin{theorem}
+    The \kl{$\Nat$-rational polynomials} are exactly
+    the polynomials in $\CorrectPoly$.
+\end{theorem}
+
+\begin{remark}
+    In the proof, we actually conclude that
+    the \kl{$\Nat$-rational polynomials}
+    are exactly those that can be computed 
+    by \kl{commutative}
+    \emph{star-free} $\Nat$-polyregular functions.
+\end{remark}
+
+\begin{lemma}
+    \label{lem:correct-covered-2}
+    $\CorrectPoly[X,Y] = \CoveredPoly[X,Y]$.
+\end{lemma}
+\begin{proof}
+    It is clear that $\CorrectPoly[X,Y] \subseteq \CoveredPoly[X,Y]$,
+    by considering the empty valuation $\nu \colon \set{X,Y} \to \Nat$.
+    For the converse inclusion, let us consider $P(X,Y)$
+    that is \kl{non-negative}, such that the \kl{maximal monomials}
+    have \kl{positive coefficients}.
+   
+
+    If we fix none of the variables, then the \kl{maximal monomials}
+    have \kl{positive coefficients} by assumption. If we fix one of the
+    variables, we can assume without loss of generality that we 
+    fix $X = k$ for some $k \in \Nat$.
+    Then $P(k,Y)$ is a \kl{non-negative} \emph{univariate} polynomial, 
+    and therefore must have a positive leading coefficient
+    (which is the unique \kl{maximal monomial} in this case)
+    or be constant equal to 0. In both cases, the \kl{maximal monomials}
+    have \kl{positive coefficients}.
+    The same reasoning applies \emph{a fortiori} in the case where
+    we fix the two indeterminate, leading to a constant polynomial.
+\end{proof}
+
+\section{Conclusion}
+\label{sec:ccl}
+
+% BACKMATTER
+\printbibliography
+
+\appendix
+
+\end{document}

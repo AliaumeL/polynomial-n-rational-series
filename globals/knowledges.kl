@@ -1,1 +1,21 @@
 %% KNOWLEDGE FILE %%
+
+\knowledge{notion}
+ | commutative
+\knowledge{notion}
+ | $\Rel $-rational polynomial
+\knowledge{notion}
+ | $\Nat $-rational polynomial
+ | $\Nat $-rational polynomials
+\knowledge{notion}
+ | non-negative
+\knowledge{notion}
+ | monomial
+\knowledge{notion}
+ | maximal monomial
+ | maximal monomials
+\knowledge{notion}
+ | positive coefficient
+ | positive monomials
+ | positive coefficients
+
