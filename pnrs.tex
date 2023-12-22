@@ -1,6 +1,9 @@
 %! TeX program = xelatex
 \documentclass[a4paper,11pt]{article}
 
+\usepackage[left=3cm,right=3cm]{geometry}
+
+
 % INPUTS
 \input{globals/packages}
 \input{globals/colorscheme}
@@ -24,6 +27,28 @@
 % MAIN MATTER
 \section{Introduction}
 
+Let us first state the result 
+of \citeauthor{KARH77}, in terms of its
+class $\CoveredPoly$ of polynomials defined as follows:
+\begin{definition}[{\cite[Section 3, page 3]{KARH77}}]
+    Let $\vec{X}$ be a finite tuple of indeterminate.
+    The class $\CoveredPoly[\vec{X}]$
+    is the class of polynomials $P \in \Rel[\vec{X}]$
+    that are \kl{non-negative}
+    and such that every \kl{maximal monomial} has a \kl{positive coefficient}.
+    When the indeterminate are clear from the context, we write
+    this class $\CoveredPoly$.
+\end{definition}
+
+\begin{theorem}[{\cite[Theorem 3.3, page 4]{KARH77}}] 
+    \label{karh:thm}
+    Let $\Sigma$ be a finite alphabet.
+    The set of \kl{$\Nat$-rational polynomials} over $\Sigma$
+    coincides with $\CoveredPoly[\seqof{X_a}{a \in \Sigma}]$.
+\end{theorem}
+
+
+\paragraph*{Context.}
 There has been recent interest in $\Rel$ and $\Nat$-rational series exhibiting
 \emph{polynomial growth} \cite{doueneau2021pebble,bojanczyk2022transducers}.
 This computational model, in the counting case, can be traced back to a model
@@ -38,8 +63,35 @@ then provide in \cref{sec:proof} a corrected version of the theorem, together
 with a valid proof. As a consequence, it does not invalidate the stated
 conjecture.
 
+\AP
+\paragraph*{Rational series and regular languages.}
+\begin{fact}
+    The language $\setof{ w \in \Sigma}{ \card[a]{w} = \card[b]{w}}$
+    is not regular.
+\end{fact}
 
-\AP Before stating the result, let us introduce the necessary vocabulary on
+\begin{fact}
+    regular languages are closed under intersections.
+\end{fact}
+
+TODO.
+
+clasical results from \cite{berstel2011noncommutative}.
+\begin{fact}
+    \label{pre-image-regular:fact}
+    The pre-image of a regular language by a $\Nat$-rational series
+    is a regular language.
+\end{fact}
+
+\begin{fact}
+    \label{polynomial-rational-polyreg:fact}
+    polynomial + rational = unary polyregular.
+\end{fact}
+
+
+\AP
+\paragraph*{Polynomials.}
+Before stating the result, let us introduce the necessary vocabulary on
 rational series, together with concrete examples so that no doubt is allowed as
 to their meaning. A $\Rel$-rational series $f \colon \Sigma \to \Rel$ is
 \intro{commutative} whenever $f(uv) = f(vu)$ for all $u,v \in \Sigma^*$. A
@@ -50,11 +102,26 @@ such that $f(w) = P(\seqof{ \card[a]{w} }{a \in \Sigma})$. Similarly, a
 series is in fact $\Nat$-rational.
 
 \begin{example}
+    \label{negative-not-nrat:ex}
     With $\Sigma \defined \set{1}$,
     the polynomials $X_1$, and $X_1^2 + 3$ are \kl{$\Nat$-rational polynomial},
     but $- X_1$ is a \kl{$\Rel$-rational polynomial} that is 
     not a \kl{$\Nat$-rational polynomial}.
 \end{example}
+\begin{proof}
+    TODO:
+    The polynomial $X_1$ is computed by the rational series,
+    the polynomial $X_1^2 + 3$ is computed by,
+    and the polynomial
+    $- X_1$ cannot be $\Nat$-rational as $\Nat$-rational series
+    have non-negative output.
+\end{proof}
+
+We saw in \cref{negative-not-nrat:ex}
+a simple criterion to check whether a polynomial is $\Nat$-rational,
+but being non-negative is not enough, as the following example
+illustrates. Note that the proof scheme
+of this example will be at the core of \cref{thm:counter-example}.
 
 \begin{example}
     Over a binary alphabet $\Sigma \defined \set{a,b}$,
@@ -63,6 +130,14 @@ series is in fact $\Nat$-rational.
     but is
     not a \kl{$\Nat$-rational polynomial}.
 \end{example}
+\begin{proof}
+    Assume by contradiction that
+    $S$ is a $\Nat$-rational series computing $P$.
+    Then, $S^{-1}(\set{0})$ should be a regular language
+    (\cref{pre-image-regular:fact}),
+    but $S^{-1}(\set{0}) = \setof{ w \in \Sigma }{ \card[a]{w} = \card[b]{w} }$
+    is not a regular languge.
+\end{proof}
 
 
 \AP Let us now give some vocabulary on polynomials with multiple indeterminate
@@ -72,7 +147,7 @@ A \intro{monomial} is a product of variables and integers.
     $XY$ is a \kl{monomial}, $3 X$ is a \kl{monomial}, 
     but $X + Y$ or $2X^2 + XY$ are not.
 \end{example}
-A polynomial $P \in \Rel[X_1, \dots, X_k]$ has \intro{non-negative}
+A polynomial $P \in \Rel[X_1, \dots, X_k]$ is \intro{non-negative}
 if $P(n_1, \dots, n_k) \geq 0$ for all $n_1, \dots, n_k \geq 0$. Beware that we
 do not consider negative values, as the numbers $n_i$ will ultimately count the
 number of occurrences of a letter in a word.
@@ -102,24 +177,6 @@ if its multiplicative constant is positive.
     $X^2$ and $Y^2$.
 \end{example}
 
-We are now ready to restate the theorem
-of \citeauthor{KARH77}, in terms of its
-class $\CoveredPoly$ of polynomials defined as follows:
-\begin{definition}[{\cite[Section 3, page 3]{KARH77}}]
-    Let $\vec{X}$ be a finite tuple of indeterminate.
-    The class $\CoveredPoly[\vec{X}]$
-    is the class of polynomials $P \in \Rel[\vec{X}]$
-    that are \kl{non-negative}
-    and such that every \kl{maximal monomial} has a \kl{positive coefficient}.
-    When the indeterminate are clear from the context, we write
-    this class $\CoveredPoly$.
-\end{definition}
-
-\begin{theorem}[{\cite[Theorem 3.3, page 4]{KARH77}}] 
-    Let $\Sigma$ be a finite alphabet.
-    The set of \kl{$\Nat$-rational polynomials} over $\Sigma$
-    coincides with $\CoveredPoly[\seqof{X_a}{a \in \Sigma}]$.
-\end{theorem}
 
 \section{The Counter Example}
 \label{sec:c-example}
@@ -168,11 +225,13 @@ on polynomial with at most two indeterminate.
     Because $L \cap \set{a,b}^*$ is notoriously not a regular language, we
     conclude that $L$ is not a regular language.
     However, $L = f^{-1}(\set{0})$, which is a regular language
-    because $f$ is a $\Nat$-rational series (\textbf{TODO: cite some result?}).
+    because $f$ is a $\Nat$-rational series
+    (\cref{pre-image-regular:fact}).
 \end{proof}
 
 \begin{corollary}
-    The result stated in \cite[Theorem 3.3]{KARH77} is false
+    The result stated in \cite[Theorem 3.3]{KARH77}, restated
+    in \cref{karh:thm}, is false
     for all polynomials with at least $3$ indeterminate.
 \end{corollary}
 
@@ -228,7 +287,8 @@ functions, also known as, polyregular functions with unary output.
     and $f \colon \Sigma^* \to \Nat$ be the \kl{commutative}
     $\Nat$-rational series computing $P$.
     Because $f$ has polynomial growth, and is a $\Nat$-rational series,
-    it is a $\Nat$-polyregular function \textbf{CITE}.
+    it is a $\Nat$-polyregular function 
+    (\cref{polynomial-rational-polyreg:fact}).
     In particular, 
     there exists a tuple $\vec{x}$ of free variables
     $\MSO$ formulas $\psi_1(\vec{x}), \dots, \psi_n(\vec{x})$,
@@ -493,6 +553,20 @@ $Y$ can be taken.
 
 \section{Conclusion}
 \label{sec:ccl}
+
+\begin{itemize}
+    \item Actually, we have an algorithm that allows
+        us to \emph{decide} if a polynomial is $\Nat$-rational.
+    \item Actually, we obtain a characterisation of
+        commutative 
+        $\Nat$-rational series of polynomial growth
+        among $\Rel$-rational series.
+    \item The question of $\Nat$-polyregular functions
+        among $\Rel$-polyregular functions remains open
+        because of the non-commutativity of the input.
+    \item The question of $\Nat$-rational series (commutative)
+        among $\Rel$-rational series remains open.
+\end{itemize}
 
 % BACKMATTER
 \printbibliography
