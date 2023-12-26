@@ -27,9 +27,13 @@
 % MAIN MATTER
 \section{Introduction}
 
-Let us first state the result 
-of \citeauthor{KARH77}, in terms of its
-class $\CoveredPoly$ of polynomials defined as follows:
+We will start by formally stating the result of \citeauthor{KARH77}
+in terms of polynomials and commutative $\Nat$-rational series, and
+then introduce the necessary definitions. The characterization of
+commutative $\Nat$-rational series computing polynomial functions
+is described in terms of a class $\CoveredPoly[\vec{X}]$ of
+polynomials with multiple indeterminate.
+
 \begin{definition}[{\cite[Section 3, page 3]{KARH77}}]
     Let $\vec{X}$ be a finite tuple of indeterminate.
     The class $\CoveredPoly[\vec{X}]$
@@ -40,6 +44,14 @@ class $\CoveredPoly$ of polynomials defined as follows:
     this class $\CoveredPoly$.
 \end{definition}
 
+We use the term \kl{$\Nat$-rational polynomial}, that will formally be
+stated later on, to denote polynomials that can be computed via a
+$\Nat$-rational series. In the upcoming theorem, this property
+which is \emph{a priori} difficult to decide is reduced to 
+the positivity of the polynomial, and the positivity of \emph{some}
+coefficients. 
+
+
 \begin{theorem}[{\cite[Theorem 3.3, page 4]{KARH77}}] 
     \label{karh:thm}
     Let $\Sigma$ be a finite alphabet.
@@ -47,59 +59,80 @@ class $\CoveredPoly$ of polynomials defined as follows:
     coincides with $\CoveredPoly[\seqof{X_a}{a \in \Sigma}]$.
 \end{theorem}
 
+It is not clearly stated in \cite{KARH77}, but \cref{karh:thm} implies the
+decidability of \kl{$\Nat$-rational polynomial} inside polynomials with $\Rel$
+coefficients. We will not formalize this statement yet, as \cref{karh:thm}
+does not hold in general.
 
-\paragraph*{Context.}
-There has been recent interest in $\Rel$ and $\Nat$-rational series exhibiting
-\emph{polynomial growth} \cite{doueneau2021pebble,bojanczyk2022transducers}.
-This computational model, in the counting case, can be traced back to a model
-introduced by \textcite{schutzenberger1965finite}. It has been recently proven
-that one can decide the growth rate of such functions, and decide whether they
-are aperiodic in the case of $\Rel$-rational series \cite{LOPEZ23b}. It was
-conjectured in the PhD thesis of one of the authors, that the membership
-problem of $\Nat$-rational series among $\Rel$-rational series was decidable
-under the assumption of polynomial growth. This conjecture was based on a
-result of \textcite{KARH77}, which we will disprove in \cref{sec:c-example}. We
-then provide in \cref{sec:proof} a corrected version of the theorem, together
-with a valid proof. As a consequence, it does not invalidate the stated
-conjecture.
 
-\AP
-\paragraph*{Rational series and regular languages.}
-\begin{fact}
+\paragraph*{Context.} There has been recent interest in $\Rel$ and
+$\Nat$-rational series exhibiting \emph{polynomial growth}
+\cite{doueneau2021pebble,bojanczyk2022transducers}. This computational model,
+in the counting case, can be traced back to a model introduced by
+\textcite{schutzenberger1965finite}. It has been recently proven that one can
+decide the growth rate of such functions, and decide whether they are aperiodic
+in the case of $\Rel$-rational series \cite{LOPEZ23b}. It was conjectured in
+the PhD thesis of Gaëtan Douéneau-Tabot, that the membership problem of
+$\Nat$-rational series among $\Rel$-rational series was decidable under the
+assumption of polynomial growth. This conjecture was based on the previously
+introduced result of \textcite{KARH77} (\cref{karh:thm}), which we will
+disprove in \cref{sec:c-example}. We then provide in \cref{sec:proof} a
+corrected version of the theorem, together with a valid proof. As a
+consequence, it does not invalidate the stated conjecture.
+
+\begin{itemize}
+    \item commutative input and output
+    \item commutative output
+    \item no commutativity ?
+\end{itemize}
+
+\AP \paragraph*{Rational series and regular languages.} This paper uses notions
+of regularity and results about \kl{$\Nat$-rational series}, however most of
+the technicalities will stem from the multiple indeterminate of polynomials,
+and all there is to know about regularity in this document will be confined to
+the following facts. For a survey about (non-commutative) rational series, we
+refer the reader to \cite{berstel2011noncommutative}. 
+
+\begin{definition}[Rational series]
+    The following are equivalent
+    \begin{itemize}
+        \item weighted automata
+        \item rational expressions
+        \item 
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[Commutative rational series]
+    A $\Rel$-rational series
+    $f \colon \Sigma \to \Rel$ is \intro{commutative} whenever $f(uv) = f(vu)$ for
+    all $u,v \in \Sigma^*$.
+\end{definition}
+
+\begin{fact}[Folklore about regular languages]
+    \label{regular:fact}
     The language $\setof{ w \in \Sigma}{ \card[a]{w} = \card[b]{w}}$
-    is not regular.
+    is not regular, whenever $a,b \in \Sigma$.
+    Regular languages are closed under intersection.
 \end{fact}
 
-\begin{fact}
-    regular languages are closed under intersections.
-\end{fact}
-
-TODO.
-
-clasical results from \cite{berstel2011noncommutative}.
 \begin{fact}
     \label{pre-image-regular:fact}
     The pre-image of a regular language by a $\Nat$-rational series
-    is a regular language.
-\end{fact}
-
-\begin{fact}
-    \label{polynomial-rational-polyreg:fact}
-    polynomial + rational = unary polyregular.
+    is a regular language. In particular,
+    for all $\Nat$-rational series $S$, $S^{-1}(\set{0})$ is a regular
+    language.
 \end{fact}
 
 
-\AP
-\paragraph*{Polynomials.}
-Before stating the result, let us introduce the necessary vocabulary on
-rational series, together with concrete examples so that no doubt is allowed as
-to their meaning. A $\Rel$-rational series $f \colon \Sigma \to \Rel$ is
-\intro{commutative} whenever $f(uv) = f(vu)$ for all $u,v \in \Sigma^*$. A
-polynomial $P \in \Rel[\seqof{X_a}{a \in \Sigma}]$ is a \intro{$\Rel$-rational
-polynomial} if there exists a \reintro{commutative} $\Rel$-rational series $f$
-such that $f(w) = P(\seqof{ \card[a]{w} }{a \in \Sigma})$. Similarly, a
+
+\AP \paragraph*{Polynomials.} All polynomials considered in this paper have
+coefficients in $\Rel$ unless explicitly stated otherwise. A polynomial $P \in
+\Rel[\seqof{X_a}{a \in \Sigma}]$ is a \intro{$\Rel$-rational polynomial} if
+there exists a \reintro{commutative} $\Rel$-rational series $f$ such that $f(w)
+= P(\seqof{ \card[a]{w} }{a \in \Sigma})$. Similarly, $P$ is a
 \intro{$\Nat$-rational polynomial} if the \reintro{commutative} $\Rel$-rational
-series is in fact $\Nat$-rational.
+series is in fact $\Nat$-rational. Beware that we only apply the polynomial
+to \emph{non-negative} values.
 
 \begin{example}
     \label{negative-not-nrat:ex}
@@ -109,11 +142,15 @@ series is in fact $\Nat$-rational.
     not a \kl{$\Nat$-rational polynomial}.
 \end{example}
 \begin{proof}
-    TODO:
-    The polynomial $X_1$ is computed by the rational series,
-    the polynomial $X_1^2 + 3$ is computed by,
-    and the polynomial
-    $- X_1$ cannot be $\Nat$-rational as $\Nat$-rational series
+    The function $w \mapsto |w|$ is a \kl{polyregular function} with unary
+    output of \kl{polynomial growth}, hence  can be computed by a
+    \kl{$\Nat$-rational series}. Hence, $P(X_1) \defined X_1$ is
+    a \kl{$\Nat$-rational polynomial}. Similarly,
+    $w \mapsto |w|^2 + 3$ is a \kl{$\Nat$-rational series},
+    showing that $Q(X_1) \defined X_1^2 + 3$
+    is a \kl{$\Nat$-rational polynomial}.
+    Finally, 
+    $T(X_1) \defined - X_1$ cannot be $\Nat$-rational as $\Nat$-rational series
     have non-negative output.
 \end{proof}
 
@@ -136,26 +173,23 @@ of this example will be at the core of \cref{thm:counter-example}.
     Then, $S^{-1}(\set{0})$ should be a regular language
     (\cref{pre-image-regular:fact}),
     but $S^{-1}(\set{0}) = \setof{ w \in \Sigma }{ \card[a]{w} = \card[b]{w} }$
-    is not a regular languge.
+    is not a regular language (\cref{regular:fact}).
 \end{proof}
 
 
 \AP Let us now give some vocabulary on polynomials with multiple indeterminate
-over $\Rel$. 
-A \intro{monomial} is a product of variables and integers.
-\begin{example}
-    $XY$ is a \kl{monomial}, $3 X$ is a \kl{monomial}, 
-    but $X + Y$ or $2X^2 + XY$ are not.
-\end{example}
-A polynomial $P \in \Rel[X_1, \dots, X_k]$ is \intro{non-negative}
-if $P(n_1, \dots, n_k) \geq 0$ for all $n_1, \dots, n_k \geq 0$. Beware that we
-do not consider negative values, as the numbers $n_i$ will ultimately count the
-number of occurrences of a letter in a word.
-\begin{example}
-    The polynomial $(X - Y)^2$ is \kl{non-negative},
-    and so is the polynomial $X^3$, but the polynomial
-    $X^2 - 2X$ is not.
-\end{example}
+over $\Rel$. A \intro{monomial} is a product of variables and integers. For
+instance, $XY$ is a \kl{monomial}, $3 X$ is a \kl{monomial}, but $X + Y$ or
+$2X^2 + XY$ are not.
+
+\AP A polynomial $P \in \Rel[X_1, \dots, X_k]$ is \intro{non-negative} if
+$P(n_1, \dots, n_k) \geq 0$ for all $n_1, \dots, n_k \geq 0$. Beware that we do
+not consider negative values, as the numbers $n_i$ will ultimately count the
+number of occurrences of a letter in a word. As an example, the polynomial $(X
+- Y)^2$ is \kl{non-negative}, and so is the polynomial $X^3$, but the
+polynomial $X^2 - 2X$ is not.
+
+\AP
 In a polynomial $P \in \Rel[X_1, \dots, X_k]$, a monomial 
 is a \intro{maximal monomial} if it is a maximal element
 for the visibility ordering of polynomials \emph{in $\Rat$}
@@ -164,28 +198,25 @@ among monomials with non-zero coefficients in $P$.\footnote{
     multiplicative constant of the monomials, and then
     considering the usual divisibility relation of $\Rel$ polynomials.
 }
-\begin{example}
-    In the polynomial 
-    $P(X,Y) \defined X^2 - 2XY + X^2 + X + Y$, the \reintro{maximal monomials}
-    are $X^2$, $-2 XY$, and $X^2$.
-\end{example}
-A \kl{monomial} has \intro{positive coefficient} in a polynomial $P$
-if its multiplicative constant is positive.
-\begin{example}
-    In the polynomial $P(X,Y) \defined (X - Y)^2$, 
-    the \kl{positive monomials} are
-    $X^2$ and $Y^2$.
-\end{example}
+In the polynomial 
+$P(X,Y) \defined X^2 - 2XY + X^2 + X + Y$, the \reintro{maximal monomials}
+are $X^2$, $-2 XY$, and $X^2$.
+A \kl{monomial} has \intro{positive coefficient} in a polynomial $P$ if its
+multiplicative constant is positive. In the polynomial $P(X,Y) \defined (X -
+Y)^2$, the \kl{positive monomials} are $X^2$ and $Y^2$.
 
+
+\paragraph*{Outline of the paper.}
+todo.
 
 \section{The Counter Example}
 \label{sec:c-example}
 
-Let us now introduce the counter example that was found trying to
-replicate the original proof. Notice that the counter example
-will use three indeterminate, because we will prove
-in \cref{sec:proof} that \citeauthor{KARH77}’s theorem holds
-on polynomial with at most two indeterminate.
+Let us now introduce the counter example that was found trying to generalise
+the original proof to non-commutative \kl{$\Rel$-rational series} of
+\kl{polynomial growth}. The counter example will use three indeterminate, and
+we will prove in \cref{sec:proof} that \citeauthor{KARH77}’s theorem holds on
+polynomial with at most two indeterminate.
 
 \begin{definition}[Counter Example Polynomial]
     \label{def:bad-polynomial}
@@ -222,7 +253,8 @@ on polynomial with at most two indeterminate.
     Now, let us consider the language $L \defined \setof{w}{ f(w) = 0}$. By the
     above computation, we conclude that $L = \setof{ w \in \set{a,b}^* }{
     \card[a]{w} = \card[b]{w} } \cup \set{ c }^*$.
-    Because $L \cap \set{a,b}^*$ is notoriously not a regular language, we
+    Because $L \cap \set{a,b}^*$ is notoriously not a regular language
+    (\cref{regular:fact}), we
     conclude that $L$ is not a regular language.
     However, $L = f^{-1}(\set{0})$, which is a regular language
     because $f$ is a $\Nat$-rational series
@@ -244,13 +276,16 @@ all use at most two indeterminate.
 \section{The Corrected Theorem}
 \label{sec:proof}
 
-Let us now provide another class of polynomials, $\CorrectPoly$. The definition
-will involve fixing the value of indeterminate, for which we use the following
-notation: $\restr{P(X,Y)}{X = 1}$ is the polynomial $P(1,Y)$. More generally,
-if $\nu$ is a partial function from $\vec{X}$ to $\Nat$, the restriction
+Let us now provide another class of polynomials, $\CorrectPoly$, that restricts
+$\CoveredPoly$ to a subset that is ``closed under fixing indeterminate", namely,
+polynomials $P(X_1, \dots, X_n) \in \CoveredPoly$ such that partially evaluated
+polynomials remain in $\CoveredPoly$. We use the following notation
+to fix the value of some indeterminate
+$\intro*\restr{P(X,Y)}{X = 1}$ is the polynomial $P(1,Y)$. More generally, if $\nu$ is
+a partial function from $\vec{X}$ to $\Nat$, the restriction
 $\restr{P(\vec{X})}{\nu}$ is the polynomial with indeterminate $\vec{Y}
-\defined \vec{X} - \dom(\nu)$ obtained by fixing the variables of the
-domain of $\nu$.
+\defined \vec{X} - \dom(\nu)$ obtained by fixing the variables of the domain of
+$\nu$.
 
 
 \begin{definition}
@@ -264,18 +299,58 @@ domain of $\nu$.
 \end{definition}
 
 First, let us remark that $\CorrectPoly \subseteq \CoveredPoly$, because
-polynomials in $\CorrectPoly$ are \kl{non-negative}.
+polynomials in $\CorrectPoly$ are \kl{non-negative}. Let us also check that the
+counter example provided in \cref{thm:counter-example} is not in
+$\CorrectPoly$. For that, notice that for $P$ defined in
+\cref{def:bad-polynomial}, $P(X,Y,1) = 3X^2 + 3Y^2 - 2XY$, which has a negative
+coefficient for a \kl{maximal monomial}, namely $-2XY$.
 
-Before proving that $\CorrectPoly$ captures \kl{$\Nat$-rational polynomials},
-let us first check that the counter example provided in
-\cref{thm:counter-example} is not in $\CorrectPoly$. For that, notice that for
-$P$ defined in \cref{def:bad-polynomial}, $P(X,Y,1) = 3X^2 + 3Y^2 - 2XY$, which
-has a negative coefficient for a \kl{maximal monomial}, namely $-2XY$.
+Let us now prove that \kl{$\Nat$-rational polynomials} are in $\CorrectPoly$.
+To simplify the reasoning, we will use results on $\Nat$-polyregular functions,
+also known as, polyregular functions with unary output
+\cite{doueneau2021pebble,bojanczyk2019string}. Note that the connection between
+rational series and polyregular functions is not specific to $\Nat$, as
+$\Rel$-rational series of polynomial growth are computed as polyregular
+functions with output in $\set{+1,-1}$ post-composed with computing the sum of
+outputted letters \cite{LOPEZ23b}. Because we only consider functions with
+output in $\Rel$, and that a commutative output monoid simplifies the definitions,
+let us only define $\Rel$-polyregular functions.
 
-Let us now prove that \kl{$\Nat$-rational polynomials} are
-in $\CorrectPoly$.
-To simplify the reasoning, we will use results on $\Nat$-polyregular
-functions, also known as, polyregular functions with unary output.
+
+\begin{definition}[$\Rel$-polyregular functions, {\cite[see, e.g.]{LOPEZ23b}}]
+    Let $M$ be a finite monoid, $\mu \colon \Sigma^* \to M$
+    be a morphism, $k \in \Nat$, and 
+    $\pi \colon M^k \to \Rel$ be a production function.
+    The \intro{$\Rel$-polyregular function}
+    $\pi^\dagger \colon \Sigma^* \to \Rel$
+    is computed as follows:
+    \begin{equation*}
+        f(w) \defined
+        \sum_{w = u_1 \cdots u_k} \pi(\mu(u_1), \dots, \mu(u_k))
+        \quad .
+    \end{equation*}
+
+    When $\pi$ has co-domain $\Nat$, the function $\pi^\dagger$
+    is called \intro{$\Nat$-polyregular}.
+\end{definition}
+
+\begin{fact}[see e.g. ...]
+    \label{polynomial-rational-polyreg:fact}
+    Let $\Sigma$ be a finite alphabet, and $f \colon \Sigma^* \to \Nat$
+    be a function. The following are equivalent:
+    \begin{enumerate}
+        \item $f$ can be computed as a \k{$\Nat$-rational series}
+            of \kl{polynomial growth}.
+        \item $f$ is a \kl{$\Nat$-polyregular function}.
+    \end{enumerate}
+\end{fact}
+
+\begin{fact}
+    \label{fact:n-poly-n-poly}
+    Let $P \in \Nat[\vec{X}]$. Then, $P$
+    is a \kl{$\Nat$-rational polynomial}.
+\end{fact}
+
 
 \begin{lemma}
     The \kl{$\Nat$-rational polynomials} are in $\CorrectPoly$.
@@ -290,25 +365,39 @@ functions, also known as, polyregular functions with unary output.
     it is a $\Nat$-polyregular function 
     (\cref{polynomial-rational-polyreg:fact}).
     In particular, 
-    there exists a tuple $\vec{x}$ of free variables
-    $\MSO$ formulas $\psi_1(\vec{x}), \dots, \psi_n(\vec{x})$,
-    and positive coefficients $\alpha_1, \dots, \alpha_n \in \Nat$,
-    such that
+    there exists a finite monoid $M$,
+    a morphism $\mu \colon \Sigma^* \to M$,
+    an integer $p  \in \Nat$,
+    and a production function $\pi \colon M^p \to \Nat$,
+    such that for all words $w \in \Sigma^*$,
     \begin{equation*}
-        f(w) = \left(\sum_{i = 1}^n \alpha_i \vcount{\psi_i}\right)(w) \quad .
+        f(w) = \sum_{w = u_1 \cdots u_p} \pi(\mu(u_1), \dots, \mu(u_p)) \quad .
     \end{equation*}
+    Because $f$ is \kl{commutative}, we can restrict our attention
+    to words of the form $\prod_{a \in \Sigma} a^{k_a}$ to compute $f$.
+    To that end, let us
+    consider $\omega \in \Nat$ such that
+    $m^\omega$ is an idempotent for all $m \in M$ (this is possible because
+    $M$ is finite).
+    Then, $f( \prod_{a \in \Sigma} a^{ \omega \times k_a} )$
+    can be computed as follows:
+    \begin{align*}
+    f(\prod_{a \in \Sigma} a^{ \omega \times k_a} )
+    &= 
+    \sum_{\prod_{a \in \Sigma} a^{\omega \times k_a}
+    = u_1 \cdots u_p} 
+         \pi(\mu(u_1), \dots, \mu(u_p)) \\
+    &= \pi(a^\omega, \dots, a^\omega) 
+    \end{align*}
+    is a polynomial in $k_a$, whose maximal coefficients are
+    sums of $\alpha_i$. 
 
-    \textbf{TODO: only look at words of the form $\prod_{a \in \Sigma} a^{k_a}$,
-    because this is enough}.
+    Furthermore, $f(w) = P(\seqof{\card[a]{w}}{a \in \Sigma})$,
+    hence we can identify coefficients.
     \textbf{TODO: this has positive maximal coefficients}.
     Furthermore, this remains true when restricting the language.
 \end{proof}
 
-\begin{fact}
-    \label{fact:n-poly-n-poly}
-    Let $P \in \Nat[\vec{X}]$. Then, $P$
-    is a \kl{$\Nat$-rational polynomial}.
-\end{fact}
 
 
 The core of the upcoming proof of \cref{lem:correct-to-n-rat} relies on the
@@ -551,6 +640,11 @@ $Y$ can be taken.
     we fix the two indeterminate, leading to a constant polynomial.
 \end{proof}
 
+\section{Deciding commutative $\Nat$-polyregular functions}
+\label{sec:deciding}
+
+decide nat inside rel in the commutative input case.
+
 \section{Conclusion}
 \label{sec:ccl}
 
@@ -567,6 +661,37 @@ $Y$ can be taken.
     \item The question of $\Nat$-rational series (commutative)
         among $\Rel$-rational series remains open.
 \end{itemize}
+
+
+\begin{corollary}
+    The following problem is decidable: given $P \in \Rel[\vec{X}]$,
+    decide whether $P$ is a \kl{$\Nat$-rational polynomial}.
+\end{corollary}
+\begin{proof}
+    Thanks to \cref{karh:thm}, one only has to decide whether
+    $P \in \CoveredPoly$. The procedure is as follows.
+    \begin{enumerate}
+        \item Check if all \kl{maximal monomials} have
+            \kl{positive coefficients} in $P$, if not, answer \texttt{false}.
+        \item Consider $N \in \Nat$ large enough so that
+              $P \geq 0$ when all indeterminate are chosen greater
+              than $N$. This is possible because all \kl{maximal
+              monomials} have \kl{positive coefficients}, and such an $N$
+              is computable.
+        \item Compute $P$
+    \end{enumerate}
+
+    Now, if all \kl{maximal monomials}
+    have \kl{positive coefficients}, then there exists a computable
+    $N \in \Nat$ such that 
+    In particular, 
+
+
+\end{proof}
+
+
+
+
 
 % BACKMATTER
 \printbibliography
