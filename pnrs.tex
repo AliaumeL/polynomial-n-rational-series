@@ -14,6 +14,11 @@
 \input{globals/knowledges.kl}
 \input{globals/metadata}
 
+\usepackage{comment}
+%\includecomment{forshort}
+%\excludecomment{proof}
+
+
 
 % DOCUMENT
 \begin{document}
@@ -303,7 +308,15 @@ polynomials in $\CorrectPoly$ are \kl{non-negative}. Let us also check that the
 counter example provided in \cref{thm:counter-example} is not in
 $\CorrectPoly$. For that, notice that for $P$ defined in
 \cref{def:bad-polynomial}, $P(X,Y,1) = 3X^2 + 3Y^2 - 2XY$, which has a negative
-coefficient for a \kl{maximal monomial}, namely $-2XY$.
+coefficient for a \kl{maximal monomial}, namely $-2XY$. Let us also assert that
+polynomials that have all coefficients in $\Nat$ are \kl{$\Nat$-rational
+polynomials}, which will be a base case in an upcoming induction.
+
+\begin{fact}
+    \label{fact:n-poly-n-poly}
+    Let $P \in \Nat[\vec{X}]$. Then, $P$
+    is a \kl{$\Nat$-rational polynomial}.
+\end{fact}
 
 Let us now prove that \kl{$\Nat$-rational polynomials} are in $\CorrectPoly$.
 To simplify the reasoning, we will use results on $\Nat$-polyregular functions,
@@ -345,19 +358,8 @@ let us only define $\Rel$-polyregular functions.
     \end{enumerate}
 \end{fact}
 
-
-Let us assert that polynomials that have all coefficients in $\Nat$ are
-\kl{$\Nat$-rational polynomials}, which will be a base case in an upcoming
-induction.
-
-\begin{fact}
-    \label{fact:n-poly-n-poly}
-    Let $P \in \Nat[\vec{X}]$. Then, $P$
-    is a \kl{$\Nat$-rational polynomial}.
-\end{fact}
-
-
 \begin{lemma}
+    \label{n-poly-combinatorics:lem}
     Let $f$ be a  \kl{$\Nat$-polyregular} function. 
     There exists $\omega \in \Nat$
     such that for all $p \in \Nat$,
@@ -371,6 +373,26 @@ induction.
         = P(X_1, \dots, X_p) \quad .
     \end{equation*}
 \end{lemma}
+\begin{proof}[Proof Sketch]
+    Let $\omega$ be an idempotent power for the finite monoid $M$.
+    We define an equivalence between partitions of a word 
+    $w \defined \alpha_0 \prod_{i = 1}^p (u_i^{\omega \times X_i} \alpha_i)$
+    as follows: two partitions into $k$ words in $\Sigma^*$ are equivalent
+    when normalizing them with the rules
+    $u_i^{\omega} u_i^{\omega} \to u_i^{\omega}$ for all $1 \leq i \leq p$.
+    This equivalence relation has finite index, and all partitions in the same
+    equivalence class yield the same value through $\pi$, because
+    $\mu(u_i^\omega) = \mu(u_i)^\omega$ is an idempotent element of the monoid $M$.
+
+    Now, let us remark that the number of partitions
+    in a certain equivalence class is proportional to
+    the number of nanania, that is, is of the form
+    $(X_i - K_i)^{n_i}$ for some $K$. We conclude that
+    maximal monomials indeed have positive coefficients.
+    We even conclude that
+    the polynomial is in $\Nat[\vec{X}]$
+    if we shift the variables with a large enough $K$. 
+\end{proof}
 
 
 \begin{lemma}
@@ -385,38 +407,14 @@ induction.
     Because $f$ has polynomial growth, and is a $\Nat$-rational series,
     it is a $\Nat$-polyregular function 
     (\cref{polynomial-rational-polyreg:fact}).
-    In particular, 
-    there exists a finite monoid $M$,
-    a morphism $\mu \colon \Sigma^* \to M$,
-    an integer $p  \in \Nat$,
-    and a production function $\pi \colon M^p \to \Nat$,
-    such that for all words $w \in \Sigma^*$,
-    \begin{equation*}
-        f(w) = \sum_{w = u_1 \cdots u_p} \pi(\mu(u_1), \dots, \mu(u_p)) \quad .
-    \end{equation*}
-    Because $f$ is \kl{commutative}, we can restrict our attention
-    to words of the form $\prod_{a \in \Sigma} a^{k_a}$ to compute $f$.
-    To that end, let us
-    consider $\omega \in \Nat$ such that
-    $m^\omega$ is an idempotent for all $m \in M$ (this is possible because
-    $M$ is finite).
-    Then, $f( \prod_{a \in \Sigma} a^{ \omega \times k_a} )$
-    can be computed as follows:
-    \begin{align*}
-    f(\prod_{a \in \Sigma} a^{ \omega \times k_a} )
-    &= 
-    \sum_{\prod_{a \in \Sigma} a^{\omega \times k_a}
-    = u_1 \cdots u_p} 
-         \pi(\mu(u_1), \dots, \mu(u_p)) \\
-    &= \pi(a^\omega, \dots, a^\omega) 
-    \end{align*}
-    is a polynomial in $k_a$, whose maximal coefficients are
-    sums of $\alpha_i$. 
 
-    Furthermore, $f(w) = P(\seqof{\card[a]{w}}{a \in \Sigma})$,
-    hence we can identify coefficients.
-    \textbf{TODO: this has positive maximal coefficients}.
-    Furthermore, this remains true when restricting the language.
+    Using \cref{n-poly-combinatorics:lem},
+    we conclude that maximal monomials of $P$ have
+    positive coefficients. Furthermore, when fixing variables
+    in $P$, we are computing a new \kl{$\Nat$-polyregular function},
+    hence we also conclude that the maximal monomials have
+    positive coefficients.
+    We have proven that $P \in \CorrectPoly$.
 \end{proof}
 
 
@@ -693,8 +691,9 @@ that they are \kl{commutative}.
 \end{proof}
 
 To prove the theorem, let us first provide a nice characterization of
-\kl{commutative} \kl{$\Rel$-polyregular functions}
-in terms of polynomials.
+\kl{commutative} \kl{$\Rel$-polyregular functions} in terms of polynomials.
+This is actually a refinement of \cref{n-poly-combinatorics:lem} in the
+commutative case.
 
 \begin{lemma}
     \label{decompose-polynomial:lem}
@@ -713,6 +712,7 @@ in terms of polynomials.
     Furthermore, the polynomials are computable from $f$.
 \end{lemma}
 \begin{proof}
+    equivalent partitions of the word, but commutativity?.q
 \end{proof}
 
 
@@ -798,6 +798,10 @@ As a consequence, we conclude
     have non-negative coefficients in a \emph{binomial basis},
     i.e., where polynomials are obtained
     as sums and products of $\binom{X_i}{p_i}$.
+\end{conjecture}
+
+\begin{conjecture}
+    star-free $\Nat$-rational is star-free and $\Nat$-rational?
 \end{conjecture}
 
 % BACKMATTER
