@@ -345,11 +345,32 @@ let us only define $\Rel$-polyregular functions.
     \end{enumerate}
 \end{fact}
 
+
+Let us assert that polynomials that have all coefficients in $\Nat$ are
+\kl{$\Nat$-rational polynomials}, which will be a base case in an upcoming
+induction.
+
 \begin{fact}
     \label{fact:n-poly-n-poly}
     Let $P \in \Nat[\vec{X}]$. Then, $P$
     is a \kl{$\Nat$-rational polynomial}.
 \end{fact}
+
+
+\begin{lemma}
+    Let $f$ be a  \kl{$\Nat$-polyregular} function. 
+    There exists $\omega \in \Nat$
+    such that for all $p \in \Nat$,
+    for all $\alpha_0, \dots, \alpha_p \in \Sigma^*$,
+    for all $u_1, \dots, u_p \in \Sigma^*$,
+    there exists a polynomial $P \in \Rel[X_1, \dots, X_p]$
+    whose \kl{maximal monomials} have \kl{positive coefficients},
+    and such that:
+    \begin{equation*}
+        f(\alpha_0 \prod_{i = 1}^p (u_i^{\omega \times X_i} \alpha_i))
+        = P(X_1, \dots, X_p) \quad .
+    \end{equation*}
+\end{lemma}
 
 
 \begin{lemma}
@@ -603,6 +624,7 @@ $Y$ can be taken.
 \end{proof}
 
 \begin{theorem}
+    \label{corrected-version:thm}
     The \kl{$\Nat$-rational polynomials} are exactly
     the polynomials in $\CorrectPoly$.
 \end{theorem}
@@ -643,7 +665,67 @@ $Y$ can be taken.
 \section{Deciding commutative $\Nat$-polyregular functions}
 \label{sec:deciding}
 
-decide nat inside rel in the commutative input case.
+The goal of this section is to go beyond polynomials and characterize all
+$\Rel$-polyregular functions that are $\Nat$-polyregular, under the assumption
+that they are \kl{commutative}.
+
+\begin{theorem}
+    \label{decidable-n-poly:thm}
+    Given a \kl{commutative}
+    \kl{$\Rel$-polyregular function} $f \colon \Sigma^* \to \Rel$,
+    one can decide if $f$ can be computed by a \kl{$\Nat$-polyregular function},
+    and effectively compute a representation of $f$.
+\end{theorem}
+
+\begin{lemma}
+    \label{decide-correct-poly:lem}
+    One can decide if a polynomial is in $\CorrectPoly$.
+\end{lemma}
+\begin{proof}
+    It is easy to check that maximal monomials have positive coefficients.
+    Assuming that it is the case, remark that 
+    every partial valuation $\nu$
+    such that $\restr{P}{\nu}$ has a negative maximal coefficient
+    must have values that are bounded by the sum of absolute values of
+    coefficients appearing in $P$.
+    In particular, one can check all possible choices for $\nu$
+    within these bounds.
+\end{proof}
+
+To prove the theorem, let us first provide a nice characterization of
+\kl{commutative} \kl{$\Rel$-polyregular functions}
+in terms of polynomials.
+
+\begin{lemma}
+    \label{decompose-polynomial:lem}
+    Let $f \colon \Sigma^* \to \Rel$ be a \kl{commutative}
+    \kl{$\Rel$-polyregular function}. There exists $\omega \in \Nat$,
+    and polynomials $\seqof{P_{\seqof{n_a}{a \in \Sigma}}}{ 0 \leq n_a < \omega}$,
+    such that for all $w \in \Sigma^*$,
+    \begin{equation*}
+        f(w) = P_{\seqof{\card[a]{w} [\omega]}{a \in \Sigma}}
+        (\seqof{\card[a]{w} / \omega}{a \in \Sigma}) \quad .
+    \end{equation*}
+    Which informally means that for every choice of rest modulo $\omega$
+    for every variable, there exists a polynomial describing the
+    behavior of $f$ when adding multiples of $\omega$ letters at a time.
+
+    Furthermore, the polynomials are computable from $f$.
+\end{lemma}
+\begin{proof}
+\end{proof}
+
+
+As a consequence, we conclude 
+\begin{proof}[Proof of \cref{decidable-n-poly:thm}]
+    We use \cref{decompose-polynomial:lem}
+    to effectively compute
+    a polynomial representation of $f$. Remark that
+    $f$ is a \kl{$\Nat$-polyregular function} if and only if
+    all these polynomials are \kl{$\Nat$-rational polynomials},
+    which is decidable thanks to
+    \cref{decide-correct-poly:lem,corrected-version:thm}.
+\end{proof}
 
 \section{Conclusion}
 \label{sec:ccl}
@@ -690,8 +772,33 @@ decide nat inside rel in the commutative input case.
 \end{proof}
 
 
+\begin{conjecture}
+    $\CorrectPoly = \setof{P}{ P \geq 0 \wedge \exists K \in \Nat, P \circ (+K) \in \Nat[\vec{X}]}$.
+\end{conjecture}
+\begin{proof}[Proof Sketch]
+    If $S \defined P \circ (+K) \in \Nat[\vec{X}]$, then for every partial application,
+    maximal coefficients of $S$ are positive. As maximal coefficients of 
+    (partial applications of) $S$ are the same as the ones of $P$
+    \emph{except for the constant terms} (full application),
+    where $P$ is already guaranteed to be non-negative, we conclude
+    that $P \in \CorrectPoly$.
 
+    Conversely, we prove by induction on the degree of $P \in \CorrectPoly$,
+    that there exists some $K$ such that $P \circ (+K) \in \Nat[\vec{X}]$.
+    First, notice that $\CorrectPoly$ is closed under pre-composition with
+    $(+K)$. Then, remark that $P(X - K)$ has the same maximal coefficients as
+    $P$ and new maximal coefficients that are multiples of $K$. Hence, for a
+    large enough $K$, we conclude that $P(X - K)$ is the sum of its maximal
+    coefficients, plus a polynomial that lies in $\CorrectPoly$. We conclude by
+    induction hypothesis. 
+\end{proof}
 
+\begin{conjecture}
+    $\CorrectPoly$ is precisely composed of polynomials that
+    have non-negative coefficients in a \emph{binomial basis},
+    i.e., where polynomials are obtained
+    as sums and products of $\binom{X_i}{p_i}$.
+\end{conjecture}
 
 % BACKMATTER
 \printbibliography
