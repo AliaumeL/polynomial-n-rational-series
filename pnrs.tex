@@ -32,6 +32,29 @@
 % MAIN MATTER
 \section{Introduction}
 
+
+There has been recent interest in $\Rel$ and $\Nat$-rational series exhibiting
+\emph{polynomial growth} \cite{doueneau2021pebble,bojanczyk2022transducers}.
+This computational model, in the counting case, can be traced back to a model
+introduced by \textcite{schutzenberger1965finite}. It has been recently proven
+that one can decide the growth rate of such functions, and decide whether they
+are aperiodic in the case of $\Rel$-rational series \cite{LOPEZ23b}. Isolating
+a notion of aperiocidity for functions, and deciding this property is often a
+non-trivial process \cite{droste2019aperiodic}. It was conjectured in the PhD
+thesis of Gaëtan Douéneau-Tabot, that the membership problem of $\Nat$-rational
+series among $\Rel$-rational series was decidable under the assumption of
+polynomial growth. The semantic characterization would imply that
+$\Nat$-rational series of polynomial growth that are aperiodic are precisely
+$\Nat$-rational series of polynomial growth, that can be realised by
+$\Rel$-rational series that are aperiodic. This conjecture was based on the
+previously introduced result of \textcite[Theorem 3.3]{KARH77}, which we will
+disprove in \cref{sec:c-example}. 
+We then provide a corrected version of the theorem, and prove the conjecture
+of Douéneau in the case of \emph{commutative} $\Nat$-rational series of
+polynomial growth.
+
+\section{Preliminaries}
+
 We will start by formally stating the result of \citeauthor{KARH77}
 in terms of polynomials and commutative $\Nat$-rational series, and
 then introduce the necessary definitions. The characterization of
@@ -70,18 +93,7 @@ coefficients. We will not formalize this statement yet, as \cref{karh:thm}
 does not hold in general.
 
 
-\paragraph*{Context.} There has been recent interest in $\Rel$ and
-$\Nat$-rational series exhibiting \emph{polynomial growth}
-\cite{doueneau2021pebble,bojanczyk2022transducers}. This computational model,
-in the counting case, can be traced back to a model introduced by
-\textcite{schutzenberger1965finite}. It has been recently proven that one can
-decide the growth rate of such functions, and decide whether they are aperiodic
-in the case of $\Rel$-rational series \cite{LOPEZ23b}. It was conjectured in
-the PhD thesis of Gaëtan Douéneau-Tabot, that the membership problem of
-$\Nat$-rational series among $\Rel$-rational series was decidable under the
-assumption of polynomial growth. This conjecture was based on the previously
-introduced result of \textcite{KARH77} (\cref{karh:thm}), which we will
-disprove in \cref{sec:c-example}. We then provide in \cref{sec:proof} a
+We then provide in \cref{sec:proof} a
 corrected version of the theorem, together with a valid proof. As a
 consequence, it does not invalidate the stated conjecture.
 
@@ -660,7 +672,7 @@ $Y$ can be taken.
     we fix the two indeterminate, leading to a constant polynomial.
 \end{proof}
 
-\section{Deciding commutative $\Nat$-polyregular functions}
+\section{Effective procedures}
 \label{sec:deciding}
 
 The goal of this section is to go beyond polynomials and characterize all
@@ -726,6 +738,40 @@ As a consequence, we conclude
     which is decidable thanks to
     \cref{decide-correct-poly:lem,corrected-version:thm}.
 \end{proof}
+
+\subsection{Star-free $\Nat$-polyregular functions}
+
+\begin{definition}[Ultimately polynomial]
+\end{definition}
+
+\begin{fact}
+    Any $\Nat$-rational polynomial is a star-free polyregular function.
+\end{fact}
+
+\begin{fact}
+    One can do anything on small values.
+\end{fact}
+
+Let us now conclude with a nice characterisation.
+\begin{theorem}
+    If
+    $f$ is star-free $\Rel$-polyregular
+    and $f$ is commutative $\Nat$-polyregular,
+    then $f$ is star-free $\Nat$-polyregular.
+\end{theorem}
+\begin{proof}
+    Idea. 
+    Remark that $f$ is ultimately polynomial, and because $f$ 
+    is commutative, this proves that $f$, after some rank,
+    computes a polynomial. But this proves that $f$ is star-free
+    $\Nat$-polyregular.
+    (maybe we need to do an induction on the degree).
+\end{proof}
+
+\begin{corollary}
+    One can decide if a commutative $\Nat$-polyregular function 
+    is star-free.
+\end{corollary}
 
 \section{Conclusion}
 \label{sec:ccl}
@@ -803,6 +849,20 @@ As a consequence, we conclude
 \begin{conjecture}
     star-free $\Nat$-rational is star-free and $\Nat$-rational?
 \end{conjecture}
+
+
+\begin{center}
+    \begin{tabular}{c|cc}
+        \toprule
+        & \textbf{Commutative} & \textbf{General} \\
+        \midrule
+        \textbf{Commutative}
+        and \textbf{Invertible} & commutative $\ZPoly$ & $\ZPoly$ \\
+        \textbf{Commutative} & commutative $\NPoly$ & $\NPoly$ \\
+        \textbf{General} & ? & polyregular 
+    \end{tabular}
+\end{center}
+
 
 % BACKMATTER
 \printbibliography
