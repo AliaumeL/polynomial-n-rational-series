@@ -4,9 +4,47 @@
  | commutative
 \knowledge{notion}
  | $\Rel $-rational polynomial
+ | $\Rel $-rational polynomials
+
 \knowledge{notion}
  | $\Nat $-rational polynomial
  | $\Nat $-rational polynomials
+
+\knowledge{notion}
+ | $\Rel $-rational series
+\knowledge{notion}
+ | $\Nat $-rational series
+
+\knowledge{notion}
+ | polyregular function
+
+\knowledge{notion}
+ | $\Rel $-polyregular
+ | $\Rel $-polyregular function
+ | $\Rel $-polyregular functions
+
+\knowledge{notion}
+ | $\Nat $-polyregular
+ | $\Nat $-polyregular function
+
+\knowledge{notion}
+ | star-free $\Rel $-polyregular function
+ | star-free $\Rel $-polyregular functions
+ | star-free $\Rel $-polyregular 
+
+\knowledge{notion}
+ | star-free $\Nat $-polyregular function
+ | star-free $\Nat $-polyregular functions
+ | star-free $\Nat $-polyregular 
+
+
+\knowledge{notion}
+ | polynomial growth
+\knowledge{notion}
+ | represented
+\knowledge{notion}
+ | ultimately polynomial
+
 \knowledge{notion}
  | non-negative
 \knowledge{notion}
