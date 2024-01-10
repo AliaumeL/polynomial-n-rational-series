@@ -1,8 +1,7 @@
 %! TeX program = xelatex
 %! lang = en-GB
-\documentclass[a4paper,11pt]{article}
+\documentclass[sigconf,natbib=false,screen, review,anonymous]{acmart}
 
-\usepackage[left=3cm,right=3cm]{geometry}
 
 
 % INPUTS
@@ -21,12 +20,12 @@
 
 
 
+\makeabstract
 % DOCUMENT
 \begin{document}
 
 % FRONT MATTER
 \maketitle
-\makeabstract
 \acknowledge
 
 \section{TODOs}
@@ -692,18 +691,16 @@ $Y$ can be taken.
 
 \begin{theorem}
     \label{corrected-version:thm}
-    The \kl{$\Nat$-rational polynomials} are exactly
-    the polynomials in $\CorrectPoly$.
+    Let $P \in \Rel[\vec{X}]$ be a polynomial.
+    The following are equivalent:
+    \begin{enumerate}
+        \item $P \in \CorrectPoly$,
+        \item $P$ is \kl{represented} by a \kl{$\Nat$-rational series},
+        \item $P$ is \kl{represented} by a \kl{$\Nat$-polyregular function},
+        \item $P$ is \kl{represented} by a \kl{star-free $\Nat$-polyregular function}.
+    \end{enumerate}
 \end{theorem}
 
-\begin{theorem}
-    \label{nsf-polynomials:thm}
-    In the proof, we actually conclude that
-    the \kl{$\Nat$-rational polynomials}
-    are exactly those that can be computed 
-    by \kl{commutative}
-    \emph{star-free} $\Nat$-polyregular functions.
-\end{theorem}
 
 \begin{lemma}
     \label{lem:correct-covered-2}

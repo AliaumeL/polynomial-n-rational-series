@@ -14,8 +14,6 @@
 \usepackage{amsthm}
 \usepackage{thmtools}
 \usepackage{upgreek}
-\usepackage{amssymb}
-\usepackage{stmaryrd}
 
 % References and knowledge management
 \usepackage{hyperref}
@@ -24,30 +22,35 @@
 \knowledgeconfigure{notion}
 
 % BIBTEX / BIBLATEX
-\usepackage[
-	%style=numeric-comp,
-    %citestyle=authortitle-icomp,
-	citestyle=numeric-comp,
-	%bibstyle=authoryear,
-	bibstyle=numeric,
-	%sorting=none,
-    sorting=nyt,
-	%sortcites=true,
-	%autocite=footnote,
-    maxnames=99,
-    %backend=biber, % Compile the bibliography with biber
-    backend=bibtex,
-    %refsegment=chapter, % split references ?
-	hyperref=true,
-	backref=true,
-	citecounter=true,
-	pagetracker=true,
-	citetracker=true,
-	ibidtracker=context,
-	autopunct=true,
-	autocite=plain,
-    doi=true,
-]{biblatex}
+%\usepackage[
+%	%style=numeric-comp,
+%    %citestyle=authortitle-icomp,
+%	citestyle=numeric-comp,
+%	%bibstyle=authoryear,
+%	bibstyle=numeric,
+%	%sorting=none,
+%    sorting=nyt,
+%	%sortcites=true,
+%	%autocite=footnote,
+%    maxnames=99,
+%    %backend=biber, % Compile the bibliography with biber
+%    backend=bibtex,
+%    %refsegment=chapter, % split references ?
+%	hyperref=true,
+%	backref=true,
+%	citecounter=true,
+%	pagetracker=true,
+%	citetracker=true,
+%	ibidtracker=context,
+%	autopunct=true,
+%	autocite=plain,
+%    doi=true,
+%]{biblatex}
+
+\RequirePackage[
+  datamodel=acmdatamodel,
+  style=acmnumeric,
+  ]{biblatex}
 
 % Table typesetting
 \usepackage{booktabs}
