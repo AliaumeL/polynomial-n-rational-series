@@ -9,6 +9,8 @@
 \newcommand{\setof}[2]{\mathopen{\{} #1 \mid #2 \mathclose{\}}}
 \newcommand{\set}[1]{\mathopen{\{} #1 \mathclose{\}}}
 
+\newcommand{\Pfin}{\mathcal{P}_{\mathsf{fin}}}
+
 \newcommand{\MSO}{\mathsf{MSO}}
 
 % functions
@@ -27,6 +29,12 @@
 \newcommand{\CoveredPoly}{\mathcal{P}}
 \newcommand{\CorrectPoly}{\mathcal{Q}}
 
+\NewDocumentCommand{\Monomials}{o}{\IfNoValueTF{#1}{\mathsf{Monom}}{\mathsf{Monom}[#1]}}
+\NewDocumentCommand{\MaximalMonomials}{}{\mathop{\mathsf{maxmonom}}}
+
+% Differences of polynomials
+\NewDocumentCommand{\Diff}{m}{ \Delta_{#1} }
+
 
 % Restrictions
 \newcommand{\restr}[2]{{#1}_{\kl[\restr]{| #2}}}
@@ -42,3 +50,9 @@
 
 \NewDocumentCommand{\commute}{O{\cdot}}{\llbracket #1 \rrbracket}
 
+
+
+
+
+\NewDocumentCommand{\hoareleq}{}{\leq_{\mathcal{H}}}
+\NewDocumentCommand{\hoarele}{}{<_{\mathcal{H}}}
