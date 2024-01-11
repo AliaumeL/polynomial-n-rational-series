@@ -1,5 +1,5 @@
 %! TeX program = xelatex
-%! lang = en-GB
+%! lang = en-US
 \documentclass[sigconf,natbib=false,screen, review,anonymous]{acmart}
 
 
@@ -38,7 +38,7 @@
         the results about ambiguity in automata?
         Theorem 5.22
     \item Define commutativity by a map 
-        $\commute \colon \Sigma^* \to \Nat^{\Sigma}$.
+        $\commute \colon \Sigma^* \topartial \Nat^{\Sigma}$.
     \item Define "commutative functions" and its symbol.
     \item Define "computed by" (like, recognised by) for commutative 
         functions.
@@ -100,7 +100,7 @@ polynomial growth.
 
 \begin{fact}[{\cite[Exercise 1.2 p 169]{berstel2011noncommutative}}]
     \label{polynomial-rational-polyreg:fact}
-    Let $\Sigma$ be a finite alphabet, and $f \colon \Sigma^* \to \Nat$
+    Let $\Sigma$ be a finite alphabet, and $f \colon \Sigma^* \topartial \Nat$
     be a function. The following are equivalent:
     \begin{enumerate}
         \item $f$ can be computed as a \k{$\Nat$-rational series}
@@ -112,7 +112,7 @@ polynomial growth.
 \begin{definition}[Letter Counting Function]
     \label{commutative-map:def}
     Let $\Sigma$ be a finite alphabet. We define
-    $\commute \colon \Sigma^* \to \Nat^\Sigma$ for the
+    $\commute \colon \Sigma^* \topartial \Nat^\Sigma$ for the
     map that counts occurrences of every letter in the input word, namely:
     \begin{equation*}
         \commute[w] \defined \seqof{\card[a]{w}}{a \in \Sigma} \quad .
@@ -344,7 +344,7 @@ polynomial with at most two indeterminate.
 
     Assume by contradiction that $P$ is a \kl{$\Nat$-rational polynomial}.
     There exists a \kl{commutative}
-    $\Nat$-rational series $f \colon \Sigma \to \Nat$
+    $\Nat$-rational series $f \colon \Sigma \topartial \Nat$
     such that $P(\card[a]{w}, \card[b]{w}, \card[c]{w}) = f(w)$.
     Remark that $P(X,Y,Z) = 0$
     if and only if $Z(X+Y)^2 = -2 (X-Y)^2$. Hence,
@@ -394,7 +394,7 @@ $\nu$.
     The class $\CorrectPoly[\vec{X}]$ is the collection of
     polynomials $P \in \Rel[\vec{X}]$ such that
     $P$ is 
-    such that, for every partial function $\nu \colon \vec{X} \to \Nat$,
+    such that, for every partial function $\nu \colon \vec{X} \topartial \Nat$,
     every \kl{maximal monomial} of
     $\restr{P}{\nu}$ has a \kl{positive coefficient}.
 \end{definition}
@@ -429,7 +429,7 @@ polynomials}, which will be a base case in an upcoming induction.
     By induction on the number of indeterminate,
     leveraging the fact that if there exists at least one indeterminate
     $X$, i.e., that $\vec{X} = X \vec{Y}$, then for all $n \in \Nat$
-    and partial function $\nu \colon \vec{Y} \to \Nat$,
+    and partial function $\nu \colon \vec{Y} \topartial \Nat$,
     we have 
     \begin{equation*}
         \restr{\left(\restr{P}{X = n}\right)}{\nu} = \restr{P}{ \nu[X = n]}
@@ -447,7 +447,7 @@ polynomials}, which will be a base case in an upcoming induction.
     is a \kl{$\Nat$-rational polynomial}.
 \end{example}
 \begin{proof}
-    Let $P \in \Nat[\vec{X}]$, and $\nu \colon \vec{X} \to \Nat$
+    Let $P \in \Nat[\vec{X}]$, and $\nu \colon \vec{X} \topartial \Nat$
     be a partial function.
     Notice that $\restr{P}{\nu}$ continues to be
     a polynomial with \kl{positive coefficients}, and in particular
@@ -466,6 +466,11 @@ outputted letters \cite{LOPEZ23b}. Because we only consider functions with
 output in $\Rel$, and that a commutative output monoid simplifies the definitions,
 let us only define $\Rel$-polyregular functions.
 
+The following \cref{n-poly-combinatorics:lem} is a slight refinement over the
+classical combinatorial analysis of \kl{$\Rel$-polyregular functions}
+\cite[Lemma 4.16]{LOPEZ23b} and \kl{$\Nat$-polyregular functions} that takes
+into account \emph{all} \kl{maximal monomials} instead of a specific one
+\cite[Lemma 5.37]{gaetanphd}.
 
 \begin{lemma}
     \label{n-poly-combinatorics:lem}
@@ -476,123 +481,180 @@ let us only define $\Rel$-polyregular functions.
     for all $u_1, \dots, u_p \in \Sigma^*$,
     there exists a polynomial $P \in \Rel[X_1, \dots, X_p]$
     whose \kl{maximal monomials} have \kl{positive coefficients},
-    and such that:
+    and such that for all $X_1, \dots, X_p \geq \omega$:
     \begin{equation*}
-        f(\alpha_0 \prod_{i = 1}^p (u_i^{\omega \times X_i} \alpha_i))
+        f\left(
+            \alpha_0 \prod_{i = 1}^p (u_i^{\omega \times X_i} \alpha_i)
+        \right)
         = P(X_1, \dots, X_p) \quad .
     \end{equation*}
 \end{lemma}
-\begin{proof}[Proof Sketch]
-    Let $\omega$ be an idempotent power for the finite monoid $M$.
-    We define an equivalence between partitions of a word 
-    $w \defined \alpha_0 \prod_{i = 1}^p (u_i^{\omega \times X_i} \alpha_i)$
-    as follows: two partitions into $k$ words in $\Sigma^*$ are equivalent
-    when normalizing them with the rules
-    $u_i^{\omega} u_i^{\omega} \to u_i^{\omega}$ for all $1 \leq i \leq p$.
-    This equivalence relation has finite index, and all partitions in the same
-    equivalence class yield the same value through $\pi$, because
-    $\mu(u_i^\omega) = \mu(u_i)^\omega$ is an idempotent element of the monoid $M$.
+\begin{proof}
+    Let $\omega$ be an idempotent power for the finite monoid $M$,
+    and
+    $w \defined \alpha_0 \prod_{i = 1}^p (u_i^{\omega \times X_i} \alpha_i)$.
+    Let $k \in \Nat$, and $\pi \colon M^k \topartial \Nat$ be such that
+    $f = \pi^\dagger$. That is, 
+    $f(w)$ is the sum over all factorizations of $w$
+    into $k$ words $(w_1, \dots, w_k) \in \Sigma^*$
+    of the value $\pi(\mu(w_1), \dots, \mu(w_k))$.
 
-    Now, let us remark that the number of partitions
-    in a certain equivalence class is proportional to
-    the number of nanania, that is, is of the form
-    $(X_i - K_i)^{n_i}$ for some $K$. We conclude that
-    maximal monomials indeed have positive coefficients.
-    We even conclude that
-    the polynomial is in $\Nat[\vec{X}]$
-    if we shift the variables with a large enough $K$. 
+    Let us define an equivalence relation $\equiv$ over words of
+    $\Sigma^*$ as follows: two words $v_1, v_2$ are equivalent if they are
+    equal when normalizing them with the rules $u_i^{\omega} u_i^{\omega} \to
+    u_i^{\omega}$ for all $1 \leq i \leq p$. That is, we disregard
+    repetitions of the factors $u_i^{\omega}$ in the words.
+    We lift the equivalence relation $\equiv$ to $k$-tuples of
+    words by pointwise application.
+
+    Remark that if $(v_1, \dots, v_k) \equiv (w_1, \dots, w_k)$ then
+    $\pi(\mu(v_1), \dots, \mu(v_k)) = \pi(\mu(w_1), \dots, \mu(w_k))$ because
+    $\mu(u_i^\omega) = \mu(u_i)^\omega$ is an idempotent element of the monoid
+    $M$. In particular, $f(w)$ can be computed as the sum over equivalence
+    classes for $\equiv$, of the value of $\pi$ on one representative,
+    which belongs to $\Nat$.
+
+    Therefore, it suffices to prove that the number of partitions of $w$ in a
+    single equivalence class for $\equiv$ is a polynomial $P(X_1, \dots, X_p)$
+    with \kl{positive coefficients} for its \kl{maximal monomials}.
+
+    Notice that to produce all elements in a given equivalence class
+    means adding the factors $u_i^\omega$ where $1 \leq i \leq p$
+    back to the normalized version
+    of the equivalence class. For all elements in an equivalence class,
+    one has to add the same amount of $u_i^\omega$ for $1 \leq i \leq p$,
+    and therefore the number of possible choices
+    is either constant, or 
+    is a product of binomials of the form $\binom{X - l}{s}$
+    which has the desired shape.
 \end{proof}
 
 
 \begin{lemma}
     \label{n-rat-correct:lem}
-    The \kl{$\Nat$-rational polynomials} are in $\CorrectPoly$.
+    Let $P \in \Rel[X_1, \dots, X_p]$ be \kl{represented}
+    by a \kl{$\Nat$-rational series}. Then,
+    $P \in \CorrectPoly$.
 \end{lemma}
-\begin{proof}[Proof Idea]
-    Let $P$ be a \kl{$\Nat$-rational polynomial}.
-    Let $\Sigma$  be the finite alphabet such that
-    $P \in \Rel[\seqof{X_a}{a \in \Sigma}]$,
-    and $f \colon \Sigma^* \to \Nat$ be the \kl{commutative}
-    $\Nat$-rational series computing $P$.
-    Because $f$ has polynomial growth, and is a $\Nat$-rational series,
-    it is a $\Nat$-polyregular function 
+\begin{proof}
+    Let $f$ be the \kl{commutative}
+    \kl{$\Nat$-rational series}
+    with domain $\Sigma \defined \set{a_1, \dots, a_p}$
+    that \kl{represents} $P$. Because $f$ has \kl{polynomial growth},
+    it is in fact a \kl{$\Nat$-polyregular function}
     (\cref{polynomial-rational-polyreg:fact}).
-
     Using \cref{n-poly-combinatorics:lem},
-    we conclude that maximal monomials of $P$ have
-    positive coefficients. Furthermore, when fixing variables
-    in $P$, we are computing a new \kl{$\Nat$-polyregular function},
-    hence we also conclude that the maximal monomials have
-    positive coefficients.
-    We have proven that $P \in \CorrectPoly$.
+    there exists a number $\omega \in \Nat$
+    and polynomial $Q$ with \kl{positive coefficients} for its
+    \kl{maximal monomials} such that
+    for all $X_1, \dots, X_p \geq \omega$:
+    \begin{equation*}
+        f\left(
+            \prod_{i = 1}^p (a_i)^{\omega \times X_i}
+        \right)
+        = Q(X_1, \dots, X_p)
+        = P(\omega X_1, \dots, \omega X_p) 
+        \quad .
+    \end{equation*}
+    We conclude that $P(\omega X_1, \dots, \omega X_p) = Q(X_1, \dots, X_p)$
+    as polynomials,
+    and in particular that
+    the \kl{maximal monomials} of 
+    $P$ have \kl{positive coefficients}.
+
+    Remark that for every partial valuation $\nu \colon \vec{X} \topartial \Nat$,
+    the polynomial $\restr{P}{\nu}$ continues to be represented
+    by a \kl{$\Nat$-polyregular function}, namely
+    $f$ partially applied to a word. As a consequence,
+    the \kl{maximal monomials} of
+    $\restr{P}{\nu}$ also have \kl{positive coefficients}, and 
+    we have proven that $P \in \CorrectPoly$.
 \end{proof}
 
 
 
+\textbf{TODO: rewrite this}
 The core of the upcoming proof of \cref{lem:correct-to-n-rat} relies on the
 following observation: if a polynomial $P$ is written $X^p + Q$, where all
-terms of $Q$ have degree less than $p$, then one can find some large enough $K$
-so that $X^p - (X - K)^p + Q$ also has a positive maximal coefficient.
-It works because $X^p - (X - K)^p = K X^{p-1} + \cdots$, hence
-the maximal coefficient can be chosen arbitrarily large by increasing
-$K$.
-This
-trick will work similarly in multivariate polynomials, and the overall
-proof scheme works as follows: for a bounded number of possible
-values of $X$, we can fix the variable, and have one less item to work on.
-For large enough values of $X$ (typically greater than some $K$), we can guarantee that
-$X^p - (X - K)^p + Q$ has positive maximal coefficients, hence
-can be computed by a $\Nat$-rational series, while
-$(X - K)^p$ is clearly computable by a $\Nat$-rational series,
-hence $(X^p - (X - K)^p + Q) + (X - K)^p$ is computable
-as the sum of two $\Nat$-rational series, and we have
-concluded that our original polynomial was a
-\kl{$\Nat$-rational polynomial}. There are a number of problems in generalizing
-this proof scheme:
-\begin{itemize}
-    \item We will have to guarantee that every polynomial considered
-        is non-negative
-    \item We do not only need to check that the \kl{maximal monomials}
-        have \kl{positive coefficient}, but that it is the case
-        when fixing arbitrarily many variables! (this
-        covers the first point too)
-\end{itemize}
+terms of $Q$ have \kl{degree} less than $p$, then one can find some large
+enough $K \in \Nat$ so that $X^p - (X - K)^p + Q$ also has a positive maximal
+coefficient. It works because $X^p - (X - K)^p = K X^{p-1} + \cdots$, hence the
+new \kl{maximal monomial} can be made to have arbitrarily large \kl{coefficient}
+by increasing $K$.
+As a consequence, for values $n \leq K$ of $X$, one can compute $\restr{P}{X =
+n}$ which remains in $\CorrectPoly$, and apply an induction hypothesis.
+Furthermore, for values $n > K$ of $X$, one has the guarantee that $X^p - (X -
+K)^p + Q$ has positive maximal coefficients, hence can be computed by a
+$\Nat$-rational series, while $(X - K)^p$ is clearly computable by a
+$\Nat$-rational series, hence $(X^p - (X - K)^p + Q) + (X - K)^p$ is computable
+as the sum of two $\Nat$-rational series, and we have concluded that our
+original polynomial was a \kl{$\Nat$-rational polynomial}. 
+
+When multiple indeterminate are involved, a bit of care is needed, and
+this is the technical content of \cref{diff-one-monomial:lem,lem:delta-cool}.
+
+\begin{definition}
+    Let $\vec{X}$ be a tuple of indeterminate, let $Y$
+    be a fresh indeterminate,
+    and 
+    let $P \in \Rel[\vec{X},Y]$ be a polynomial.
+    For every \kl{maximal monomial}
+    $\alpha Y^p M$ of $P$ such that $M \in \Rel[\vec{X}]$, and every $K \in \Nat$,
+    we define
+    \begin{equation*}
+        \Diff{K}{\alpha Y^p M}{P} \defined 
+        P - \alpha (Y - K)^p M \quad .
+    \end{equation*}
+\end{definition}
 
 \begin{lemma}
+    \label{diff-one-monomial:lem}
     Let $\vec{X}$ be a tuple of indeterminate, $Y$ be a fresh indeterminate,
-    $\vec{p} \colon \vec{X}Y \to \Nat$,
-    and $M \defined \times \prod_{X \in \vec{X}} X^{p(X)}$.
+    and $P = Y^p M$ where $M$ is a \kl{monomial} over $\vec{X}$.
     Then, for all $K \geq 0$,
-    $\Delta_{Y,K} \defined Y^p M - (Y - K)^p M$ has \kl{maximal monomials} with
-    \kl{positive coefficients} of weight at least $K$, regardless of
-    the variables fixed, as long as the (potential)
-    value of $Y$ is greater
-    than $K$.
+    for all $\nu \colon \vec{X}Y \topartial \Nat$
+    such that $\nu(Y) > K$ or $\nu(Y)$ is undefined,
+    $\restr{\Diff{K}{Y^pM}{Y^pM}}{\nu}$
+    has \kl{maximal monomials} with
+    coefficients at least $K$, or is the constant polynomial equal to zero.
 \end{lemma}
 \begin{proof}
+    Let us write $\Delta_K$ as a shorthand for
+    $\Diff{K}{Y^p M}{Y^p M}$.
     Let us first remark that
+    there exists $Q \in \Rel[Y]$ of degree at most $p-2$
+    such that:
     \begin{equation*}
-        \Delta_{Y,K}
+        \Delta_K
         = KY^{p-1} M + Q M
         \quad .
     \end{equation*}
-    In particular, there is a unique \kl{maximal monomial} for $\Delta_{Y,K}$,
+    In particular, there is a unique \kl{maximal monomial} for $\Delta_{K}$,
     which is precisely $K Y^{p-1} M$, because all monomials
-    in $Q M$ divide (strictly) $Y^{p-1} M$.
-    Let us fix a variable,
-    $X$ to any (non-zero) value $p > 0$. Then
-    The \kl{maximal monomial} of $\restr{\Delta_{Y,K}}{X = p}$
-    is exactly $\restr{KY^{p-1}M}{X = p}$, which remains
-    with a \kl{positive coefficient}, that is proportional to $K$.
-    Let us fix $Y$ to some value $K + l$, with $l > 0$,
-    then
-    $\restr{\Delta_{Y,K}}{Y = K + l}
-    = (K + l)^p M - l^p M
-    = ((K + l) - l) (\sum_{i = 1}^{p-1} (K + l)^i l^{p-i}) M
-    = K \alpha M
-    $
-    which remains a monomial with a \kl{positive coefficient},
-    that is proportional to $K$.
+    in $Q M$ \kl{strictly divide} $Y^{p-1} M$.
+    
+    Let $\nu \colon \vec{X}Y \topartial \Nat$ be a partial valuation such that
+    $\restr{\Delta_K}{\nu} \neq 0$. If $\nu(Y)$ is undefined, then the
+    \kl{maximal monomial} of $\restr{\Delta_K}{\nu}$ is exactly $K Y^{p-1}
+    \restr{M}{\nu}$, and $\restr{M}{\nu} \neq 0$. Therefore, the unique
+    \kl{maximal monomial} of $\restr{\Delta_K}{\nu}$ has a \kl{positive
+    coefficient} that is at least $K$.
+
+    Otherwise, if $\nu(Y) > K$, then $\nu(Y) = K + l$ for some $l \in \Nat$.
+    Let us write $\mu$ for the restriction of $\nu$ to indeterminates of $\vec{X}$.
+    We can compute 
+    \begin{align*}
+        \restr{\Delta_K}{\nu}
+        &= (K + l)^p \restr{M}{\mu} - l^p \restr{M}{\mu}\\
+        &= ((K + l)^p - l^p) \restr{M}{\mu} \\
+        &= (K + l - l)\left(\sum_{i = 0}^{p-1} (K+l)^i l^{p-i}\right) 
+        \restr{M}{\mu} \\
+        &= K \alpha \restr{M}{\mu} 
+        \quad .
+    \end{align*}
+    Which proves that the \kl{maximal monomial} of
+    $\restr{\Delta_K}{\nu}$ has a coefficient
+    that is at least $K$.
 \end{proof}
 
 
@@ -606,32 +668,55 @@ monomial.
     Let $P \in \Rel[\vec{X}Y]$ be in $\CorrectPoly$, and $\alpha Y^p M$ be a
     \kl{maximal monomial} of $P$, with $\alpha > 0$.
     Then, there exists a computable $K \geq 0$
-    such that $\Delta_{K} \defined P - \alpha (Y - K)^p M$
-    has \kl{positive coefficients} for \kl{maximal monomials}
-    in any partial evaluation that satisfies $Y > K$ (if it
-    gives a value to $Y$).
+    such that
+    for all $\nu \colon \vec{X}Y \topartial \Nat$
+    such that $\nu(Y) > K$ or $\nu(Y)$ is undefined,
+    the \kl{maximal monomials} of 
+    $\restr{\Diff{K}{Y^pM}{P}}{\nu}$
+    have \kl{positive coefficients}.
 \end{lemma}
 \begin{proof}
     Let $N$ be greater than the sum of the absolute values of all coefficients
-    appearing in $P$, and let $K = 2 N$.
-
-    Let us remark that
+    appearing in $P$, and let $K \defined N + 1$.
+    Let us write $\Delta_K$
+    as a shorthand for
+    $\Diff{K}{\alpha Y^p M}{P}$, and decompose $\Delta_K$ as follows:
     \begin{equation*}
-        \Delta_K = \underbrace{(P - \alpha Y^p M)}_{\text{ left hand side }}
-        + \underbrace{\alpha (Y^p M - (Y - K)^p M)}_{\text{ right hand side }}
+        \Delta_K
+        = \underbrace{(P - \alpha Y^p M)}_{Q_1}
+        + \underbrace{\alpha (Y^p M - (Y - K)^p M)}_{Q_2}
         \quad .
     \end{equation*}
-    an that for every partial evaluation $\nu$ that sends $Y$ to a value
-    greater than $K$,
-    we have that $\restr{(Y^p M - (Y - K)^p M)}{\nu}$ has
-    \kl{maximal monomials} with \kl{positive coefficients}
-    proportional to $K$ (note that here ``proportional"
-    implies that they are greater than $K$, because we multiply by positive
-    integers).
+
+    Applying \cref{diff-one-monomial:lem}, we know that for every partial
+    evaluation $\nu \colon \vec{X}Y \topartial \Nat$ such that $\nu(Y) > K$ or
+    $\nu(Y)$ is undefined, the \kl{maximal monomials} of $\restr{Q_2}{\nu}$
+    have \kl{positive coefficients}, and that these coefficients are either $0$
+    (the polynomial is constant equal to zero) or at least $K$.
     
-    To conclude, it is just a game of describing how
-    \kl{maximal monomials} of $\restr{\Delta_Y}{\nu}$
-    can appear. If the \kl{maximal monomial} is obtained
+    To conclude, it is just a matter of describing how \kl{maximal monomials}
+    of $\restr{\Delta_K}{\nu}$ can appear. Let us proceed by case analysis. If
+    $\restr{Q_2}{\nu} = 0$, then, $\restr{\alpha Y^p M}{\nu} = 0$, and
+    $\restr{\Delta_K}{\nu} = \restr{P}{\nu}$, in which case we conclude because
+    $P \in \CorrectPoly$. Otherwise, we know that $\restr{Q_2}{\nu} \neq 0$,
+    and that its (unique) \kl{maximal monomial} has a \kl{positive coefficient}
+    that is at least $K$.
+    Let us now consider a \kl{maximal monomial} $M_0$
+    of $\restr{P}{\nu}$. This \kl{monomial} is obtained
+    by summing \kl{monomials} from $\restr{Q_1}{\nu}$ and $\restr{Q_2}{\nu}$.
+    Note that, by construction 
+
+    Because $\alpha Y^p M$ is a \kl{maximal monomial} of
+    $P$, and since $K$ is greater than the sum of
+    the absolute values of all coefficients appearing in $P$,
+    we conclude that
+
+
+
+
+    If a \kl{maximal monomial} of $\restr{\Delta_K}{\nu}$
+    is obtained
+    by summing a of $\restr{Q_1}{\nu}$
     by summing an element of the left hand side with an element
     of the right hand side, it needs to be a \kl{maximal monomial}
     of the right hand side, and the large value of $K$ guarantees
@@ -686,7 +771,7 @@ $M_2$.
     we know that there exists a computable $K$ such that
     the polynomial
     $\Diff{K} \defined P - \alpha (Y - K)^p M$
-    satisfies that for all partial valuations $\nu \colon Y\vec{X} \to \Nat$
+    satisfies that for all partial valuations $\nu \colon Y\vec{X} \topartial \Nat$
     such that $\nu(Y) > K$ or $\nu(Y)$ is undefined,
     the \kl{maximal monomials} of $\Diff{K}$ have \kl{positive coefficients}.
     In particular, $\Diff{K}(Y - K)$  belongs to $\CorrectPoly$.
@@ -768,7 +853,7 @@ We are now ready to state the corrected and generalised version of
 \end{lemma}
 \begin{proof}
     It is clear that $\CorrectPoly[X,Y] \subseteq \CoveredPoly[X,Y]$,
-    by considering the empty valuation $\nu \colon \set{X,Y} \to \Nat$.
+    by considering the empty valuation $\nu \colon \set{X,Y} \topartial \Nat$.
     For the converse inclusion, let us consider $P(X,Y)$
     that is \kl{non-negative}, such that the \kl{maximal monomials}
     have \kl{positive coefficients}.
@@ -878,7 +963,7 @@ of the polynomials and the number of variables of the polynomial.
     \cref{lem:delta-cool}, we can compute a bound $K \in \Nat$ such that
     $\Diff{K} \defined P - \alpha (Y - K)^p M$ has \kl{positive coefficients}
     for its \kl{maximal monomials} for all partial valuations $\nu \colon
-    Y\vec{X} \to \Nat$ such that $Y > K$ (if $Y$ is assigned a value). In
+    Y\vec{X} \topartial \Nat$ such that $Y > K$ (if $Y$ is assigned a value). In
     particular, we conclude that, for all $\restr{P}{Y = n}$ belongs to
     $\CorrectPoly$ for all $n > K$. By induction hypothesis, one can
     decide whether $\restr{P}{X = n}$ belongs to $\CorrectPoly$
