@@ -590,157 +590,53 @@ $\Nat$-rational series, hence $(X^p - (X - K)^p + Q) + (X - K)^p$ is computable
 as the sum of two $\Nat$-rational series, and we have concluded that our
 original polynomial was a \kl{$\Nat$-rational polynomial}. 
 
-When multiple indeterminate are involved, a bit of care is needed, and
-this is the technical content of \cref{diff-one-monomial:lem,lem:delta-cool}.
+When multiple indeterminate are involved, a bit of care is needed. The key
+ingredient is to notice that polynomials in $\CorrectPoly$ are actually stable
+under a \emph{discrete} analogue of the usual differentiation operator.
+Intuitively, polynomials $P$ in $\CorrectPoly$ have \kl{positive} \kl{maximal
+monomials}, and so does $\partial P$, $\partial^2 P$ etc. 
 
 \begin{definition}
-    Let $\vec{X}$ be a tuple of indeterminate, let $Y$
-    be a fresh indeterminate,
+    \label{discrete-derivative:def}
+    Let $\vec{X}$ be a tuple of indeterminate,
+    $K \in \Nat$,
     and 
-    let $P \in \Rel[\vec{X},Y]$ be a polynomial.
-    For every \kl{maximal monomial}
-    $\alpha Y^p M$ of $P$ such that $M \in \Rel[\vec{X}]$, and every $K \in \Nat$,
-    we define
+    $P \in \Rel[\vec{X}]$ be a polynomial.
     \begin{equation*}
-        \Diff{K}{\alpha Y^p M}{P} \defined 
-        P - \alpha (Y - K)^p M \quad .
+        \Diff{K}{P} \defined 
+        P(\vec{X}) - P(\vec{X} - K) \quad .
     \end{equation*}
+    Where $P(\vec{X} - K)$ is the polynomial function
+    obtained by pre-composing $P$ with the map 
+    $\vec{X} \mapsto \seqof{X_i - K}{X_i \in \vec{X}}$.
 \end{definition}
 
-\begin{lemma}
-    \label{diff-one-monomial:lem}
-    Let $\vec{X}$ be a tuple of indeterminate, $Y$ be a fresh indeterminate,
-    and $P = Y^p M$ where $M$ is a \kl{monomial} over $\vec{X}$.
-    Then, for all $K \geq 0$,
-    for all $\nu \colon \vec{X}Y \topartial \Nat$
-    such that $\nu(Y) > K$ or $\nu(Y)$ is undefined,
-    $\restr{\Diff{K}{Y^pM}{Y^pM}}{\nu}$
-    has \kl{maximal monomials} with
-    coefficients at least $K$, or is the constant polynomial equal to zero.
-\end{lemma}
-\begin{proof}
-    Let us write $\Delta_K$ as a shorthand for
-    $\Diff{K}{Y^p M}{Y^p M}$.
-    Let us first remark that
-    there exists $Q \in \Rel[Y]$ of degree at most $p-2$
-    such that:
-    \begin{equation*}
-        \Delta_K
-        = KY^{p-1} M + Q M
-        \quad .
-    \end{equation*}
-    In particular, there is a unique \kl{maximal monomial} for $\Delta_{K}$,
-    which is precisely $K Y^{p-1} M$, because all monomials
-    in $Q M$ \kl{strictly divide} $Y^{p-1} M$.
-    
-    Let $\nu \colon \vec{X}Y \topartial \Nat$ be a partial valuation such that
-    $\restr{\Delta_K}{\nu} \neq 0$. If $\nu(Y)$ is undefined, then the
-    \kl{maximal monomial} of $\restr{\Delta_K}{\nu}$ is exactly $K Y^{p-1}
-    \restr{M}{\nu}$, and $\restr{M}{\nu} \neq 0$. Therefore, the unique
-    \kl{maximal monomial} of $\restr{\Delta_K}{\nu}$ has a \kl{positive
-    coefficient} that is at least $K$.
 
-    Otherwise, if $\nu(Y) > K$, then $\nu(Y) = K + l$ for some $l \in \Nat$.
-    Let us write $\mu$ for the restriction of $\nu$ to indeterminates of $\vec{X}$.
-    We can compute 
-    \begin{align*}
-        \restr{\Delta_K}{\nu}
-        &= (K + l)^p \restr{M}{\mu} - l^p \restr{M}{\mu}\\
-        &= ((K + l)^p - l^p) \restr{M}{\mu} \\
-        &= (K + l - l)\left(\sum_{i = 0}^{p-1} (K+l)^i l^{p-i}\right) 
-        \restr{M}{\mu} \\
-        &= K \alpha \restr{M}{\mu} 
-        \quad .
-    \end{align*}
-    Which proves that the \kl{maximal monomial} of
-    $\restr{\Delta_K}{\nu}$ has a coefficient
-    that is at least $K$.
-\end{proof}
+As one would expect, the discrete derivatives are linear operations on
+polynomials, that commutes with the partial application operators
+$\restr{\cdot}{\nu}$.
 
+\begin{fact}
+    \label{discrete-deriv-linear:fact}
+    For all tuple $\vec{X}$ of indeterminate,
+    for all $K \in \Nat$, for all partial function
+    $\nu \colon \vec{X} \topartial \Nat$:
+    \begin{enumerate}
+        \item $\Diff{K}{ \cdot } \colon \Rel[\vec{X}] \to \Rel[\vec{X}]$
+            is a linear operator,
+        \item $\restr{\cdot}{\nu} \colon \Rel[\vec{X}] \to \Rel[\vec{X}]$
+            is a linear operator,
+        \item $\Diff{K}{ \cdot } \circ \restr{\cdot}{\nu}
+            = \restr{\cdot}{\nu} \circ \Diff{K}{\cdot}$.
+    \end{enumerate}
+\end{fact}
 
-We can refine the above lemma to use it in the case where
-we do not have a single
-monomial.
-
-\begin{lemma}
-    \label{lem:delta-cool}
-    Let $\vec{X}$ be a tuple of indeterminate, and $Y$ be a fresh indeterminate.
-    Let $P \in \Rel[\vec{X}Y]$ be in $\CorrectPoly$, and $\alpha Y^p M$ be a
-    \kl{maximal monomial} of $P$, with $\alpha > 0$.
-    Then, there exists a computable $K \geq 0$
-    such that
-    for all $\nu \colon \vec{X}Y \topartial \Nat$
-    such that $\nu(Y) > K$ or $\nu(Y)$ is undefined,
-    the \kl{maximal monomials} of 
-    $\restr{\Diff{K}{Y^pM}{P}}{\nu}$
-    have \kl{positive coefficients}.
-\end{lemma}
-\begin{proof}
-    Let $N$ be greater than the sum of the absolute values of all coefficients
-    appearing in $P$, and let $K \defined N + 1$.
-    Let us write $\Delta_K$
-    as a shorthand for
-    $\Diff{K}{\alpha Y^p M}{P}$, and decompose $\Delta_K$ as follows:
-    \begin{equation*}
-        \Delta_K
-        = \underbrace{(P - \alpha Y^p M)}_{Q_1}
-        + \underbrace{\alpha (Y^p M - (Y - K)^p M)}_{Q_2}
-        \quad .
-    \end{equation*}
-
-    Applying \cref{diff-one-monomial:lem}, we know that for every partial
-    evaluation $\nu \colon \vec{X}Y \topartial \Nat$ such that $\nu(Y) > K$ or
-    $\nu(Y)$ is undefined, the \kl{maximal monomials} of $\restr{Q_2}{\nu}$
-    have \kl{positive coefficients}, and that these coefficients are either $0$
-    (the polynomial is constant equal to zero) or at least $K$.
-    
-    To conclude, it is just a matter of describing how \kl{maximal monomials}
-    of $\restr{\Delta_K}{\nu}$ can appear. Let us proceed by case analysis. If
-    $\restr{Q_2}{\nu} = 0$, then, $\restr{\alpha Y^p M}{\nu} = 0$, and
-    $\restr{\Delta_K}{\nu} = \restr{P}{\nu}$, in which case we conclude because
-    $P \in \CorrectPoly$. Otherwise, we know that $\restr{Q_2}{\nu} \neq 0$,
-    and that its (unique) \kl{maximal monomial} has a \kl{positive coefficient}
-    that is at least $K$.
-    Let us now consider a \kl{maximal monomial} $M_0$
-    of $\restr{P}{\nu}$. This \kl{monomial} is obtained
-    by summing \kl{monomials} from $\restr{Q_1}{\nu}$ and $\restr{Q_2}{\nu}$.
-    Note that, by construction 
-
-    Because $\alpha Y^p M$ is a \kl{maximal monomial} of
-    $P$, and since $K$ is greater than the sum of
-    the absolute values of all coefficients appearing in $P$,
-    we conclude that
-
-
-
-
-    If a \kl{maximal monomial} of $\restr{\Delta_K}{\nu}$
-    is obtained
-    by summing a of $\restr{Q_1}{\nu}$
-    by summing an element of the left hand side with an element
-    of the right hand side, it needs to be a \kl{maximal monomial}
-    of the right hand side, and the large value of $K$ guarantees
-    that the sum of coefficients is positive.
-    If it only appears on the right hand side, it is even better.
-    If it only appears on the left hand side, then
-    in particular it means that the monomial does not
-    divide $\restr{Y^p M}{\nu}$, hence has the same value
-    in $\restr{\Delta_K}{\nu}$ or in $\restr{P}{\nu}$,
-    which is guaranteed to be positive because $P \in \CorrectPoly$.
-
-    In particular, we conclude from this that
-    $\Delta_Y \geq 0$, on all tuples such that $Y > K$.
-\end{proof}
-
-Note that we cannot conclude in the above lemma that the result is in
-$\CorrectPoly$, because we have a restriction on the range where the variable
-$Y$ can be taken. The upcoming \cref{lem:correct-to-n-rat} is proven using an
-induction on the number $d$ of indeterminate, and the degrees of the
-\kl{maximal monomials}. To make the induction formal, let us define
-$\Monomials[\vec{X}]$ as the (infinite) set of all possible \kl{monomials} over
-$\vec{X}$, ordered by \kl{divisibility}. Remark that this set is isomorphic to
-$\Nat^{\vec{X}}$ with the product ordering, which is a
-\kl{well-quasi-ordering}.
+The upcoming \cref{lem:correct-to-n-rat} is proven using an induction on the
+number $d$ of indeterminate, and the degrees of the \kl{maximal monomials}. To
+make the induction formal, let us define $\Monomials[\vec{X}]$ as the
+(infinite) set of all possible \kl{monomials} over $\vec{X}$, ordered by
+\kl{divisibility}. Remark that this set is isomorphic to $\Nat^{\vec{X}}$ with
+the product ordering, which is a \kl{well-quasi-ordering}.
 
 \AP To a polynomial $P$, we assign the set $\MaximalMonomials(P)$ of its
 \kl{maximal monomials}, belonging to $\Pfin(\Monomials)$, which remains a
@@ -748,6 +644,37 @@ $\Nat^{\vec{X}}$ with the product ordering, which is a
 subsets, that is, $S_1 \hoareleq S_2$ whenever for all \kl{monomial} $M_1 \in
 S_1$, there exists a monomial $M_2 \in S_2$, such that $M_1$ \kl{divides}
 $M_2$.
+
+Let us now prove that the \kl{discrete differentiation} operator
+can be used to perform an induction.
+
+\begin{fact}
+    \label{derivation-simplifies:fact}
+    For all $P \in \Rel[\vec{X}]$ that are non-constant,
+    for all $K \in \Nat$,
+    $\MaximalMonomials(\Diff{K}{P}) \hoarele
+    \MaximalMonomials(P)$.
+\end{fact}
+
+\begin{fact}
+    Let $M,T$ be two \kl{monomials}, such that
+    $T$ \kl{strictly divides} $M$.
+    Then,
+    $T$ \kl{divides} some \kl{maximal monomial}
+    of $\Diff{K}{M}$.
+\end{fact}
+
+
+\begin{lemma}
+    \label{derivation-stabilises-correct:lem}
+    Let $P \in \CorrectPoly$,
+    $P_1$ be the sum of \kl{maximal monomials} of $P$,
+    and $P_2 \defined P - P_1$ be the sum of
+    non-maximal monomials of $P$.
+    There exists a computable $K$,
+    such that
+    $(\Diff{K}{P_1} + P_2) \in \CorrectPoly$.
+\end{lemma}
 
 \begin{lemma}
     \label{lem:correct-to-n-rat}
@@ -763,23 +690,32 @@ $M_2$.
     then because $P \in \CorrectPoly$, $P = n \in \Nat$, which is
     \kl{represented} by a \kl{star-free $\Nat$-polyregular function}.
 
-    \textbf{Induction:}
+    \textbf{Induction:} Assume that $P$ is not a constant polynomial.
+    Leveraging \cref{derivation-stabilises-correct:lem}, there exists a
+    computable $K \in \Nat$ such that $\Diff{K}{P} \in \CorrectPoly$. Using
+    \cref{derivation-simplifies:fact} (because $P$ is non-constant), we also
+    know that $\MaximalMonomials(\Diff{K}{P}) \hoarele \MaximalMonomials(P)$.
+    By induction hypothesis, we conclude that $\Diff{K}{P}$ is \kl{represented}
+    by a \kl{star-free $\Nat$-polyregular function} $f_1$.
+
+
+
     Assume that $\alpha Y^p M \in \MaximalMonomials(P)$
     for some indeterminate $Y$, $\alpha \neq 0$, and $p \geq 1$.
     Because $P \in \CorrectPoly$, we know that $\alpha > 0$.
     Using \cref{lem:delta-cool},
     we know that there exists a computable $K$ such that
     the polynomial
-    $\Diff{K} \defined P - \alpha (Y - K)^p M$
+    $\Diff{K}{P} \defined P - \alpha (Y - K)^p M$
     satisfies that for all partial valuations $\nu \colon Y\vec{X} \topartial \Nat$
     such that $\nu(Y) > K$ or $\nu(Y)$ is undefined,
     the \kl{maximal monomials} of $\Diff{K}$ have \kl{positive coefficients}.
-    In particular, $\Diff{K}(Y - K)$  belongs to $\CorrectPoly$.
-    Furthermore, $\MaximalMonomials(\Diff{K}) = \MaximalMonomials(\Diff{K}(Y - K))
+    In particular, $\Diff{K}{P} (Y - K)$  belongs to $\CorrectPoly$.
+    Furthermore, $\MaximalMonomials(\Diff{K}{P}) = \MaximalMonomials(\Diff{K}{Y - K})
     \hoarele \MaximalMonomials(P)$.
     By induction hypothesis,
     we conclude that
-    $\Diff{K}(Y - K)$ is \kl{represented}
+    $\Diff{K}{Y - K}$ is \kl{represented}
     by a \kl{star-free $\Nat$-polyregular function} $g_1$,
     \begin{equation*}
         f_1(Y, \vec{X}) \defined
