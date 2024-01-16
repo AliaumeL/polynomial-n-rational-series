@@ -1,0 +1,200 @@
+%! TeX program = xelatex
+%! lang = en-US
+\section{Beyond Polynomials}
+\label{sec:deciding}
+
+The goal of this section is to go beyond polynomials and characterize all
+$\Rel$-polyregular functions that are $\Nat$-polyregular, under the assumption
+that they are \kl{commutative}.
+
+\begin{theorem}
+    \label{decidable-n-poly:thm}
+    Given a \kl{commutative}
+    \kl{$\Rel$-polyregular function} $f \colon \Sigma^* \to \Rel$,
+    one can decide if $f$ can be computed by a \kl{$\Nat$-polyregular function},
+    and effectively compute a representation of $f$.
+\end{theorem}
+
+To prove the theorem, let us first provide a nice characterization of
+\kl{commutative} \kl{$\Rel$-polyregular functions} in terms of polynomials.
+This is actually a refinement of \cref{n-poly-combinatorics:lem} in the
+commutative case.
+
+\begin{lemma}
+    \label{decompose-polynomial:lem}
+    Let $f \colon \Sigma^* \to \Rel$ be a \kl{commutative}
+    \kl{$\Rel$-polyregular function}. There exists $\omega \in \Nat$,
+    and polynomials $\seqof{P_{\seqof{n_a}{a \in \Sigma}}}{ 0 \leq n_a < \omega}$,
+    such that for all $w \in \Sigma^*$,
+    \begin{equation*}
+        f(w) = P_{\seqof{\card[a]{w} [\omega]}{a \in \Sigma}}
+        (\seqof{\card[a]{w} / \omega}{a \in \Sigma}) \quad .
+    \end{equation*}
+    Which informally means that for every choice of rest modulo $\omega$
+    for every variable, there exists a polynomial describing the
+    behavior of $f$ when adding multiples of $\omega$ letters at a time.
+
+    Furthermore, the polynomials are computable from $f$.
+\end{lemma}
+\begin{proof}
+    equivalent partitions of the word, but commutativity?.q
+    Lemma 5.37 phd gaëtan.
+\end{proof}
+
+As a consequence, we conclude 
+\begin{proof}[Proof of \cref{decidable-n-poly:thm}]
+    We use \cref{decompose-polynomial:lem}
+    to effectively compute
+    a polynomial representation of $f$. Remark that
+    $f$ is a \kl{$\Nat$-polyregular function} if and only if
+    all these polynomials are \kl{$\Nat$-rational polynomials},
+    which is decidable thanks to
+    \cref{decide-correct-poly:lem,corrected-version:thm}.
+\end{proof}
+
+
+\begin{conjecture}
+    $\CorrectPoly$ is precisely composed of polynomials that
+    have non-negative coefficients in a \emph{binomial basis},
+    i.e., where polynomials are obtained
+    as sums and products of $\binom{X_i}{p_i}$.
+\end{conjecture}
+
+
+\subsection{Star-free $\Nat$-polyregular functions}
+\label{star-free:sec}
+
+
+Let us now prove that the above characterizations of
+commutative
+$\Nat$-polyregular functions can be combined with the recent
+advances in the study of $\Rel$-polyregular functions 
+\cite{LOPEZ23b}
+to prove the following theorem.
+
+\begin{theorem}
+    \label{zsf-npoly-nsf:thm}
+    Let $\Sigma$ be a finite alphabet, and $f \colon \Sigma^* \to \Nat$
+    be both a \kl{star-free $\Rel$-polyregular function}
+    and a \kl{commutative} \kl{$\Nat$-polyregular function}.
+    Then, $f$ is a \kl{commutative} \kl{star-free $\Nat$-polyregular function}.
+    That is, the following equality holds:
+    \begin{equation*}
+        \ZCommut \cap \ZSF[k] \cap \NPoly
+        = \ZCommut \cap \ZSF \cap \NPoly[k]
+        = \ZCommut \cap \NSF
+        \quad .
+    \end{equation*}
+\end{theorem}
+
+Note that this proves in the commutative case a conjecture that was 
+formulated by Thesis Gaetan, and that is non trivial, because 
+
+\begin{conjecture}
+    \label{nsf-zsf:conj}
+    In the general case, the following equation holds:
+    \begin{equation*}
+        \ZSF \cap \NPoly
+        = 
+        \NSF
+        \quad .
+    \end{equation*}
+\end{conjecture}
+
+As a corollary of \cref{zsf-npoly-nsf:thm} and the effective decision
+procedures of $\ZSF$ obtained in \cite{LOPEZ23b}, we conclude that $\NSF$ is
+decidable inside $\NPoly$ under the assumption of commutativity.
+
+\begin{corollary}
+    One can decide if a \kl{commutative} \kl{ $\Rel$-polyregular function}
+    can be realized by a \kl{star-free $\Nat$-polyregular function},
+    in which case the conversion is effective.
+\end{corollary}
+
+The key ingredient of this section is the use of a semantic characterization of
+\kl{star-free $\Rel$-polyregular functions} among \kl{$\Rel$-rational series}
+that generalizes the aperiodicity of languages to functions by the means of
+polynomial behaviors.
+
+\begin{definition}[Ultimately polynomial]
+    \label{ultimately-polynomial:def}
+    Let $\Sigma$ be a finite alphabet. 
+    A function $f \colon \Sigma^* \to \Rel$
+    is \intro{ultimately polynomial}
+    whenever there exists $N_0 \in \Nat$ such that
+    for all $n \in \Nat$
+    and for all words $\alpha_0, w_1, \alpha_1, \cdots, \alpha_{n-1}, w_n, \alpha_n
+    \in \Sigma^*$, there exists a polynomial $P \in \Rel[X_1, \dots, X_n]$
+    such that
+    \begin{equation*}
+        f\left(
+            \alpha_0 \prod_{i = 1}^{n} w_i^{X_i} \alpha_i
+        \right)
+        = 
+        P(X_1, \dots, X_n)
+        \quad 
+        \forall X_1, \dots, X_n \geq N_0
+        \quad .
+    \end{equation*}
+\end{definition}
+
+
+Let us recall from \cite{LOPEZ23b} that this definition correctly
+generalizes the indicator functions of regular languages.
+
+\begin{example}
+    A language $L$ is aperiodic if and only if 
+    the indicator function is ultimately polynomial.
+\end{example}
+\begin{proof}
+    TODO.
+\end{proof}
+
+\begin{proof}[Proof of \cref{zsf-npoly-nsf:thm}]
+    We proceed by induction on the size of the alphabet $\card{\Sigma}$.
+
+    \textbf{Base Case.} When $\Sigma$ is empty, $\Sigma^*$ contains
+    only the empty word $\varepsilon$, and because $f$ is a
+    \kl{$\Nat$-polyregular function}, $f(\varepsilon) \in \Nat$.
+    Note that $f$ is therefore a constant function, equal to a natural
+    number, hence belongs to $\NSF$.
+
+    
+    \textbf{Induction.}
+    Because $f$ is \kl{ultimately polynomial},
+    there exists $N_0 \in \Nat$, 
+    and $P \in \Rel[\seqof{X_a}{a \in \Sigma}]$ 
+    such that
+    \begin{equation*}
+        f\left( \prod_{a \in \Sigma} a^{X_a} \right)
+        = 
+        P(\seqof{X_a}{a \in \Sigma})
+        \quad
+        \text{ when }
+        \forall a \in \Sigma, X_a \geq N_0
+        \quad .
+    \end{equation*}
+    Furthermore, leveraging \cref{decompose-polynomial:lem},
+    we obtain $\omega \in \Nat$
+    and a family of polynomials 
+    $\seqof{P_{\seqof{n_a}{a \in \Sigma}}}{0 \leq n_a < \omega}$
+    such that.
+    Because each of those polynomials coincide with $P$ over an infinite
+    subgrid of $\Nat$,
+    we conclude that all polynomials are in fact equal to a single one.
+    we conclude that the polynomials 
+    $P_{\seqof{n_a}{a \in \Sigma}}$ are all equal.
+
+    Now, we conclude in particular that the function 
+    computing $P$ is \kl{$\Nat$-polyregular}, because $f$ is,
+    hence is computable by a \kl{star-free $\Nat$-polyregular function},
+    because of \cref{nsf-polynomials:thm}.
+    When fixing values of some indeterminate below $N_0$,
+    we obtain a new function $g$, that remains commutative,
+    remains ultimately polynomial, and remains \kl{$\Nat$-polyregular}.
+    By induction hypothesis, this function $g$ is also 
+    \kl{star-free $\Nat$-polyregular}, and we conclude
+    that 
+    $f = P + \sum g$ which remains star free.
+\end{proof}
+

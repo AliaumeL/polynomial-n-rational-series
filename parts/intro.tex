@@ -1,0 +1,129 @@
+%! TeX program = xelatex
+%! lang = en-US
+% MAIN MATTER
+\section{Introduction}
+\label{introduction:sec}
+
+Traditional results from automata theory state the equivalence of languages
+defined in terms of deterministic finite automata and regular expressions
+\cite{kleene1956representation}, Monadic Second Order Logic ($\MSO$)
+\cite{buchi1960weak}, or finite monoids \cite{schutzenberger1961definition}.
+Among regular languages, there exists a robust subclass sharing similar
+characterizations, namely the \emph{star-free} regular languages. These are
+obtained via counter-free automata \cite{mcnaughton1971counter}, represented by
+star-free regular expressions \cite{schutzenberger1965finite}, definable in
+First Order Logic ($\FO$) \cite{perrin1986first}, and recognized by aperiodic
+monoids \cite{schutzenberger1965finite}. It is decidable whether a regular
+language is aperiodic, thanks to the characterizations in terms of minimal
+automaton and/or syntactic monoid.
+
+There have been recurrent attempts to generalize the notions of regularity from
+languages to functions, leading to classes of various expressiveness
+(sequential, rational, regular, and \kl{polyregular functions}) \cite[see,
+e.g.][]{bojanczyk2019string}. In this paper, we will focus on \kl{polyregular
+functions}, that shares with regular languages the characterizations in terms
+of logic (via $\MSO$ interpretations), automata (via pebble automata or SST
+\cite{}), and adds new bridges with programming languages (lambda-terms)
+for-transducers. Although the class of "star-free" polyregular functions is
+defined and similarly characterized using first-order logic.
+
+Classical problems, including the decidability of aperiodicity, become
+difficult in the case of \kl{polyregular functions}, due to the lack of
+canonical objects akin to the syntactic monoid or the minimal automaton.
+Indeed, for sequential functions that admit a canonical object, aperiodicity is
+decidable \cite{choffrut03}, and more recently, it aperiodicity has been proven
+decidable for rational functions
+\cite{filiot2016aperiodicity,filiot2018canonical}. The problem remains open for
+regular functions, although it has been proven decidable when changing the
+semantics of function equality to account for the \emph{origins} in the output
+\cite{bojanczyk14}.
+
+Another way to approach the problem of deciding star-free for polyregular
+functions is to not restrict the computational power, nor change the semantics,
+but consider restrictions of the output alphabet. In particular, there have
+been successful results proven on \emph{unary polyregular functions}, also
+known as \kl{$\Nat$-polyregular functions}
+\cite{doueneau2021pebble,doueneau2022hiding}. Let us note that results on
+\emph{unary output functions} often generalize to the slightly more general
+class of functions with \emph{commutative output}, and that algorithms leverage
+the absence of combinatorial information in the output. Furthermore,
+\kl{$\Nat$-polyregular functions} benefit from theorems proven in the field of
+rational series \cite{berstel2011noncommutative}, where they coincide with
+weighted automata of polynomial ambiguity, rational series of polynomial
+growth, and a notion of quantitative $\MSO$
+\cite{berstel2011noncommutative,kreutzer2013,schutzenberger1962}. Although
+promising, the restriction to unary output did not yield effective procedure to
+decide the aperiodicity of polyregular functions.
+Notice that unary outputs in $\Rel$ and $\Nat$
+are therefore special kind of weighted automata,
+and that questions arising from the weighted automata
+theory (good first order logic?) are also connected.
+\cite{droste2019aperiodic,reutenauer_series_1980}.
+
+Recently, the introduction of $\Rel$-output polyregular functions, called
+\kl{$\Rel$-polyregular functions} (and more generally, commutative invertible
+outputs) allowed to solve the general problem \cite{LOPEZ23b}. Note that
+$\Rel$-output generalizes $\Nat$-output, but somehow has a combinatorial
+description that is farther away from traditional \kl{polyregular functions}
+because of the invertible outputs. The proof relies on the construction of a
+canonical object essentially based on differences between functions, which is
+not applicable to unary output. Note that already for rational series, the
+problem is open.
+
+
+We write $\Poly$ for the class of \kl{polyregular functions},
+$\SF$ for the class of \kl{star-free polyregular functions},
+$\NRat$ for the class of \kl{$\Nat$-rational series},
+and $\ZRat$ for the class of \kl{$\Rel$-rational series}.
+Arrows denote strict inclusions, and effectiveness
+(both in terms of decidability and of effective representation)
+is represented by thick double arrows.
+Inclusions that are suspected to be effective have a question mark.
+It is also conjectured that $\NPoly \cap \ZSF = \NSF$.
+
+\begin{figure}
+    \includestandalone[width=\linewidth]{tikz/class-inclusions}
+    \caption{
+        Decidability and inclusions of classes of functions. 
+    }
+\end{figure}
+
+It was conjectured in a thesis that some particular form of polynomials
+would characterize star-free functions.This paper follows the line of
+research on \kl{polyregular functions} that focuses on semantic
+characterizations of the asymptotic behavior, rather than the construction
+of canonical objects of computation
+\cite{doueneau2021pebble,doueneau2022hiding,LOPEZ23b}. The goal was to
+decide arrows X,Y and Z, namely, to understand precisely the relationship
+between star-free and $\Nat$ output. In the case of \kl{$\Nat$-rational
+series}, a result of \citeauthor{KARH77} characterizes \kl{commutative}
+\kl{$\Nat$-rational series} among \kl{$\Rel$-rational series}
+\cite{KARH77}.
+This conjecture was based on the previously introduced result of
+\textcite[Theorem 3.3]{KARH77}, which we will disprove in \cref{sec:c-example}.
+We then provide a corrected version of the theorem, and prove the conjecture of
+Douéneau in the case of \emph{commutative} $\Nat$-rational series of polynomial
+growth.
+
+\hrule
+
+\paragraph{Contributions.} 
+\begin{itemize}
+    \item We provide a candidate semantic characterization
+    \item We prove that it is correct for commutative inputs
+    \item We provide a counter-example to the theorem of nanania.
+    \item We show that effective procedures are possible for all arrows 
+        and answer positively to the conjecture of XX
+        in the case of commutative inputs.
+\end{itemize}
+
+
+\paragraph*{Outline of the paper.}
+\begin{itemize}
+    \item In a first section, we recall the preliminary definitions.
+    \item In a second section, we provide a counter example to the
+        theorem of XX.
+    \item In a third section, we provide an alternative result.
+    \item In a fourth section, we make the results effective,
+        and compute everyting.
+\end{itemize}

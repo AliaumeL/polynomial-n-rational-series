@@ -12,6 +12,10 @@
 \newcommand{\Pfin}{\mathcal{P}_{\mathsf{fin}}}
 
 \newcommand{\MSO}{\mathsf{MSO}}
+\newcommand{\FO}{\mathsf{FO}}
+
+\newcommand{\ind}[1]{\mathbf{1}_{#1}}
+\newcommand{\bigO}{\mathcal{O}}
 
 
 \newcommand{\topartial}{\rightharpoonup}
@@ -31,8 +35,8 @@
 \newcommand{\CoveredPoly}{\mathsf{PolyKu}}
 \newcommand{\CorrectPoly}{\mathsf{PolyRec}}
 
-\NewDocumentCommand{\Monomials}{o}{\IfNoValueTF{#1}{\mathsf{Monom}}{\mathsf{Monom}[#1]}}
-\NewDocumentCommand{\MaximalMonomials}{}{\mathop{\mathsf{maxmonom}}}
+\NewDocumentCommand{\Monomials}{o}{\IfNoValueTF{#1}{\mathsf{Mon}}{\mathsf{Mon}[#1]}}
+\NewDocumentCommand{\MaximalMonomials}{}{\mathop{\mathsf{maxmon}}}
 
 % Differences of polynomials
 \NewDocumentCommand{\Diff}{m m}{ \Delta_{#1}(#2) }
@@ -43,6 +47,8 @@
 \newcommand{\restr}[2]{\kl[\restr]{[}{#1}\kl[\restr]{]}_{#2}}
 \knowledge{\restr}{notion}
 
+\NewDocumentCommand{\Poly}{O{}}{\mathsf{Poly}_{#1}}
+\NewDocumentCommand{\SF}{O{}}{\mathsf{SF}_{#1}}
 \NewDocumentCommand{\NPoly}{O{}}{\mathbb{N}\mathsf{Poly}_{#1}}
 \NewDocumentCommand{\ZPoly}{O{}}{\mathbb{Z}\mathsf{Poly}_{#1}}
 \NewDocumentCommand{\NSF}{O{}}{\mathbb{N}\mathsf{SF}_{#1}}
@@ -51,7 +57,7 @@
 \NewDocumentCommand{\NRat}{}{\mathbb{N}\mathsf{Series}}
 \NewDocumentCommand{\ZCommut}{}{\mathsf{Commutative}}
 
-\NewDocumentCommand{\commute}{O{\cdot}}{\llbracket #1 \rrbracket}
+\NewDocumentCommand{\commute}{O{\cdot}}{\{\!\{ #1 \}\!\}}
 
 
 
@@ -59,3 +65,9 @@
 
 \NewDocumentCommand{\hoareleq}{}{\leq_{\mathcal{H}}}
 \NewDocumentCommand{\hoarele}{}{<_{\mathcal{H}}}
+
+\newcommand{\growth}[1]{\mathsf{growth}_{#1}}
+
+\NewDocumentCommand{\BadPoly}{}{P_{\mathsf{bad}}}
+
+\NewDocumentCommand{\translate}{m}{\tau_{#1}}
