@@ -1,7 +1,10 @@
 %% KNOWLEDGE FILE %%
 
 \knowledge{notion}
+ | growth rate
+\knowledge{notion}
  | commutative
+ | commutativity
 \knowledge{notion}
  | $\Rel $-rational polynomial
  | $\Rel $-rational polynomials
@@ -17,6 +20,10 @@
 
 \knowledge{notion}
  | polyregular function
+ | polyregular functions
+
+\knowledge{notion}
+ | star-free polyregular functions
 
 \knowledge{notion}
  | $\Rel $-polyregular
@@ -26,6 +33,7 @@
 \knowledge{notion}
  | $\Nat $-polyregular
  | $\Nat $-polyregular function
+ | $\Nat $-polyregular functions
 
 \knowledge{notion}
  | star-free $\Rel $-polyregular function
@@ -42,13 +50,23 @@
  | polynomial growth
 \knowledge{notion}
  | represented
+ | represents
 \knowledge{notion}
  | ultimately polynomial
+\knowledge{notion}
+ | $(k,\Nat )$-combinatorial
+
+\knowledge{notion}
+ | divides
+ | strictly divides
+ | divide
+ | divisibility ordering
 
 \knowledge{notion}
  | non-negative
 \knowledge{notion}
  | monomial
+ | monomials
 \knowledge{notion}
  | maximal monomial
  | maximal monomials
@@ -57,3 +75,18 @@
  | positive monomials
  | positive coefficients
 
+\knowledge{notion}
+ | discrete derivative
+ | discrete differentiation
+ | discrete derivatives
+\knowledge{notion}
+ | translations
+ | translation function
+ | translation operators
+\knowledge{notion}
+ | well-quasi-ordering
+ | wqo
+ | wqos
+
+\knowledge{notion}
+ | Hoare ordering

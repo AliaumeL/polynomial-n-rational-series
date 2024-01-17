@@ -3,38 +3,72 @@
 \section{Beyond Polynomials}
 \label{sec:deciding}
 
+\subsection{$\Nat$-polyregular functions}
+
 The goal of this section is to go beyond polynomials and characterize all
 $\Rel$-polyregular functions that are $\Nat$-polyregular, under the assumption
 that they are \kl{commutative}.
 
+\begin{definition}
+    \label{k-combinatorial:def}
+    Let $k \in \Nat$, and $f \colon \Sigma^* \to \Rel$
+    be a \kl{$\Rel$-polyregular function}. The function $f$ is 
+    \intro{$(k,\Nat)$-combinatorial} if there exists $\omega \in \Nat$,
+    such that
+    for all
+    $\alpha_0, \dots, \alpha_k \in \Sigma^*$,
+    for all $u_1, \dots, u_k \in \Sigma^*$,
+    there exists a \kl{$\Nat$-rational polynomial} $P$
+    satisfying for all $X_1, \dots, X_k \geq \omega$:
+    \begin{equation*}
+        f
+        \left(
+            \alpha_0 \prod_{i = 1}^k u_i^{\omega X_i} \alpha_i
+        \right)
+        = 
+        P(X_1, \dots, X_k) \quad .
+    \end{equation*}
+\end{definition}
+
 \begin{theorem}
     \label{decidable-n-poly:thm}
-    Given a \kl{commutative}
-    \kl{$\Rel$-polyregular function} $f \colon \Sigma^* \to \Rel$,
-    one can decide if $f$ can be computed by a \kl{$\Nat$-polyregular function},
-    and effectively compute a representation of $f$.
+    Let $k \in \Nat$, and 
+    let $f \in \ZPoly[k]$ be a \kl{commutative} \kl{$\Rel$-polyregular function}.
+    The following are equivalent:
+    \begin{enumerate}
+        \item $f$ is \kl{$(k,\Nat)$-combinatorial},
+        \item $f \in \NPoly$,
+    \end{enumerate}
+    Furthermore, the properties are decidable,
+    and one can effectively compute a representation of $f$.
 \end{theorem}
 
 To prove the theorem, let us first provide a nice characterization of
 \kl{commutative} \kl{$\Rel$-polyregular functions} in terms of polynomials.
 This is actually a refinement of \cref{n-poly-combinatorics:lem} in the
-commutative case.
+commutative case. Informally, we state that \kl{commutative}
+\kl{$\Rel$-polyregular functions} are obtained by applying different
+\kl{$\Rel$-rational polynomials} based on the modulos...
+
+\AP Given $\omega \in \Nat$, let us write $\phi \colon \Nat \to \set{0, \dots,
+\omega} \times \set{0, \dots, \omega - 1}$ defined as $\phi(n) = (t, r)$ where
+$t = \min(n, \omega)$, and $r$ is the rest of the Euclidian division of $n$ by
+$\omega$.
+We let $\phi^\dagger \colon \Nat^k \to$.
+
 
 \begin{lemma}
     \label{decompose-polynomial:lem}
     Let $f \colon \Sigma^* \to \Rel$ be a \kl{commutative}
-    \kl{$\Rel$-polyregular function}. There exists $\omega \in \Nat$,
-    and polynomials $\seqof{P_{\seqof{n_a}{a \in \Sigma}}}{ 0 \leq n_a < \omega}$,
+    \kl{$\Rel$-polyregular function}. There exists a computable
+    $\omega \in \Nat$,
+    and computable 
+    polynomials $\seqof{P_{\rho}}{\rho \in \Delta_\omega}$,
     such that for all $w \in \Sigma^*$,
     \begin{equation*}
-        f(w) = P_{\seqof{\card[a]{w} [\omega]}{a \in \Sigma}}
-        (\seqof{\card[a]{w} / \omega}{a \in \Sigma}) \quad .
+        f\left(a_1^{X_1} \cdots a_n ^{X_n}\right) = P_{\phi(X_1, \dots, X_n)} (X_1 / \omega, \dots, X_n / \omega)
+        \quad .
     \end{equation*}
-    Which informally means that for every choice of rest modulo $\omega$
-    for every variable, there exists a polynomial describing the
-    behavior of $f$ when adding multiples of $\omega$ letters at a time.
-
-    Furthermore, the polynomials are computable from $f$.
 \end{lemma}
 \begin{proof}
     equivalent partitions of the word, but commutativity?.q
@@ -53,36 +87,23 @@ As a consequence, we conclude
 \end{proof}
 
 
-\begin{conjecture}
-    $\CorrectPoly$ is precisely composed of polynomials that
-    have non-negative coefficients in a \emph{binomial basis},
-    i.e., where polynomials are obtained
-    as sums and products of $\binom{X_i}{p_i}$.
-\end{conjecture}
-
 
 \subsection{Star-free $\Nat$-polyregular functions}
 \label{star-free:sec}
 
 
-Let us now prove that the above characterizations of
-commutative
-$\Nat$-polyregular functions can be combined with the recent
-advances in the study of $\Rel$-polyregular functions 
-\cite{LOPEZ23b}
-to prove the following theorem.
+Let us now prove that the above characterizations of \kl{commutative}
+\kl{$\Nat$-polyregular functions} can be combined with the recent advances in
+the study of \kl{$\Rel$-polyregular functions} \cite{LOPEZ23b} to prove the
+following theorem.
 
 \begin{theorem}
     \label{zsf-npoly-nsf:thm}
-    Let $\Sigma$ be a finite alphabet, and $f \colon \Sigma^* \to \Nat$
-    be both a \kl{star-free $\Rel$-polyregular function}
-    and a \kl{commutative} \kl{$\Nat$-polyregular function}.
-    Then, $f$ is a \kl{commutative} \kl{star-free $\Nat$-polyregular function}.
-    That is, the following equality holds:
+    Let $\Sigma$ be a finite alphabet and $k \in \Nat$.
+    Then,
     \begin{equation*}
         \ZCommut \cap \ZSF[k] \cap \NPoly
-        = \ZCommut \cap \ZSF \cap \NPoly[k]
-        = \ZCommut \cap \NSF
+        = \ZCommut \cap \NSF[k]
         \quad .
     \end{equation*}
 \end{theorem}
@@ -92,11 +113,11 @@ formulated by Thesis Gaetan, and that is non trivial, because
 
 \begin{conjecture}
     \label{nsf-zsf:conj}
-    In the general case, the following equation holds:
+    In the general case, the following equation holds for all $k \in \Nat$:
     \begin{equation*}
-        \ZSF \cap \NPoly
+        \ZSF[k] \cap \NPoly
         = 
-        \NSF
+        \NSF[k]
         \quad .
     \end{equation*}
 \end{conjecture}
@@ -105,11 +126,20 @@ As a corollary of \cref{zsf-npoly-nsf:thm} and the effective decision
 procedures of $\ZSF$ obtained in \cite{LOPEZ23b}, we conclude that $\NSF$ is
 decidable inside $\NPoly$ under the assumption of commutativity.
 
+\textbf{TODO: add the growth rate here, we are actually minimising it}.
 \begin{corollary}
-    One can decide if a \kl{commutative} \kl{ $\Rel$-polyregular function}
+    One can decide if a \kl{commutative} \kl{$\Rel$-polyregular function}
     can be realized by a \kl{star-free $\Nat$-polyregular function},
     in which case the conversion is effective.
 \end{corollary}
+\begin{proof}
+    From \cite[Theorem V.13]{LOPEZ23b}, it is decidable whether
+    $f \in \ZSF[k]$ and from \cref{decidable-n-poly:thm}
+    it is decidable whether $f \in \NPoly$.
+    Furthermore, one can enumerate functions in $\NSF[k]$,
+    and check equivalence to effectively represent $f$ as a
+    \kl{star-free $\Nat$-polyregular function}.
+\end{proof}
 
 The key ingredient of this section is the use of a semantic characterization of
 \kl{star-free $\Rel$-polyregular functions} among \kl{$\Rel$-rational series}
@@ -197,4 +227,132 @@ generalizes the indicator functions of regular languages.
     that 
     $f = P + \sum g$ which remains star free.
 \end{proof}
+
+
+\subsection{Non-negative Residual Transducers}
+
+The goal of the upcoming section is to provide a notion of residual transducer
+for \kl{commutative} \kl{$\Nat$-polyregular functions}.
+
+\begin{fact}
+    For every $K \in \Nat$, and every $n \in \Nat$,
+    $\Nat^n$ is a \kl{well-quasi-ordering}
+    when endowed with the quasi-ordering $\vec{u} \leq_K \vec{v}$
+    if and only if $\vec{u} = \vec{v}$ or
+    $\vec{u}$ is smaller than $\vec{v}$ for the product ordering and
+    $\sum_{i = 1}^n  (\vec{v} - \vec{u})_i \geq K$.
+\end{fact}
+\begin{proof}
+    First, $\Nat^n$ with the product ordering is a \kl{well-quasi-ordering}.
+    Therefore, given a sequence $\seqof{\vec{u}_i}{i \in \Nat}$,
+    one can extract an infinite monotone subsequence for
+    the product ordering.
+    Either there exists $i < j$ such that $\vec{u}_i = \vec{u}_j$
+    in the subsequence, in which case $\vec{u}_i \leq \vec{u}_j$
+    and the original sequence was good. Or for all $i < j$,
+    we have $\vec{u}_i$ that is strictly smaller than 
+    $\vec{u}_j$ for the product ordering. As a consequence,
+    $\vec{u}_0 \leq \vec{u}_K$.
+\end{proof}
+
+
+\begin{fact}
+    Let $P \in \Nat[X,\vec{Y}]$, and $K,L \in \Nat$,
+    then $P(X+L, \vec{Y}) - P(X+K,\vec{Y}) \in \Nat[X, \vec{Y}]$
+    whenever $L \geq K$.
+\end{fact}
+\begin{proof}
+    We can write
+    $P = \sum_{i = 0}^n P_i(\vec{Y}) X^i$, with $P_i \in \Nat[\vec{Y}]$.
+    Now,
+    $P(X+L,\vec{Y}) - P(X+K,\vec{Y})$
+    is precisely
+    $\sum_{i = 1}^n P_i(\vec{Y}) (L-K) \left[ \sum_{j + l + 1= i} (X+L)^j (X+K)^l \right]$,
+    remaining with positive coefficients.
+\end{proof}
+
+\begin{fact}
+    Let $P \in \CorrectPoly[X,\vec{Y}]$, and $K,L \in \Nat$,
+    then $P(X+L, \vec{Y}) - P(X+K,\vec{Y}) \in \CorrectPoly$
+    whenever $L \geq K$.
+\end{fact}
+\begin{proof}
+    We can write
+    $P = \sum_{i = 0}^n P_i(\vec{Y}) X^i$, with $P_i \in \Nat[\vec{Y}]$.
+    Now,
+    $P(X+L,\vec{Y}) - P(X+K,\vec{Y})$
+    is precisely
+    $\sum_{i = 1}^n P_i(\vec{Y}) (L-K) \left[ \sum_{j + l + 1= i} (X+L)^j (X+K)^l \right]$.
+    Now, $P_i(\vec{Y})$
+    remaining with positive coefficients.
+\end{proof}
+
+\begin{fact}
+    Let $P \in \CorrectPoly[X_1, \dots, X_n]$. 
+    For all
+    $\vec{u} \leq \vec{v} \in \Nat^n$,
+    $Q(X_1, \dots, X_n)
+    \defined 
+    P(X_1 + v_1, \dots, X_n + v_n)
+    -
+    P(X_1 + u_1, \dots, X_n + u_n)$
+    belongs to $\CorrectPoly[X_1, \dots, X_n]$.
+\end{fact}
+\begin{proof}
+    Let us consider $K \in \Nat$ such that for all partial valuations
+    $\nu \colon \vec{X} \topartial \Nat$,
+    $\translate{K}(\restr{P}{\nu}) \in \Nat[\vec{X}]$.
+
+    Remark that
+    \begin{align*}
+        Q
+        &= 
+        P(X_1 + v_1, \dots, X_n + v_n)
+        -
+        P(X_1 + u_1, \dots, X_n + u_n) \\
+        &=
+        P(X_1 + v_1, X_2 + v_2 , \dots, X_n + v_n) - P(X_1 + u_1, X_2 + v_2, \dots, X_n + v_n) \\
+        &+
+        P(X_1 + u_1, X_2 + v_2, \dots, X_n + v_n) - P(X_1 + u_1, X_2 + u_2, \dots, X_n + v_n) \\
+        &+ \dots
+    \end{align*}
+
+    Let $\nu \colon \vec{X} \topartial \Nat$
+    be a partial valuation, let us show that
+    $\translate{K}(\restr{Q}{\nu}) \in \Nat[\vec{X}]$.
+
+    \begin{align*}
+        \translate{K}(\restr{Q}{\nu})
+        &= 
+        \translate{K}(\restr{P(X_1 + v_1, \dots, X_n + v_n)}{\nu})
+        -
+        \translate{K}(\restr{P(X_1 + u_1, \dots, X_n + u_n)}{\nu})
+    \end{align*}
+\end{proof}
+
+\begin{lemma}
+    Let $k \in \Nat$,
+    $f \in \NPoly[k]$,
+    and $\seqof{u_i}{i \in \Nat}$ be a sequence of
+    elements in $\Nat^n$. There exists $i < j$
+    such that
+    $f(u_j \cdot) - f(u_i \cdot) \in \NPoly[k-1]$.
+\end{lemma}
+
+\begin{defintion}
+    Residual $\Nat$-transducer.
+\end{definition}
+
+\begin{lemma}
+    Computable 
+\end{lemma}
+
+\begin{theorem}
+    If and only if this one is counter-free.
+\end{theorem}
+
+Note that it is not needed for decidability, as we are able to use directly the
+results on $\ZSF$, but this provides an independent proof, and highlights the
+versatility of this notion of "residual transducer".
+
 

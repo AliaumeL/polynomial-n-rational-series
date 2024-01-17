@@ -36,39 +36,6 @@ $\CorrectPoly$. For that, notice that for $\BadPoly$ introduced in
 \cref{def:bad-polynomial}, $\BadPoly(X,Y,1) = 3X^2 + 3Y^2 - 2XY$, which has a negative
 coefficient for a \kl{maximal monomial}, namely $-2XY$. 
 
-\begin{remark}
-    \label{inductive-correct-poly:remark}
-    Let $P \in \Rel[X,\vec{Y}]$ be a polynomial.
-    The following are equivalent:
-    \begin{enumerate}
-        \item $P \in \CorrectPoly$,
-        \item The \kl{maximal monomials} of 
-            $P$ are \kl{non-negative}
-            and 
-            for all $n \in \Nat$,
-            $\restr{P}{X = n} \in \CorrectPoly$.
-    \end{enumerate}
-    Furthermore, if $P \in \Rel[]$ is a polynomial without
-    indeterminate, then $P \in \CorrectPoly$ if and only
-    if its \kl{maximal monomial} (the constant term)
-    is \kl{non-negative}.
-\end{remark}
-\begin{proof}
-    By induction on the number of indeterminate,
-    leveraging the fact that if there exists at least one indeterminate
-    $X$, i.e., that $\vec{X} = X \vec{Y}$, then for all $n \in \Nat$
-    and partial function $\nu \colon \vec{Y} \topartial \Nat$,
-    we have 
-    \begin{equation*}
-        \restr{\left(\restr{P}{X = n}\right)}{\nu} = \restr{P}{ \nu[X = n]}
-        \quad
-        ,
-    \end{equation*}
-    where $\nu[X = n]$ is the partial function from
-    $\vec{X}$ to $\Nat$ that coincides with $\nu$ on $\vec{Y}$
-    and maps $X$ to $n$.
-\end{proof}
-
 Let us now prove that \kl{$\Nat$-rational polynomials} are in $\CorrectPoly$.
 The following \cref{n-poly-combinatorics:lem} is a slight refinement over the
 classical combinatorial analysis of \kl{$\Rel$-polyregular functions}
@@ -353,37 +320,6 @@ it extracts \emph{submaximal} monomials from a given polynomial.
     $(\Diff{K}{P_1} + P_2) \in \CorrectPoly$.
 \end{lemma}
 
-\begin{lemma}
-    \label{derivation-translation:lem}
-    Let $P \in \Rel[\vec{X}]$, the following are equivalent
-    \begin{enumerate}
-        \item $P \in \CorrectPoly$,
-        \item $P$ is \kl{non-negative}
-            and there exists a computable $K \in \Nat$
-            such that $\translate{K}(P) \in \Nat[\vec{X}]$.
-    \end{enumerate}
-\end{lemma}
-\begin{proof}
-    \textbf{TODO: do the proof}.
-    To prove \cref{corrected-5:item} $\implies$ \cref{corrected-1:item}, it
-    suffices to remark that for every polynomial $P$, for every partial
-    valuation $\nu \colon \vec{X} \topartial \Nat$, for every $K \in \Nat$, the
-    \kl{maximal monomials} of $\restr{\translate{K}(P)}{\nu}$ are exactly the
-    \kl{maximal monomials} of $\restr{P}{\nu}$, the former being
-    \kl{non-negative} if $\translate{K}(P) \in \Nat[\vec{X}]$.
-
-    Conversely, the implication \cref{corrected-1:item} $\implies$
-    \cref{corrected-5:item} follows immediately from the fact that polynomials
-    in $\CorrectPoly$ are \kl{non-negative}, and on the following induction.
-    Let $P \in \CorrectPoly$, if $P$ is constant, then $\translate{0}(P) \in \Nat[\vec{X}]$.
-    Otherwise, if $P = P_1 + P_2$ where $P_1$ is the sum of the \kl{maximal
-    monomials} of $P$, there exists $K \in \Nat$ such that $Q \defined
-    \Diff{K}{P_1}+ P_2$ belongs to $\CorrectPoly$,
-    and by induction hypothesis there exists $L \in
-    \Nat$ such that $\translate{L}{Q} \in \Nat[\vec{X}]$. As a consequence,
-    $\translate{K+L}(P) = \translate{L}(P_1) + \translate{K}(\translate{L}(Q))$
-    is a sum of two polynomials in $\Nat[\vec{X}]$, and we have concluded.
-\end{proof}
 
 \begin{lemma}
     \label{lem:correct-to-n-rat}
@@ -456,10 +392,10 @@ it extracts \emph{submaximal} monomials from a given polynomial.
 \end{proof}
 
 While \cref{lem:correct-to-n-rat} provides effective conversion, it does not
-explicitly state that the nembership is decidable. However, it is not too
+explicitly state that the membership is decidable. However, it is not too
 difficult to remark that $\CorrectPoly$, the proof scheme can be followed to
-obtain decidability. For the sake of completeness, we provide a self-contained
-proof hereafter, that furthermore 
+obtain decidability. For the sake of completeness and readability,
+we extract this fact in the following lemma.
 
 \begin{lemma}
     \label{decidability-correct:lem}
@@ -545,8 +481,6 @@ We are now ready to state the corrected and generalized version of
         \item \label{corrected-2:item} $P$ is \kl{represented} by a \kl{$\Nat$-rational series},
         \item \label{corrected-3:item} $P$ is \kl{represented} by a \kl{$\Nat$-polyregular function},
         \item \label{corrected-4:item} $P$ is \kl{represented} by a \kl{star-free $\Nat$-polyregular function},
-        \item \label{corrected-5:item} $P$ is \kl{non-negative}
-            and there exists $K \in \Nat$ such that $\translate{K}(P) \in \Nat[\vec{X}]$.
     \end{enumerate}
     Furthermore, the membership is decidable, and effective conversion
     procedures exist between all the representations.
@@ -564,10 +498,6 @@ We are now ready to state the corrected and generalized version of
     Note that the lemmas provide effective conversion procedures,
     and that \cref{lem:correct-to-n-rat} also provides a decision
     procedure.
-
-    The equivalence between
-    \cref{corrected-5:item} and \cref{corrected-1:item}
-    is precisely \cref{derivation-translation:lem}.
 \end{proof}
 
 Let us now state, for the sake of a completeness, the equality of
@@ -599,5 +529,86 @@ other works based on \cite{KARH77}.
     have \kl{positive coefficients}.
     The same reasoning applies \emph{a fortiori} in the case where
     we fix the two indeterminate, leading to a constant polynomial.
+\end{proof}
+
+
+It was conjectured in the 
+\cite[Open question 5.55]{gaetanphd}.
+\cite[Conjecture 7.61]{gaetanphd}
+Let us remark that a previous conjecture was not true, and provide the
+recursively defined variant. This can be understood in the light of
+\cref{corrected-version:thm}, as the fact that \kl{$\Nat$-rational polynomials}
+are essentially $\Nat$-polynomials.
+
+\begin{example}
+    The polynomial $\BadPoly$ is not a 
+    \kl{$\Nat$-rational polynomial},
+    but is \kl{non-negative} and satisfies
+    $\translate{10}(\BadPoly) \in \Nat[\vec{X}]$.
+\end{example}
+
+\begin{lemma}
+    \label{derivation-translation:lem}
+    Let $P \in \Rel[\vec{X}]$, the following are equivalent
+    \begin{enumerate}
+        \item \label{d-t-correct:item} $P \in \CorrectPoly$,
+        \item \label{d-t-transl:item}
+            There exists $K \in \Nat$,
+            such that for every partial
+            function $\nu \colon \vec{X} \topartial \Nat$,
+            $\translate{K}(\restr{P}{\nu}) \in \Nat[\vec{X}]$.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    To prove \cref{d-t-transl:item} $\implies$
+    \cref{d-t-correct:item}, let us remark that
+    if $P$ is \kl{non-negative} and $\translate{K}(P) \in \Nat[\vec{X}]$,
+    then $\translate{K}(P) \in \CorrectPoly$ thanks to
+    \cref{n-poly-n-poly:example}.
+    In particular, 
+    then for every partial valuation 
+    $\nu \colon \vec{X} \topartial \Nat$, 
+    $\restr{\translate{K}(P)}{\nu} \in \Nat[\vec{X}]$,
+    and in particular conclude that
+    \kl{maximal monomials} of $\restr{\translate{K}(P)}{\nu}$ are exactly the
+    \kl{maximal monomials} of $\restr{P}{\nu}$, the former being
+    \kl{non-negative} if $\translate{K}(P) \in \Nat[\vec{X}]$.
+
+    Conversely, the implication \cref{d-t-correct:item} $\implies$
+    \cref{d-t-transl:item} is proven by induction on $\MaximalMonomials(P)$.
+    If $P$ is a constant polynomial, then $P = n$ for some $n \in \Nat$,
+    and we conclude that $\translate{0}(P) \in \Nat[\vec{X}]$.
+    Otherwise, $P = P_1 + P_2$ where $P_1$ is the sum of the \kl{maximal
+    monomials} of $P$.
+    Using \cref{derivation-stabilises-correct:lem},
+    there exists a computable $K \in \Nat$
+    such that 
+    $Q \defined
+    \Diff{K}{P_1} + P_2$ belongs to $\CorrectPoly$.
+    Since, $\MaximalMonomials(Q) \hoarele \MaximalMonomials(P)$,
+    we conclude by induction hypothesis that
+    there exists $L \in \Nat$ such that 
+    for every partial valuation $\nu \colon \vec{X} \topartial \Nat$,
+    $\translate{L}(\restr{Q}{\nu}) \in \Nat[\vec{X}]$. 
+    Similarly,
+    for all partial functions $\nu \colon \vec{X} \topartial \Nat$
+    fixing at least one indeterminate (appearing in $P$),
+    $\MaximalMonomials(\restr{P}{\nu}) \hoarele \MaximalMonomials(P)$,
+    hence there exists $L_\nu \in \Nat$ such that
+    $\translate{L_\nu}{\restr{P}{\nu}} \in \Nat[\vec{X}]$.
+    Let us define $L_m$ to be the maximum of $L$, and $L_\nu$
+    where $\nu$ ranges over partial functions described above.
+
+    Let us prove that for all partial functions
+    $\nu \colon \vec{X} \topartial \Nat$,
+    $\translate{L_m + K}(\restr{P}{\nu}) \in \Nat[\vec{X}]$.
+    If $\nu$ is the empty valuation, then $\restr{P}{\nu} = P$,
+    and
+    $\translate{L_m + K}(P) = \translate{L_m}(P_1) + \translate{K+L_m}(Q)$
+    is a sum of two polynomials in $\Nat[\vec{X}]$.
+    Otherwise,
+    $\translate{L_m + K}(\restr{P}{\nu}) = \translate{K}(\translate{L_m}(\restr{P}{\nu}))$
+    belongs to $\Nat[\vec{X}]$ since the latter is stable under
+    positive translations.
 \end{proof}
 
