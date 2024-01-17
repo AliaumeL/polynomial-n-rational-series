@@ -233,28 +233,39 @@ generalizes the indicator functions of regular languages.
 
 The goal of the upcoming section is to provide a notion of residual transducer
 for \kl{commutative} \kl{$\Nat$-polyregular functions}.
+This will be based on another characterization of $\CorrectPoly$
+using partial derivatives. Namely, we define
+
+\begin{definition}
+    For every polynomial $P \in \Rel[X \vec{Y}]$, we define 
+    the partial derivative with respect to $X$ as follows:
+    \begin{equation*}
+        \partial_X P \defined P(X + 1, \vec{Y}) - P(X, \vec{Y}) \quad .
+    \end{equation*}
+\end{definition}
 
 \begin{fact}
-    For every $K \in \Nat$, and every $n \in \Nat$,
-    $\Nat^n$ is a \kl{well-quasi-ordering}
-    when endowed with the quasi-ordering $\vec{u} \leq_K \vec{v}$
-    if and only if $\vec{u} = \vec{v}$ or
-    $\vec{u}$ is smaller than $\vec{v}$ for the product ordering and
-    $\sum_{i = 1}^n  (\vec{v} - \vec{u})_i \geq K$.
+    Let $P \in \CorrectPoly[X_1, \dots, X_n]$, then
+    for all $1 \leq i \leq n$,
+    $\partial_{X_i} P \in \CorrectPoly$.
 \end{fact}
 \begin{proof}
-    First, $\Nat^n$ with the product ordering is a \kl{well-quasi-ordering}.
-    Therefore, given a sequence $\seqof{\vec{u}_i}{i \in \Nat}$,
-    one can extract an infinite monotone subsequence for
-    the product ordering.
-    Either there exists $i < j$ such that $\vec{u}_i = \vec{u}_j$
-    in the subsequence, in which case $\vec{u}_i \leq \vec{u}_j$
-    and the original sequence was good. Or for all $i < j$,
-    we have $\vec{u}_i$ that is strictly smaller than 
-    $\vec{u}_j$ for the product ordering. As a consequence,
-    $\vec{u}_0 \leq \vec{u}_K$.
+    We prove the result by induction on the number of variables.
+    Let $\nu \colon \vec{X} \topartial \Nat$.
+    Two cases, either $X_i \in \dom(\nu)$,
+    in which case, we remark that
+    we can split $\nu$ into two valuations,
+    and that coefficients are good.
+
+    Otherwise, evaluation commutes with partial,
+    and we conclude by induction hypothesis.
 \end{proof}
 
+\begin{remark}
+    The converse does not hold,
+    for instance $P(X) \defined X - 1$ has all its derivatives
+    that are in $\CorrectPoly$, but is not itself in $\CorrectPoly$.
+\end{remark}
 
 \begin{fact}
     Let $P \in \Nat[X,\vec{Y}]$, and $K,L \in \Nat$,
@@ -286,6 +297,28 @@ for \kl{commutative} \kl{$\Nat$-polyregular functions}.
     Now, $P_i(\vec{Y})$
     remaining with positive coefficients.
 \end{proof}
+\begin{fact}
+    For every $K \in \Nat$, and every $n \in \Nat$,
+    $\Nat^n$ is a \kl{well-quasi-ordering}
+    when endowed with the quasi-ordering $\vec{u} \leq_K \vec{v}$
+    if and only if $\vec{u} = \vec{v}$ or
+    $\vec{u}$ is smaller than $\vec{v}$ for the product ordering and
+    $\sum_{i = 1}^n  (\vec{v} - \vec{u})_i \geq K$.
+\end{fact}
+\begin{proof}
+    First, $\Nat^n$ with the product ordering is a \kl{well-quasi-ordering}.
+    Therefore, given a sequence $\seqof{\vec{u}_i}{i \in \Nat}$,
+    one can extract an infinite monotone subsequence for
+    the product ordering.
+    Either there exists $i < j$ such that $\vec{u}_i = \vec{u}_j$
+    in the subsequence, in which case $\vec{u}_i \leq \vec{u}_j$
+    and the original sequence was good. Or for all $i < j$,
+    we have $\vec{u}_i$ that is strictly smaller than 
+    $\vec{u}_j$ for the product ordering. As a consequence,
+    $\vec{u}_0 \leq \vec{u}_K$.
+\end{proof}
+
+
 
 \begin{fact}
     Let $P \in \CorrectPoly[X_1, \dots, X_n]$. 
@@ -330,6 +363,53 @@ for \kl{commutative} \kl{$\Nat$-polyregular functions}.
     \end{align*}
 \end{proof}
 
+\begin{definition}
+    Residual $\Nat$-transducer.
+\end{definition}
+
+\begin{lemma}
+    If $P \in \CorrectPoly$, then it is computable
+    by a $\Nat$-residual transducer.
+\end{lemma}
+
+\begin{theorem}
+    The following are equivalent for \kl{commutative}.
+    \begin{itemize}
+        \item $f$ is in $\NSF$,
+        \item The residual automata of $f$ has no counters
+    \end{itemize}
+\end{theorem}
+
+
+\section{Beyond commutativity}
+
+\begin{lemma}
+    Let $f \in \NPoly[k]$,
+    and $h \colon \Nat^p \to \Sigma^*$ be a polyregular function.
+    Then,
+    $f \circ h$ is a \kl{commutative} \kl{polyregular function},
+    and
+    the set $\setof{ f(u \cdot) \circ h }{u \in \Sigma^* }$
+    is a \kl{well-quasi-ordering}
+    for the order
+    $g_1 \leq g_2$ iff 
+    $g_2 - g_1 \in \NPoly[k-1]$.
+\end{lemma}
+
+\begin{claim}
+    Let $k \in \Nat$,
+    there exists a finite family $\mathcal{F}_k$
+    of \kl{commutative} \kl{polyregular functions}
+    such that the following are equivalent
+    for all $f \in \ZPoly[k]$:
+    \begin{itemize}
+        \item $f \in \NPoly[k]$,
+        \item For all $h \in \mathcal{F}_k$,
+            $(f \circ h)$ is a \kl{commutative}
+            \kl{$\Nat$-polyregular function}.
+    \end{itemize}
+\end{claim}
+
 \begin{lemma}
     Let $k \in \Nat$,
     $f \in \NPoly[k]$,
@@ -339,16 +419,23 @@ for \kl{commutative} \kl{$\Nat$-polyregular functions}.
     $f(u_j \cdot) - f(u_i \cdot) \in \NPoly[k-1]$.
 \end{lemma}
 
-\begin{defintion}
-    Residual $\Nat$-transducer.
-\end{definition}
 
 \begin{lemma}
-    Computable 
+    If $f \in \NPoly[k]$, then the algorithm computes
+    a residual transducer of $f$.
 \end{lemma}
 
+
 \begin{theorem}
-    If and only if this one is counter-free.
+    The following are equivalent for $f \in \NPoly$.
+    \begin{itemize}
+        \item The function $f \in \NSF$,
+        \item The residual transduucer of $f$ has no counters,
+        \item For all commutative polyregular functions $h$,
+            $f \circ h$ is a \kl{commutative}
+            \kl{star-free $\Nat$-polyregular function},
+        \item $f$ is \kl{ultimately polynomial}.
+    \end{itemize}
 \end{theorem}
 
 Note that it is not needed for decidability, as we are able to use directly the
