@@ -1,0 +1,16 @@
+.DS_Store
+*.fdb_latexmk
+*.xdv
+*.run.xml
+*.out
+.vim/
+*.synctex.gz
+*.bbl
+*.bcf
+*.blg
+*.fls
+*.aux
+*.log
+*.pdf
+*.diagnose
+*.kaux
