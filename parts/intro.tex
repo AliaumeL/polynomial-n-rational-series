@@ -21,17 +21,20 @@ There have been recurrent attempts to generalize the notions of regularity from
 languages to functions, leading to classes of various expressiveness
 (sequential, rational, regular, and \kl{polyregular functions}) \cite[see,
 e.g.][]{bojanczyk2019string}. In this paper, we will focus on \kl{polyregular
-functions}, that shares with regular languages the characterizations in terms
-of logic (via $\MSO$ interpretations), automata (via pebble automata or SST
-\cite{}), and adds new bridges with programming languages (lambda-terms)
-for-transducers. Although the class of "star-free" polyregular functions is
-defined and similarly characterized using first-order logic.
+functions}, whose class is denoted $\Poly$, and that shares with regular
+languages the characterizations in terms of logic (via $\MSO$ interpretations),
+automata (via pebble automata), and adds new bridges with programming languages
+via its relationships with lambda-terms and so-called for-transducers. As for
+regular languages, the class $\SF$ of \intro{star-free polyregular function}
+can equivalently be introduced in terms of first-order definability,
+counter-free pebble transducers, and suitable restrictions of for-tranducers.
+
 
 Classical problems, including the decidability of aperiodicity, become
 difficult in the case of \kl{polyregular functions}, due to the lack of
 canonical objects akin to the syntactic monoid or the minimal automaton.
 Indeed, for sequential functions that admit a canonical object, aperiodicity is
-decidable \cite{choffrut03}, and more recently, it aperiodicity has been proven
+decidable \cite{choffrut03}, and more recently, aperiodicity has been proven
 decidable for rational functions
 \cite{filiot2016aperiodicity,filiot2018canonical}. The problem remains open for
 regular functions, although it has been proven decidable when changing the
@@ -53,43 +56,83 @@ weighted automata of polynomial ambiguity, rational series of polynomial
 growth, and a notion of quantitative $\MSO$
 \cite{berstel2011noncommutative,kreutzer2013,schutzenberger1962}. Although
 promising, the restriction to unary output did not yield effective procedure to
-decide the aperiodicity of polyregular functions.
-Notice that unary outputs in $\Rel$ and $\Nat$
-are therefore special kind of weighted automata,
-and that questions arising from the weighted automata
-theory (good first order logic?) are also connected.
-\cite{droste2019aperiodic,reutenauer_series_1980}.
-
-Recently, the introduction of $\Rel$-output polyregular functions, called
-\kl{$\Rel$-polyregular functions} (and more generally, commutative invertible
-outputs) allowed to solve the general problem \cite{LOPEZ23b}. Note that
-$\Rel$-output generalizes $\Nat$-output, but somehow has a combinatorial
-description that is farther away from traditional \kl{polyregular functions}
-because of the invertible outputs. The proof relies on the construction of a
-canonical object essentially based on differences between functions, which is
-not applicable to unary output. Note that already for rational series, the
-problem is open.
+decide the aperiodicity of polyregular functions. 
 
 
-We write $\Poly$ for the class of \kl{polyregular functions},
-$\SF$ for the class of \kl{star-free polyregular functions},
-$\NRat$ for the class of \kl{$\Nat$-rational series},
-and $\ZRat$ for the class of \kl{$\Rel$-rational series}.
-Arrows denote strict inclusions, and effectiveness
-(both in terms of decidability and of effective representation)
-is represented by thick double arrows.
-Inclusions that are suspected to be effective have a question mark.
-It is also conjectured that $\NPoly \cap \ZSF = \NSF$.
+Recently, aperiodicity has been shown decidable over a restricted class of
+\kl{polyregular functions} called \kl{$\Rel$-polyregular functions} and denoted
+by $\ZPoly$ \cite{LOPEZ23b}.  These functions generalise \kl{$\Nat$-polyregular
+functions} by allowing negative outputs, and therefore enabling a limited form
+of backtracking. The decidability of aperiodicity for \kl{$\Rel$-polyregular
+functions} relies on the construction of a canonical object called the
+\intro{residual transducer}, the latter being essentially based on differences
+between functions, crucially leveraging negative outputs.
+If the proof method does not carry from $\Rel$-output to $\Nat$-output
+functions, it was conjectured that the semantic characterization of \kl{star
+free $\Rel$-polyregular functions} ($\ZSF$) would continue to characterize
+\kl{star-free $\Nat$-polyregular functions} ($\NSF$), and in particular that
+$\NPoly \cap \ZSF = \NSF$.
+
+Let us remark that, \kl{$\Nat$-polyregular functions} and
+\kl{$\Rel$-polyregular functions} are proper subsets respectively of
+\kl{$\Nat$-rational series} ($\ZRat$) and of \kl{$\Rel$-rational series}
+($\NRat$). For these larger classes of functions, several competing notions of
+aperiodicity exist \cite{droste2019aperiodic,reutenauer_series_1980,LOPEZ23b},
+and decidability of the ones that extends $\ZSF$ and $\NSF$ remains open.
+Furthermore, the decidability of $\NRat$ among $\ZRat$ is also a longstanding
+open problem, that was to the knowledge of the authors, only solved in the case
+of \emph{polynomials} by \textcite{KARH77}.
+
+We refer the reader to \cref{previously-known-inclusions:fig} to get an
+overview of the different classes of functions appearing in the paper. Arrows
+denote strict inclusions, and effectiveness (both in terms of decidability and
+of effective representation) is represented by thick double arrows. Inclusions
+that are suspected to be effective are represented using a dashed arrow
+together with a question mark.
+
 
 \begin{figure}
     \includestandalone[width=\linewidth]{tikz/class-inclusions}
     \caption{
-        Decidability and inclusions of classes of functions. 
+        Decidability and inclusions of classes of functions,
+        arranged along two axes. The first one is the complexity
+        of the output alphabet ($\Nat$, $\Rat$, $\Sigma$). The second
+        one is the allowed computational power
+        (star-free polyregular functions, polyregular functions, 
+        rational series).
     }
+    \label{previously-known-inclusions:fig}
 \end{figure}
 
+
+\paragraph{Contributions.} We prove that for \kl{commutative} functions, all
+the membership problems involving the classes $\ZSF$, $\ZPoly$, $\NSF$, and
+$\NPoly$ are all decidable (this is the lower left square of inclusions in
+\cref{previously-known-inclusions:fig}), and effective conversion algorithms
+are provided. Furthermore, we show that in the commutative case, the conjecture
+stating that $\ZSF \cap \NPoly = \NSF$ holds. 
+
+These results are obtained by completely understanding which \emph{polynomials}
+are computable using \kl{$\Nat$-polyregular functions}, and lifting these
+results from polynomials to \kl{$\Rel$-polyregular functions}. This study
+invalidates the main theorem of \cite{KARH77}, for which we provide an explicit
+counter-example. 
+
+
+
+\begin{itemize}
+    \item We show that commutativity is decidable.
+    \item We provide a candidate semantic characterization
+    \item We prove that it is correct for commutative inputs
+    \item We provide a counter-example to the theorem of nanania.
+    \item We show that effective procedures are possible for all arrows 
+        and answer positively to the conjecture of XX
+        in the case of commutative inputs.
+\end{itemize}
 It was conjectured in a thesis that some particular form of polynomials
-would characterize star-free functions.This paper follows the line of
+would characterize star-free functions.
+
+This paper follows the line of
 research on \kl{polyregular functions} that focuses on semantic
 characterizations of the asymptotic behavior, rather than the construction
 of canonical objects of computation
@@ -105,20 +148,18 @@ We then provide a corrected version of the theorem, and prove the conjecture of
 Douéneau in the case of \emph{commutative} $\Nat$-rational series of polynomial
 growth.
 
-\hrule
+\cref{thm:counter-example}
+\cref{corrected-version:thm}
 
-\paragraph{Contributions.} 
-\begin{itemize}
-    \item We provide a candidate semantic characterization
-    \item We prove that it is correct for commutative inputs
-    \item We provide a counter-example to the theorem of nanania.
-    \item We show that effective procedures are possible for all arrows 
-        and answer positively to the conjecture of XX
-        in the case of commutative inputs.
-\end{itemize}
+\cref{decidable-n-poly:thm}
+\cref{zsf-npoly-nsf:thm}
+
+\hrule
 
 
 \paragraph*{Outline of the paper.}
+In \cref{preliminaries:sec}, we introduce the computational models
+and prove that 
 \begin{itemize}
     \item In a first section, we recall the preliminary definitions.
     \item In a second section, we provide a counter example to the

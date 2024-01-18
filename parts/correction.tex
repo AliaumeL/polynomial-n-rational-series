@@ -1,14 +1,15 @@
 %! TeX program = xelatex
 %! lang = en-US
-\section{The Corrected Theorem}
+\subsection{The Corrected Theorem}
 \label{sec:proof}
 
 The counter example provided by \cref{def:bad-polynomial} relies on the fact
 that $\CoveredPoly$ is not stable under fixing indeterminates, while
-\kl{$\Nat$-polyregular functions} are stable under the residual operation
-$u^{-1} \colon f \mapsto f(u \cdot)$. In this section, we prove that closing
+\kl{$\Nat$-polyregular functions} are. In this section, we prove that closing
 $\CorrectPoly$ under assignments of variable is enough to recover from
-\cref{karh:thm}.
+\cref{karh:thm}. Because the previous attempt to characterize this class of
+polynomials did not hold, this part of the paper will try to be extremely
+precise.
 
 \AP We use the following notation to fix the value of some indeterminate, if
 $P(X,Y)$ is a polynomial in $\Rel[X,Y]$, then $\intro*\restr{P(X,Y)}{X = 1}$ is
@@ -55,7 +56,7 @@ into account \emph{all} \kl{maximal monomials} instead of a specific one
     and such that for all $X_1, \dots, X_p \geq \omega$:
     \begin{equation*}
         f\left(
-            \alpha_0 \prod_{i = 1}^p (u_i^{\omega \times X_i} \alpha_i)
+            \alpha_0 \prod_{i = 1}^p u_i^{\omega \times X_i} \alpha_i
         \right)
         = P(X_1, \dots, X_p) \quad .
     \end{equation*}
@@ -101,12 +102,12 @@ into account \emph{all} \kl{maximal monomials} instead of a specific one
 \end{proof}
 
 
-\begin{lemma}
+\begin{corollary}
     \label{n-rat-correct:lem}
     Let $P \in \Rel[X_1, \dots, X_p]$ be \kl{represented}
     by a \kl{$\Nat$-rational series}. Then,
     $P \in \CorrectPoly$.
-\end{lemma}
+\end{corollary}
 \begin{proof}
     Let $f$ be the \kl{commutative}
     \kl{$\Nat$-rational series}
@@ -144,29 +145,14 @@ into account \emph{all} \kl{maximal monomials} instead of a specific one
 
 
 
-Let us also assert that polynomials that have all coefficients in $\Nat$ are
-\kl{$\Nat$-rational polynomials}. In particular, \kl{non-negative}
-\kl{monomials} are \kl{$\Nat$-rational polynomials}, which will be a base case
-in an upcoming induction proving \cref{lem:correct-to-n-rat}.
-
-\begin{lemma}
-    \label{n-poly-n-poly:example}
-    Let $P \in \Nat[\vec{X}]$. Then, $P$
-    is a \kl{$\Nat$-rational polynomial}.
-\end{lemma}
-\begin{proof}
-    We prove it by remarking that $\NPoly$
-    is stable under non-negative linear combinations
-    and contains the functions ...
-\end{proof}
 
 
 \AP The core of the upcoming \cref{lem:correct-to-n-rat} leverages a notion of
 \kl{discrete derivative} to perform an induction on the \kl{maximal monomials},
 and suitable notions of \kl{translations} of the domain of polynomials. Namely,
 we write $\translate{K}$ for the \intro{translation function} that maps a
-polynomial $P \in \Rel[X_1, \dots, X_n]$ to the polynomial $P(X_1 - K, \dots,
-X_n - K)$.
+polynomial $P \in \Rel[X_1, \dots, X_n]$ to the polynomial $P(X_1 + K, \dots,
+X_n + K)$.
 
 \begin{fact}
     \label{translation-invariance:fact}
@@ -223,10 +209,10 @@ outputs $P(k)$ if the input is at most $K$, and $f_1(k)$ otherwise.
 
 In the actual statement of \cref{corrected-version:thm}, the representation of
 polynomials in $\CorrectPoly$ is strengthened from \kl{$\Nat$-polyregular
-functions} to \kl{star-free $\Nat$-polyregular functions}. This has to be
-compared with the characterization of \kl{star-free $\Rel$-polyregular
-functions} in terms of polynomials \cite[Theorem??]{LOPEZ23b},
-that we will re-introduce in \cref{star-free:sec}.
+functions} to \kl{star-free $\Nat$-polyregular functions}. This is not
+surprising, given the conjecture that \kl{ultimate polynomial}
+\kl{$\Nat$-polyregular functions} (re-introduced in \cref{star-free:sec}) were
+conjectured to be star free in \cite{LOPEZ23b}.
 
 
 When multiple indeterminate are involved, a bit of care is needed. The key
@@ -274,7 +260,8 @@ with the \intro{Hoare ordering}, that is, $S_1 \hoareleq S_2$ whenever for all
 $M_1$ \kl{divides} $M_2$. The set $(\Pfin(\Monomials), \hoareleq)$ remains a
 \kl{well-quasi-ordering} \cite[see e.g.][Hoare quasi-ordering]{SCSC12}.
 
-The following two lemmas show how the \kl{discrete differentiation} operator
+The following \cref{derivation-simplifies:lemma,derivation-covers:lemma} 
+show how the \kl{discrete differentiation} operator
 interacts with \kl{maximal monomials} with respect to the \kl{Hoare ordering}:
 it extracts \emph{submaximal} monomials from a given polynomial.
 
@@ -292,7 +279,8 @@ it extracts \emph{submaximal} monomials from a given polynomial.
 \end{proof}
 
 \begin{fact}
-    Let $M,T$ be two \kl{monomials}, such that
+    Let $K > 0$,
+    and let $M,T$ be two \kl{monomials}, such that
     $T$ \kl{strictly divides} $M$.
     Then,
     $T$ \kl{divides} some \kl{maximal monomial}
@@ -302,7 +290,7 @@ it extracts \emph{submaximal} monomials from a given polynomial.
 \begin{lemma}
     \label{derivation-covers:lemma}
     For all $P,Q \in \Rel[\vec{X}]$ that are non-constant,
-    for all $K \in \Nat$,
+    for all $K > 0$,
     if $\MaximalMonomials(P) \hoarele \MaximalMonomials(Q)$,
     then
     $\MaximalMonomials(P) \hoareleq \MaximalMonomials(\Diff{K}{Q})$.
@@ -392,15 +380,14 @@ it extracts \emph{submaximal} monomials from a given polynomial.
 \end{proof}
 
 While \cref{lem:correct-to-n-rat} provides effective conversion, it does not
-explicitly state that the membership is decidable. However, it is not too
-difficult to remark that $\CorrectPoly$, the proof scheme can be followed to
-obtain decidability. For the sake of completeness and readability,
-we extract this fact in the following lemma.
+explicitly state that the membership is decidable to keep the proof clearer. A
+similar proof scheme can be followed to conclude that membership is decidable.
 
 \begin{lemma}
     \label{decidability-correct:lem}
-    Membership in $\CorrectPoly$ is decidable for
-    polynomials in $\Rel[\vec{X}]$.
+    It is decidable whether a polynomial 
+    $P \in \Rel[\vec{X}]$
+    belongs to $\CorrectPoly$.
 \end{lemma}
 \begin{proof}
     Let $P \in \Rel[\vec{X}]$. We prove by induction on

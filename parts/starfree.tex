@@ -3,6 +3,12 @@
 \section{Beyond Polynomials}
 \label{sec:deciding}
 
+Let us now move on from polynomials to general \kl{$\Rel$-polyregular
+functions}. As we will prove, \kl{commutativity} reduces $\ZPoly$ to a
+combination of a finite number of polynomials, arranged using modulo counting.
+We will first decide $\NPoly$ inside $\ZPoly$, and then leverage this to decide
+$\NSF$ inside $\NPoly$, incidentally proving that $\ZSF \cap \NPoly = \NSF$.
+
 \subsection{$\Nat$-polyregular functions}
 
 The goal of this section is to go beyond polynomials and characterize all
@@ -37,7 +43,7 @@ that they are \kl{commutative}.
     The following are equivalent:
     \begin{enumerate}
         \item $f$ is \kl{$(k,\Nat)$-combinatorial},
-        \item $f \in \NPoly$,
+        \item $f \in \NPoly[k]$,
     \end{enumerate}
     Furthermore, the properties are decidable,
     and one can effectively compute a representation of $f$.
@@ -46,15 +52,12 @@ that they are \kl{commutative}.
 To prove the theorem, let us first provide a nice characterization of
 \kl{commutative} \kl{$\Rel$-polyregular functions} in terms of polynomials.
 This is actually a refinement of \cref{n-poly-combinatorics:lem} in the
-commutative case. Informally, we state that \kl{commutative}
-\kl{$\Rel$-polyregular functions} are obtained by applying different
-\kl{$\Rel$-rational polynomials} based on the modulos...
+commutative case. 
 
 \AP Given $\omega \in \Nat$, let us write $\phi \colon \Nat \to \set{0, \dots,
 \omega} \times \set{0, \dots, \omega - 1}$ defined as $\phi(n) = (t, r)$ where
 $t = \min(n, \omega)$, and $r$ is the rest of the Euclidian division of $n$ by
-$\omega$.
-We let $\phi^\dagger \colon \Nat^k \to$.
+$\omega$. We let $\phi^\dagger \colon \Nat^k \to$.
 
 
 \begin{lemma}
@@ -230,6 +233,17 @@ generalizes the indicator functions of regular languages.
 
 
 \subsection{Non-negative Residual Transducers}
+
+\begin{definition}
+    Partial applications $\app{f}{u} \defined w \mapsto f(uw)$.
+\end{definition}
+
+\begin{definition}
+    Residuals $\Res(f) \defined \setof{ \app{f}{u} }{u \in \Sigma^*}$.
+\end{definition}
+\begin{definition}
+    We say that $f \natleq[k] g$ if and only if $g - f \in \NPoly[k]$.
+\end{definition}
 
 The goal of the upcoming section is to provide a notion of residual transducer
 for \kl{commutative} \kl{$\Nat$-polyregular functions}.

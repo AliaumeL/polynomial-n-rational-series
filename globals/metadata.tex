@@ -15,34 +15,33 @@
 \bibliography{globals/papers}
 
 \newcommand{\acknowledge}{
-    I would like to thank Gaëtan Douéneau-Tabot
-    for mentionning this problem, checking 
+    I would like to thank 
+    Anonymous Author(s)
+    %Gaëtan Douéneau-Tabot
+    for mentioning this problem, checking 
     my counter-example, and supporting me in publishing
     this paper.
 }
 
 \newcommand{\makeabstract}{
     \begin{abstract}
-        Deciding whether a $\Rel$-rational series
-        can be computed as a $\Nat$-rational series
-        is an open problem that was solved by Karhumäki in the
-        specific case of $\Rel$-rational series that are commutative
-        and compute a polynomial.
-        We propose a short counter-example to this
-        previous result on commutative $\Nat$-rational series,
-        and prove a corrected version of the theorem,
-        working of tdd
-        We then discuss how the syntactic criterion could
-        pave the way towards a decision procedure when the commutativity
-        of the $\Rel$-rational series
-        is not assumed.
+        This paper answers two questions about 
+        commutative unary output polyregular functions, called
+        $\Nat$-polyregular functions, that forms a proper subset
+        of $\Nat$-rational series.
+        We show that given a $\Rel$-rational series,
+        it is decidable whether it is computable via a commutative
+        $\Nat$-polyregular function, and provide a counter-example
+        to the theorem of Karhumäki that studied the same question
+        in the case of polynomials.
 
-        \begin{itemize}
-            \item Deciding $\Nat$ inside $\Rel$.
-            \item Counter example.
-            \item Characterization of $\Nat$-polyregular.
-            \item Characterization of star free $\Nat$-polyregular.
-        \end{itemize}
+        We also prove that it is decidable whether a commutative $\Nat$-polyregular
+        function is star-free, by proving the stronger statement
+        that star-free $\Rel$-polyregular functions that are
+        $\Nat$-polyregular are computable using a star-free $\Nat$-polyregular function.
+        This answers positively to previous conjectures on $\Nat$-polyregular functions,
+        and the study of the commutative case seems to be useful
+        towards a proof in the non-commutative case.
     \end{abstract}
 }
 

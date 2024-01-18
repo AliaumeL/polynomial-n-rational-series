@@ -73,3 +73,9 @@
 \NewDocumentCommand{\translate}{m}{\tau_{#1}}
 
 \NewDocumentCommand{\polysort}{}{\mathsf{sort}}
+
+
+\NewDocumentCommand{\natleq}{ O{} }{\mathrel{\leq^\Nat_k}}
+
+\NewDocumentCommand{\app}{ m m }{\mathop{{#2} \triangleright {#1}}}
+\NewDocumentCommand{\Res}{}{ \mathsf{Res}}

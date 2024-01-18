@@ -185,6 +185,32 @@ using non-trivial results coming from topological things.
     \cite{HROUPOWO18}.
 \end{proof}
 
+Let us briefly remark that the characterizations of subclasses of
+\kl{polyregular functions} that are obtained in practice can be obtained by
+pre-composition with a \kl{commutative} \kl{regular function}.
+
+\begin{remark}
+    Let $f \in \ZRat$, and $k \in \Nat$,
+    the following are equivalent:
+    \begin{enumerate}
+        \item $f \in \ZPoly[k]$,
+        \item For every \kl{commutative} \kl{polyregular function} $h$
+            of \kl{growth rate} $l \in \Nat$,
+            $(f \circ h) \in \ZPoly[k+l-1]$.
+    \end{enumerate}
+\end{remark}
+
+
+\begin{remark}
+    Let $f \in \ZPoly$.
+    The following are equivalent:
+    \begin{enumerate}
+        \item $f \in \ZSF$,
+        \item For every \kl{commutative} \kl{star-free polyregular function} $h$,
+            $(f \circ h) \in \ZSF$.
+    \end{enumerate}
+\end{remark}
+
 \AP A function $g \colon \Nat^n \to \Rel$ is \intro{represented} by a function
 $f \colon \Sigma^* \to \Rel$ if there exists a map $\eta \colon \set{1, \dots,
 n} \to \Sigma$ such that $g \circ (v \mapsto \seqof{v_{\eta(k)}}{1 \leq k \leq
