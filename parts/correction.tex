@@ -56,7 +56,7 @@ into account \emph{all} \kl{maximal monomials} instead of a specific one
     and such that for all $X_1, \dots, X_p \geq \omega$:
     \begin{equation*}
         f\left(
-            \alpha_0 \prod_{i = 1}^p u_i^{\omega \times X_i} \alpha_i
+            \alpha_0 \prod_{i = 1}^p u_i^{\omega X_i} \alpha_i
         \right)
         = P(X_1, \dots, X_p) \quad .
     \end{equation*}
@@ -260,10 +260,51 @@ with the \intro{Hoare ordering}, that is, $S_1 \hoareleq S_2$ whenever for all
 $M_1$ \kl{divides} $M_2$. The set $(\Pfin(\Monomials), \hoareleq)$ remains a
 \kl{well-quasi-ordering} \cite[see e.g.][Hoare quasi-ordering]{SCSC12}.
 
+\begin{fact}
+    \label{maxi-monomials-submodular:fact}
+    Let $P, Q$ be two polynomials.
+    Then, $\MaximalMonomials(P+Q) \hoareleq \MaximalMonomials(P)
+    \cup \MaximalMonomials(Q)$.
+\end{fact}
+
 The following \cref{derivation-simplifies:lemma,derivation-covers:lemma} 
 show how the \kl{discrete differentiation} operator
 interacts with \kl{maximal monomials} with respect to the \kl{Hoare ordering}:
 it extracts \emph{submaximal} monomials from a given polynomial.
+
+
+\begin{fact}
+    \label{derivation-monomials:fact}
+    Let $K > 0$,
+    and let $M,T$ be two \kl{monomials}, such that
+    $T$ \kl{strictly divides} $M$.
+    Then,
+    all \kl{monomials} of $\Diff{K}{M}$ \kl{strictly divides} $M$,
+    and 
+    $T$ \kl{divides} some \kl{maximal monomial}
+    of $\Diff{K}{M}$, which has a coefficient
+    that is a multiple of $K$.
+\end{fact}
+\begin{proof}
+    Let $M \defined X_1^{k_1} \cdots X_n^{k_n}$,
+    where $k_1, \dots, k_n > 0$ and $n > 0$.
+    Let us compute
+    \begin{align*}
+        \Diff{K}{M} &= \prod_{i = 1}^n X_i^{k_i} - \prod_{i = 1}^n (X_i - K)^{k_i} \\
+                    &= \sum_{p = 1}^n \frac{K}{X_p - K} \prod_{i = 1}^n (X_i - K)^{k_i} 
+    \end{align*}
+    Therefore, 
+    the \kl{maximal monomials} of $\Diff{K}{M}$
+    are precisely
+    of the form $K \frac{\prod_{i = 1}^n X_i^{k_i}}{X_p}$ for some $1 \leq p \leq i$,
+    which \kl{strictly divide} $M$.
+    Let $T$ be a \kl{monomial} that \kl{strictly divides} $M$,
+    then, $T = \prod_{i = 1}^n X_i^{t_i}$, 
+    for all $1 \leq i \leq n$, $t_i \leq k_i$,
+    and there exists $1 \leq p \leq n$ such that$ t_j < k_j$.
+    In particular, $T$ \kl{divides}
+    $K \frac{\prod_{i = 1}^n X_i^{k_i}}{X_p}$.
+\end{proof}
 
 \begin{lemma}
     \label{derivation-simplifies:lemma}
@@ -273,29 +314,11 @@ it extracts \emph{submaximal} monomials from a given polynomial.
     \MaximalMonomials(P)$.
 \end{lemma}
 \begin{proof}
-    By linearity of $\Diff{K}{P}$ (\cref{discrete-deriv-linear:fact}), 
-    it suffices to prove the result
-    for \kl{monomials} $S \in \Monomials$.
+    The result holds for \kl{monomials}
+    thanks to \cref{derivation-monomials:fact}.
+    It extends by linearity to polynomials 
+    thanks to \cref{maxi-monomials-submodular:fact,discrete-deriv-linear:fact}.
 \end{proof}
-
-\begin{fact}
-    Let $K > 0$,
-    and let $M,T$ be two \kl{monomials}, such that
-    $T$ \kl{strictly divides} $M$.
-    Then,
-    $T$ \kl{divides} some \kl{maximal monomial}
-    of $\Diff{K}{M}$.
-\end{fact}
-
-\begin{lemma}
-    \label{derivation-covers:lemma}
-    For all $P,Q \in \Rel[\vec{X}]$ that are non-constant,
-    for all $K > 0$,
-    if $\MaximalMonomials(P) \hoarele \MaximalMonomials(Q)$,
-    then
-    $\MaximalMonomials(P) \hoareleq \MaximalMonomials(\Diff{K}{Q})$.
-\end{lemma}
-
 
 \begin{lemma}
     \label{derivation-stabilises-correct:lem}
@@ -305,8 +328,42 @@ it extracts \emph{submaximal} monomials from a given polynomial.
     non-maximal monomials of $P$.
     There exists a computable $K$,
     such that
-    $(\Diff{K}{P_1} + P_2) \in \CorrectPoly$.
+    $Q \defined (\Diff{K}{P_1} + P_2) \in \CorrectPoly$.
 \end{lemma}
+\begin{proof}
+    If $P$ is constant, then $P_2 = 0$, and $\Diff{K}{P_1} = 0$,
+    hence for $K = 0$, $Q \in \CorrectPoly$.
+    Otherwise, let $\nu \colon \vec{X} \topartial \Nat$,
+    and let us analyze the \kl{maximal monomials} $T$
+    of $\restr{Q}{\nu}$.
+    Because $T$ is a \kl{monomial} of $\restr{Q}{\nu}$,
+    it \kl{divides} some \kl{monomial} in $Q$, and
+    using \cref{derivation-monomials:fact},
+    it \kl{divides} some \kl{monomial} $M$ in 
+    $\Diff{K}{P_1}$.
+    Now, the monomial $T$ is computed as follows:
+    \begin{align*}
+        T &= 
+        \sum_{S \in \Monomials(Q), T \divides S}
+        \restr{S}{\nu} \\
+          &= 
+          \sum_{S \in \Monomials(\Diff{K}{P_1}), T \divides S}
+            \restr{S}{\nu}
+        + 
+          \sum_{S \in \Monomials(P_2), T \divides S}
+            \restr{S}{\nu}
+        \\
+          &\geq
+          \sum_{S \in \Monomials(\Diff{K}{P_1}), T \divides S}
+            \restr{S}{\nu}
+          - 
+            \left|
+          \sum_{S \in \Monomials(P_2), T \divides S}
+            \restr{S}{\nu}
+            \right|
+    \end{align*}
+
+\end{proof}
 
 
 \begin{lemma}

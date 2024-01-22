@@ -1,6 +1,6 @@
 %! TeX program = xelatex
 %! lang = en-US
-\documentclass[sigconf,natbib=false,screen, review,anonymous]{acmart}
+\documentclass[sigconf,natbib=false,screen,review,anonymous,9pt]{acmart}
 
 
 
@@ -19,6 +19,10 @@
 %\excludecomment{proof}
 
 
+\crefname{fact}{Fact}{Facts}
+\Crefname{fact}{Fact}{Facts}
+\crefname{algocf}{Algorithm}{Algorithms}
+\Crefname{algocf}{Algorithm}{Algorithms}
 
 \makeabstract
 % DOCUMENT
@@ -33,6 +37,7 @@
 \input{parts/counter.tex}
 \input{parts/correction.tex}
 \input{parts/starfree.tex}
+\input{parts/transducers.tex}
 \input{parts/conclusion.tex}
 
 % BACKMATTER
