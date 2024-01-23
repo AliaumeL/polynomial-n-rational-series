@@ -84,8 +84,9 @@
 \NewDocumentCommand{\divides}{}{\mathrel{|}}
 
 
-\NewDocumentCommand{\resleq}{ m m }{ \leq^{#1}_{#2} }
+\NewDocumentCommand{\resleq}{ m m }{\mathrel{\leq_{{#1},{#2}}}}
 \NewDocumentCommand{\prefleq}{}{\sqsubseteq_{\mathsf{pref}}}
+\NewDocumentCommand{\prefle}{}{\sqsubset_{\mathsf{pref}}}
 \NewDocumentCommand{\preforth}{}{\bot_{\mathsf{pref}}}
 
 

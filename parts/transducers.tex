@@ -11,25 +11,12 @@ residual transducer introduced for \kl{$\Rel$-polyregular functions} in
 \cite{LOPEZ23b}. We will first introduce the object, provide an algorithm (with
 an oracle function) that computes said object, and finally, check that in
 simple cases, the aperiodicity of a function can be read on its
-\kl{$k$-residual transducer}. The main drawbacks of the generalisation are the
+\kl{$k$-residual transducer}. The main drawbacks of the generalization are the
 following: one needs to decide whether a \kl{$\Rel$-polyregular function} is in
 $\NPoly$, which is only known in the \kl{commutative} case, and the
 characterization in terms of counter free also assumes \kl{commutativity}.
 However, we believe that the introduction of this object is relevant.
 
-\AP
-Let us first introduce the notion of \intro{residual} of a function
-$f \colon \Sigma^* \to \Rel$, by defining
-$\app{f}{u} \defined w \mapsto f(uw)$.
-The collection of \reintro{residuals} of a function $f$
-is denoted $\Res(f)$ and is defined as
-the set of $\app{f}{u}$ where $u$ ranges over words in $\Sigma^*$.
-
-\AP Let $k \in \Nat$. The residual transducer in the case of $\Rel$ output was
-built using an equivalence relation defined as $f \equiv_k g$ if and only if $g
-- f \in \ZPoly[k-1]$. However, in the case of $\Nat$ output, the relation
-cannot be symmetric, and we are going to introduce a partial ordering $f
-\natleq[k] g$ if and only if $g - f \in \NPoly[k]$.
 
 The goal of the upcoming section is to provide a notion of residual transducer
 for \kl{commutative} \kl{$\Nat$-polyregular functions}. The notion of
@@ -78,10 +65,79 @@ Furthermore, let us notice that if $\mathcal{H}$ is closed under finite sums
 and shifts, then $\lambda(q, u) \in \mathcal{H}$ for all $(q,u) \in Q \times
 \Sigma^*$.
 
+\begin{example}
+    \label{non-canonical-transd:ex}
+    Let $f \colon \set{a}^* \to \Nat$
+    be defined as follows
+    \begin{equation*}
+        f(a^n) \defined
+        \begin{cases}
+            1 & \text{ if } n = 0 \\
+            0 & \text{ if } n = 1 \\
+            n & \text{ otherwise }
+        \end{cases}
+        \quad .
+    \end{equation*}
+    The function is computed by the two automata
+    in \cref{non-canonical-transd:fig}.
+\end{example}
 
-\AP Let us recall that a counter in an automaton is a pair $u,w$ of words
-together with an integer $n > 1$, such that $\delta(q_0, uw^n) = \delta(q_0,
-u)$ and $\delta(q_0, u w^k) \neq \delta(q_0, u)$ for all $k < n$.
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.9\linewidth}
+        \begin{tikzpicture}[
+            etat/.style={minimum size=2em}
+            ]
+            \node[etat,state,initial,
+                accepting by arrow,
+                accepting text={$1$},
+                accepting where=below,
+                ] (A) at (0,0) {$\varepsilon$};
+            \node[etat,state,
+                accepting by arrow,
+                accepting text={$0$},
+                accepting where=below,
+                ] (B) at (2,0) {$a$};
+
+            \draw[->] (A) to node[midway, below] {$a \mid 0$} (B);
+
+            \draw[->] (B) to[bend right=45] node[midway, above] {$a \mid 1 + \ind{\card{w} \geq 1}$} (A);
+        \end{tikzpicture}
+        \caption{This automaton has a \kl{counter}.}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.9\linewidth}
+        \begin{tikzpicture}[
+            etat/.style={minimum size=2em}
+            ]
+            \node[etat,state,initial,
+                accepting by arrow,
+                accepting text={$1$},
+                accepting where=below,
+                ] (A) at (0,0) {$\varepsilon$};
+            \node[etat,state,
+                accepting by arrow,
+                accepting text={$0$},
+                accepting where=below,
+                ] (B) at (2,0) {$a$};
+
+            \draw[->] (A) to node[midway, below] {$a \mid 0$} (B);
+
+            \draw[->] (B) edge[loop right] node[midway, right]
+                {$a \mid 1 + \ind{\card{w} = 0}$} (B);
+        \end{tikzpicture}
+        \caption{This automaton is \kl{counter-free}.}
+    \end{subfigure}
+    \caption{Two \kl{$\NPoly[0]$-transducers}
+    computing \cref{non-canonical-transd:ex}.}
+    \label{non-canonical-transd:fig}
+\end{figure}
+
+\AP Let us recall that a \intro{counter} in an automaton is a pair $u,w$ of
+words together with an integer $n > 1$, such that $\delta(q_0, uw^n) =
+\delta(q_0, u)$ and $\delta(q_0, u w^k) \neq \delta(q_0, u)$ for all $k < n$.
+An automaton is \reintro{counter-free} if it contains no \reintro{counters}.
+This notion can be applied to \kl{$\mathcal{H}$-transducers} by
+considering counters of their underlying automata.
 
 \begin{theorem}[Cite gaëtan]
     Let $f \colon \Sigma^* \to \Nat$, and let $k \in \Nat$.
@@ -97,38 +153,105 @@ u)$ and $\delta(q_0, u w^k) \neq \delta(q_0, u)$ for all $k < n$.
     \end{itemize}
 \end{theorem}
 
-Let us now introduce the notion of residual transducer, based on the
-notions of ordering introduced prior to this paragraph.
+\AP Let us now introduce the notion of \intro{residual} of a function $f
+\colon \Sigma^* \to \Rel$, by defining $\app{f}{u} \defined w \mapsto f(uw)$.
+The collection of \reintro{residuals} of a function $f$ is denoted $\Res(f)$
+and is defined as the set of $\app{f}{u}$ where $u$ ranges over words in
+$\Sigma^*$.
+
+\AP Let $k \in \Nat$. The residual transducer in the case of $\Rel$ output was
+built using an equivalence relation defined as $f \equiv_k g$ if and only if $g
+- f \in \ZPoly[k-1]$. However, in the case of $\Nat$ output, the relation
+cannot be symmetric, and furthermore, we are going to order words rather than
+residuals. Namely, given $k \in \Nat$, and $f \colon \Sigma^* \to \Nat$, we
+define $u \resleq{f}{k} v$ if and only if $\app{f}{v} - \app{f}{u} \in
+\NPoly[k-1]$.
+
+\begin{fact}
+    \label{good-residual-ordering:fact}
+    Let $k \in \Nat$, and let $f \colon \Sigma^* \to \Nat$. Then,
+    $(\resleq{f}{k})$ is a quasi-ordering, satisfying the following
+    extra properties:
+    \begin{enumerate}
+        \item For all $u,v,w \in \Sigma^*$, $u \resleq{f}{k} v$
+            implies $uw \resleq{f}{k} vw$,
+        \item If $u \resleq{f}{k} v$ and $v \resleq{f}{k} u$,
+            then $\app{f}{u} = \app{f}{v}$.
+    \end{enumerate}
+\end{fact}
+
+There is one major issue arising when defining the notion of residual
+transducer based on the quasi-ordering $\resleq{f}{k}$. The naïve approach is
+to consider as states some representatives for the $\resleq{f}{k}$ minimal
+elements of $\Sigma^*$, all computing the same function
+(\cref{good-residual-ordering:fact}), and define transitions by letting
+$\delta(u, a)$ be \emph{one} state $v$ such that $v \resleq{f}{k} ua$. This
+naïve approach does not yield a canonical model.
+For instance, the function
+of \cref{non-canonical-transd:ex} can be computed in two ways if we only
+consider $\resleq{f}{k}$ minimal elements, as witnessed in
+\cref{non-canonical-transd:fig}. Even worse, the function $f$ belongs to
+$\NSF[0]$, but one of the two presented transducers has a \kl{counter}.
+
+This is why in \cref{residual-transducer:def}, we introduce the prefix ordering
+$\prefleq$ to further constrain how the model computes.
 
 \begin{definition}
+    \label{residual-transducer:def}
     Let $f \colon \Sigma^* \to \Nat$ and $k \in \Nat$.
     A transducer $\aTransd \defined (Q, q_0, \delta, \lambda, F)$
     is a \intro{k-residual transducer}
     of $f$ 
     when
-    \begin{itemize}
+    it is a \kl{$\NPoly[k-1]$-transducer}
+    satisfying the following properties:
+    \begin{enumerate}
         \item $\aTransd$ \kl{computes} $f$;
-        \item $Q \subseteq \Sigma^*$ is \kl{downwards closed}
+        \item $Q \subseteq \Sigma^*$ is a \kl{downwards closed}
             for $\prefleq$;
-        \item For all $u, v \in Q$, and for all $a \in \Sigma$,
-            if
-            $\delta(v,a) = u$
-            then
-            $u \prefleq va$,
-            $\lambda(v,a) = \app{f}{va} - \app{f}{u}$,
-            and $\lambda(v,a) \in \NPoly[k-1]$.
-    \end{itemize}
+        \item $q_0 = \varepsilon$;
+        \item every state $q \in Q$ is accessible from $q_0$;
+        \item For all $u, a \in Q$,
+            $\delta(u,a)$ is the $\prefleq$-maximal $v \in Q$
+            such that $v \prefleq ua$, and $v \resleq{f}{k} ua$.
+        \item For all $u,a \in Q$,
+            $\lambda(u,a) = \app{f}{ua} - \app{f}{\delta(u,a)}$.
+    \end{enumerate}
 \end{definition}
 
-\begin{fact}
-    The residual transducer is unique.
-\end{fact}
+Because of the restriction on prefixes, the \kl{$k$-residual transducer}
+is actually unique when it exists.
 
-We introduce \cref{residual:algo} to compute a \kl{$k$-residual transducer}
+\begin{fact}
+    \label{unique-res-transducer:fact}
+    Let $f \colon \Sigma^* \to \Nat$ and $k \in \Nat$.
+    Then $f$ has at most one \kl{$k$-residual transducer}.
+\end{fact}
+\begin{proof}
+    Let $\aTransd_1$ and $\aTransd_2$ be two
+    \kl{$k$-residual transducers} for $f$.
+    The two initial states must be $\varepsilon$.
+    Let us prove by induction on $u \in \Sigma^*$ that
+    $\delta_1(\varepsilon, u) = \delta_2(\varepsilon, u)$
+    and that $Q_1$ equals $Q_2$ over prefixes of $u$.
+    This will prove that 
+    $Q_1 = Q_2$, hence that $\aTransd_1 = \aTransd_2$.
+
+    Let $u \in \Sigma^* \cap Q_1 \cap Q_2$ and $a \in \Sigma$, $v_1 \in Q_1$ be
+    defined as $v \defined \delta_1(u,a)$, and $v_2 \defined \delta_2(u,a)$.
+    Remark that by induction hypothesis, for all $v \prefle u$, $v \in Q_1 \cap
+    Q_2$. If $\delta_1(u,a) = Q_1$, it means that for all $v \in Q_2$ such that
+    $v \prefle ua$, we have $\neg( v \resleq{f}{k} ua )$. The only possible
+    transition in $\aTransd_2$ is therefore $\delta_2(u,a) = ua$, and $ua \in
+    Q_2$. Similarly, if $\delta_1(u,a) \prefleq u$, then $\delta_2(u,a) =
+    \delta_1(u,a)$ by definition of $\delta_2$ as a maximum.
+\end{proof}
+
+We now introduce \cref{residual:algo} to compute a \kl{$k$-residual transducer}
 given a function $f$. Notice that this algorithm requires the ability to test
 if a function belongs to $\NPoly[k]$, which is only known to be feasible for
 \kl{commutative} polyregular functions. However, the termination of this
-algorithm also proves the existence of a \kl{$k$-residual transducer}.
+algorithm also proves the existence of the \kl{$k$-residual transducer}.
 
 
 \begin{algorithm}
@@ -143,7 +266,7 @@ algorithm also proves the existence of a \kl{$k$-residual transducer}.
 
         $O \defined O \setminus \set{ ua }$;
 
-        \eIf{$\exists v \in Q, v = \max_{\prefleq} \setof{w \in Q}{w \resleq{f}{k} ua}$}{
+        \eIf{$\exists v \in Q, v = \max_{\prefleq} \setof{w \in Q}{w \prefleq ua \wedge w \resleq{f}{k} ua}$}{
             $\delta(u, a) \defined v$;
 
             $\lambda(u, a) \defined \app{f}{ua} - \app{f}{v}$;
@@ -161,24 +284,13 @@ algorithm also proves the existence of a \kl{$k$-residual transducer}.
         $F(u) \defined f(u)$;
     }
     \Return{$(Q, \varepsilon, \delta, \lambda, F)$};
-    \caption{Computing a $(N,k)$-residual transducer.}
+    \caption{Computing a $k$-residual transducer given a function $f$.}
     \label{residual:algo}
 \end{algorithm}
 
-
-\begin{lemma}
-    \label{correct-residual:lemma}
-    If \cref{residual:algo} terminates on 
-    an input $f \in \NPoly$, $k \in \Nat$,
-    then it computes a \kl{$k$-residual transducer} of $f$.
-\end{lemma}
-\begin{proof}
-    TODO.
-\end{proof}
-
 \begin{fact}
     \label{q-o-prefix-cool:fact}
-    Let $f \in \NPoly$ and $k \in \Nat$.
+    Let $f \colon \Sigma^* \to \Nat$ and $k \in \Nat$.
     At each step of the \texttt{while loop}
     of \cref{residual:algo}, the sets
     $Q$ and $O$ are such that
@@ -219,9 +331,41 @@ algorithm also proves the existence of a \kl{$k$-residual transducer}.
 \end{proof}
 
 \begin{lemma}
+    \label{correct-residual:lemma}
+    If \cref{residual:algo} terminates on 
+    an input $f \colon \Sigma^* \to \Nat$, $k \in \Nat$,
+    then it computes the \kl{$k$-residual transducer} of $f$.
+\end{lemma}
+\begin{proof}
+    Because of \cref{q-o-prefix-cool:fact},
+    we already know that $q_0 = \varepsilon$,
+    $Q$ is a \kl{downwards closed} subset of $\Sigma^*$
+    for $\prefleq$, 
+    that every state of $Q$ is accessible from $q_0$.
+    Notice that at every step,
+    $\lambda(u,a)$ is defined as
+    $\app{f}{ua} - \app{f}{\delta(u,a)}$.
+    Finally, since $Q \cup O$ is a \kl{downwards closed} subset of $\Sigma^*$
+    at every step,
+    we have that at step $i$,
+    for all $ua \in O_i$,
+    $\setof{w \in Q}{w \prefleq ua} = \setof{w \in Q_i}{ w \prefleq ua}$,
+    which proves that the maximum considered in the algorithm
+    is indeed computing correctly.
+\end{proof}
+
+
+\AP Let us recall that a sequence $\seqof{u_i}{i \in \Nat}$ of elements in a
+quasi-ordered set $(X, \leq)$ is \kl{good} whenever there exist $i < j$ such
+that $u_i \leq u_j$. The set $X$ is a \kl{well-quasi-ordering} when
+every infinite sequence is \kl{good}. A sequence is \kl{bad}
+when it is not \kl{good}.
+
+\begin{lemma}
     \label{wqo-implies-termination:lemma}
-    Let $f \in \NPoly$, and $k \in \Nat$ be such that
-    $(\Sigma^*, \resleq{f}{k} \cup \preforth)$ is a \kl{well-quasi-ordering}.
+    Let $f \colon \Sigma^* \to \Nat$, and $k \in \Nat$ be such that
+    every infinite, $\prefleq$-increasing sequence is \kl{good}
+    in $(\Sigma^*, \resleq{f}{k})$.
     Then, \cref{residual:algo} terminates on the input $(f,k)$.
 \end{lemma}
 \begin{proof}
@@ -241,10 +385,7 @@ algorithm also proves the existence of a \kl{$k$-residual transducer}.
     branch $\seqof{u_j}{j \in \Nat}$ thanks to König’s lemma.
 
     Let us prove that this infinite branch is a \kl{bad sequence} for the
-    ordering $\preforth \cup \resleq{f}{k}$. Because all elements in the
-    sequence are pairwise comparable for $\prefleq$, it suffices to prove that
-    the sequence is a \kl{bad sequence} for $\resleq{f}{k}$.
-
+    ordering $\resleq{f}{k}$.
     Let $j < p$, and assume by contradiction that $u_j \resleq{f}{k} u_p$. We
     know that $u_j \in Q_j$ and $u_p \in Q_p$. Then, at step $p-1$ of the
     algorithm, $u_j \in Q_{p-1}$, since $u_j \in Q_j \subseteq Q_{p-1}$.
@@ -253,56 +394,97 @@ algorithm also proves the existence of a \kl{$k$-residual transducer}.
     consequence, $u_p \not\in Q_{p}$, which is absurd.
 
     We have proven that the infinite branch is a \kl{bad sequence}
-    for $\resleq{f}{k}$, but this contradicts the assumption
-    that $\seqof{u_j}{j \in \Nat}$ is a \kl{good sequence}.
-
+    for $\resleq{f}{k}$, which contradicts the assumption.
     Hence, \cref{residual:algo} must terminate.
 \end{proof}
 
 \begin{lemma}
     \label{n-poly-k-implies-wqo:lemma}
-    Let $k \in \Nat$, 
-    let $\aTransd$ be a \kl{$\NPoly[k-1]$-transducer},
-    and let $f$ be the function $f$ \kl{computed} by $\aTransd$.
-    Then,
-    $(\Sigma^*, \resleq{f}{k-1} \cup \preforth)$ is
-    \kl{well-quasi-ordering}.
+    Let $k \in \Nat$, and let $f \in \NPoly[k]$.
+    Then, $(\Sigma^* \resleq{f}{k})$ is a \kl{well-quasi-ordering}.
 \end{lemma}
 \begin{proof}
-    Assume towards a contradiction that there exists
-    a \kl{bad sequence} $\seqof{u_i}{i \in \Nat}$
-    of words in $\Sigma^*$.
-    In particular, for all $i < j$, 
-    $u_i$ is comparable to $u_j$ for the \kl{prefix ordering}.
-    Without loss of generality, because $\prefleq$ is well-founded,
-    we can assume that for all $i < j$,
-    $u_i \prefleq u_j$.
+    Because $f \in \NPoly[k]$, there exists
+    a tuple $\vec{x}$ of first order free variables,
+    $\MSO$ formulas $\seqof{\psi_i(\vec{x})}{1 \leq i \leq n}$,
+    and positive coefficients $\seqof{m_i}{1 \leq i \leq n}$,
+    such that
+    $f = \sum_{i = 1}^n m_i \times \vcount{\varphi_i(\vec{x})}$.
 
-    Let $\aTransd = (Q, q_0, \delta, \lambda, F)$.
-    Because $Q$ is a finite set,
-    there exists $i < j$
-    such that 
-    $\delta(q_0, u_i) = \delta(q_0, u_j)$. Since 
-    $u_i \prefleq u_j$, there exists $v \in \Sigma^*$
-    such that $u_i v = u_j$.
-    Let us now remark that for all $w \in \Sigma^*$,
+    Let $q$ be the maximal quantifier rank of formulas $\seqof{\psi_i}{1 \leq i
+    \leq n}$. To a word $u \in \Sigma^*$, we associate the vector $\MSO^q(u)$
+    that maps an $\MSO$-type with $\ell \leq |\vec{x}|$ free variables to the
+    number of realizations of this type in $u$.
+
+    Let $u, v \in \Sigma^*$ such that $\MSO^q(u) \leq \MSO^q(v)$, which means
+    that every $\MSO$ type (of quantifier rank $q$ and with at most $n$ free
+    variables) has at least as many realizations in $v$ than it has in $u$.
+    Remark that by the compositionality of $\MSO$ over words (for instance, see
+    the Feferman-Vaught theorem \cite{FEVAU59,MAKOW04}), for all $\MSO^q$ types
+    $t(\vec{x})$, there are finitely many $\MSO^q$ types $t_l^j(\vec{y_i}),
+    t_r^j(\vec{z_i})$ with $\vec{x} = \vec{y_i} \uplus \vec{z_i}$
+    for $1 \leq j \leq N_0$, such that for every
+    tuple $\vec{a}$ of elements in a word $uv$, $\MSO^q(\vec{a} / uv) =
+    t(\vec{x})$ if and only if there exists $1 \leq j \leq N_0$,
+    such that $\vec{a} = \vec{b} \uplus \vec{c}$,
+    $\MSO^q(\vec{b} / u) =
+    t_l^j(\vec{y_i})$, and $\MSO^q(\vec{c} / v) = t_r^j(\vec{z_i})$.
+    We write $t = t_l \odot t_r$ to signify
+    that $\MSO^q(\vec{bc} / uv) = t$
+    if and only if $\MSO^q(\vec{b}/u) = t_l$
+    and $\MSO^q(\vec{c}/v) = t_r$.
+
+    As a consequence, if $\MSO^q(u) \leq \MSO^q(v)$, then 
+    for all $w \in \Sigma^*$: 
     \begin{align*}
-        f(u_j w) &= f(u_i v w) \\
-                 &= \aTransd(q_0, u_i v w) \\
-                 &= \aTransd(\delta(q_0, u_i v), w)
-                   + \lambda(q_0, u_i v) (w) \\
-                 &= \aTransd(\delta(q_0, u_i), w)
-                   + \lambda(q_0, u_i v) (w) \\
-                 &= f(u_i w) 
-                   + \lambda(q_0, u_i v) (w)
+        & f(vw) - f(uw) \\
+        &= 
+        \sum_{i = 1}^n m_i
+        \left[
+            \vcount{\phi_i(\vec{x})} (vw) -
+            \vcount{\phi_i(\vec{x})} (uw)
+        \right] \\
+        &= 
+        \sum_{i = 1}^n
+        m_i
+            \sum_{\phi_i \in t(\vec{x})}
+        \left[
+            \vcount{t(\vec{x})}(vw)
+            -
+            \vcount{t(\vec{x})}(uw)
+        \right] \\
+        &= 
+        \sum_{i = 1}^n
+        m_i
+        \sum_{1 \leq j \leq N_0}
+        \sum_{\phi_i \in t_l^j(\vec{y}) \odot t_r^j(\vec{z})}
+        \\
+        &\quad\quad
+        \underbrace{
+        \left[
+            \vcount{t_r^j(\vec{y})}(v)
+            -
+            \vcount{t_r^j(\vec{y})}(u)
+        \right] 
+    }_{ \in \Nat }
+            \times 
+            \vcount{t_l^j(\vec{z})}(w)
     \end{align*}
 
-    Because $\NPoly[k-1]$ is closed under shifts and finite sums,
-    we conclude that
-    $\app{f}{u_j} - \app{f}{u_i}$ belongs to $\NPoly[k-1]$,
-    proving that $u_i \resleq{f}{k-1} u_j$.
-\end{proof}
+    We have proven that if $\MSO^q(u) \leq \MSO^q(v)$, then $u \resleq{f}{k}
+    v$. Recall that $\Nat^p$ is a \kl{well-quasi-ordering} when endowed with
+    the product ordering, and therefore that $\setof{\MSO^q(u)}{u \in
+    \Sigma^*}$ is a \kl{well-quasi-ordering}.
 
+    Let $\seqof{u_i}{i \in \Nat}$ be an infinite sequence of $\Sigma^*$.
+    Without loss of generality, one can assume that for all $i \neq j$, $u_i
+    \equiv_k u_j$, i.e., that the difference $\app{f}{u_i} - \app{f}{u_j}$
+    belongs to $\ZPoly[k-1]$, since the latter has finite index. Thanks to the
+    above remarks, there exists $i < j$ such that $\MSO^q(u_i) \leq
+    \MSO^q(u_j)$. As a consequence, $g \defined \app{f}{u_j} - \app{f}{u_i} \in
+    \NPoly$, and therefore $g \in \NPoly[k-1]$. We have proven that there
+    exists $i < j$ such that $u_i \resleq{f}{k} u_j$.
+\end{proof}
 
 \begin{theorem}
     \label{non-commutative-npoly:thm}
@@ -312,12 +494,16 @@ algorithm also proves the existence of a \kl{$k$-residual transducer}.
         \item $f$ is \kl{computed}
             by a \kl{$\NPoly[k-1]$-transducer};
         \item $f \in \NPoly[k]$;
-        \item every $\prefleq$ monotone sequence
+        \item $(\Sigma^*, \resleq{f}{k})$ is a
+            \kl{well-quasi-ordering};
+        \item every $\prefleq$-increasing sequence
             of $\Sigma^*$  is a \kl{good sequence}
-            for $\resleq{f}{k-1}$.
+            for $\resleq{f}{k}$;
         \item $f$ is \kl{computed} by a
-            \kl{$k$-residual transducer};
+            \kl{$k$-residual transducer}.
     \end{enumerate}
+    If $f$ is asumed to be \kl{commutative}, then all of the above
+    properties are decidable, and the conversions effective.
 \end{theorem}
 \begin{proof}
     The first two items are known to be equivalent since 
@@ -326,10 +512,90 @@ algorithm also proves the existence of a \kl{$k$-residual transducer}.
     wqo, and that wqo implies $k$-residual transducer.
 \end{proof}
 
-\begin{corollary}
-    In the \kl{commutative} case, one can effectively compute
-    a \kl{$k$-residual transducer} of a function $f \in \NPoly$.
-\end{corollary}
+
+\begin{lemma}
+    \label{aperiodic-iff-residual:lem}
+    Let $L$ be a regular language.
+    The following are equivalent:
+    \begin{enumerate}
+        \item $L$ is aperiodic;
+        \item The \kl{$0$-residual transducer} of $\ind{L}$
+            is \kl{counter-free}.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    If the $0$-residual transducer is counter free,
+    then $L$ is aperiodic because the minimal automata is also counter-free.
+
+    % TODO
+    \textbf{TODO Claim:}
+    on every branch of the automata, the words have distinct residuals.
+
+    Now, assume that $L$ is aperiodic, and let $(q,w^n)$ be a counter with $n
+    \geq 1$. We know that $qw \equiv_L q$ because the language $L$ is
+    aperiodic. Let us write $t \defined \delta(q,w)$, we know that $t \equiv_L
+    q$. Assume by contradiction that $t$ and $q$ are incomparable for the
+    prefix relation. Let us split $w = w_1 w_2$ where $w_1$ is the shortest
+    prefix of $w$ such that $s_0 \defined \delta(q,w_1)$ is an ancestor of $q$
+    and of $t$ for the prefix relation, it must exist because $\delta(q,w_1
+    w_2) = t$.
+
+    Now, consider $s_1 \defined \delta(t, w_1)$. Assume by contradiction that
+    $s_0$ is not comparable with $s_1$ for the prefix relation. Then, consider
+    the smallest $v$ for the prefix relation such that $\delta(t, v)$ is a
+    strict prefix of $s_0$. It must exist, because otherwise the two are always
+    comparable. Since $t \equiv_L q$, we know that $tv \equiv_L qv$, but then,
+    this contradicts the minimality of $u$.
+
+    We have proven that $s_0$ and $s_1$ are comparable, hence they
+    are equal.
+    Finally, we have proven that $\delta(q, w_1) = s_0$,
+    $\delta(s_0, w_2) = t$, and $\delta(s_0, w_2) = \delta(t, w_1w_2) = q$ which is absurd.
+
+    As a consequence $t$ and $q$ were comparable for the prefix relation,
+    hence equal, and therefore $\delta(q, w) = q$.
+\end{proof}
+
+\begin{conjecture}
+    Let $f \in \NPoly$. The following are equivalent,
+    \begin{enumerate}
+        \item $f \in \ZSF$,
+        \item the \kl{$k$-residual transducer} of $f$
+            is \kl{counter-free},
+            and its labels belong to $\ZSF$.
+    \end{enumerate}
+\end{conjecture}
+\begin{proof}
+    If it has a counter free residual transducer recursively, then
+    it clearly belongs to $\ZSF$.
+
+    % TODO: mix orderings and trees and maximal elements :(
+
+    Now, assume that $L$ is aperiodic, and let $(q,w^n)$ be a counter with $n
+    \geq 1$. We know that $qw \equiv_L q$ because the language $L$ is
+    aperiodic. Let us write $t \defined \delta(q,w)$, we know that $t \equiv_L
+    q$. Assume by contradiction that $t$ and $q$ are incomparable for the
+    prefix relation. Let us split $w = w_1 w_2$ where $w_1$ is the shortest
+    prefix of $w$ such that $s_0 \defined \delta(q,w_1)$ is an ancestor of $q$
+    and of $t$ for the prefix relation, it must exist because $\delta(q,w_1
+    w_2) = t$.
+
+    Now, consider $s_1 \defined \delta(t, w_1)$. Assume by contradiction that
+    $s_0$ is not comparable with $s_1$ for the prefix relation. Then, consider
+    the smallest $v$ for the prefix relation such that $\delta(t, v)$ is a
+    strict prefix of $s_0$. It must exist, because otherwise the two are always
+    comparable. Since $t \equiv_L q$, we know that $tv \equiv_L qv$, but then,
+    this contradicts the minimality of $u$.
+
+    We have proven that $s_0$ and $s_1$ are comparable, hence they
+    are equal.
+    Finally, we have proven that $\delta(q, w_1) = s_0$,
+    $\delta(s_0, w_2) = t$, and $\delta(s_0, w_2) = \delta(t, w_1w_2) = q$ which is absurd.
+
+    As a consequence $t$ and $q$ were comparable for the prefix relation,
+    hence equal, and therefore $\delta(q, w) = q$.
+\end{proof}
+
 
 \begin{example}
     Let us consider $f(w) \defined (\card{w} - 3)^2$, 
@@ -422,7 +688,7 @@ scheme to decide aperiodicity of \kl{$\Nat$-polyregular functions}.
 \end{theorem}
 \begin{proof}
     The only implication to prove is the first implies the last.
-    We know that the automata is counter free, so the languages of the states
+    We know that the automaton is counter free, so the languages of the states
     are star-free. Now, we just write 
     \begin{equation*}
         TODO
