@@ -17,6 +17,8 @@
 \newcommand{\ind}[1]{\mathbf{1}_{#1}}
 \newcommand{\bigO}{\mathcal{O}}
 
+\NewDocumentCommand{\Span}{m}{\mathop{\mathsf{Span}_{#1}}}
+
 
 \newcommand{\topartial}{\rightharpoonup}
 % functions
@@ -72,10 +74,16 @@
 
 \NewDocumentCommand{\translate}{m}{\tau_{#1}}
 
+
+\NewDocumentCommand{\cauchy}{}{\mathrel{\otimes}}
+
+
 \NewDocumentCommand{\polysort}{}{\mathsf{sort}}
+\NewDocumentCommand{\polysum}{}{\mathsf{sum}}
 
 
-\NewDocumentCommand{\natleq}{ O{} }{\mathrel{\leq^\Nat_k}}
+\NewDocumentCommand{\npolyleq}{ O{} }{\mathrel{\preceq_{\Nat #1}}}
+\NewDocumentCommand{\zpolyequiv}{ O{} }{\mathrel{\equiv}_{\Rel #1}}
 
 \NewDocumentCommand{\app}{ m m }{\mathop{{#2} \triangleright {#1}}}
 \NewDocumentCommand{\Res}{}{ \mathsf{Res}}

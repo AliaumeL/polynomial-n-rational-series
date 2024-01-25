@@ -1,6 +1,7 @@
 %! TeX program = xelatex
 %! lang = en-US
 \section{Polynomials}
+\label{polynomials:sec}
 
 The goal of this section is to provide semantic characterizations of
 \kl{$\Nat$-rational polynomials}, decide if a polynomial $P$ is a
@@ -13,22 +14,16 @@ It is an easy check that polynomials with coefficients in $\Nat$ are
 coefficients that is a \kl{$\Nat$-rational polynomial}. As a consequence, the
 class of interest strictly contains $\Nat[\vec{X}]$.
 
-
-\begin{lemma}
+\begin{fact}
     \label{n-poly-n-poly:example}
     Let $P \in \Nat[\vec{X}]$. Then, $P$
     is a \kl{$\Nat$-rational polynomial}.
-\end{lemma}
-\begin{proof}
-    We prove it by remarking that $\NPoly$
-    is stable under non-negative linear combinations
-    and contains the functions ...
-\end{proof}
+\end{fact}
 
 \begin{example}
     \label{negative-but-npoly:ex}
-    The polynomial $P(X) \defined X^2 -2X + 2$ is
-    a \kl{$\Nat$-rational polynomial}.
+    Let $P \defined X^2 -2X + 2$. Then $P$
+    is a \kl{$\Nat$-rational polynomial}.
 \end{example}
 \begin{proof}
     Remark that $P = (X-1)^2 + 1$. Let $f  \colon \Sigma^* \to \Nat$
@@ -66,10 +61,9 @@ $\CoveredPoly[\vec{X}]$ of polynomials with multiple indeterminate.
 \subsection{The counter example}
 \label{sec:c-example}
 
-
 Let us now introduce the counter example that was found trying to generalize
-the original proof to non-commutative \kl{$\Rel$-rational series} of
-\kl{polynomial growth}. The counter example will use three indeterminate, and
+the original proof $\ZPoly$.
+The counter example will use three indeterminates, and
 we will prove in \cref{sec:proof} that \citeauthor{KARH77}’s theorem holds on
 polynomial with at most two indeterminate. In particular, the examples
 appearing in \cite{KARH77} are not invalidated, as they all use at most two
@@ -88,8 +82,7 @@ even be strengthened as we will see in \cref{corrected-version:thm}.
     but is not a \kl{$\Nat$-rational polynomial}.
 \end{lemma}
 \begin{proof}
-    It is clear that $\BadPoly$ is \kl{non-negative} as a sum of two 
-    squares. We can develop
+    It is clear that $\BadPoly$ is \kl{non-negative}. We can develop
     the expression of $\BadPoly$ to 
     obtain
     $\BadPoly = ZX^2 + ZY^2 + 2ZXY + 2X^2 -4XY + 2Y^2$.
@@ -112,16 +105,15 @@ even be strengthened as we will see in \cref{corrected-version:thm}.
     Now, let us consider the language $L \defined \setof{w}{ f(w) = 0}$. By the
     above computation, we conclude that $L = \setof{ w \in \set{a,b}^* }{
     \card[a]{w} = \card[b]{w} } \cup \set{ c }^*$.
-    Because $L \cap \set{a,b}^*$ is notoriously not a regular language
-    (\cref{regular:fact}), we
+    Because $L \cap \set{a,b}^*$ not a regular language,
+    we
     conclude that $L$ is not a regular language.
-    However, $L = f^{-1}(\set{0})$, which is a regular language
-    because $f$ is a \kl{$\Nat$-rational series}
-    (\cref{pre-image-regular:fact}).
+    However, $L = f^{-1}(\set{0})$ is a regular language
+    (\cref{pre-image-regular:fact}). 
 \end{proof}
 
 \begin{corollary}
     The result stated in \cite[Theorem 3.3]{KARH77}, restated
     in \cref{karh:thm}, is false
-    for all polynomials with at least $3$ indeterminate.
+    when allowing at least $3$ indeterminates.
 \end{corollary}

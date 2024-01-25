@@ -302,33 +302,6 @@ algorithm also proves the existence of the \kl{$k$-residual transducer}.
             for $\prefleq$ inside $Q \cup O$.
     \end{enumerate}
 \end{fact}
-\begin{proof}
-    Let us write $Q_i$ and $O_i$ for the value of the variables
-    $Q$ and $O$ at step $i$ of the \texttt{while loop}.
-    We prove the desired property by induction on $i$.
-
-    For $i=0$, the property is true because
-    $Q_0 = \set{\varepsilon}$ and $O_0 = \setof{a}{a \in \Sigma}$.
-
-    For $i+1$. Either the \texttt{if} branch was taken, in which case $Q_{i+1}
-    \cup O_{i+1} = (Q_i \cup O_i) \setminus \set{u}$ for some $u \in O_i$. This
-    set remains \kl{downwards closed}, and elements in $O_{i+1}$ remain maximal
-    elements. 
-
-    If the \texttt{else} branch was taken, then there exists $u \in O_i$ such
-    that $Q_{i+1} = Q_i \cup \set{u}$ and $O_{i+1} = O_i \setminus \set{ u }
-    \cup \setof{ ua }{ a \in \Sigma}$. We conclude that $Q_{i+1} \cup O_{i+1} =
-    Q_i \cup O_i \cup \setof{ ua }{a \in \Sigma}$ continues to be \kl{downwards
-    closed} for $\prefleq$. Let $v \in Q_{i+1} \cup O_{i+1}$ be such that $ua
-    \prefleq v$ for some $a \in \Sigma$. Then $u \prefleq v$, and $u = v$ since
-    $u$ was a maximal element. As a consequence, $ua$ is a maximal element for
-    all $a \in \Sigma$. Assume by contradiction that $ua$ is comparable with
-    some $v \in O_{i+1}$ with $ua \neq v$, it cannot be that $ua \prefleq v$ by
-    the above argument, and if $v \prefleq ua$ with $v \neq ua$, then $v
-    \prefleq u$ and $u = v$, which is absurd since $v \not \in O{i+1}$.
-    We have concluded that $O_{i+1}$ continues to have pairwise incomparable
-    elements.
-\end{proof}
 
 \begin{lemma}
     \label{correct-residual:lemma}
@@ -368,123 +341,12 @@ when it is not \kl{good}.
     in $(\Sigma^*, \resleq{f}{k})$.
     Then, \cref{residual:algo} terminates on the input $(f,k)$.
 \end{lemma}
-\begin{proof}
-    Assume towards a contradiction that
-    \cref{residual:algo} does not terminate.
-    Then, the \texttt{else} branch in the \texttt{while loop}
-    must be taken infinitely often.
-    This means that the set $Q$ of states grows arbitrarily large.
-
-    Let us write $\seqof{Q_i}{i \in \Nat}$ for the set of states $Q$ at step
-    $i$ of the execution of \cref{residual:algo}. Applying
-    \cref{q-o-prefix-cool:fact}, we know that for all $i \in \Nat$, $Q_i$ is
-    \kl{downwards closed} for $\prefleq$. Let us write $Q_\infty \defined
-    \bigcup_{i \in \Nat} Q_i$. The set $Q_\infty$ is infinite, and is
-    \kl{downwards closed} for $\prefleq$. As a consequence, it is an infinite
-    tree with a finite branching (at most $\card{\Sigma}$), and has an infinite
-    branch $\seqof{u_j}{j \in \Nat}$ thanks to König’s lemma.
-
-    Let us prove that this infinite branch is a \kl{bad sequence} for the
-    ordering $\resleq{f}{k}$.
-    Let $j < p$, and assume by contradiction that $u_j \resleq{f}{k} u_p$. We
-    know that $u_j \in Q_j$ and $u_p \in Q_p$. Then, at step $p-1$ of the
-    algorithm, $u_j \in Q_{p-1}$, since $u_j \in Q_j \subseteq Q_{p-1}$.
-    Because $u_j \prefleq u_p$ and $u_j \resleq{f}{k} u_p$,
-    \cref{residual:algo} must take the \texttt{if} branch at step $p-1$. As a
-    consequence, $u_p \not\in Q_{p}$, which is absurd.
-
-    We have proven that the infinite branch is a \kl{bad sequence}
-    for $\resleq{f}{k}$, which contradicts the assumption.
-    Hence, \cref{residual:algo} must terminate.
-\end{proof}
 
 \begin{lemma}
     \label{n-poly-k-implies-wqo:lemma}
     Let $k \in \Nat$, and let $f \in \NPoly[k]$.
     Then, $(\Sigma^* \resleq{f}{k})$ is a \kl{well-quasi-ordering}.
 \end{lemma}
-\begin{proof}
-    Because $f \in \NPoly[k]$, there exists
-    a tuple $\vec{x}$ of first order free variables,
-    $\MSO$ formulas $\seqof{\psi_i(\vec{x})}{1 \leq i \leq n}$,
-    and positive coefficients $\seqof{m_i}{1 \leq i \leq n}$,
-    such that
-    $f = \sum_{i = 1}^n m_i \times \vcount{\varphi_i(\vec{x})}$.
-
-    Let $q$ be the maximal quantifier rank of formulas $\seqof{\psi_i}{1 \leq i
-    \leq n}$. To a word $u \in \Sigma^*$, we associate the vector $\MSO^q(u)$
-    that maps an $\MSO$-type with $\ell \leq |\vec{x}|$ free variables to the
-    number of realizations of this type in $u$.
-
-    Let $u, v \in \Sigma^*$ such that $\MSO^q(u) \leq \MSO^q(v)$, which means
-    that every $\MSO$ type (of quantifier rank $q$ and with at most $n$ free
-    variables) has at least as many realizations in $v$ than it has in $u$.
-    Remark that by the compositionality of $\MSO$ over words (for instance, see
-    the Feferman-Vaught theorem \cite{FEVAU59,MAKOW04}), for all $\MSO^q$ types
-    $t(\vec{x})$, there are finitely many $\MSO^q$ types $t_l^j(\vec{y_i}),
-    t_r^j(\vec{z_i})$ with $\vec{x} = \vec{y_i} \uplus \vec{z_i}$
-    for $1 \leq j \leq N_0$, such that for every
-    tuple $\vec{a}$ of elements in a word $uv$, $\MSO^q(\vec{a} / uv) =
-    t(\vec{x})$ if and only if there exists $1 \leq j \leq N_0$,
-    such that $\vec{a} = \vec{b} \uplus \vec{c}$,
-    $\MSO^q(\vec{b} / u) =
-    t_l^j(\vec{y_i})$, and $\MSO^q(\vec{c} / v) = t_r^j(\vec{z_i})$.
-    We write $t = t_l \odot t_r$ to signify
-    that $\MSO^q(\vec{bc} / uv) = t$
-    if and only if $\MSO^q(\vec{b}/u) = t_l$
-    and $\MSO^q(\vec{c}/v) = t_r$.
-
-    As a consequence, if $\MSO^q(u) \leq \MSO^q(v)$, then 
-    for all $w \in \Sigma^*$: 
-    \begin{align*}
-        & f(vw) - f(uw) \\
-        &= 
-        \sum_{i = 1}^n m_i
-        \left[
-            \vcount{\phi_i(\vec{x})} (vw) -
-            \vcount{\phi_i(\vec{x})} (uw)
-        \right] \\
-        &= 
-        \sum_{i = 1}^n
-        m_i
-            \sum_{\phi_i \in t(\vec{x})}
-        \left[
-            \vcount{t(\vec{x})}(vw)
-            -
-            \vcount{t(\vec{x})}(uw)
-        \right] \\
-        &= 
-        \sum_{i = 1}^n
-        m_i
-        \sum_{1 \leq j \leq N_0}
-        \sum_{\phi_i \in t_l^j(\vec{y}) \odot t_r^j(\vec{z})}
-        \\
-        &\quad\quad
-        \underbrace{
-        \left[
-            \vcount{t_r^j(\vec{y})}(v)
-            -
-            \vcount{t_r^j(\vec{y})}(u)
-        \right] 
-    }_{ \in \Nat }
-            \times 
-            \vcount{t_l^j(\vec{z})}(w)
-    \end{align*}
-
-    We have proven that if $\MSO^q(u) \leq \MSO^q(v)$, then $u \resleq{f}{k}
-    v$. Recall that $\Nat^p$ is a \kl{well-quasi-ordering} when endowed with
-    the product ordering, and therefore that $\setof{\MSO^q(u)}{u \in
-    \Sigma^*}$ is a \kl{well-quasi-ordering}.
-
-    Let $\seqof{u_i}{i \in \Nat}$ be an infinite sequence of $\Sigma^*$.
-    Without loss of generality, one can assume that for all $i \neq j$, $u_i
-    \equiv_k u_j$, i.e., that the difference $\app{f}{u_i} - \app{f}{u_j}$
-    belongs to $\ZPoly[k-1]$, since the latter has finite index. Thanks to the
-    above remarks, there exists $i < j$ such that $\MSO^q(u_i) \leq
-    \MSO^q(u_j)$. As a consequence, $g \defined \app{f}{u_j} - \app{f}{u_i} \in
-    \NPoly$, and therefore $g \in \NPoly[k-1]$. We have proven that there
-    exists $i < j$ such that $u_i \resleq{f}{k} u_j$.
-\end{proof}
 
 \begin{theorem}
     \label{non-commutative-npoly:thm}
@@ -556,46 +418,20 @@ when it is not \kl{good}.
     hence equal, and therefore $\delta(q, w) = q$.
 \end{proof}
 
-\begin{conjecture}
-    Let $f \in \NPoly$. The following are equivalent,
-    \begin{enumerate}
-        \item $f \in \ZSF$,
-        \item the \kl{$k$-residual transducer} of $f$
-            is \kl{counter-free},
-            and its labels belong to $\ZSF$.
-    \end{enumerate}
-\end{conjecture}
+\begin{lemma}
+    Let $\NSF[0] = \NPoly \cap \NSF[0]$,
+    and elements of $\NSF[0]$
+    have a \kl{counter-free} \kl{$0$-residual transducer}.
+\end{lemma}
 \begin{proof}
-    If it has a counter free residual transducer recursively, then
-    it clearly belongs to $\ZSF$.
-
-    % TODO: mix orderings and trees and maximal elements :(
-
-    Now, assume that $L$ is aperiodic, and let $(q,w^n)$ be a counter with $n
-    \geq 1$. We know that $qw \equiv_L q$ because the language $L$ is
-    aperiodic. Let us write $t \defined \delta(q,w)$, we know that $t \equiv_L
-    q$. Assume by contradiction that $t$ and $q$ are incomparable for the
-    prefix relation. Let us split $w = w_1 w_2$ where $w_1$ is the shortest
-    prefix of $w$ such that $s_0 \defined \delta(q,w_1)$ is an ancestor of $q$
-    and of $t$ for the prefix relation, it must exist because $\delta(q,w_1
-    w_2) = t$.
-
-    Now, consider $s_1 \defined \delta(t, w_1)$. Assume by contradiction that
-    $s_0$ is not comparable with $s_1$ for the prefix relation. Then, consider
-    the smallest $v$ for the prefix relation such that $\delta(t, v)$ is a
-    strict prefix of $s_0$. It must exist, because otherwise the two are always
-    comparable. Since $t \equiv_L q$, we know that $tv \equiv_L qv$, but then,
-    this contradicts the minimality of $u$.
-
-    We have proven that $s_0$ and $s_1$ are comparable, hence they
-    are equal.
-    Finally, we have proven that $\delta(q, w_1) = s_0$,
-    $\delta(s_0, w_2) = t$, and $\delta(s_0, w_2) = \delta(t, w_1w_2) = q$ which is absurd.
-
-    As a consequence $t$ and $q$ were comparable for the prefix relation,
-    hence equal, and therefore $\delta(q, w) = q$.
+    TODO.
 \end{proof}
 
+
+\textbf{TODO:} one may think that we can ask that $u \resleq{f}{k} u w^n$
+implies $u \resleq{f}{k} uw$, but it is false, as the following example will
+demonstrate. This is why the definition of counter is more involved in our
+case.
 
 \begin{example}
     Let us consider $f(w) \defined (\card{w} - 3)^2$, 
@@ -605,10 +441,6 @@ when it is not \kl{good}.
     but
     $\app{f}{a^10} - f$ is in $\NPoly$,
     hence there is a non-trivial counter.
-    However,
-    for all $n > 1$ such that
-    $\app{f}{a^n} - f$ belongs to $\NPoly$,
-    $\app{f}{a^n} - \app{f}{a^{n-1}}$ belongs to $\NPoly$ too.
 \end{example}
 \begin{proof}
     Remark that $\app{f}{a} = (\card{w} - 2)^2$,
@@ -630,15 +462,25 @@ when it is not \kl{good}.
     as $2 \card{w} + 2n_0 + 5$, which belongs to $\NPoly$.
 \end{proof}
 
-
 \begin{lemma}
+    \label{sf-no-periods-on-sequences:lemma}
     Let $f \colon \Sigma^* \to \Nat$ be a \kl{star-free $\Nat$-polyregular
-    function}. Then, for all $u \in \Sigma^*$, for all $n > 1$, for all $w \in
-    \Sigma^+$, if $\app{f}{u w^n} - \app{f}{u}$ belongs to $\NPoly[k-1]$, then
-    $\app{f}{uw^n} - \app{f}{u w^{n-1}}$ belongs to $\NPoly[k-1]$.
+    function}. Then,
+    for all $u, w \in \Sigma^*$,
+    there exists $n \in \Nat$ such that
+    $u w^n \resleq{f}{k} u w^{n+1}$.
 \end{lemma}
-\begin{proof}
-    By induction on $n$, 
+\begin{proof}[Proof sketch.]
+    Let $t$ be a first order type,
+    the map $g_t \colon X \mapsto \vcount{t}(uw^X)$ is a
+    \kl{commutative} \kl{star-free $\Nat$-polyregular function},
+    hence ultimately a polynomial, and therefore,
+    translated enough, it is a $\Nat[X]$ polynomial.
+    But this means that $g_t(X+1) - g_t(X) \in \Nat[X]$ for a large
+    enough $X$, which is precisely what suffices.
+    Now, we can do this for every first order type $t$
+    with fewer variables and lower quantifier rank than those
+    needed to define $f$, and conclude.
 \end{proof}
 
 Even though computability is not guaranteed, we have the following proof
@@ -700,6 +542,9 @@ Remark that the theorem is effective because being \kl{ultimately polynomial}
 is an effective property! However, effective conversions are not possible as of
 now, because the $k$-residual transducer algorithm uses an oracle to decide if
 a function is in $\NPoly$.
+
+
+\section{Trash polynomials}
 
 \begin{definition}
     For every polynomial $P \in \Rel[X \vec{Y}]$, we define 
@@ -846,3 +691,9 @@ a function is in $\NPoly$.
 \end{theorem}
 
 
+\begin{fact}[Folklore about regular languages]
+    \label{regular:fact}
+    The language $\setof{ w \in \Sigma}{ \card[a]{w} = \card[b]{w}}$
+    is not regular, whenever $a,b \in \Sigma$.
+    Regular languages are closed under intersection.
+\end{fact}

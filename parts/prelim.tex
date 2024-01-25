@@ -3,14 +3,51 @@
 \section{Preliminaries}
 \label{preliminaries:sec}
 
+\AP
+In the rest of this paper, $\Rel$ (resp. $\Nat$) denotes the set of integers
+(resp. nonnegative integers). The capital letters $\Sigma,\Gamma$ denotes fixed
+alphabets, i.e. a finite set of letters, and $\Sigma^*, \Gamma^*$ (resp.
+$\Sigma^+, \Gamma^+$) are the set of words (resp. non-empty words) over
+$\Sigma, \Gamma$. The empty word is written $\varepsilon \in \Sigma^*$. When $w
+\in \Sigma^*$ and $a \in \Sigma$, we let $\card{w} \in \Nat$ be the length of
+$w$, and $\card[a]{w}$ be the number of occurrences of $a$ in $w$. We assume
+that the reader is familiar with the basics of automata theory, in particular
+the notions of monoid morphisms, idempotents in monoids, monadic second-order
+($\MSO$) logic and first-order ($\FO$) logic over finite words (see e.g.
+\cite{thomas1997languages}). 
+
+\AP
+For every language $L \subseteq \Sigma^*$ we define $\ind{L} \colon \Sigma^*
+\to \set{0,1}$ as the indicator function of $L$. If $f,g \colon \Sigma^* \to
+\Rel$ are two functions, we define their Cauchy product as $f \cauchy g (w)
+\defined \sum_{uv = w} f(u)g(w)$. Given a set $X$ of functions from $\Sigma^*$
+to $\Rel$, and a subset $\mathcal{S}$ of $\Rel$, we define
+$\Span{\mathbb{S}}(X)$ as the smallest subset of functions from $\Sigma^* \to
+\Rel$ containing $X$ and closed under (finite) sums and multiplication with $s
+\in \mathbb{S}$.
+
+\AP
+Given an $\MSO$ formula with first-order free variables $\varphi(\vec{x})$, we
+define $\vcount{\varphi(\vec{x})}$ as the function from $\Sigma^*$ to $\Nat$
+that maps a word $w$ to the number of assignments $\nu \colon \vec{x} \to w$,
+such that $w, \nu \models \varphi(\vec{x})$.
+
+\AP Let $f \colon \Sigma^* \to \Rel$ be a function. We define
+the \intro{growth rate} of
+$f$, $\growth{f} \colon \Nat \to \Nat$, as follows $\growth{f}(n) \defined
+\sup_{\card{w} = n} |f(w)|$. A function $f$ has \kl{growth rate} $k \in \Nat$
+if $\growth{f} = \bigO(n^k)$, and if such a $k$ exists,
+we say that $f$ has \kl{polynomial growth}.
+
 \subsection{Polyregular Functions}
 
-All functions in this paper have output in $\Nat$ or $\Rel$,
-hence, we avoid the definition of \kl{polyregular functions}
-in full generality. The following \cref{nat-rel-poly:def}
-is one of the equivalent definitions of \cite{LOPEZ23b},
-and is similar in shape to the \emph{finite counting automata}
-introduced by \textcite{schutzenberger1962}.
+\AP All functions in this paper have output in $\Nat$ or $\Rel$, hence, we
+avoid the definition of \kl{polyregular functions} in full generality. The
+following \cref{nat-rel-poly:def} is one of the equivalent definitions of
+\cite{LOPEZ23b}, and is similar in shape to the \emph{finite counting automata}
+introduced by \textcite{schutzenberger1962}. Let us recall that a monoid $M$ is
+\intro(monoid){aperiodic} whenever there exists $n \in \Nat$ such that for all
+$x \in M$, $x^{n+1} = x^n$.
 
 \begin{definition}[$\Rel$-polyregular functions {\cite[see, e.g.][]{LOPEZ23b}}]
     \label{nat-rel-poly:def}
@@ -27,20 +64,88 @@ introduced by \textcite{schutzenberger1962}.
     \end{equation*}
     When $\pi$ has co-domain $\Nat$, the function $\pi^\dagger$
     is called \intro{$\Nat$-polyregular}.
-    When the monoid $M$ is \kl{aperiodic}
+    When the monoid $M$ is \kl(monoid){aperiodic}
     then
     the function $f$ is \intro{star-free $\Rel$-polyregular}
     (resp. \intro{star-free $\Nat$-polyregular}).
 \end{definition}
 
-Remark II.21. It follows from Remark II.6, [11, Proposition 6.1], and Theorem
-II.20, that Z-rational series of polynomial growth are exactly those computable
-by weigthed automata with coefficients in {0,1,−1} of polynomial ambiguity. We
-are not aware of a direct proof of this correspondence.
+
+\begin{example}
+    The map $f \colon w \mapsto \card{w} + 1$
+    belongs to $\NSF$.
+\end{example}
+\begin{proof}
+    Let us define $M \defined (\set{1}, \times)$ which is 
+    a finite \kl{aperiodic monoid}, $\mu \colon \Sigma^* \to M$
+    defined by $\mu(w) \defined 1$, and
+    $\pi \colon M^2 \to \Nat$
+    that is the constant function equal to $1$.
+    We check that for all $w \in \Sigma^*$:
+    \begin{equation*}
+        \pi^\dagger(w)
+        =
+        \sum_{uv = w} 1
+        =
+        \card{w} + 1
+        = f(w)
+        \quad . 
+        \qedhere
+    \end{equation*}
+\end{proof}
 
 
-Let us illustrate on an example that these notions actually generalise
-blabla.
+\AP Let us briefly recall in the following lemma alternative characterizations
+of $\NPoly$ (resp. $\ZPoly$), some of which will be helpful in the upcoming
+analysis of their \kl{commutative} counterpart, and others that provide
+a nicer syntax to construct examples.
+
+\begin{lemma}[TODO]
+    \label{polynomial-rational-polyreg:fact}
+    Let $f \in \NRat$ (resp. $f \in \ZRat$), then
+    the following are equivalent:
+    \begin{enumerate}
+        \item $f \in \NPoly$ (resp. $\ZPoly$);
+        \item $f$ is a \kl{polyregular function} with output
+            in $\set{1}^*$,
+            postcomposed with $\polysum$
+            (resp. with output in $\set{-1,+1}^*$);
+        \item $f$ has \kl{polynomial growth};
+        \item $f$ can be constructed
+            using $+$, $\cauchy$, and multiplication by
+            an integer $m \in \Nat$ (resp. $m \in \Rel$)
+            starting from
+            indicator functions $\ind{L}$ of regular languages;
+        \item $f$ belongs to
+            $\Span{\mathbb{S}}(\setof{\vcount{\varphi}}{\varphi(\vec{x}) \in \MSO})$
+            with $\mathbb{S} = \Nat$
+            (resp. $\mathbb{S} = \Rel$).
+    \end{enumerate}
+\end{lemma}
+
+Similarly, we provide several known characterizations of
+$\NSF$ and $\ZSF$ in the following lemma.
+
+\begin{lemma}[TODO]
+    Let $f \in \NPoly$ (resp. $f \in \ZPoly$), then
+    the following are equivalent:
+    \begin{enumerate}
+        \item $f \in \NSF$ (resp. $\ZSF$);
+        \item $f$ is a \kl{star-free polyregular function} with output
+            in $\set{1}^*$,
+            postcomposed with $\polysum$
+            (resp. with output in $\set{-1,+1}^*$);
+        \item $f$ can be constructed
+            using $+$, $\cauchy$, and multiplication by
+            an integer $m \in \Nat$ (resp. $m \in \Rel$)
+            starting from
+            indicator functions $\ind{L}$ of star-free regular languages;
+        \item $f$ belongs to
+            $\Span{\mathbb{S}}(\setof{\vcount{\varphi}}{\varphi(\vec{x}) \in \FO})$
+            with $\mathbb{S} = \Nat$
+            (resp. $\mathbb{S} = \Rel$).
+    \end{enumerate}
+\end{lemma}
 
 \begin{example}
     \label{regular-language:ex}
@@ -54,56 +159,16 @@ blabla.
     \kl{star-free $\Nat$-polyregular function}.
 \end{example}
 
-
-\AP Notice that for a \kl{$\Rel$-polyregular function} $f \colon \Sigma^* \to
-\Rel$, the \intro{growth rate} of $f$, defined as the map $\growth{f} \colon
-\Nat \to \Nat$ via $\growth{f}(n) \defined \sup_{\card{w} = n} |f(w)|$, is
-bounded by a polynomial in $n$. This property of having a \intro{polynomial
-growth} actually characterizes $\ZPoly$ (resp. $\NPoly$) inside $\ZRat$ (resp.
-$\NRat$). We formally state this property in \cref{polynomial-rational-polyreg:fact}.
-
-\begin{fact}[{\cite[Exercise 1.2 p 169]{berstel2011noncommutative}}]
-    \label{polynomial-rational-polyreg:fact}
-    Let $\Sigma$ be a finite alphabet, and $f \colon \Sigma^* \to \Nat$
-    be a function. The following are equivalent:
-    \begin{enumerate}
-        \item $f$ is a \kl{$\Nat$-rational series}
-            of \kl{polynomial growth}.
-        \item $f$ is a \kl{$\Nat$-polyregular function}.
-    \end{enumerate}
-\end{fact}
-
-
 \AP Inside $\ZPoly$, there is an infinite hierarchy of classes, defined using
 the \kl{growth rate}. Namely, one defines $\ZPoly[k]$ as the functions $f \in
-\ZPoly$ such that $\growth{f}(n) = \bigO(n^k)$. Similarly, we let $\NPoly[k] =
-\NPoly \cap \ZPoly[k]$. It follows from the results of \cite{LOPEZ23b} that
-this hierarchy is nice and for every $f$, there exists $k$ such that
-$\growth{f}(n) = \Theta(n^k)$. This parameter also coincides with the minimal
-$k$ such that $f$ is represented by a morphism $\mu \colon M^k \to \Rel$.
-
-
-\begin{fact}[Folklore about regular languages]
-    \label{regular:fact}
-    The language $\setof{ w \in \Sigma}{ \card[a]{w} = \card[b]{w}}$
-    is not regular, whenever $a,b \in \Sigma$.
-    Regular languages are closed under intersection.
-\end{fact}
-
-\begin{fact}
-    \label{pre-image-regular:fact}
-    The pre-image of a regular language by a $\Nat$-rational series
-    is a regular language. In particular,
-    for all $\Nat$-rational series $S$, $S^{-1}(\set{0})$ is a regular
-    language.
-\end{fact}
+\ZPoly$ such that $\growth{f}(n) = \bigO(n^k)$, i.e., have \kl{growth rate}
+$k$. Similarly, we let $\NPoly[k] = \NPoly \cap \ZPoly[k]$.
 
 
 \subsection{Commutative Input}
 
-
-\AP 
 \paragraph{Commutative Polyregular Functions.}
+\AP 
 Because this paper focuses on functions that are commutative both in the
 input and the output, let us introduce precisely what it means and how it
 relates to other functions from $\Nat^k \to \Nat$. For that, let $\Sigma$ be a
@@ -127,7 +192,8 @@ subclass of functions.
 
 \begin{lemma}
     \label{decide-commutative:lemma}
-    One can decide if a function $f \in \ZPoly$
+    Let $f \in \ZPoly$. One can decide if 
+    $f$
     is \kl{commutative}.
 \end{lemma}
 \begin{proof}
@@ -148,65 +214,43 @@ subclass of functions.
     of $\ZRat$ \cite[Corollary 3.6 p 38]{berstel2011noncommutative}.
 \end{proof}
 
-\cref{decide-commutative:lemma} does not state decidability in the case of
-\kl{$\Rel$-rational series}, and its proof relies on the stability of $\ZPoly$
-under the pre-composition by \kl{polyregular functions}, which does not hold
-for $\ZRat$. However, and for the sake of completeness, let us sketch a (more
-involved) proof that \kl{commutativity} is decidable for this larger class,
-using non-trivial results coming from topological things.
+
+For the sake of completeness, let us also state that \kl{commutativity} is
+decidable for \kl{$\Rel$-rational series}, although using more involved
+arguments, since the latter are not closed under pre-composition by a
+\kl{polyregular function}.
 
 \begin{lemma}
     \label{decidable-commutative-rat:lemma}
-    Let $f \in \ZRat$, it is decidable whether
+    Let $f \in \ZRat$. One can decide if
     $f$ is \kl{commutative}.
 \end{lemma}
-\begin{proof}
-    Because $f$ is a \kl{$\Rel$-rational series},
-    there exists a $n \in \Nat$,
-    vectors $v_1$ and $v_2$,
-    and $n$ by $n$ integer matrices $\seqof{M_a}{a \in \Sigma}$,
-    such that
-    \begin{equation*}
-        \forall w \in \Sigma^*,
-        f(w) = {}^t v_1 \left(\prod_{i = 1}^{|w|} M_{w_i}\right) v_2 \quad .
-    \end{equation*}
-    To simplify notations, 
-    let us write $M_w \defined \prod_{i = 1}^{|w|} M_{w_i}$,
-    and 
-    $S \defined \setof{M_w}{w \in \Sigma^+}$ be the
-    semigroup generated by $\seqof{M_a}{a \in \Sigma}$.
 
-    The function $f$ is \kl{commutative} if and only if for all $u,v \in
-    \Sigma^+$, ${}^t v_1 (M_u M_v  - M_v M_u) v_2 = 0$. The above is a
-    polynomial equation involving the coefficients of $M_u$ and $M_v$.
-    Let us compute $\overline{S \times S}$ the Zariski closure of $S \times S$.
-    The above polynomial vanishes over $S \times S$ if and only
-    if it belongs to the Zariski closure, which is decidable
-    \cite{HROUPOWO18}.
-\end{proof}
-
-\begin{conjecture}
-    It is decidable whether a \kl{polyregular function}
-    is \kl{commutative}.
-\end{conjecture}
 
 Let us briefly remark that the characterizations of subclasses of
 \kl{polyregular functions} that are obtained in practice can be obtained by
-pre-composition with a \kl{commutative} \kl{regular function}.
+pre-composition with a \kl{commutative} \kl{polyregular function}. While the
+two following
+\cref{pre-compose-growth-commut:lemma,pre-compose-sf-commut:lemma} do not
+provide simpler proofs, they suggest the central position of \kl{commutative}
+\kl{star-free polyregular functions} as \emph{test functions} for various
+properties (growth rate, aperiodicity).
 
-\begin{remark}
+\begin{lemma}
+    \label{pre-compose-growth-commut:lemma}
     Let $f \in \ZRat$, and $k \in \Nat$,
     the following are equivalent:
     \begin{enumerate}
         \item $f \in \ZPoly[k]$,
-        \item For every \kl{commutative} \kl{polyregular function} $h$
+        \item For every \kl{commutative} \kl{star-free polyregular function} $h$
             of \kl{growth rate} $l \in \Nat$,
             $(f \circ h) \in \ZPoly[k+l-1]$.
     \end{enumerate}
-\end{remark}
+\end{lemma}
 
 
-\begin{remark}
+\begin{lemma}
+    \label{pre-compose-sf-commut:lemma}
     Let $f \in \ZPoly$.
     The following are equivalent:
     \begin{enumerate}
@@ -214,7 +258,7 @@ pre-composition with a \kl{commutative} \kl{regular function}.
         \item For every \kl{commutative} \kl{star-free polyregular function} $h$,
             $(f \circ h) \in \ZSF$.
     \end{enumerate}
-\end{remark}
+\end{lemma}
 
 \AP A function $g \colon \Nat^n \to \Rel$ is \intro{represented} by a function
 $f \colon \Sigma^* \to \Rel$ if there exists a map $\eta \colon \set{1, \dots,
@@ -222,22 +266,23 @@ n} \to \Sigma$ such that $g \circ (v \mapsto \seqof{v_{\eta(k)}}{1 \leq k \leq
 n}) \circ \commute = f$. A key family of functions will be \kl{represented} by
 \kl{$\Rel$-polyregular functions}, namely polynomials with multiple indeterminates.
 
-\AP \paragraph*{Polynomials.} All polynomials considered in this paper have
+\paragraph*{Polynomials.} \AP All polynomials considered in this paper have
 coefficients in $\Rel$ unless explicitly stated otherwise. A polynomial $P \in
-\Rel[X_1, \dots, X_n]$ is a \intro{$\Rel$-rational polynomial} if it
-is \kl{represented} by a \kl{$\Rel$-polyregular function}. Similarly, it is a
-\intro{$\Nat$-rational polynomial} if it is \kl{represented} by a
-\kl{$\Nat$-polyregular function}. 
+\Rel[X_1, \dots, X_n]$ is a \intro{$\Nat$-rational polynomial} if it is
+\kl{represented} by a \kl{$\Nat$-polyregular function}. The analogue notion of
+\intro{$\Rel$-rational polynomials} is not of particular interest, since every
+polynomial $P$ is \kl{represented} by a \kl{$\Rel$-polyregular function}.
 
 \begin{example}
     \label{negative-not-nrat:ex}
-    The polynomials $X$, and $X^2 + 3$ are \kl{$\Nat$-rational polynomial},
+    The polynomials $X$, and $X^2 + 3$ are \kl{$\Nat$-rational polynomials},
     but $- X$ is a \kl{$\Rel$-rational polynomial} that is 
     not a \kl{$\Nat$-rational polynomial}.
 \end{example}
 \begin{proof}
-    The function $w \mapsto |w|$ is a \kl{$\Nat$-polyregular function},
-    hence, $P(X) \defined X$ is
+    The function $w \mapsto |w|$ is a \kl{$\Nat$-polyregular function}.
+    Thus, 
+    $P(X) \defined X$ is
     a \kl{$\Nat$-rational polynomial}. Similarly,
     $w \mapsto |w|^2 + 3$ is a \kl{$\Nat$-polyregular function},
     showing that $Q(X) \defined X^2 + 3$
@@ -245,7 +290,7 @@ is \kl{represented} by a \kl{$\Rel$-polyregular function}. Similarly, it is a
     Finally, 
     $T(X) \defined - X$ cannot be 
     a \kl{$\Nat$-rational polynomial} as \kl{$\Nat$-polyregular functions}
-    have non-negative output.
+    are non-negative.
 \end{proof}
 
 \AP A polynomial $P \in \Rel[X_1, \dots, X_k]$ is \intro{non-negative} when for
@@ -255,24 +300,31 @@ count the number of occurrences of a letter in a word. As an example, the
 polynomial $(X - Y)^2$ is \kl{non-negative}, and so is the polynomial $X^3$,
 but the polynomial $X^2 - 2X$ is not.
 
-We saw in \cref{negative-not-nrat:ex} a simple criterion to check whether a
-polynomial is a \kl{$\Nat$-rational polynomial}, but being \kl{non-negative} is
-not enough, as the following example illustrates. Note that the proof scheme of
-this example will be at the core of \cref{thm:counter-example}.
+All \kl{$\Nat$-rational polynomials} are \kl{non-negative}, but the converse does
+not hold,
+as the following example illustrates. Note that the proof scheme of
+this example will be at the core of \cref{thm:counter-example}, and leverages
+a key property of $\NRat$ recalled hereafter.
+
+\begin{fact}
+    \label{pre-image-regular:fact}
+    The pre-image of a regular language by a \kl{$\Nat$-rational series}
+    is a regular language. 
+\end{fact}
 
 \begin{example}
-    The polynomial $P(X, Y) \defined (X - Y)^2$
-    is a \kl{$\Rel$-rational polynomial} that is \kl{non-negative},
-    but is
+    Let $P(X, Y) \defined (X - Y)^2$.
+    Then $P$ is
+    is \kl{non-negative}, but is
     not a \kl{$\Nat$-rational polynomial}.
 \end{example}
 \begin{proof}
     Assume by contradiction that
-    $S$ is a $\Nat$-rational series computing $P$.
-    Then, $S^{-1}(\set{0})$ should be a regular language
+    $f \in \NPoly$ \kl{represents} $f$ over the alphabet $\Sigma \defined \set{a,b}$.
+    Then, $f^{-1}(\set{0})$ is a regular language
     (\cref{pre-image-regular:fact}),
     but $S^{-1}(\set{0}) = \setof{ w \in \Sigma }{ \card[a]{w} = \card[b]{w} }$
-    is not a regular language (\cref{regular:fact}).
+    is not.
 \end{proof}
 
 
@@ -294,9 +346,5 @@ ordering} of \kl{monomials}. In the polynomial $P(X,Y) \defined X^2 - 2XY + X^2
 $\MaximalMonomials(P)$, is $\set{X^2,  -2 XY,  X^2}$. A \kl{monomial} has a
 \intro{non-negative coefficient} if its multiplicative constant belongs to
 $\Nat$, or equivalently, if it is \kl{non-negative} as a polynomial. In the
-polynomial $P(X,Y) \defined (X - Y)^2$, the \kl{non-negative monomials} are $X^2$
-and $Y^2$.
-
-
-
-
+polynomial $P(X,Y) \defined (X - Y)^2$, the \kl{non-negative} \kl{monomials}
+are $X^2$ and $Y^2$.

@@ -1,6 +1,16 @@
 %% KNOWLEDGE FILE %%
 
 \knowledge{notion}
+ | aperiodic monoid
+ | aperiodic@monoid
+
+\knowledge{notion}
+ | aperiodic@language
+ | aperiodic language
+ | star-free language
+ | star-free@language
+
+\knowledge{notion}
  | growth rate
 \knowledge{notion}
  | commutative
@@ -19,11 +29,16 @@
  | $\Nat $-rational series
 
 \knowledge{notion}
+ | regular function
+
+\knowledge{notion}
  | polyregular function
  | polyregular functions
 
 \knowledge{notion}
  | star-free polyregular functions
+ | star-free polyregular function
+ | star-free
 
 \knowledge{notion}
  | $\Rel $-polyregular
@@ -53,8 +68,17 @@
  | represents
 \knowledge{notion}
  | ultimately polynomial
+ | ultimate polynomiality
 \knowledge{notion}
  | $(k,\Nat )$-combinatorial
+ | combinatorial
+
+\knowledge{notion}
+ | computed
+ | computes
+ 
+\knowledge{notion}
+ | downwards closed
 
 \knowledge{notion}
  | divides
@@ -64,16 +88,17 @@
 
 \knowledge{notion}
  | non-negative
+
+\knowledge{notion}
+ | non-negative coefficient
+ | non-negative coefficients
+
 \knowledge{notion}
  | monomial
  | monomials
 \knowledge{notion}
  | maximal monomial
  | maximal monomials
-\knowledge{notion}
- | positive coefficient
- | positive monomials
- | positive coefficients
 
 \knowledge{notion}
  | discrete derivative
@@ -83,10 +108,40 @@
  | translations
  | translation function
  | translation operators
+ | translation operator
+
 \knowledge{notion}
  | well-quasi-ordering
  | wqo
  | wqos
+\knowledge{notion}
+ | good
+ | good sequence
+\knowledge{notion}
+ | bad
+ | bad sequence
+
+\knowledge{notion}
+ | residuals
+ | residual
+\knowledge{notion}
+ | residual transducer
+ | $k$-residual transducer
+ | $0$-residual transducer
+ | $k$-residual transducers
 
 \knowledge{notion}
  | Hoare ordering
+
+\knowledge{notion}
+ | counters
+ | counter
+ | counter-free
+
+
+\knowledge{notion}
+ | $\NPoly [0]$-transducers
+ | $\mathcal {H}$-transducers
+ | $\mathcal {H}$-transducer
+ | $\NPoly [k-1]$-transducer
+ | $\NSF [k-1]$-transducer
