@@ -44,7 +44,7 @@ $\NPoly$ \cite[Lemma 5.37]{gaetanphd}.
 \begin{lemma}
     \label{n-poly-combinatorics:lem}
     Let $f$ be a  \kl{$\Nat$-polyregular} function. 
-    There exists $\omega \in \Nat$
+    There exists a computable $\omega \in \Nat$
     such that for all $p \in \Nat$,
     for all $\alpha_0, \dots, \alpha_p \in \Sigma^*$,
     for all $u_1, \dots, u_p \in \Sigma^*$,
@@ -238,8 +238,11 @@ extracts \emph{submaximal} monomials from a given polynomial.
 
 
 The following \cref{derivation-stabilises-correct:lem} is the main
-combinatorial argument of this section. Note that we must be careful
-about it. \textbf{TODO: write a nice thing here!}.
+combinatorial argument of this section. It leverages the positivity of the
+\kl{maximal monomials} to compute a shift large enough to make lower degree
+coefficients positive. This lemma will be lifted to a given polynomial $P$ by
+noticing that if $K \in \Nat$, and $P = P_1 + P_2$, then $\translate{K}(P) =
+P_1 + \Diff{K}{P_1} + \translate{K}(P_2)$.
 
 \begin{lemma}
     \label{derivation-stabilises-correct:lem}
@@ -251,8 +254,6 @@ about it. \textbf{TODO: write a nice thing here!}.
     such that
     $Q \defined (\Diff{K}{P_1} + \translate{K}(P_2)) \in \CorrectPoly$.
 \end{lemma}
-
-
 
 
 \begin{lemma}
@@ -276,29 +277,21 @@ about it. \textbf{TODO: write a nice thing here!}.
     \textbf{Induction:} Assume that $P$ is not a constant polynomial, and let
     us write $P = P_1 + P_2$ where $P_1$ is the sum of the \kl{maximal
     monomials} of $P$. We compute a bound $K$ such that $Q \defined
-    (\Diff{K}{P_1} + P_2) \in \CorrectPoly$ using
+    (\Diff{K}{P_1} + \translate{K}(P_2)) \in \CorrectPoly$ using
     \cref{derivation-stabilises-correct:lem}. Thanks to
     \cref{derivation-simplifies:lemma}, we also know that $\MaximalMonomials(Q)
     \hoarele \MaximalMonomials(P)$. By induction hypothesis, $Q$ is
-    \kl{represented} by a \kl{star-free $\Nat$-polyregular function}
-    which is effectively computable.
+    \kl{represented} by a \kl{star-free $\Nat$-polyregular function} which is
+    effectively computable.
 
     Let us now remark that $P_1 \in \Nat[\vec{X}]$, and is therefore
-    (effectively) \kl{represented} by a \kl{star-free $\Nat$-polyregular function}
-    (\cref{n-poly-n-poly:example}).
-    Furthermore, $\translate{K}(Q)$ is also (effectively)
-    \kl{represented} by a \kl{star-free $\Nat$-polyregular function}
-    (see \cref{translation-invariance:fact}).
-    As a consequence, $\translate{K}(P)$ is (effectively) \kl{represented} 
-    by a function $f_\Delta$,
-    since it is obtained as the following sum:
-    \begin{equation*}
-        \translate{K}(P) 
-        = P_1 + \translate{K}(Q) \quad .
-    \end{equation*}
+    (effectively) \kl{represented} by a \kl{star-free $\Nat$-polyregular
+    function} (\cref{n-poly-n-poly:example}). As a consequence,
+    $\translate{K}(P) = P_1 + Q$ is (effectively) \kl{represented} by a
+    function $f_\Delta$.
 
-    For all partial valuations $\nu \colon \vec{X} \topartial \set{0, \dots, K}$
-    fixing at least one indeterminate, $\MaximalMonomials(\restr{P}{\nu})
+    For all partial valuations $\nu \colon \vec{X} \topartial \set{0, \dots,
+    K}$ fixing at least one indeterminate, $\MaximalMonomials(\restr{P}{\nu})
     \hoarele \MaximalMonomials{P}$. Because $\restr{P}{\nu} \in \CorrectPoly$,
     one can use the induction hypothesis to compute a \kl{star-free
     $\Nat$-polyregular function} $f_\nu$ that \kl{represents} $\restr{P}{\nu}$.
@@ -325,16 +318,53 @@ about it. \textbf{TODO: write a nice thing here!}.
     $f$ \kl{represents} $P$.
 \end{proof}
 
+
 While \cref{lem:correct-to-n-rat} provides effective conversion, it does not
 explicitly state that the membership is decidable to keep the proof clearer. A
-similar proof scheme can be followed to conclude that membership is decidable.
+similar proof scheme can be followed to conclude that membership is decidable,
+and even show that elements in $\CorrectPoly$ are, up to suitable translations,
+polynomials in $\Nat[\vec{X}]$. Beware that partial applications are still
+needed in this characterization, as \cref{bad-poly-translate:ex} illustrates.
 
 \begin{lemma}
-    \label{decidability-correct:lem}
-    It is decidable whether a polynomial 
-    $P \in \Rel[\vec{X}]$
-    belongs to $\CorrectPoly$.
+    \label{derivation-translation:lem}
+    Let $P \in \Rel[\vec{X}]$, 
+    there exists a computable $K \in \Nat$
+    such that the following are equivalent:
+    \begin{enumerate}
+        \item \label{d-t-correct:item} $P \in \CorrectPoly$,
+        \item \label{d-t-transl:item}
+            for 
+            all $\nu \colon \vec{X} \topartial \Nat$,
+            $\translate{K}(\restr{P}{\nu}) \in \Nat[\vec{X}]$,
+        \item \label{d-t-transl-fin:item}
+            for all
+            $\nu \colon \vec{X} \topartial \set{0, \dots, K}$,
+            $\translate{K}(\restr{P}{\nu}) \in \Nat[\vec{X}]$.
+    \end{enumerate}
 \end{lemma}
+
+\begin{corollary}
+    \label{decidability-correct:lem}
+    One can decide membership in $\CorrectPoly$.
+\end{corollary}
+\begin{proof}
+    Given $P \in \Rel[\vec{X}]$,
+    one applies \cref{derivation-translation:lem}
+    to obtain a bound $K$, and then 
+    computes $\translate{K}(\restr{P}{\nu})$ for all 
+    partial valuations $\nu \colon \vec{X} \topartial \set{0, \dots, K}$.
+    Then $P \in \CorrectPoly$ if and only if all those polynomials
+    belong to $\Nat[\vec{X}]$, which is decidable.
+\end{proof}
+
+\begin{example}
+    \label{bad-poly-translate:ex}
+    The polynomial $\BadPoly$ is not a 
+    \kl{$\Nat$-rational polynomial},
+    but is \kl{non-negative} and satisfies
+    $\translate{10}(\BadPoly) \in \Nat[\vec{X}]$.
+\end{example}
 
 We are now ready to state the corrected and generalized version of
 \cref{karh:thm}, which is the main technical contribution of the paper.
@@ -398,28 +428,3 @@ other works based on \cite{KARH77}.
     we fix the two indeterminate, leading to a constant polynomial.
 \end{proof}
 
-Let us also state that polynomials in $\CorrectPoly$ are, up to suitable
-translations, polynomials in $\Nat[\vec{X}]$. Beware that partial applications
-are still needed in this characterization, as \cref{bad-poly-translate:ex}
-illustrates.
-
-\begin{lemma}
-    \label{derivation-translation:lem}
-    Let $P \in \Rel[\vec{X}]$, the following are equivalent:
-    \begin{enumerate}
-        \item \label{d-t-correct:item} $P \in \CorrectPoly$,
-        \item \label{d-t-transl:item}
-            There exists $K \in \Nat$,
-            such that for every partial
-            function $\nu \colon \vec{X} \topartial \Nat$,
-            $\translate{K}(\restr{P}{\nu}) \in \Nat[\vec{X}]$.
-    \end{enumerate}
-\end{lemma}
-
-\begin{example}
-    \label{bad-poly-translate:ex}
-    The polynomial $\BadPoly$ is not a 
-    \kl{$\Nat$-rational polynomial},
-    but is \kl{non-negative} and satisfies
-    $\translate{10}(\BadPoly) \in \Nat[\vec{X}]$.
-\end{example}

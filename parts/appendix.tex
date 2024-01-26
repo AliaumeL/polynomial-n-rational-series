@@ -140,16 +140,16 @@ section \ref{polynomials:sec}}
     We lift the equivalence relation $\equiv$ to $k$-tuples of
     words by pointwise application.
 
-    Remark that if $(v_1, \dots, v_k) \equiv (w_1, \dots, w_k)$ then
-    $\pi(\mu(v_1), \dots, \mu(v_k)) = \pi(\mu(w_1), \dots, \mu(w_k))$ because
-    $\mu(u_i^\omega) = \mu(u_i)^\omega$ is an idempotent element of the monoid
-    $M$. In particular, $f(w)$ can be computed as the sum over equivalence
-    classes for $\equiv$, of the value of $\pi$ on one representative,
-    which belongs to $\Nat$.
+    Remark that if $(v_1, \dots, v_k) \equiv (w_1, \dots, w_k)$ then their
+    production are the same, i.e., $\pi(\mu(v_1), \dots, \mu(v_k)) =
+    \pi(\mu(w_1), \dots, \mu(w_k))$. This holds because $\mu(u_i^\omega) =
+    \mu(u_i)^\omega$ is an idempotent element of the monoid $M$. In particular,
+    $f(w)$ can be computed as the sum over equivalence classes for $\equiv$, of
+    the value of $\pi$ on one representative, which belongs to $\Nat$.
 
     Therefore, it suffices to prove that the number of partitions of $w$ in a
     single equivalence class for $\equiv$ is a polynomial $P(X_1, \dots, X_p)$
-    with \kl{positive coefficients} for its \kl{maximal monomials}.
+    with \kl{non-negative} \kl{maximal monomials}.
 
     Notice that to produce all elements in a given equivalence class
     means adding the factors $u_i^\omega$ where $1 \leq i \leq p$
@@ -177,23 +177,13 @@ section \ref{polynomials:sec}}
     the \kl{maximal monomials} of $\Diff{K}{M}$
     are precisely
     of the form $K \frac{\prod_{i = 1}^n X_i^{k_i}}{X_p}$ for some $1 \leq p \leq i$,
-    which \kl{strictly divide} $M$.
+    which \kl{strictly divides} $M$.
     Let $T$ be a \kl{monomial} that \kl{strictly divides} $M$,
     then, $T = \prod_{i = 1}^n X_i^{t_i}$, 
     for all $1 \leq i \leq n$, $t_i \leq k_i$,
     and there exists $1 \leq p \leq n$ such that$ t_j < k_j$.
     In particular, $T$ \kl{divides}
     $K \frac{\prod_{i = 1}^n X_i^{k_i}}{X_p}$.
-\end{proof}
-
-\begin{proof}[Proof of \cref{discrete-deriv-linear:fact}]
-    TODO or to skip.
-\end{proof}
-
-\begin{proof}[Proof of \cref{maxi-monomials-submodular:fact}]
-\end{proof}
-
-\begin{proof}[Proof of \cref{derivation-monomials:fact}]
 \end{proof}
 
 \begin{proof}[Proof of \cref{derivation-simplifies:lemma}]
@@ -214,123 +204,78 @@ section \ref{polynomials:sec}}
         \qedhere
     \end{align*}
 \end{proof}
+
+
 \begin{proof}[Proof of \cref{derivation-stabilises-correct:lem}]
     If $P$ is constant, then $P_2 = 0$, and $\Diff{K}{P_1} = 0$,
     hence for $K = 0$, $Q \in \CorrectPoly$.
-    Otherwise, let $\nu \colon \vec{X} \topartial \Nat$,
-    and let us analyze the \kl{maximal monomials} $T$
-    of $\restr{Q}{\nu}$.
-    Because $T$ is a \kl{monomial} of $\restr{Q}{\nu}$,
-    it \kl{divides} some \kl{monomial} in $Q$, and
-    using \cref{derivation-monomials:fact},
-    it \kl{divides} some \kl{monomial} $M$ in 
-    $\Diff{K}{P_1}$.
-    Now, the monomial $T$ is computed as follows:
+
+    Otherwise, let $\alpha$ be the maximal absolute value 
+    of coefficients appearing in $P$,
+    and $D$ be the maximal number of divisors for
+    a monomial in $P$.
+    We define $K \defined \alpha \times D + 1$.
+
+    Let $\nu \colon \vec{X} \topartial \Nat$, we are going to prove that
+    $\restr{Q}{\nu}$ has \kl{non-negative} \kl{maximal monomials}. To that end,
+    let us consider $T$ such a maximal monomial, and let us write $T = \beta
+    T_1$ so that $T_1$ has coefficient $1$ and $\beta \in \Rel$. Because we
+    will need to normalize other monomials in this way, we define for the rest
+    of the proof the function $\mathsf{unit}$ that maps a monomial to the
+    monomial obtained by replacing its constant term by $1$ if the monomial is
+    non-zero, and leaving the monomial unchanged otherwise.
+
+    Let us write $\mathcal{D}_1$ to be the set of \kl{monomials} of
+    $\Diff{K}{P_1}$ that are \kl{divided} by $T$. Similarly, let us write
+    $\mathcal{D}_2$ for the set of monomials of $\translate{K}(P_2)$ that are
+    \kl{divided} by $T$. Thanks to \cref{derivation-monomials:fact}, we know
+    that every element of $\mathcal{D}_2$ divides some element in
+    $\mathcal{D}_1$. We write $\mathcal{D}_2^M$ for the set of monomials $S \in
+    \mathcal{D}_2$ such that $S$ \kl{divides} $M$.
+    
+    Now, remark that the coefficient $\beta$ is obtained as follows:
     \begin{align*}
-        T &= 
-        \sum_{S \in \Monomials(Q), T \divides S}
-        \restr{S}{\nu} \\
-          &= 
-          \sum_{S \in \Monomials(\Diff{K}{P_1}), T \divides S}
-            \restr{S}{\nu}
-        + 
-          \sum_{S \in \Monomials(P_2), T \divides S}
-            \restr{S}{\nu}
-        \\
-          &\geq
-          \sum_{S \in \Monomials(\Diff{K}{P_1}), T \divides S}
-            \restr{S}{\nu}
-          - 
-            \left|
-          \sum_{S \in \Monomials(P_2), T \divides S}
-            \restr{S}{\nu}
-            \right|
+        \beta &= \sum_{M \in \mathcal{D}_1} \restr{M / T_1}{\nu}
+               + \sum_{M \in \mathcal{D}_2} \restr{M / T_1}{\nu} \\
+              &\geq \sum_{M \in \mathcal{D}_1} \restr{M / T_1}{\nu}
+              - \sum_{M \in \mathcal{D}_2} \left|\restr{M / T_1}{\nu}\right|
+              \\
+              &\geq
+              \sum_{M \in \mathcal{D}_1}
+              \left[
+              \restr{M / T_1}{\nu}
+              -
+              \sum_{S \in \mathcal{D}_2^M}
+              \left|\restr{S/T_1}{\nu}\right|
+              \right]
+              \\
+              &\geq
+              \sum_{M \in \mathcal{D}_1}
+              \restr{\mathsf{unit}(M)/T_1}{\nu}
+              \left[
+              K
+              - \alpha D
+              \right]
+              \\
+              &\geq 0 \quad . \qedhere
     \end{align*}
-
 \end{proof}
-
-
-
-\begin{proof}[Proof of
-    \cref{decidability-correct:lem}]
-    Let $P \in \Rel[\vec{X}]$. We prove by induction on
-    $\MaximalMonomials(P)$ that whether $P \in \CorrectPoly$
-    is decidable.
-
-    If $P$ is a constant polynomial, then
-    $P \in \CorrectPoly$ if and only if $P = n \in \Nat$
-    which is decidable.
-
-    Otherwise, $P$ is not a constant polynomial, and let us write $P = P_1 +
-    P_2$ where $P_1$ is the sum of the \kl{maximal monomials} of $P$. If $P_1
-    \not \in \Nat[\vec{X}]$, then $P \not \in \CorrectPoly$, and this is
-    decidable. Hence, we can assume that $P_1 \in \Nat[\vec{X}]$. Using
-    \cref{derivation-stabilises-correct:lem}, there exists a computable bound
-    $K$, such that if $P \in \CorrectPoly$, then t $Q \defined (\Diff{K}{P_1} +
-    P_2) \in \CorrectPoly$. Leveraging, \cref{derivation-simplifies:lemma}, we
-    also know that $\MaximalMonomials(Q) \hoarele \MaximalMonomials(P)$, and
-    therefore that we can decide whether $Q \in \CorrectPoly$. Notice that if
-    $Q \not \in \CorrectPoly$, then $P \not \in \CorrectPoly$, hence we can
-    assume that $Q \in \CorrectPoly$.
-
-    Similarly, for partial valuations
-    $\nu \colon \vec{X} \topartial \set{0, \dots, K}$
-    fixing at least one indeterminate, $\MaximalMonomials(\restr{P}{\nu})
-    \hoarele \MaximalMonomials{P}$. 
-    We can check for all these partial valuations that
-    $\restr{P}{\nu} \in \CorrectPoly$ by induction hypothesis,
-    and if one test is not satisfied, then $P \not \in \CorrectPoly$.
-
-    Let us now conclude that if all the above checks answered correctly,
-    then $P \in \CorrectPoly$. Let $\nu \colon \vec{X} \topartial \Nat$
-    be a partial valuation. Then, 
-    one of the three following cases arise:
-    \begin{itemize}
-        \item 
-            Either,
-        $\nu$ fixes \emph{some} indeterminate $X_i$ to a value $n_i < K$.
-        In that case, let us define $\delta$ as the partial function that coincides
-        with $\nu$ on its domain
-        $\dom(\delta) = \dom(\nu) \setminus \set{ X_i }$.
-        Then, $\restr{P}{\nu} = \restr{\restr{P}{X_i = n_i}}{\delta}$.
-        As we previously checked that $\restr{P}{X_i = n_i} \in \CorrectPoly$,
-        we conclude in particular that 
-        $\restr{P}{\nu}$ has \kl{non-negative} \kl{maximal monomials}.
-
-        \item Or, for all $X_i$ in the (potentially empty) domain of $\nu$, $\nu(X_i)
-            \geq K$. In that case, let us write $\delta \defined
-            \translate{-K}(\nu)$, that is the partial map $\delta \colon
-            \vec{X} \topartial \Nat$ having the same domain as $\nu$, and such
-            that for all $X_i \in \dom(\nu)$, $\delta(X_i) \defined \nu(X_i) -
-            K$. Recall that $Q = \Diff{K}{P_1} + P_2$, and therefore that
-            $\translate{K}(P) = P_1 + \translate{K}(Q)$. By linearity,
-            $\restr{\translate{K}(P)}{\delta} = \restr{P_1}{\delta} +
-            \restr{\translate{K}(Q)}{\delta}$, and we conclude that the
-            \kl{maximal monomials} of $\restr{\translate{K}(P)}{\delta}$ are
-            \kl{non-negative}.
-            Since $\restr{\translate{K}(P)}{\delta} = \translate{K}{\restr{P}{\nu}}$,
-            and since
-            $\translate{K}$ leaves \kl{maximal monomials} invariant,
-            we conclude that
-            the \kl{maximal monomials} of $\restr{P}{\nu}$
-            are the same as those of $\restr{\translate{K}(P)}{\delta}$,
-            and are therefore \kl{non-negative}.
-            \qedhere
-    \end{itemize}
-\end{proof}
-
 
 \begin{proof}[Proof of \cref{derivation-translation:lem}]
 
-    To prove \cref{d-t-transl:item} $\implies$ \cref{d-t-correct:item}, let us
-    remark that if $P$ is \kl{non-negative} and $\translate{K}(P) \in
-    \Nat[\vec{X}]$, then $\translate{K}(P) \in \CorrectPoly$ thanks to
-    \cref{n-poly-n-poly:example}. Then, for every partial valuation $\nu \colon
-    \vec{X} \topartial \Nat$, $\translate{K}(\restr{P}{\nu}) \in
-    \Nat[\vec{X}]$, and in particular conclude that \kl{maximal monomials} of
+    We will first prove the equivalence between \cref{d-t-transl:item} and
+    \cref{d-t-correct:item} without keeping track of the constant $K$, and then
+    notice that this $K$ is actually computable. This will simplify the reading
+    process.
+
+    We will first prove that \cref{d-t-transl:item} $\implies$
+    \cref{d-t-correct:item}, for any choice of $K \in \Nat$. Indeed, let us
+    consider some partial valuation $\nu \colon \vec{X} \topartial \Nat$. By
+    assumption, $\translate{K}(\restr{P}{\nu}) \in \Nat[\vec{X}]$, and in
+    particular conclude that \kl{maximal monomials} of
     $\translate{K}(\restr{P}{\nu})$ are exactly the \kl{maximal monomials} of
-    $\restr{P}{\nu}$ thanks to \cref{translation-maximal:fact}, and are therefore
-    \kl{non-negative}.
+    $\restr{P}{\nu}$ thanks to \cref{translation-maximal:fact}, and are
+    therefore \kl{non-negative}.
 
     Conversely, the implication \cref{d-t-correct:item} $\implies$
     \cref{d-t-transl:item} is proven by induction on $\MaximalMonomials(P)$. If
@@ -378,6 +323,12 @@ section \ref{polynomials:sec}}
     belongs to $\Nat[\vec{X}]$
     because
     the latter is closed under partial applications.
+
+
+    Now, remark that in the proof, we have computed $K$ recursively from $P$,
+    and only applied partial functions using values below $K$. This not only
+    shows that $K$ is computable from $P$, but also that
+    \cref{d-t-transl-fin:item} and \cref{d-t-transl:item} are equivalent.
 \end{proof}
 
 \section{Proofs of section \ref{beyond-polynomials:sec}}

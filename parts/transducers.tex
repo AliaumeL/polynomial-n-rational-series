@@ -4,23 +4,44 @@
 \section{Beyond commutativity}
 \label{beyond-commutative:sec}
 
-The goal of this section is to provide tools that do not require
-\kl{commutative} \kl{$\Nat$-polyregular functions}. To that end, we introduce
-the notion of \kl{$k$-residual transducer}, that generalizes the notion of
-residual transducer introduced for \kl{$\Rel$-polyregular functions} in
-\cite{LOPEZ23b}. We will first introduce the object, provide an algorithm (with
-an oracle function) that computes said object, and finally, check that in
-simple cases, the aperiodicity of a function can be read on its
-\kl{$k$-residual transducer}. The main drawbacks of the generalization are the
-following: one needs to decide whether a \kl{$\Rel$-polyregular function} is in
-$\NPoly$, which is only known in the \kl{commutative} case, and the
-characterization in terms of counter free also assumes \kl{commutativity}.
-However, we believe that the introduction of this object is relevant.
+The goal of this section is to provide tools that do not require the assumption
+of \kl{commutativity}. To that end, we introduce the notion of \kl{$k$-residual
+transducer}, that generalizes the notion of residual transducer introduced for
+\kl{$\Rel$-polyregular functions} in \cite{LOPEZ23b}. This notion of residual
+transducer has its own interest, as it shifts the attention from (compatible)
+equivalence relations of finite index that are the classical tool in automata
+theory, towards (compatible) order relations that are \kl{well-quasi-ordered},
+which is the order counterpart of having finite index.
 
+While \kl{$k$-residual transducers} will provide canonical objects associated
+to functions in $\NPoly$, their effective construction requires the ability to
+decide $\NPoly$ inside $\ZPoly$, which is not currently known (except in the
+commutative case). Furthermore, the correspondence between \kl{counters} in
+this automaton and \kl{star-free $\Nat$-polyregular functions} is non-trivial,
+and cannot be used \emph{as is} to decide membership in $\NSF$
+based on this analysis of the \kl{$k$-residual transducer}.
+
+\AP The upcoming sections will heavily refer to the notion of \intro{residual} of
+a function $f \colon \Sigma^* \to \Rel$,  defined by $\app{f}{u} \defined w
+\mapsto f(uw)$. The collection of \reintro{residuals} of a function $f$ is
+denoted $\Res(f)$ and is defined as the set of $\app{f}{u}$ where $u$ ranges
+over words in $\Sigma^*$.
+
+\AP Let us recall that a sequence $\seqof{u_i}{i \in \Nat}$ of elements in a
+quasi-ordered set $(X, \leq)$ is \intro{good} whenever there exist $i < j$ such
+that $u_i \leq u_j$. The set $X$ is a \intro{well-quasi-ordering} when every
+infinite sequence is \reintro{good}. A sequence is \intro{bad} when it is not
+\reintro{good}. The notion of \reintro{good sequences} can also be applied to
+binary relations that are not orderings, and a binary relation $R$ for which
+every infinite sequence is \reintro{good} is said to be \intro{well}
+\cite{MELL98}.
+
+\subsection{Residual Transducers and WQOs}
 
 The goal of the upcoming section is to provide a notion of residual transducer
 for \kl{commutative} \kl{$\Nat$-polyregular functions}. The notion of
-transducer is based on the \kl{marble transducers} \cite{EHB99}.
+transducer is based on the marble transducers \cite{EHB99}, and follows the
+general pattern of transducers introduced in \cite{LOPEZ23b}.
 
 \begin{definition}
     Let $\mathcal{H}$ be a family of functions
@@ -38,7 +59,7 @@ transducer is based on the \kl{marble transducers} \cite{EHB99}.
     \end{itemize}
 \end{definition}
 
-Given the syntax of an \kl{$\mathcal{H}$ transducer}, let us now 
+Given the syntax of an \kl{$\mathcal{H}$-transducer}, let us now 
 introduce its semantics, which is given by a simple recursion
 scheme.
 \begin{definition}
@@ -55,15 +76,6 @@ scheme.
     is $w \mapsto \aTransd(q_0, w)$.
 \end{definition}
 
-\AP As in the case of regular automata, we generalize the function $\delta
-\colon Q \times \Sigma \to Q$ to words by defining $\delta(q, \varepsilon) =
-q$, and $\delta(q,au) = \delta(\delta(q,a), u)$. Similarly, we write
-$\lambda(q,\varepsilon) \defined 0$, and $\lambda(q, au) \defined \app{\lambda(q,a)}{u}
-+ \lambda(\delta(q,a), u)$. Following these equations, we obtain that
-$\aTransd(q_0, uv) = \aTransd(\delta(q_0, u), v) + \lambda(q_0, u)(v)$.
-Furthermore, let us notice that if $\mathcal{H}$ is closed under finite sums
-and shifts, then $\lambda(q, u) \in \mathcal{H}$ for all $(q,u) \in Q \times
-\Sigma^*$.
 
 \begin{example}
     \label{non-canonical-transd:ex}
@@ -132,6 +144,16 @@ and shifts, then $\lambda(q, u) \in \mathcal{H}$ for all $(q,u) \in Q \times
     \label{non-canonical-transd:fig}
 \end{figure}
 
+\AP As in the case of regular automata, we generalize the function $\delta
+\colon Q \times \Sigma \to Q$ to words by defining $\delta(q, \varepsilon) =
+q$, and $\delta(q,au) = \delta(\delta(q,a), u)$. Similarly, we write
+$\lambda(q,\varepsilon) \defined 0$, and recursively define $\lambda(q, au)
+\defined \app{\lambda(q,a)}{u} + \lambda(\delta(q,a), u)$. Following these
+equations, we can write for all $q \in Q$, $u,v \in \Sigma^*$, $\aTransd(q, uv)
+= \aTransd(\delta(q, u), v) + \lambda(q, u)(v)$. Finally, let us notice
+that if $\mathcal{H}$ is closed under finite sums and shifts, then $\lambda(q,
+u) \in \mathcal{H}$ for all $(q,u) \in Q \times \Sigma^*$.
+
 \AP Let us recall that a \intro{counter} in an automaton is a pair $u,w$ of
 words together with an integer $n > 1$, such that $\delta(q_0, uw^n) =
 \delta(q_0, u)$ and $\delta(q_0, u w^k) \neq \delta(q_0, u)$ for all $k < n$.
@@ -139,33 +161,28 @@ An automaton is \reintro{counter-free} if it contains no \reintro{counters}.
 This notion can be applied to \kl{$\mathcal{H}$-transducers} by
 considering counters of their underlying automata.
 
-\begin{theorem}[Cite gaëtan]
+It is already known in the literature that this notion of transducers correctly
+captures both $\NSF$ and $\NPoly$ in the sense that the following fact will
+clarify.
+
+\begin{fact}[Cite gaëtan]
     Let $f \colon \Sigma^* \to \Nat$, and let $k \in \Nat$.
     The following are equivalent:
     \begin{itemize}
-        \item $f \in \NPoly[k]$,
-        \item $f$ is computed by a \kl{$\NPoly[k-1]$-transducer}.
+        \item $f \in \NPoly[k]$ (respectively $\NSF[k]$),
+        \item $f$ is computed by an \kl{$\NPoly[k-1]$-transducer}
+            (respectively by an \kl{$\NSF[k-1]$-transducer} that is 
+            \kl{counter-free}).
     \end{itemize}
-    \begin{itemize}
-        \item $f \in \NSF[k]$,
-        \item $f$ is computed by a \kl{$\NSF[k-1]$-transducer}
-            that is counter-free.
-    \end{itemize}
-\end{theorem}
+\end{fact}
 
-\AP Let us now introduce the notion of \intro{residual} of a function $f
-\colon \Sigma^* \to \Rel$, by defining $\app{f}{u} \defined w \mapsto f(uw)$.
-The collection of \reintro{residuals} of a function $f$ is denoted $\Res(f)$
-and is defined as the set of $\app{f}{u}$ where $u$ ranges over words in
-$\Sigma^*$.
-
-\AP Let $k \in \Nat$. The residual transducer in the case of $\Rel$ output was
-built using an equivalence relation defined as $f \equiv_k g$ if and only if $g
-- f \in \ZPoly[k-1]$. However, in the case of $\Nat$ output, the relation
-cannot be symmetric, and furthermore, we are going to order words rather than
-residuals. Namely, given $k \in \Nat$, and $f \colon \Sigma^* \to \Nat$, we
-define $u \resleq{f}{k} v$ if and only if $\app{f}{v} - \app{f}{u} \in
-\NPoly[k-1]$.
+\AP Let $k \in \Nat$. We define $f \zpolyequiv[k] g$ if and only if $(g - f)
+\in \ZPoly[k-1]$, and $f \npolyleq[k] g$ if and only if $(g - f) \in
+\NPoly[k-1]$. Given a function $f \colon \Sigma^* \to \Rel$, we are going to
+study both $(\Res(f), \zpolyequiv[k])$, and $(\Res(f), \npolyleq[k])$. However,
+to simplify notations, instead of writing $\app{f}{u} \npolyleq[k] \app{f}{v}$
+when $u,v \in \Sigma^*$, we will use the convenient notation $u \resleq{f}{k}
+v$, and directly consider the space $(\Sigma^*, \resleq{f}{k})$.
 
 \begin{fact}
     \label{good-residual-ordering:fact}
@@ -180,20 +197,18 @@ define $u \resleq{f}{k} v$ if and only if $\app{f}{v} - \app{f}{u} \in
     \end{enumerate}
 \end{fact}
 
-There is one major issue arising when defining the notion of residual
-transducer based on the quasi-ordering $\resleq{f}{k}$. The naïve approach is
-to consider as states some representatives for the $\resleq{f}{k}$ minimal
-elements of $\Sigma^*$, all computing the same function
-(\cref{good-residual-ordering:fact}), and define transitions by letting
-$\delta(u, a)$ be \emph{one} state $v$ such that $v \resleq{f}{k} ua$. This
-naïve approach does not yield a canonical model.
-For instance, the function
-of \cref{non-canonical-transd:ex} can be computed in two ways if we only
-consider $\resleq{f}{k}$ minimal elements, as witnessed in
+Given a function $f$, our goal is to leverage $\resleq{f}{k}$ to build a
+canonical \kl{$\NPoly[k-1]$-transducer} that \kl{computes} $f$. The naïve
+approach is to consider as states some representatives for the $\resleq{f}{k}$
+minimal elements of $\Sigma^*$ (assuming there are finitely many of them), all
+computing the same function (\cref{good-residual-ordering:fact}), and define
+transitions by letting $\delta(u, a)$ be \emph{one} state $v$ such that $v
+\resleq{f}{k} ua$. This naïve approach does not yield a canonical model. For
+instance, the function of \cref{non-canonical-transd:ex} can be computed in two
+ways if we only consider $\resleq{f}{k}$ minimal elements, as witnessed in
 \cref{non-canonical-transd:fig}. Even worse, the function $f$ belongs to
-$\NSF[0]$, but one of the two presented transducers has a \kl{counter}.
-
-This is why in \cref{residual-transducer:def}, we introduce the prefix ordering
+$\NSF[0]$, but one of the two presented transducers has a \kl{counter}. This is
+why in \cref{residual-transducer:def}, we introduce the prefix ordering
 $\prefleq$ to further constrain how the model computes.
 
 \begin{definition}
@@ -328,19 +343,23 @@ algorithm also proves the existence of the \kl{$k$-residual transducer}.
 \end{proof}
 
 
-\AP Let us recall that a sequence $\seqof{u_i}{i \in \Nat}$ of elements in a
-quasi-ordered set $(X, \leq)$ is \kl{good} whenever there exist $i < j$ such
-that $u_i \leq u_j$. The set $X$ is a \kl{well-quasi-ordering} when
-every infinite sequence is \kl{good}. A sequence is \kl{bad}
-when it is not \kl{good}.
 
 \begin{lemma}
     \label{wqo-implies-termination:lemma}
     Let $f \colon \Sigma^* \to \Nat$, and $k \in \Nat$ be such that
     every infinite, $\prefleq$-increasing sequence is \kl{good}
-    in $(\Sigma^*, \resleq{f}{k})$.
+    in $(\Sigma^*, \resleq{f}{k})$
+    (or equivalently, such that the relation $(\prefleq \Rightarrow \resleq{f}{k})$
+    is \kl{well}).
     Then, \cref{residual:algo} terminates on the input $(f,k)$.
 \end{lemma}
+
+The following \cref{n-poly-k-implies-wqo:lemma} is the core argument of the
+section, and states that for a function $f \in \NPoly[k]$, not only $(\prefleq
+\Rightarrow \resleq{f}{k})$ is \kl{well}, but $\resleq{f}{k}$ is a
+\kl{well-quasi-ordering}. This has to be compared with the property of being
+\kl{$(k,\Nat)$-combinatorial}, which states that ultimately, the function is
+increasing in every direction.
 
 \begin{lemma}
     \label{n-poly-k-implies-wqo:lemma}
@@ -348,9 +367,38 @@ when it is not \kl{good}.
     Then, $(\Sigma^* \resleq{f}{k})$ is a \kl{well-quasi-ordering}.
 \end{lemma}
 
+
+\begin{conjecture}
+    Let $f \in \ZPoly[k]$
+    be \kl{combinatorial}.
+    Then, $f$ is non-negative and for every pair
+    $(u,w) \in \Sigma^*$,
+    the sequence $\seqof{u w^n}{n \in \Nat}$
+    is \kl{good}.
+\end{conjecture}
+\begin{proof}
+    By induction on $k$.
+\end{proof}
+
+\begin{conjecture}
+    Let $f \in \ZPoly[k]$
+    be a non-negative function such that for every
+    $(u,w) \in \Sigma^*$,
+    the sequence $\seqof{u w^n}{n \in \Nat}$
+    is \kl{good}.
+    Then, $f$ belongs to $\NPoly[k]$.
+\end{conjecture}
+\begin{proof}
+    By induction on $k$.
+    For $k = 0$, non-negative is enough.
+    To go beyond, we
+
+\end{proof}
+
 \begin{theorem}
     \label{non-commutative-npoly:thm}
-    Let $f \in \ZPoly$ and $k \in \Nat$,
+    Let $f \in \ZPoly$ be a non-negative function, 
+    and $k \in \Nat$,
     the following are equivalent:
     \begin{enumerate}
         \item $f$ is \kl{computed}
@@ -373,6 +421,8 @@ when it is not \kl{good}.
     We have proven that transducers imply
     wqo, and that wqo implies $k$-residual transducer.
 \end{proof}
+
+\subsection{Aperiodicity and Counters}
 
 
 \begin{lemma}

@@ -116,7 +116,7 @@ a nicer syntax to construct examples.
             an integer $m \in \Nat$ (resp. $m \in \Rel$)
             starting from
             indicator functions $\ind{L}$ of regular languages;
-        \item $f$ belongs to
+        \item \label{npoly-counting-mso:item} $f$ belongs to
             $\Span{\mathbb{S}}(\setof{\vcount{\varphi}}{\varphi(\vec{x}) \in \MSO})$
             with $\mathbb{S} = \Nat$
             (resp. $\mathbb{S} = \Rel$).
@@ -159,6 +159,9 @@ $\NSF$ and $\ZSF$ in the following lemma.
     \kl{star-free $\Nat$-polyregular function}.
 \end{example}
 
+\textbf{This is wrong, we should talk about the number of variables,
+    and say that we do not know in the case of $\NSF$ if it corresponds
+    to the minimal number of variables needed!}
 \AP Inside $\ZPoly$, there is an infinite hierarchy of classes, defined using
 the \kl{growth rate}. Namely, one defines $\ZPoly[k]$ as the functions $f \in
 \ZPoly$ such that $\growth{f}(n) = \bigO(n^k)$, i.e., have \kl{growth rate}

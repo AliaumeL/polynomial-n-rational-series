@@ -3,17 +3,71 @@
 \section{Beyond Polynomials}
 \label{beyond-polynomials:sec}
 
-Let us now move on from polynomials to general \kl{$\Rel$-polyregular
-functions}. As we will prove, \kl{commutativity} reduces $\ZPoly$ to a
-combination of a finite number of polynomials, arranged using modulo counting.
-We will first decide $\NPoly$ inside $\ZPoly$, and then leverage this to decide
-$\NSF$ inside $\NPoly$, incidentally proving that $\ZSF \cap \NPoly = \NSF$.
+Let us now go beyond polynomials and consider the case of \kl{commutative}
+\kl{$\Rel$-polyregular functions}. The hypothesis of \kl{commutativity} reduces
+$\ZPoly$ to a combination of a finite number of polynomials, arranged by
+counting modulo some numbers. This characterization will be proven in
+\cref{decompose-polynomial:lem}, and will be the key ingredient in the decision
+procedures of $\NPoly$ inside $\ZPoly$, and $\NSF$ inside $\NPoly$. Note that
+\cref{decompose-polynomial:lem} is actually a refinement of
+\cref{n-poly-combinatorics:lem} under the extra assumption of
+\kl{commutativity}. 
+
+\AP To formally state the lemma, we will need some notations that will
+formalize the intuitive idea of counting tuples of integers modulo some
+constant. Let $\omega \in \Nat$, we write the set of \intro{types modulo
+$\omega$} $\ModuloTypes[\omega] \defined \set{0, \dots, \omega^2} \times \set{0,
+    \dots, \omega - 1}$. To a number $n \in \Nat$, we associate its
+    \intro{$\omega$-type} written $\moduloType[\omega](n)$ which is defined as the pair
+    $(t, r)$ where $t = \min (n, \omega^2)$ and $r$ is the rest of the Euclidian
+    division of $n$ by $\omega$. This notion of type is lifted to vectors in
+    $\Nat^p$ for any $p \in \Nat$ by pointwise application.
+
+
+\begin{lemma}
+    \label{decompose-polynomial:lem}
+    Let $f \colon \Sigma^* \to \Rel$ be a \kl{commutative}
+    \kl{$\Rel$-polyregular function},
+    where $\Sigma = \set{a_1, \dots, a_n}$.
+    There exists a computable
+    $\omega \in \Nat$,
+    and computable 
+    polynomials $\seqof{P_{t}}{t \in \ModuloTypes[\omega]^n}$
+    such that for all $w \in \Sigma^*$,
+    \begin{equation*}
+        f\left(a_1^{X_1} \cdots a_n ^{X_n}\right) 
+        = P_{\moduloType[\omega](X_1, \dots, X_n)}
+        \left(
+            \floor{X_1/\omega}, \dots, \floor{X_n/\omega}
+        \right)
+        \quad .
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+    We apply
+    \cref{n-poly-combinatorics:lem} to compute the $\omega$.
+    Using this $\omega$,
+    for any choice of
+    $r \defined (r_1, \dots, r_n) \in \set{0, \dots, \omega - 1}$,
+    there exists a polynomial $P_r \in \Rel[X_1, \dots, X_p]$
+    such that $X_1, \dots, X_p \geq \omega$:
+    \begin{equation*}
+        f\left(
+        a_1^{\omega X_1 + r_1} \cdots a_n ^{\omega X_n + r_n}\right) 
+        = P_r(X_1, \dots, X_p) \quad .
+    \end{equation*}
+    To get the full family of polynomials needed requires
+    just to only iterate subsets of letters, and fix the other ones
+    to be below the threshold $\omega^2$.
+\end{proof}
 
 \subsection{$\Nat$-polyregular functions}
 
 The goal of this section is to go beyond polynomials and characterize all
-$\Rel$-polyregular functions that are $\Nat$-polyregular, under the assumption
-that they are \kl{commutative}.
+\kl{$\Rel$-polyregular functions} that are \kl{$\Nat$-polyregular}, under the
+assumption that they are \kl{commutative}. We will provide a semantic property
+in the form of \cref{k-combinatorial:def}, that is conjecture to characterize
+$\NPoly$ inside $\ZPoly$, even in the non-commutative setting.
 
 \begin{definition}
     \label{k-combinatorial:def}
@@ -24,7 +78,8 @@ that they are \kl{commutative}.
     for all
     $\alpha_0, \dots, \alpha_k \in \Sigma^*$,
     for all $u_1, \dots, u_k \in \Sigma^*$,
-    there exists a \kl{$\Nat$-rational polynomial} $P$
+    there exists a polynomial $P$
+    such that $\translate{K}(P) \in \CorrectPoly$, and
     satisfying for all $X_1, \dots, X_k \geq \omega$:
     \begin{equation*}
         f
@@ -34,6 +89,8 @@ that they are \kl{commutative}.
         = 
         P(X_1, \dots, X_k) \quad .
     \end{equation*}
+    We say that $f$ is \reintro{combinatorial}
+    if it is \reintro{$(k,\Nat)$-combinatorial} for all $k \in \Nat$.
 \end{definition}
 
 \begin{theorem}
@@ -42,58 +99,33 @@ that they are \kl{commutative}.
     let $f \in \ZPoly[k]$ be a \kl{commutative} \kl{$\Rel$-polyregular function}.
     The following are equivalent:
     \begin{enumerate}
-        \item $f$ is \kl{$(k,\Nat)$-combinatorial},
-        \item $f \in \NPoly[k]$,
+        \item \label{f-combinatorial:item} $f$ is \kl{$(k,\Nat)$-combinatorial},
+        \item \label{f-npoly-combi:item} $f \in \NPoly[k]$,
     \end{enumerate}
     Furthermore, the properties are decidable,
     and one can effectively compute a representation of $f$.
 \end{theorem}
-
-To prove the theorem, let us first provide a nice characterization of
-\kl{commutative} \kl{$\Rel$-polyregular functions} in terms of polynomials.
-This is actually a refinement of \cref{n-poly-combinatorics:lem} in the
-commutative case. 
-
-\AP Given $\omega \in \Nat$, let us write $\phi \colon \Nat \to \set{0, \dots,
-\omega} \times \set{0, \dots, \omega - 1}$ defined as $\phi(n) = (t, r)$ where
-$t = \min(n, \omega)$, and $r$ is the rest of the Euclidian division of $n$ by
-$\omega$. We let $\phi^\dagger \colon \Nat^k \to$.
-
-
-\begin{lemma}
-    \label{decompose-polynomial:lem}
-    Let $f \colon \Sigma^* \to \Rel$ be a \kl{commutative}
-    \kl{$\Rel$-polyregular function}. There exists a computable
-    $\omega \in \Nat$,
-    and computable 
-    polynomials $\seqof{P_{\rho}}{\rho \in \Delta_\omega}$,
-    such that for all $w \in \Sigma^*$,
-    \begin{equation*}
-        f\left(a_1^{X_1} \cdots a_n ^{X_n}\right) = P_{\phi(X_1, \dots, X_n)} (X_1 / \omega, \dots, X_n / \omega)
-        \quad .
-    \end{equation*}
-\end{lemma}
 \begin{proof}
-    equivalent partitions of the word, but commutativity?.q
-    Lemma 5.37 phd gaëtan.
+    \textbf{TODO: we need to talk about the number of variables hehe}
+    Let us prove that
+    \cref{f-npoly-combi:item}
+    implies \cref{f-combinatorial:item}. 
+    We compute the $\omega$ by applying 
+    \cref{n-poly-combinatorics:lem}, and then
+    notice that the polynomial $P$ obtained is
+    by definition a \kl{$\Nat$-rational polynomial}.
+
+    For the converse implication, we use \cref{decompose-polynomial:lem} to
+    effectively compute a polynomial representation of $f$. Using the
+    assumption, all of these polynomials are actually \kl{$\Nat$-rational
+    polynomials}. Let us now construct a new way to compute $f$, by first
+    computing the \kl{$\omega$-type} of the input (which is possible in
+    $\MSO$), and then computing the suitable \kl{$\Nat$-rational polynomial},
+    which is possible in $\NPoly$.
 \end{proof}
-
-As a consequence, we conclude 
-\begin{proof}[Proof of \cref{decidable-n-poly:thm}]
-    We use \cref{decompose-polynomial:lem}
-    to effectively compute
-    a polynomial representation of $f$. Remark that
-    $f$ is a \kl{$\Nat$-polyregular function} if and only if
-    all these polynomials are \kl{$\Nat$-rational polynomials},
-    which is decidable thanks to
-    \cref{decide-correct-poly:lem,corrected-version:thm}.
-\end{proof}
-
-
 
 \subsection{Star-free $\Nat$-polyregular functions}
 \label{star-free:sec}
-
 
 Let us now prove that the above characterizations of \kl{commutative}
 \kl{$\Nat$-polyregular functions} can be combined with the recent advances in
@@ -113,9 +145,9 @@ following theorem.
 
 As a corollary of \cref{zsf-npoly-nsf:thm} and the effective decision
 procedures of $\ZSF$ obtained in \cite{LOPEZ23b}, we conclude that $\NSF$ is
-decidable inside $\NPoly$ under the assumption of commutativity.
+decidable inside $\NPoly$ under the assumption of commutativity,
+and that the effective procedure can be used 
 
-\textbf{TODO: add the growth rate here, we are actually minimising it}.
 \begin{corollary}
     One can decide if a \kl{commutative} \kl{$\Rel$-polyregular function}
     can be realized by a \kl{star-free $\Nat$-polyregular function},
@@ -163,11 +195,8 @@ generalizes the indicator functions of regular languages.
 
 \begin{example}
     A language $L$ is aperiodic if and only if 
-    the indicator function is ultimately polynomial.
+    $\ind{L}$ is \kl{ultimately polynomial}.
 \end{example}
-\begin{proof}
-    TODO.
-\end{proof}
 
 \begin{proof}[Proof of \cref{zsf-npoly-nsf:thm}]
     We proceed by induction on the size of the alphabet $\card{\Sigma}$.
@@ -196,24 +225,21 @@ generalizes the indicator functions of regular languages.
     Furthermore, leveraging \cref{decompose-polynomial:lem},
     we obtain $\omega \in \Nat$
     and a family of polynomials 
-    $\seqof{P_{\seqof{n_a}{a \in \Sigma}}}{0 \leq n_a < \omega}$
-    such that.
-    Because each of those polynomials coincide with $P$ over an infinite
-    subgrid of $\Nat$,
-    we conclude that all polynomials are in fact equal to a single one.
-    we conclude that the polynomials 
-    $P_{\seqof{n_a}{a \in \Sigma}}$ are all equal.
-
-    Now, we conclude in particular that the function 
-    computing $P$ is \kl{$\Nat$-polyregular}, because $f$ is,
-    hence is computable by a \kl{star-free $\Nat$-polyregular function},
-    because of \cref{nsf-polynomials:thm}.
-    When fixing values of some indeterminate below $N_0$,
-    we obtain a new function $g$, that remains commutative,
-    remains ultimately polynomial, and remains \kl{$\Nat$-polyregular}.
-    By induction hypothesis, this function $g$ is also 
-    \kl{star-free $\Nat$-polyregular}, and we conclude
-    that 
-    $f = P + \sum g$ which remains star free.
+    $\seqof{P_{t}}{t \in \ModuloTypes[\omega]^\Sigma}$
+    that represent $f$.
+    For all $t \in \ModuloTypes[\omega]^\Sigma$
+    that have threshold greater than $\omega^2$,
+    we conclude that $P_t$ and $P$ coincide (up to translation) over an infinite grid,
+    hence we conclude that
+    if all letters appear at least $N_1 \defined \max (\omega^2, N_0)$ times,
+    then $f$ computes $P$. But this also shows that
+    $\translate{N_1}(P)$ is a \kl{$\Nat$-rational polynomial}, hence is
+    \kl{represented} by a function $f_1 \in \NSF[k]$.
+    
+    To compute $f$ on words where some letter appears fewer than
+    $N_1$ times, we partially apply $f$ to obtain a function $g$
+    over a restricted input alphabet. Using the induction hypothesis,
+    $g$ belongs to $\NSF[k]$, and we can therefore (effectively) compute
+    a representation of $f$ in $\NSF[k]$.
 \end{proof}
 
