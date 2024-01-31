@@ -36,6 +36,53 @@ binary relations that are not orderings, and a binary relation $R$ for which
 every infinite sequence is \reintro{good} is said to be \intro{well}
 \cite{MELL98}.
 
+\subsection{Polyblind functions}
+
+We are going to prove that polyblind functions are essentially
+commutative.
+
+\AP Given $q,k \in \Nat$, we define $\MSO^q_k$ to be the collection of types of
+tuples of at most $k$ variables using quantifier rank at most $q$. We extend
+the notation to a function $\MSO^q_k (u)$ that assigns to a word $u$ the number
+of representative for each type.
+
+\begin{lemma}
+    Let $q \in \Nat$. The image
+    $\MSO^q_1(\Sigma^*)$ is a semilinear set.
+\end{lemma}
+\begin{proof}
+    Here is a context-free grammar that enumerates words
+    in $\Sigma^*$ with letters colored by their $\MSO^q_1$ type.
+    The initial non-terminal decides the global $\MSO^q$ type of the word,
+    and given a non-terminal with an $\MSO^q$-type, we can split it in three
+    by choosing a letter $a \in \Sigma$, an $\MSO^q$-type for the left,
+    and an $\MSO^q$-type for the right, so that the types are coherent.
+    We just have to remember the $\MSO^q$ type of the left and right
+    of the current non-terminal to do that properly.
+
+    By the Parikh’s theorem, the image of this is a semilinear set, that
+    precisely computes $\MSO^q_1(\Sigma^*)$.
+\end{proof}
+
+\AP
+Recall that a \intro{polyblind function} is a function such that.
+
+\begin{lemma}
+    Let $f \colon \Sigma^* \to \Rel$ be a \kl{polyblind function}.
+    Then, there exists a computable function $g \colon \Nat^p \to \Rel$,
+    that is \kl{commutative} and such that.
+\end{lemma}
+
+\AP
+Look at the image of $\MSO^q_k$, is it semi-algebraic instead of semi-linear?
+\begin{lemma}
+    $\MSO^q_k(\Sigma^*)$ is a set of tuples that is obtained as a finite union 
+    images of polynomials?
+\end{lemma}
+
+
+\subsection{}
+
 \subsection{Residual Transducers and WQOs}
 
 The goal of the upcoming section is to provide a notion of residual transducer
