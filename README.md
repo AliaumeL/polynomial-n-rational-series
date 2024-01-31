@@ -103,3 +103,8 @@ but could be quite useful
 [Makefile]: https://fr.wikipedia.org/wiki/Make
 [arXiv]: https://arxiv.org/
 [rebase]: https://git-scm.com/docs/git-rebase
+
+## About the lipics template
+
+The lipics template is taken from the Github repository
+of [Dagstuhl styles](https://github.com/dagstuhl-publishing/styles/tree/master).

@@ -1,7 +1,7 @@
 %! TeX program = xelatex
+%! TeX root = paper-name.tex
 %! lang = en-US
-\documentclass[sigconf,natbib=false,screen,review,anonymous,9pt]{acmart}
-
+\documentclass[a4paper,UKenglish,cleveref, autoref, thm-restate]{lipics-v2021}
 
 
 % INPUTS
@@ -12,7 +12,6 @@
 \input{globals/macros}
 \input{globals/mathdefs}
 \input{globals/knowledges.kl}
-\input{globals/metadata}
 
 \usepackage{comment}
 %\includecomment{forshort}
@@ -24,13 +23,14 @@
 \crefname{algocf}{Algorithm}{Algorithms}
 \Crefname{algocf}{Algorithm}{Algorithms}
 
-\makeabstract
 % DOCUMENT
 \begin{document}
+\input{globals/metadata}
 
 % FRONT MATTER
 \maketitle
-\acknowledge
+%\makeabstract
+%\acknowledge
 
 \input{parts/intro.tex}
 \input{parts/prelim.tex}
@@ -41,7 +41,8 @@
 \input{parts/conclusion.tex}
 
 % BACKMATTER
-\printbibliography
+\bibliographystyle{plainurl}
+\bibliography{globals/papers}
 
 \appendix
 

@@ -1,5 +1,7 @@
 %% CUSTOM MACROS, META MACROS, AND CONFIG %%
 
+% Styling 
+%\nolinenumbers %uncomment to disable line numbering
 
 % knowledge management
 \knowledgestyle{intro notion}{color={A5}, emphasize}
@@ -27,22 +29,22 @@
 }
 
 % Common theorem styles
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[section]
+%\theoremstyle{plain}
+%\newtheorem{theorem}{Theorem}[section]
 \newtheorem{faketheorem}{Untrue Theorem}[section]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{corollary}[theorem]{Corollary}
+%\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{proposition}[theorem]{Proposition}
+%\newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{fact}[theorem]{Fact}
-\theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definition}
-\newtheorem{example}[theorem]{Example}
-\theoremstyle{remark}
-\newtheorem{remark}[theorem]{Remark}
-\newtheorem{exercise}[theorem]{Exercise}
-\newtheorem{claim}[theorem]{Claim}
-\newtheorem{tool}[theorem]{Tool}
-\newtheorem{conjecture}[theorem]{Conjecture}
+%\theoremstyle{definition}
+%\newtheorem{definition}[theorem]{Definition}
+%\newtheorem{example}[theorem]{Example}
+%\theoremstyle{remark}
+%\newtheorem{remark}[theorem]{Remark}
+%\newtheorem{exercise}[theorem]{Exercise}
+%\newtheorem{claim}[theorem]{Claim}
+%\newtheorem{tool}[theorem]{Tool}
+%\newtheorem{conjecture}[theorem]{Conjecture}
 
 
 % Upgreek letters
@@ -58,23 +60,6 @@
 }
 \makeatother
 
-% Citation configuration
-\AtEveryBibitem{
-    % Removes issn, isbn, and
-    % unwanted items from the bibliography
-	\clearfield{issn}
-	\clearfield{isbn}
-	\clearfield{archivePrefix}
-	\clearfield{arxivId}
-	\clearfield{pmid}
-	\clearfield{eprint}
-}
 
-% Cite a knowledge
-\NewDocumentCommand{\citek}{ o m }{
-    \IfNoValueTF{#1}{
-        \cite{m}
-    }{
-        \cite[{\kl(#1)[#2]}]{#1}
-    }
-}
+\NewDocumentCommand{\textcite}{O{} m}{\cite{#2}}
+\NewDocumentCommand{\citeauthor}{O{} m}{\cite{#2}}
