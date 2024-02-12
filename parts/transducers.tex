@@ -36,52 +36,90 @@ binary relations that are not orderings, and a binary relation $R$ for which
 every infinite sequence is \reintro{good} is said to be \intro{well}
 \cite{MELL98}.
 
-\subsection{Polyblind functions}
+\subsection{Deciding $\Nat$-polyregular functions}
 
-We are going to prove that polyblind functions are essentially
-commutative.
 
-\AP Given $q,k \in \Nat$, we define $\MSO^q_k$ to be the collection of types of
-tuples of at most $k$ variables using quantifier rank at most $q$. We extend
-the notation to a function $\MSO^q_k (u)$ that assigns to a word $u$ the number
-of representative for each type.
+The goal is to prove \cref{decide-n-poly-general:thm}.
+To that end, we will use factorisation forests.
+\begin{definition}
+    Forests of depth $d$ by induction.
+\end{definition}
+
+
+\begin{remark}
+    Place the nested higman embedding on the forests, it is a well-quasi-ordering.
+\end{remark}
+
+\begin{definition}
+    Counting functions. $\vcount{q}$ where $q$ is a pattern.
+\end{definition}
+
+\begin{definition}
+    Divisibility of patterns.
+\end{definition}
+
+\begin{definition}
+    Forest iteration, where $q$ is a pattern.
+\end{definition}
+
+\begin{theorem}[Simon, restated in ]
+    For every $f \in \ZPoly[k]$,
+    there exists a computable function $h \colon \Sigma^* \to F_d(M)$,
+    and a function $g \colon F_d(M) \to \Rel$ that is a counting function
+    such that.
+\end{theorem}
+
+\textbf{TODO: domains should have a good shape, i.e.,
+    intersections of sentences of the shape
+    this pattern has at most "X" matches, and should be
+    downwards closed}.
+
+\textbf{TODO: problem, there is a problem, it is not because
+    the number of matches is unbounded, that we can
+    iterate the shape itself no?}
 
 \begin{lemma}
-    Let $q \in \Nat$. The image
-    $\MSO^q_1(\Sigma^*)$ is a semilinear set.
+    A function $g \colon F_d(M) \to \Rel$ is $\Nat$-polyregular
+    over a domain $D$ if and only if for every 
+    pattern iteration, the function obtained is
+    $\Nat$-polyregular (commutative).
 \end{lemma}
 \begin{proof}
-    Here is a context-free grammar that enumerates words
-    in $\Sigma^*$ with letters colored by their $\MSO^q_1$ type.
-    The initial non-terminal decides the global $\MSO^q$ type of the word,
-    and given a non-terminal with an $\MSO^q$-type, we can split it in three
-    by choosing a letter $a \in \Sigma$, an $\MSO^q$-type for the left,
-    and an $\MSO^q$-type for the right, so that the types are coherent.
-    We just have to remember the $\MSO^q$ type of the left and right
-    of the current non-terminal to do that properly.
+    By induction on the domain $D$, and on the divisibility ordering
+    of patterns.
+    Base case, for all pattern iteration, the value of $g$ is bounded.
+    Then, $g$ has finitely many outputs, and they are all in $\Nat$,
+    we have concluded.
 
-    By the Parikh’s theorem, the image of this is a semilinear set, that
-    precisely computes $\MSO^q_1(\Sigma^*)$.
+    Let $q_i$ be a maximal pattern of $g$. If $q_i$ cannot be iterated in $D$,
+    then the value of $q_i$ is bounded by some constant, and we can rewrite it
+    as counting "full" patterns?
+
+    Otherwise, $q_i$ can be iterated, and therefore we can
+    pump to prove that its coefficient must be strictly positive.
+    Then, using some derivation magic, we can recurse.
 \end{proof}
 
-\AP
-Recall that a \intro{polyblind function} is a function such that.
 
-\begin{lemma}
-    Let $f \colon \Sigma^* \to \Rel$ be a \kl{polyblind function}.
-    Then, there exists a computable function $g \colon \Nat^p \to \Rel$,
-    that is \kl{commutative} and such that.
-\end{lemma}
+\begin{theorem}
+    \label{decide-n-poly-general:thm}
+    Let $f \in \ZPoly[k]$, the following are equivalent:
+    \begin{enumerate}
+        \item $f \in \NPoly$;
+        \item $f \in \NPoly[k]$;
+        \item for all $h$ commutative polyregular function,
+            $f \circ h$ in $\NPoly$
+        \item for all pattern iteration,
+            $f(pattern)$ is a \kl{$\Nat$-rational polynomial}.
+    \end{enumerate}
+    Furthermore, the properties are decidable.
+\end{theorem}
+\begin{proof}
+    (1) implies (2) is okay, because of generic results.
+    (2) implies (3) implies (4) is completely fine.
+    Now, let us prove that (4) implies $1$.
+\end{proof}
 
-\AP
-Look at the image of $\MSO^q_k$, is it semi-algebraic instead of semi-linear?
-\begin{lemma}
-    $\MSO^q_k(\Sigma^*)$ is a set of tuples that is obtained as a finite union 
-    images of polynomials?
-\end{lemma}
-
-
-\subsection{}
 
 \subsection{Residual Transducers and WQOs}
 
@@ -825,3 +863,51 @@ a function is in $\NPoly$.
     is not regular, whenever $a,b \in \Sigma$.
     Regular languages are closed under intersection.
 \end{fact}
+
+\subsection{Polyblind functions}
+
+We are going to prove that polyblind functions are essentially
+commutative.
+
+\AP Given $q,k \in \Nat$, we define $\MSO^q_k$ to be the collection of types of
+tuples of at most $k$ variables using quantifier rank at most $q$. We extend
+the notation to a function $\MSO^q_k (u)$ that assigns to a word $u$ the number
+of representative for each type.
+
+\begin{lemma}
+    Let $q \in \Nat$. The image
+    $\MSO^q_1(\Sigma^*)$ is a semilinear set.
+\end{lemma}
+\begin{proof}
+    Here is a context-free grammar that enumerates words
+    in $\Sigma^*$ with letters colored by their $\MSO^q_1$ type.
+    The initial non-terminal decides the global $\MSO^q$ type of the word,
+    and given a non-terminal with an $\MSO^q$-type, we can split it in three
+    by choosing a letter $a \in \Sigma$, an $\MSO^q$-type for the left,
+    and an $\MSO^q$-type for the right, so that the types are coherent.
+    We just have to remember the $\MSO^q$ type of the left and right
+    of the current non-terminal to do that properly.
+
+    By the Parikh’s theorem, the image of this is a semilinear set, that
+    precisely computes $\MSO^q_1(\Sigma^*)$.
+\end{proof}
+
+\AP
+Recall that a \intro{polyblind function} is a function such that.
+
+\begin{lemma}
+    Let $f \colon \Sigma^* \to \Rel$ be a \kl{polyblind function}.
+    Then, there exists a computable function $g \colon \Nat^p \to \Rel$,
+    that is \kl{commutative} and such that the following are equivalent:
+    \begin{itemize}
+        \item $g$ is $\Nat$-polyregular
+        \item $f$ is $\Nat$-polyregular
+    \end{itemize}
+\end{lemma}
+
+\AP
+Look at the image of $\MSO^q_k$, is it semi-algebraic instead of semi-linear?
+\begin{lemma}
+    $\MSO^q_k(\Sigma^*)$ is a set of tuples that is obtained as a finite union 
+    images of polynomials?
+\end{lemma}
