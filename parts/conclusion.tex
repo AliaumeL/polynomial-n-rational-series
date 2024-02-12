@@ -1,7 +1,59 @@
 %! TeX program = xelatex
 %! lang = en-US
-\section{Conclusion}
+\section{Outlook}
 \label{sec:ccl}
+
+While \kl{$k$-residual transducers} will provide canonical objects associated
+to functions in $\NPoly$, their effective construction requires the ability to
+decide $\NPoly$ inside $\ZPoly$, which is not currently known (except in the
+commutative case). Furthermore, the correspondence between \kl{counters} in
+this automaton and \kl{star-free $\Nat$-polyregular functions} is non-trivial,
+and cannot be used \emph{as is} to decide membership in $\NSF$
+based on this analysis of the \kl{$k$-residual transducer}.
+
+Let us prove that the \kl{residual transducer} is enough to decide aperiodicity
+in the case of functions in $\NPoly[0]$, that is, with finite image. In
+particular, this generalizes the result of \cite{LOPEZ23b}, by proving that
+$\NSF[0] = \NPoly[0] \cap \ZSF$. Even though the proposed model is canonical,
+and allows to effectively decide aperiodicity for \kl{$\Nat$-polyregular
+functions} of growth rate $0$ (that is, with bounded image), it is not clear
+yet if it can be leveraged to decide aperiodicity for \kl{$\Nat$-polyregular
+functions} of higher growth rates.
+
+\begin{lemma}
+    \label{aperiodic-iff-residual:lem}
+    Let $f \in \NPoly[0]$, the following are equivalent:
+    \begin{enumerate}
+        \item $f \in \NSF$,
+        \item $f \in \ZSF$.
+        \item $f$ is \kl{ultimately polynomial},
+        \item The \kl{$0$-residual transducer} of $f$ is \kl{counter-free},
+    \end{enumerate}
+\end{lemma}
+
+\textbf{TODO:} one may think that we can ask that $u \resleq{f}{k} u w^n$
+implies $u \resleq{f}{k} uw$, but it is false, as the following example will
+demonstrate. This is why the definition of counter is more involved in our
+case.
+
+
+\begin{lemma}
+    \label{sf-no-periods-on-sequences:lemma}
+    Let $f \colon \Sigma^* \to \Nat$ be a \kl{star-free $\Nat$-polyregular
+    function}. Then,
+    for all $u, w \in \Sigma^*$,
+    there exists $n \in \Nat$ such that
+    $u w^n \resleq{f}{k} u w^{n+1}$.
+\end{lemma}
+
+\begin{theorem}
+    The following are equivalent for \kl{commutative}.
+    \begin{itemize}
+        \item $f$ is in $\NSF$,
+        \item The residual automata of $f$ has no counters
+    \end{itemize}
+\end{theorem}
+
 
 \begin{itemize}
     \item Actually, we have an algorithm that allows
@@ -27,82 +79,3 @@ following conjecture in the non-commutative case:
     and an effective conversion procedure exists.
 \end{conjecture}
 
-
-\begin{center}
-    \begin{tabular}{c|cc}
-        \toprule
-        & \textbf{Commutative} & \textbf{General} \\
-        \midrule
-        \textbf{Commutative}
-        and \textbf{Invertible} & commutative $\ZPoly$ & $\ZPoly$ \\
-        \textbf{Commutative} & commutative $\NPoly$ & $\NPoly$ \\
-        \textbf{General} & ? & polyregular 
-    \end{tabular}
-\end{center}
-
-
-\begin{conjecture}
-    For commutative functions, the residual transducer 
-    is helpful.
-\end{conjecture}
-
-\begin{fact}
-    \label{translation-invariance:fact}
-    The following sets are stable under \kl{translations}
-    $\translate{K}$,
-    where $K \in \Nat$ is non-negative:
-    \begin{itemize}
-        \item $\CorrectPoly$,
-        \item \kl{$\Nat$-rational polynomials},
-        \item Polynomials \kl{represented}
-            by \kl{star-free $\Nat$-polyregular functions}.
-    \end{itemize}
-\end{fact}
-
-\begin{conjecture}
-    Let $f \in \NPoly$. The following are equivalent,
-    \begin{enumerate}
-        \item $f \in \ZSF$,
-        \item the \kl{$k$-residual transducer} of $f$
-            is \kl{counter-free},
-            and its labels belong to $\ZSF$.
-    \end{enumerate}
-\end{conjecture}
-\begin{proof}
-    If it has a counter free residual transducer recursively, then
-    it clearly belongs to $\ZSF$.
-
-    % TODO: mix orderings and trees and maximal elements :(
-
-    Now, assume that $L$ is aperiodic, and let $(q,w^n)$ be a counter with $n
-    \geq 1$. We know that $qw \equiv_L q$ because the language $L$ is
-    aperiodic. Let us write $t \defined \delta(q,w)$, we know that $t \equiv_L
-    q$. Assume by contradiction that $t$ and $q$ are incomparable for the
-    prefix relation. Let us split $w = w_1 w_2$ where $w_1$ is the shortest
-    prefix of $w$ such that $s_0 \defined \delta(q,w_1)$ is an ancestor of $q$
-    and of $t$ for the prefix relation, it must exist because $\delta(q,w_1
-    w_2) = t$.
-
-    Now, consider $s_1 \defined \delta(t, w_1)$. Assume by contradiction that
-    $s_0$ is not comparable with $s_1$ for the prefix relation. Then, consider
-    the smallest $v$ for the prefix relation such that $\delta(t, v)$ is a
-    strict prefix of $s_0$. It must exist, because otherwise the two are always
-    comparable. Since $t \equiv_L q$, we know that $tv \equiv_L qv$, but then,
-    this contradicts the minimality of $u$.
-
-    We have proven that $s_0$ and $s_1$ are comparable, hence they
-    are equal.
-    Finally, we have proven that $\delta(q, w_1) = s_0$,
-    $\delta(s_0, w_2) = t$, and $\delta(s_0, w_2) = \delta(t, w_1w_2) = q$ which is absurd.
-
-    As a consequence $t$ and $q$ were comparable for the prefix relation,
-    hence equal, and therefore $\delta(q, w) = q$.
-\end{proof}
-
-We do not know if \kl{commutativity} is decidable for more powerful models of
-computation, and conjecture that it is decidable for \kl{polyregular functions}
-in general.
-
-\begin{conjecture}
-    Let $f \in \Poly$. One can decide if $f$ is \kl{commutative}.
-\end{conjecture}

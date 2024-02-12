@@ -3,11 +3,10 @@
 \section{Preliminaries}
 \label{preliminaries:sec}
 
-\AP
-In the rest of this paper, $\Rel$ (resp. $\Nat$) denotes the set of integers
-(resp. nonnegative integers). The capital letters $\Sigma,\Gamma$ denotes fixed
-alphabets, i.e. a finite set of letters, and $\Sigma^*, \Gamma^*$ (resp.
-$\Sigma^+, \Gamma^+$) are the set of words (resp. non-empty words) over
+\AP In the rest of this paper, $\Rel$ (resp. $\Nat$) denotes the set of
+integers (resp. nonnegative integers). The capital letters $\Sigma,\Gamma$
+denotes fixed alphabets, i.e. a finite set of letters, and $\Sigma^*, \Gamma^*$
+(resp. $\Sigma^+, \Gamma^+$) are the set of words (resp. non-empty words) over
 $\Sigma, \Gamma$. The empty word is written $\varepsilon \in \Sigma^*$. When $w
 \in \Sigma^*$ and $a \in \Sigma$, we let $\card{w} \in \Nat$ be the length of
 $w$, and $\card[a]{w}$ be the number of occurrences of $a$ in $w$. We assume
@@ -16,28 +15,17 @@ the notions of monoid morphisms, idempotents in monoids, monadic second-order
 ($\MSO$) logic and first-order ($\FO$) logic over finite words (see e.g.
 \cite{thomas1997languages}). 
 
-\AP
-For every language $L \subseteq \Sigma^*$ we define $\ind{L} \colon \Sigma^*
-\to \set{0,1}$ as the indicator function of $L$. If $f,g \colon \Sigma^* \to
-\Rel$ are two functions, we define their Cauchy product as $f \cauchy g (w)
-\defined \sum_{uv = w} f(u)g(w)$. Given a set $X$ of functions from $\Sigma^*$
-to $\Rel$, and a subset $\mathcal{S}$ of $\Rel$, we define
+\AP In order to build functions in $\NPoly$, the following constructions will
+be useful. For every language $L \subseteq \Sigma^*$ we define $\ind{L} \colon
+\Sigma^* \to \set{0,1}$ as the indicator function of $L$. Given an $\MSO$
+formula with first-order free variables $\varphi(\vec{x})$, we define
+$\vcount{\varphi(\vec{x})}$ as the function from $\Sigma^*$ to $\Nat$ that maps
+a word $w$ to the number of assignments $\nu \colon \vec{x} \to w$, such that
+$w, \nu \models \varphi(\vec{x})$. If $X$ is a set of functions from $\Sigma^*$
+to $\Rel$, and a subset $\mathbb{S}$ of $\Rel$, we define
 $\Span{\mathbb{S}}(X)$ as the smallest subset of functions from $\Sigma^* \to
 \Rel$ containing $X$ and closed under (finite) sums and multiplication with $s
 \in \mathbb{S}$.
-
-\AP
-Given an $\MSO$ formula with first-order free variables $\varphi(\vec{x})$, we
-define $\vcount{\varphi(\vec{x})}$ as the function from $\Sigma^*$ to $\Nat$
-that maps a word $w$ to the number of assignments $\nu \colon \vec{x} \to w$,
-such that $w, \nu \models \varphi(\vec{x})$.
-
-\AP Let $f \colon \Sigma^* \to \Rel$ be a function. We define
-the \intro{growth rate} of
-$f$, $\growth{f} \colon \Nat \to \Nat$, as follows $\growth{f}(n) \defined
-\sup_{\card{w} = n} |f(w)|$. A function $f$ has \kl{growth rate} $k \in \Nat$
-if $\growth{f} = \bigO(n^k)$, and if such a $k$ exists,
-we say that $f$ has \kl{polynomial growth}.
 
 \subsection{Polyregular Functions}
 
@@ -49,7 +37,7 @@ introduced by \textcite{schutzenberger1962}. Let us recall that a monoid $M$ is
 \intro(monoid){aperiodic} whenever there exists $n \in \Nat$ such that for all
 $x \in M$, $x^{n+1} = x^n$.
 
-\begin{definition}[$\Rel$-polyregular functions {\cite[see, e.g.][]{LOPEZ23b}}]
+\begin{definition}[$\Rel$-polyregular functions {\cite{LOPEZ23b}}]
     \label{nat-rel-poly:def}
     Let $M$ be a finite monoid, $\mu \colon \Sigma^* \to M$
     be a morphism, $k \in \Nat$, and 
@@ -72,35 +60,19 @@ $x \in M$, $x^{n+1} = x^n$.
 
 
 \begin{example}
+    \label{size-of-word-nsf:ex}
     The map $f \colon w \mapsto \card{w} + 1$
     belongs to $\NSF$.
 \end{example}
-\begin{proof}
-    Let us define $M \defined (\set{1}, \times)$ which is 
-    a finite \kl{aperiodic monoid}, $\mu \colon \Sigma^* \to M$
-    defined by $\mu(w) \defined 1$, and
-    $\pi \colon M^2 \to \Nat$
-    that is the constant function equal to $1$.
-    We check that for all $w \in \Sigma^*$:
-    \begin{equation*}
-        \pi^\dagger(w)
-        =
-        \sum_{uv = w} 1
-        =
-        \card{w} + 1
-        = f(w)
-        \quad . 
-        \qedhere
-    \end{equation*}
-\end{proof}
 
 
 \AP Let us briefly recall in the following lemma alternative characterizations
 of $\NPoly$ (resp. $\ZPoly$), some of which will be helpful in the upcoming
 analysis of their \kl{commutative} counterpart, and others that provide
-a nicer syntax to construct examples.
+a nicer syntax to construct examples. These characterizations are known, and
+can be found in \cite{gaetanphd,LOPEZ23b}.
 
-\begin{lemma}[TODO]
+\begin{lemma}
     \label{polynomial-rational-polyreg:fact}
     Let $f \in \NRat$ (resp. $f \in \ZRat$), then
     the following are equivalent:
@@ -111,11 +83,6 @@ a nicer syntax to construct examples.
             postcomposed with $\polysum$
             (resp. with output in $\set{-1,+1}^*$);
         \item $f$ has \kl{polynomial growth};
-        \item $f$ can be constructed
-            using $+$, $\cauchy$, and multiplication by
-            an integer $m \in \Nat$ (resp. $m \in \Rel$)
-            starting from
-            indicator functions $\ind{L}$ of regular languages;
         \item \label{npoly-counting-mso:item} $f$ belongs to
             $\Span{\mathbb{S}}(\setof{\vcount{\varphi}}{\varphi(\vec{x}) \in \MSO})$
             with $\mathbb{S} = \Nat$
@@ -123,10 +90,9 @@ a nicer syntax to construct examples.
     \end{enumerate}
 \end{lemma}
 
-Similarly, we provide several known characterizations of
-$\NSF$ and $\ZSF$ in the following lemma.
+Similar characterizations can be obtained for $\NSF$ and $\ZSF$.
 
-\begin{lemma}[TODO]
+\begin{lemma}
     Let $f \in \NPoly$ (resp. $f \in \ZPoly$), then
     the following are equivalent:
     \begin{enumerate}
@@ -135,11 +101,6 @@ $\NSF$ and $\ZSF$ in the following lemma.
             in $\set{1}^*$,
             postcomposed with $\polysum$
             (resp. with output in $\set{-1,+1}^*$);
-        \item $f$ can be constructed
-            using $+$, $\cauchy$, and multiplication by
-            an integer $m \in \Nat$ (resp. $m \in \Rel$)
-            starting from
-            indicator functions $\ind{L}$ of star-free regular languages;
         \item $f$ belongs to
             $\Span{\mathbb{S}}(\setof{\vcount{\varphi}}{\varphi(\vec{x}) \in \FO})$
             with $\mathbb{S} = \Nat$
@@ -159,76 +120,42 @@ $\NSF$ and $\ZSF$ in the following lemma.
     \kl{star-free $\Nat$-polyregular function}.
 \end{example}
 
-\textbf{This is wrong, we should talk about the number of variables,
-    and say that we do not know in the case of $\NSF$ if it corresponds
-    to the minimal number of variables needed!}
-\AP Inside $\ZPoly$, there is an infinite hierarchy of classes, defined using
-the \kl{growth rate}. Namely, one defines $\ZPoly[k]$ as the functions $f \in
-\ZPoly$ such that $\growth{f}(n) = \bigO(n^k)$, i.e., have \kl{growth rate}
-$k$. Similarly, we let $\NPoly[k] = \NPoly \cap \ZPoly[k]$.
 
+\AP Inside $\ZPoly$ there is an infinite hierarchy of classes, defined by
+limiting the maximal number of free variables used to construct the function as
+a sum of counting formulas (\cref{npoly-counting-mso:item}). We write
+$\ZPoly[k]$ (resp. $\NPoly[k]$, $\ZSF[k]$, $\NSF[k]$) for the functions in
+$\ZPoly$ (resp. $\NPoly$, $\ZSF$, $\NSF$) that can be constructed using at most
+$k$ free variables. It has been proven in
+\cite{LOPEZ23b,bojanczyk2022transducers} that the classes $\ZPoly[k]$ (resp.
+$\NPoly[k]$, $\ZSF[k]$, $\NSF[k]$) are characterized by the \kl{growth rate},
+that is, $f \in \ZPoly[k]$ if and only if $f \in \ZPoly$ and $\growth{f}(n) =
+\bigO(n^k)$, and similarly for the other classes.
 
 \subsection{Commutative Input}
 
-\paragraph{Commutative Polyregular Functions.}
-\AP 
-Because this paper focuses on functions that are commutative both in the
+\AP Because this paper focuses on functions that are commutative both in the
 input and the output, let us introduce precisely what it means and how it
 relates to other functions from $\Nat^k \to \Nat$. For that, let $\Sigma$ be a
 finite alphabet. We define $\commute \colon \Sigma^* \to \Nat^\Sigma$ for the
 map that counts occurrences of every letter in the input word, namely: $
-\commute[w] \defined (a \mapsto \card[a]{w})$.
+\commute[w] \defined (a \mapsto \card[a]{w})$. Let $X$ be a set. A function $f
+\colon \Sigma^* \to X$ is \intro{commutative} whenever for all $u,v \in
+\Sigma^*$, $f(uv) = f(vu)$. Equivalently, it is \reintro{commutative} whenever
+there exists a map $g \colon \Nat^\Sigma \to X$ such that $g \circ \commute =
+f$.
 
-\AP Let $X$ be a set. A function $f \colon \Sigma^* \to X$ is
-\intro{commutative} whenever for all $u,v \in \Sigma^*$, $f(uv) = f(vu)$.
-Equivalently, it is \reintro{commutative} whenever there exists a map $g \colon
-\Nat^\Sigma \to X$ such that $g \circ \commute = f$.
-
-\begin{example}
-    \label{commutative-function:ex}
-    The map $f \colon w \mapsto \card[a]{w} \times \card[b]{w}$ is \kl{commutative}.
-\end{example}
-
-Let us briefly state that one can decide whether a \kl{$\Rel$-polyregular
-function} $f$ is \kl{commutative}, ensuring that we are working in a decidable
-subclass of functions. 
+To ensure that we are working inside a decidable subclass of \kl{$\Rel$-rational series}
+let us state that commutativity is decidable. The proof is straightforward in the case
+of \kl{$\Rel$-polyregular functions}, and more involved for general \kl{$\Rel$-rational series}.
 
 \begin{lemma}
-    \label{decide-commutative:lemma}
-    Let $f \in \ZPoly$. One can decide if 
+    \label{decidable-commutative-poly:lemma}
+    \label{decidable-commutative-rat:lemma}
+    Let $f \in \ZRat$. One can decide if 
     $f$
     is \kl{commutative}.
 \end{lemma}
-\begin{proof}
-    Let $\Sigma$ be a finite alphabet, endowed with a
-    total ordering over its letters,
-    and let $f \colon \Sigma^* \to \Rel$ be a
-    \kl{$\Rel$-polyregular function}.
-    The map $\polysort \colon \Sigma^* \to \Sigma^*$
-    that sorts the letters in the input word $w$ according
-    to the chosen ordering is a \kl{polyregular function}
-    \cite[Proposition II.12]{LOPEZ23b}.
-    As a consequence,
-    $(f \circ \polysort) \in \ZPoly$.
-    Finally, $f$ is \kl{commutative} if and only
-    if $f = f \circ \polysort$, which is decidable
-    in the case of $\ZPoly$
-    \cite[Corollary II.24]{LOPEZ23b}, and more generally in the case 
-    of $\ZRat$ \cite[Corollary 3.6 p 38]{berstel2011noncommutative}.
-\end{proof}
-
-
-For the sake of completeness, let us also state that \kl{commutativity} is
-decidable for \kl{$\Rel$-rational series}, although using more involved
-arguments, since the latter are not closed under pre-composition by a
-\kl{polyregular function}.
-
-\begin{lemma}
-    \label{decidable-commutative-rat:lemma}
-    Let $f \in \ZRat$. One can decide if
-    $f$ is \kl{commutative}.
-\end{lemma}
-
 
 Let us briefly remark that the characterizations of subclasses of
 \kl{polyregular functions} that are obtained in practice can be obtained by
@@ -269,7 +196,7 @@ n} \to \Sigma$ such that $g \circ (v \mapsto \seqof{v_{\eta(k)}}{1 \leq k \leq
 n}) \circ \commute = f$. A key family of functions will be \kl{represented} by
 \kl{$\Rel$-polyregular functions}, namely polynomials with multiple indeterminates.
 
-\paragraph*{Polynomials.} \AP All polynomials considered in this paper have
+\subsection{Polynomials} \AP All polynomials considered in this paper have
 coefficients in $\Rel$ unless explicitly stated otherwise. A polynomial $P \in
 \Rel[X_1, \dots, X_n]$ is a \intro{$\Nat$-rational polynomial} if it is
 \kl{represented} by a \kl{$\Nat$-polyregular function}. The analogue notion of
@@ -282,26 +209,14 @@ polynomial $P$ is \kl{represented} by a \kl{$\Rel$-polyregular function}.
     but $- X$ is a \kl{$\Rel$-rational polynomial} that is 
     not a \kl{$\Nat$-rational polynomial}.
 \end{example}
-\begin{proof}
-    The function $w \mapsto |w|$ is a \kl{$\Nat$-polyregular function}.
-    Thus, 
-    $P(X) \defined X$ is
-    a \kl{$\Nat$-rational polynomial}. Similarly,
-    $w \mapsto |w|^2 + 3$ is a \kl{$\Nat$-polyregular function},
-    showing that $Q(X) \defined X^2 + 3$
-    is a \kl{$\Nat$-rational polynomial}.
-    Finally, 
-    $T(X) \defined - X$ cannot be 
-    a \kl{$\Nat$-rational polynomial} as \kl{$\Nat$-polyregular functions}
-    are non-negative.
-\end{proof}
 
 \AP A polynomial $P \in \Rel[X_1, \dots, X_k]$ is \intro{non-negative} when for
-all $n_1, \dots, n_k \geq 0$, $P(n_1, \dots, n_k) \geq 0$. Beware that we do
-not consider negative values as input, as the numbers $n_i$ will ultimately
-count the number of occurrences of a letter in a word. As an example, the
-polynomial $(X - Y)^2$ is \kl{non-negative}, and so is the polynomial $X^3$,
-but the polynomial $X^2 - 2X$ is not.
+all non-negative integer inputs $n_1, \dots, n_k \geq 0$, the output  $P(n_1,
+\dots, n_k)$ of the polynomial is non-negative. Beware that we do not consider
+negative values as input, as the numbers $n_i$ will ultimately count the number
+of occurrences of a letter in a word. As an example, the polynomial $(X - Y)^2$
+is \kl{non-negative}, and so is the polynomial $X^3$, but the polynomial $X^2 -
+2X$ is not.
 
 All \kl{$\Nat$-rational polynomials} are \kl{non-negative}, but the converse does
 not hold,

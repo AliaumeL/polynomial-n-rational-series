@@ -4,30 +4,15 @@
 \section{Beyond commutativity}
 \label{beyond-commutative:sec}
 
-The goal of this section is to provide tools that do not require the assumption
-of \kl{commutativity}. To that end, we introduce the notion of \kl{$k$-residual
-transducer}, that generalizes the notion of residual transducer introduced for
-\kl{$\Rel$-polyregular functions} in \cite{LOPEZ23b}. This notion of residual
-transducer has its own interest, as it shifts the attention from (compatible)
-equivalence relations of finite index that are the classical tool in automata
-theory, towards (compatible) order relations that are \kl{well-quasi-ordered},
-which is the order counterpart of having finite index.
-
-While \kl{$k$-residual transducers} will provide canonical objects associated
-to functions in $\NPoly$, their effective construction requires the ability to
-decide $\NPoly$ inside $\ZPoly$, which is not currently known (except in the
-commutative case). Furthermore, the correspondence between \kl{counters} in
-this automaton and \kl{star-free $\Nat$-polyregular functions} is non-trivial,
-and cannot be used \emph{as is} to decide membership in $\NSF$
-based on this analysis of the \kl{$k$-residual transducer}.
-
-\AP The upcoming sections will heavily refer to the notion of \intro{residual} of
-a function $f \colon \Sigma^* \to \Rel$,  defined by $\app{f}{u} \defined w
-\mapsto f(uw)$. The collection of \reintro{residuals} of a function $f$ is
-denoted $\Res(f)$ and is defined as the set of $\app{f}{u}$ where $u$ ranges
-over words in $\Sigma^*$.
-
-\AP Let us recall that a sequence $\seqof{u_i}{i \in \Nat}$ of elements in a
+\AP The goal of this section is to provide tools that do not require the
+assumption of \kl{commutativity}. To that end, we introduce the notion of
+\kl{$k$-residual transducer}, that generalizes the notion of residual
+transducer introduced for \kl{$\Rel$-polyregular functions} in \cite{LOPEZ23b}.
+This notion of residual transducer has its own interest, as it shifts the
+attention from (compatible) equivalence relations of finite index that are the
+classical tool in automata theory, towards (compatible) order relations that
+are \kl{well-quasi-ordered}, which is the order counterpart of having finite
+index. Let us recall that a sequence $\seqof{u_i}{i \in \Nat}$ of elements in a
 quasi-ordered set $(X, \leq)$ is \intro{good} whenever there exist $i < j$ such
 that $u_i \leq u_j$. The set $X$ is a \intro{well-quasi-ordering} when every
 infinite sequence is \reintro{good}. A sequence is \intro{bad} when it is not
@@ -36,97 +21,9 @@ binary relations that are not orderings, and a binary relation $R$ for which
 every infinite sequence is \reintro{good} is said to be \intro{well}
 \cite{MELL98}.
 
-\subsection{Deciding $\Nat$-polyregular functions}
-
-
-The goal is to prove \cref{decide-n-poly-general:thm}.
-To that end, we will use factorisation forests.
-\begin{definition}
-    Forests of depth $d$ by induction.
-\end{definition}
-
-
-\begin{remark}
-    Place the nested higman embedding on the forests, it is a well-quasi-ordering.
-\end{remark}
-
-\begin{definition}
-    Counting functions. $\vcount{q}$ where $q$ is a pattern.
-\end{definition}
-
-\begin{definition}
-    Divisibility of patterns.
-\end{definition}
-
-\begin{definition}
-    Forest iteration, where $q$ is a pattern.
-\end{definition}
-
-\begin{theorem}[Simon, restated in ]
-    For every $f \in \ZPoly[k]$,
-    there exists a computable function $h \colon \Sigma^* \to F_d(M)$,
-    and a function $g \colon F_d(M) \to \Rel$ that is a counting function
-    such that.
-\end{theorem}
-
-\textbf{TODO: domains should have a good shape, i.e.,
-    intersections of sentences of the shape
-    this pattern has at most "X" matches, and should be
-    downwards closed}.
-
-\textbf{TODO: problem, there is a problem, it is not because
-    the number of matches is unbounded, that we can
-    iterate the shape itself no?}
-
-\begin{lemma}
-    A function $g \colon F_d(M) \to \Rel$ is $\Nat$-polyregular
-    over a domain $D$ if and only if for every 
-    pattern iteration, the function obtained is
-    $\Nat$-polyregular (commutative).
-\end{lemma}
-\begin{proof}
-    By induction on the domain $D$, and on the divisibility ordering
-    of patterns.
-    Base case, for all pattern iteration, the value of $g$ is bounded.
-    Then, $g$ has finitely many outputs, and they are all in $\Nat$,
-    we have concluded.
-
-    Let $q_i$ be a maximal pattern of $g$. If $q_i$ cannot be iterated in $D$,
-    then the value of $q_i$ is bounded by some constant, and we can rewrite it
-    as counting "full" patterns?
-
-    Otherwise, $q_i$ can be iterated, and therefore we can
-    pump to prove that its coefficient must be strictly positive.
-    Then, using some derivation magic, we can recurse.
-\end{proof}
-
-
-\begin{theorem}
-    \label{decide-n-poly-general:thm}
-    Let $f \in \ZPoly[k]$, the following are equivalent:
-    \begin{enumerate}
-        \item $f \in \NPoly$;
-        \item $f \in \NPoly[k]$;
-        \item for all $h$ commutative polyregular function,
-            $f \circ h$ in $\NPoly$
-        \item for all pattern iteration,
-            $f(pattern)$ is a \kl{$\Nat$-rational polynomial}.
-    \end{enumerate}
-    Furthermore, the properties are decidable.
-\end{theorem}
-\begin{proof}
-    (1) implies (2) is okay, because of generic results.
-    (2) implies (3) implies (4) is completely fine.
-    Now, let us prove that (4) implies $1$.
-\end{proof}
-
-
-\subsection{Residual Transducers and WQOs}
-
-The goal of the upcoming section is to provide a notion of residual transducer
-for \kl{commutative} \kl{$\Nat$-polyregular functions}. The notion of
-transducer is based on the marble transducers \cite{EHB99}, and follows the
-general pattern of transducers introduced in \cite{LOPEZ23b}.
+The following definition of transducers is based on
+the marble transducers \cite{EHB99}, and follows the general pattern of
+transducers introduced in \cite{LOPEZ23b}.
 
 \begin{definition}
     Let $\mathcal{H}$ be a family of functions
@@ -165,23 +62,22 @@ scheme.
 \begin{example}
     \label{non-canonical-transd:ex}
     Let $f \colon \set{a}^* \to \Nat$
-    be defined as follows
-    \begin{equation*}
-        f(a^n) \defined
-        \begin{cases}
-            1 & \text{ if } n = 0 \\
-            0 & \text{ if } n = 1 \\
-            n & \text{ otherwise }
-        \end{cases}
-        \quad .
-    \end{equation*}
-    The function is computed by the two automata
+    be defined as
+    $f(\varepsilon) = 1$,
+    $f(a) = 0$,
+    and $f(a^n) = n - 1$ for all $n \geq 2$.
+    \textbf{TODO: split the example}
+    $f(\varepsilon) = 1$,
+    $f(a) = 0$,
+    $f(a^2) = 1$,
+    and $f(a^n) = n - 3$ for all $n \geq 3$.
+    The function is \kl{computed} by the two automata
     in \cref{non-canonical-transd:fig}.
 \end{example}
 
 \begin{figure}
     \centering
-    \begin{subfigure}[b]{0.9\linewidth}
+    \begin{subfigure}[b]{0.49\linewidth}
         \begin{tikzpicture}[
             etat/.style={minimum size=2em}
             ]
@@ -202,7 +98,7 @@ scheme.
         \end{tikzpicture}
         \caption{This automaton has a \kl{counter}.}
     \end{subfigure}
-    \begin{subfigure}[b]{0.9\linewidth}
+    \begin{subfigure}[b]{0.49\linewidth}
         \begin{tikzpicture}[
             etat/.style={minimum size=2em}
             ]
@@ -225,49 +121,53 @@ scheme.
         \caption{This automaton is \kl{counter-free}.}
     \end{subfigure}
     \caption{Two \kl{$\NPoly[0]$-transducers}
-    computing \cref{non-canonical-transd:ex}.}
+    \kl{computing} the function of \cref{non-canonical-transd:ex}.}
     \label{non-canonical-transd:fig}
 \end{figure}
 
-\AP As in the case of regular automata, we generalize the function $\delta
+\AP As in the case of finite automata, we generalize the function $\delta
 \colon Q \times \Sigma \to Q$ to words by defining $\delta(q, \varepsilon) =
 q$, and $\delta(q,au) = \delta(\delta(q,a), u)$. Similarly, we write
 $\lambda(q,\varepsilon) \defined 0$, and recursively define $\lambda(q, au)
 \defined \app{\lambda(q,a)}{u} + \lambda(\delta(q,a), u)$. Following these
 equations, we can write for all $q \in Q$, $u,v \in \Sigma^*$, $\aTransd(q, uv)
-= \aTransd(\delta(q, u), v) + \lambda(q, u)(v)$. Finally, let us notice
-that if $\mathcal{H}$ is closed under finite sums and shifts, then $\lambda(q,
-u) \in \mathcal{H}$ for all $(q,u) \in Q \times \Sigma^*$.
+= \aTransd(\delta(q, u), v) + \lambda(q, u)(v)$. Finally, let us notice that if
+$\mathcal{H}$ is closed under finite sums and shifts, then $\lambda(q, u) \in
+\mathcal{H}$ for all $(q,u) \in Q \times \Sigma^*$.
 
 \AP Let us recall that a \intro{counter} in an automaton is a pair $u,w$ of
 words together with an integer $n > 1$, such that $\delta(q_0, uw^n) =
 \delta(q_0, u)$ and $\delta(q_0, u w^k) \neq \delta(q_0, u)$ for all $k < n$.
 An automaton is \reintro{counter-free} if it contains no \reintro{counters}.
-This notion can be applied to \kl{$\mathcal{H}$-transducers} by
-considering counters of their underlying automata.
+This notion can be applied to \kl{$\mathcal{H}$-transducers} by considering
+counters of their underlying automata. It is already known in the literature
+that this notion of transducers correctly captures both $\NSF$ and $\NPoly$ in
+the sense that the following fact will clarify.
 
-It is already known in the literature that this notion of transducers correctly
-captures both $\NSF$ and $\NPoly$ in the sense that the following fact will
-clarify.
-
-\begin{fact}[Cite gaëtan]
+\begin{lemma}[{\cite{gaetanphd}}]
+    \label{transducer-nsf-npoly:lemma}
     Let $f \colon \Sigma^* \to \Nat$, and let $k \in \Nat$.
     The following are equivalent:
     \begin{itemize}
         \item $f \in \NPoly[k]$ (respectively $\NSF[k]$),
-        \item $f$ is computed by an \kl{$\NPoly[k-1]$-transducer}
+        \item $f$ is \kl{computed} by an \kl{$\NPoly[k-1]$-transducer}
             (respectively by an \kl{$\NSF[k-1]$-transducer} that is 
             \kl{counter-free}).
     \end{itemize}
-\end{fact}
+\end{lemma}
 
-\AP Let $k \in \Nat$. We define $f \zpolyequiv[k] g$ if and only if $(g - f)
-\in \ZPoly[k-1]$, and $f \npolyleq[k] g$ if and only if $(g - f) \in
-\NPoly[k-1]$. Given a function $f \colon \Sigma^* \to \Rel$, we are going to
-study both $(\Res(f), \zpolyequiv[k])$, and $(\Res(f), \npolyleq[k])$. However,
-to simplify notations, instead of writing $\app{f}{u} \npolyleq[k] \app{f}{v}$
-when $u,v \in \Sigma^*$, we will use the convenient notation $u \resleq{f}{k}
-v$, and directly consider the space $(\Sigma^*, \resleq{f}{k})$.
+\AP The core concept of this section is that of a \intro{residual} of a
+function $f \colon \Sigma^* \to \Rel$,  defined by $\app{f}{u} \defined w
+\mapsto f(uw)$. The collection of \reintro{residuals} of a function $f$ is
+denoted $\Res(f)$ and is defined as the set of $\app{f}{u}$ where $u$ ranges
+over words in $\Sigma^*$. Let $k \in \Nat$. We define $f \zpolyequiv[k] g$ if
+and only if $(g - f) \in \ZPoly[k-1]$, and $f \npolyleq[k] g$ if and only if
+$(g - f) \in \NPoly[k-1]$. Given a function $f \colon \Sigma^* \to \Rel$, we
+are going to study both $(\Res(f), \zpolyequiv[k])$, and $(\Res(f),
+\npolyleq[k])$. However, to simplify notations, instead of writing $\app{f}{u}
+\npolyleq[k] \app{f}{v}$ when $u,v \in \Sigma^*$, we will use the convenient
+notation $u \resleq{f}{k} v$, and directly consider the space $(\Sigma^*,
+\resleq{f}{k})$.
 
 \begin{fact}
     \label{good-residual-ordering:fact}
@@ -288,19 +188,14 @@ approach is to consider as states some representatives for the $\resleq{f}{k}$
 minimal elements of $\Sigma^*$ (assuming there are finitely many of them), all
 computing the same function (\cref{good-residual-ordering:fact}), and define
 transitions by letting $\delta(u, a)$ be \emph{one} state $v$ such that $v
-\resleq{f}{k} ua$. This naïve approach does not yield a canonical model. For
-instance, the function of \cref{non-canonical-transd:ex} can be computed in two
-ways if we only consider $\resleq{f}{k}$ minimal elements, as witnessed in
-\cref{non-canonical-transd:fig}. Even worse, the function $f$ belongs to
-$\NSF[0]$, but one of the two presented transducers has a \kl{counter}. This is
-why in \cref{residual-transducer:def}, we introduce the prefix ordering
-$\prefleq$ to further constrain how the model computes.
+\resleq{f}{k} ua$. This naïve approach does not yield a canonical model which
+is corrected by the following definition.
 
 \begin{definition}
     \label{residual-transducer:def}
     Let $f \colon \Sigma^* \to \Nat$ and $k \in \Nat$.
     A transducer $\aTransd \defined (Q, q_0, \delta, \lambda, F)$
-    is a \intro{k-residual transducer}
+    is a \intro{$k$-residual transducer}
     of $f$ 
     when
     it is a \kl{$\NPoly[k-1]$-transducer}
@@ -319,34 +214,9 @@ $\prefleq$ to further constrain how the model computes.
     \end{enumerate}
 \end{definition}
 
+
 Because of the restriction on prefixes, the \kl{$k$-residual transducer}
 is actually unique when it exists.
-
-\begin{fact}
-    \label{unique-res-transducer:fact}
-    Let $f \colon \Sigma^* \to \Nat$ and $k \in \Nat$.
-    Then $f$ has at most one \kl{$k$-residual transducer}.
-\end{fact}
-\begin{proof}
-    Let $\aTransd_1$ and $\aTransd_2$ be two
-    \kl{$k$-residual transducers} for $f$.
-    The two initial states must be $\varepsilon$.
-    Let us prove by induction on $u \in \Sigma^*$ that
-    $\delta_1(\varepsilon, u) = \delta_2(\varepsilon, u)$
-    and that $Q_1$ equals $Q_2$ over prefixes of $u$.
-    This will prove that 
-    $Q_1 = Q_2$, hence that $\aTransd_1 = \aTransd_2$.
-
-    Let $u \in \Sigma^* \cap Q_1 \cap Q_2$ and $a \in \Sigma$, $v_1 \in Q_1$ be
-    defined as $v \defined \delta_1(u,a)$, and $v_2 \defined \delta_2(u,a)$.
-    Remark that by induction hypothesis, for all $v \prefle u$, $v \in Q_1 \cap
-    Q_2$. If $\delta_1(u,a) = Q_1$, it means that for all $v \in Q_2$ such that
-    $v \prefle ua$, we have $\neg( v \resleq{f}{k} ua )$. The only possible
-    transition in $\aTransd_2$ is therefore $\delta_2(u,a) = ua$, and $ua \in
-    Q_2$. Similarly, if $\delta_1(u,a) \prefleq u$, then $\delta_2(u,a) =
-    \delta_1(u,a)$ by definition of $\delta_2$ as a maximum.
-\end{proof}
-
 We now introduce \cref{residual:algo} to compute a \kl{$k$-residual transducer}
 given a function $f$. Notice that this algorithm requires the ability to test
 if a function belongs to $\NPoly[k]$, which is only known to be feasible for
@@ -388,44 +258,12 @@ algorithm also proves the existence of the \kl{$k$-residual transducer}.
     \label{residual:algo}
 \end{algorithm}
 
-\begin{fact}
-    \label{q-o-prefix-cool:fact}
-    Let $f \colon \Sigma^* \to \Nat$ and $k \in \Nat$.
-    At each step of the \texttt{while loop}
-    of \cref{residual:algo}, the sets
-    $Q$ and $O$ are such that
-    \begin{enumerate}
-        \item $Q \cup O$ is a \kl{downwards closed} subset of 
-            $\Sigma^*$ for $\prefleq$;
-        \item elements in $O$ are pairwise incomparable
-            for $\prefleq$, and are maximal
-            for $\prefleq$ inside $Q \cup O$.
-    \end{enumerate}
-\end{fact}
-
 \begin{lemma}
     \label{correct-residual:lemma}
     If \cref{residual:algo} terminates on 
     an input $f \colon \Sigma^* \to \Nat$, $k \in \Nat$,
     then it computes the \kl{$k$-residual transducer} of $f$.
 \end{lemma}
-\begin{proof}
-    Because of \cref{q-o-prefix-cool:fact},
-    we already know that $q_0 = \varepsilon$,
-    $Q$ is a \kl{downwards closed} subset of $\Sigma^*$
-    for $\prefleq$, 
-    that every state of $Q$ is accessible from $q_0$.
-    Notice that at every step,
-    $\lambda(u,a)$ is defined as
-    $\app{f}{ua} - \app{f}{\delta(u,a)}$.
-    Finally, since $Q \cup O$ is a \kl{downwards closed} subset of $\Sigma^*$
-    at every step,
-    we have that at step $i$,
-    for all $ua \in O_i$,
-    $\setof{w \in Q}{w \prefleq ua} = \setof{w \in Q_i}{ w \prefleq ua}$,
-    which proves that the maximum considered in the algorithm
-    is indeed computing correctly.
-\end{proof}
 
 
 
@@ -441,7 +279,7 @@ algorithm also proves the existence of the \kl{$k$-residual transducer}.
 
 The following \cref{n-poly-k-implies-wqo:lemma} is the core argument of the
 section, and states that for a function $f \in \NPoly[k]$, not only $(\prefleq
-\Rightarrow \resleq{f}{k})$ is \kl{well}, but $\resleq{f}{k}$ is a
+\Rightarrow \resleq{f}{k})$ is \kl{well}, but the quas-ordering $(\resleq{f}{k})$ is a
 \kl{well-quasi-ordering}. This has to be compared with the property of being
 \kl{$(k,\Nat)$-combinatorial}, which states that ultimately, the function is
 increasing in every direction.
@@ -452,462 +290,35 @@ increasing in every direction.
     Then, $(\Sigma^* \resleq{f}{k})$ is a \kl{well-quasi-ordering}.
 \end{lemma}
 
-
-\begin{conjecture}
-    Let $q,k \in \Nat$.
-    Associate to a word $w$ the number of representatives
-    of every $\MSO(q,k)$ type. 
-    The image of this map is a semilinear set.
-    In particular, it has a simple basis.
-\end{conjecture}
-
-\begin{conjecture}
-    Let $f \in \ZPoly[k]$
-    be \kl{combinatorial}.
-    Then, $f$ is non-negative and for every pair
-    $(u,w) \in \Sigma^*$,
-    the sequence $\seqof{u w^n}{n \in \Nat}$
-    is \kl{good}.
-\end{conjecture}
-\begin{proof}
-    By induction on $k$.
-\end{proof}
-
-\begin{conjecture}
-    Let $f \in \ZPoly[k]$
-    be a non-negative function such that for every
-    $(u,w) \in \Sigma^*$,
-    the sequence $\seqof{u w^n}{n \in \Nat}$
-    is \kl{good}.
-    Then, $f$ belongs to $\NPoly[k]$.
-\end{conjecture}
-\begin{proof}
-    By induction on $k$.
-    For $k = 0$, non-negative is enough.
-    To go beyond, we
-
-\end{proof}
-
 \begin{theorem}
     \label{non-commutative-npoly:thm}
     Let $f \in \ZPoly$ be a non-negative function, 
     and $k \in \Nat$,
     the following are equivalent:
     \begin{enumerate}
-        \item $f$ is \kl{computed}
+        \item \label{n-poly-1-transd:item} $f$ is \kl{computed}
             by a \kl{$\NPoly[k-1]$-transducer};
-        \item $f \in \NPoly[k]$;
-        \item $(\Sigma^*, \resleq{f}{k})$ is a
+        \item \label{n-poly-k:item} $f \in \NPoly[k]$;
+        \item \label{n-poly-wqo:item} $(\Sigma^*, \resleq{f}{k})$ is a
             \kl{well-quasi-ordering};
-        \item every $\prefleq$-increasing sequence
+        \item \label{n-poly-well:item} every $\prefleq$-increasing sequence
             of $\Sigma^*$  is a \kl{good sequence}
             for $\resleq{f}{k}$;
-        \item $f$ is \kl{computed} by a
+        \item \label{n-poly-residual:item} $f$ is \kl{computed} by a
             \kl{$k$-residual transducer}.
     \end{enumerate}
-    If $f$ is asumed to be \kl{commutative}, then all of the above
+    If $f$ is assumed to be \kl{commutative}, then all the above
     properties are decidable, and the conversions effective.
 \end{theorem}
 \begin{proof}
-    The first two items are known to be equivalent since 
-    the phd of gaëtan.
-    We have proven that transducers imply
-    wqo, and that wqo implies $k$-residual transducer.
+    \cref{n-poly-1-transd:item} implies \cref{n-poly-k:item} by
+    \cref{transducer-nsf-npoly:lemma}. Then,
+    \cref{n-poly-k:item} implies \cref{n-poly-wqo:item} by
+    \cref{n-poly-k-implies-wqo:lemma}.
+    The implication \cref{n-poly-wqo:item} $\Rightarrow$ \cref{n-poly-well:item}
+    is obvious.
+    Then, \cref{wqo-implies-termination:lemma} proves
+    that \cref{n-poly-well:item} implies \cref{n-poly-residual:item}.
+    Finally, because a \kl{$k$-residual transducer} is a \kl{$\NPoly[k-1]$-transducer},
+    \cref{n-poly-residual:item} implies \cref{n-poly-1-transd:item}.
 \end{proof}
-
-\subsection{Aperiodicity and Counters}
-
-
-\begin{lemma}
-    \label{aperiodic-iff-residual:lem}
-    Let $L$ be a regular language.
-    The following are equivalent:
-    \begin{enumerate}
-        \item $L$ is aperiodic;
-        \item The \kl{$0$-residual transducer} of $\ind{L}$
-            is \kl{counter-free}.
-    \end{enumerate}
-\end{lemma}
-\begin{proof}
-    If the $0$-residual transducer is counter free,
-    then $L$ is aperiodic because the minimal automata is also counter-free.
-
-    % TODO
-    \textbf{TODO Claim:}
-    on every branch of the automata, the words have distinct residuals.
-
-    Now, assume that $L$ is aperiodic, and let $(q,w^n)$ be a counter with $n
-    \geq 1$. We know that $qw \equiv_L q$ because the language $L$ is
-    aperiodic. Let us write $t \defined \delta(q,w)$, we know that $t \equiv_L
-    q$. Assume by contradiction that $t$ and $q$ are incomparable for the
-    prefix relation. Let us split $w = w_1 w_2$ where $w_1$ is the shortest
-    prefix of $w$ such that $s_0 \defined \delta(q,w_1)$ is an ancestor of $q$
-    and of $t$ for the prefix relation, it must exist because $\delta(q,w_1
-    w_2) = t$.
-
-    Now, consider $s_1 \defined \delta(t, w_1)$. Assume by contradiction that
-    $s_0$ is not comparable with $s_1$ for the prefix relation. Then, consider
-    the smallest $v$ for the prefix relation such that $\delta(t, v)$ is a
-    strict prefix of $s_0$. It must exist, because otherwise the two are always
-    comparable. Since $t \equiv_L q$, we know that $tv \equiv_L qv$, but then,
-    this contradicts the minimality of $u$.
-
-    We have proven that $s_0$ and $s_1$ are comparable, hence they
-    are equal.
-    Finally, we have proven that $\delta(q, w_1) = s_0$,
-    $\delta(s_0, w_2) = t$, and $\delta(s_0, w_2) = \delta(t, w_1w_2) = q$ which is absurd.
-
-    As a consequence $t$ and $q$ were comparable for the prefix relation,
-    hence equal, and therefore $\delta(q, w) = q$.
-\end{proof}
-
-\begin{lemma}
-    Let $\NSF[0] = \NPoly \cap \NSF[0]$,
-    and elements of $\NSF[0]$
-    have a \kl{counter-free} \kl{$0$-residual transducer}.
-\end{lemma}
-\begin{proof}
-    TODO.
-\end{proof}
-
-
-\textbf{TODO:} one may think that we can ask that $u \resleq{f}{k} u w^n$
-implies $u \resleq{f}{k} uw$, but it is false, as the following example will
-demonstrate. This is why the definition of counter is more involved in our
-case.
-
-\begin{example}
-    Let us consider $f(w) \defined (\card{w} - 3)^2$, 
-    which is a \kl{star-free $\Nat$-polyregular function}.
-    Then,
-    $\app{f}{a} - f$ is not in $\NPoly$,
-    but
-    $\app{f}{a^10} - f$ is in $\NPoly$,
-    hence there is a non-trivial counter.
-\end{example}
-\begin{proof}
-    Remark that $\app{f}{a} = (\card{w} - 2)^2$,
-    hence that $\app{f}{a}- f = 2\card{w} - 5$.
-    Similarly, $\app{f}{a^10} - f = 20\card{w} + k$ where $k \geq 0$.
-
-    Finally,
-    let $n > 1$ be such that
-    $\app{f}{a^n} - f$ belong to $\NPoly$.
-    In this specific example,
-    $\app{f}{a^n} = (\card{w} + n -3)^2$,
-    and $\app{f}{a^n} - f = (2 \card{w} + n - 6)n$.
-    The latter belongs to $\NPoly$ if and only if
-    $n \geq 6$. Let $n \geq 6$, 
-    remark that
-    $\app{f}{a^n} - \app{f}{a^{n-1}}
-    = 2 \card{w} + 2n - 7$. Because $n = n_0 + 6$ with $n_0 \geq 0$,
-    we can rewrite the latter 
-    as $2 \card{w} + 2n_0 + 5$, which belongs to $\NPoly$.
-\end{proof}
-
-\begin{lemma}
-    \label{sf-no-periods-on-sequences:lemma}
-    Let $f \colon \Sigma^* \to \Nat$ be a \kl{star-free $\Nat$-polyregular
-    function}. Then,
-    for all $u, w \in \Sigma^*$,
-    there exists $n \in \Nat$ such that
-    $u w^n \resleq{f}{k} u w^{n+1}$.
-\end{lemma}
-\begin{proof}[Proof sketch.]
-    Let $t$ be a first order type,
-    the map $g_t \colon X \mapsto \vcount{t}(uw^X)$ is a
-    \kl{commutative} \kl{star-free $\Nat$-polyregular function},
-    hence ultimately a polynomial, and therefore,
-    translated enough, it is a $\Nat[X]$ polynomial.
-    But this means that $g_t(X+1) - g_t(X) \in \Nat[X]$ for a large
-    enough $X$, which is precisely what suffices.
-    Now, we can do this for every first order type $t$
-    with fewer variables and lower quantifier rank than those
-    needed to define $f$, and conclude.
-\end{proof}
-
-Even though computability is not guaranteed, we have the following proof
-scheme to decide aperiodicity of \kl{$\Nat$-polyregular functions}.
-\begin{lemma}
-    Let $f \in \NPoly[k]$ be \kl{ultimately polynomial},
-    then every \kl{$k$-residual transducer} computing 
-    $f$ has no counters, and has labels
-    that are themselves \kl{ultimately polynomial}
-    \kl{$\Nat$-polyregular functions}.
-\end{lemma}
-\begin{proof}
-
-    We prove the result by induction on $k$. By definition
-    of a residual transducer, the labels are \kl{ultimately polynomial}.
-    Now, assume that there exists a counter
-    in some \kl{$k$-residual transducer}
-    $\aTransd \defined (Q, q_0, \delta, \lambda, F)$ of $f$. That is, there exists $\alpha \in \Sigma^*$,
-    $w \in \Sigma^+$, and $n > 1$, such that
-    $\delta(q_0,\alpha w^n) = \delta(q_0, \alpha)$.
-    We want to prove that
-    $\delta(q_0, \alpha w) = \delta(q_0, \alpha)$.
-    Because $f$ is \kl{ultimately polynomial},
-    it is in particular in $\ZSF[k]$, and therefore
-    $g \defined \app{f}{\alpha w} - \app{f}{\alpha}$
-    belongs to $\ZSF[k-1]$.
-    It remains to be proven that this difference is a function in
-    $\NPoly$.
-
-    To that end, notice that the map $f(\alpha w^X \mathcal{M})$ is a
-    \kl{commutative} \kl{star-free $\Nat$-polyregular function}. For a large
-    enough $N_0$, we conclude that $f(\alpha w^{N_0+1} \mathcal{M}) - f(\alpha
-    w^{N_0} \mathcal{M})$ belongs to $\NPoly$, hence that $\alpha w^{N_0}
-    \resleq{f}{k-1} \alpha w^{N_0 + 1}$. Does that prove that $\alpha
-    \resleq{f}{k-1} \alpha w$? Not at all and we cannot conclude.
-\end{proof}
-
-\begin{theorem}
-    The following are equivalent for $f \in \NPoly[k]$.
-    \begin{itemize}
-        \item The function $f \in \NSF[k]$,
-        \item $f$ is \kl{ultimately polynomial}.
-        \item Every \kl{$k$-residual transducer} of $f$ has no counters,
-        \item $f$ is \kl{computed} by some
-            \kl{$\NSF[k-1]$-transducer}.
-    \end{itemize}
-\end{theorem}
-\begin{proof}
-    The only implication to prove is the first implies the last.
-    We know that the automaton is counter free, so the languages of the states
-    are star-free. Now, we just write 
-    \begin{equation*}
-        TODO
-    \end{equation*}
-    and we have finished the proof.
-\end{proof}
-
-Remark that the theorem is effective because being \kl{ultimately polynomial}
-is an effective property! However, effective conversions are not possible as of
-now, because the $k$-residual transducer algorithm uses an oracle to decide if
-a function is in $\NPoly$.
-
-
-\begin{lemma}
-    \label{trivial-for-unary:lemma}
-    Let $f \in \NPoly$ having unary input.
-    In particular, $f$ is commutative.
-    Then, $f \in \NSF$ if and only if 
-    the \kl{residual transducer} of $f$
-    is \kl{counter-free}.
-\end{lemma}
-\begin{proof}
-    If there is a counter... well we will find it ^^
-\end{proof}
-
-\begin{conjecture}
-    If $f$ is commutative, and the \kl{residual transducer}
-    has a counter, then it has a single letter counter.
-\end{conjecture}
-
-\begin{conjecture}
-    If $f$ is commutative, then 
-    $f \in \NSF$ if and only if the \kl{residual transducer}
-    of $f$ is \kl{counter-free}.
-\end{conjecture}
-
-\section{Trash polynomials}
-
-\begin{definition}
-    For every polynomial $P \in \Rel[X \vec{Y}]$, we define 
-    the partial derivative with respect to $X$ as follows:
-    \begin{equation*}
-        \partial_X P \defined P(X + 1, \vec{Y}) - P(X, \vec{Y}) \quad .
-    \end{equation*}
-\end{definition}
-
-\begin{fact}
-    Let $P \in \CorrectPoly[X_1, \dots, X_n]$, then
-    for all $1 \leq i \leq n$,
-    $\partial_{X_i} P \in \CorrectPoly$.
-\end{fact}
-\begin{proof}
-    We prove the result by induction on the number of variables.
-    Let $\nu \colon \vec{X} \topartial \Nat$.
-    Two cases, either $X_i \in \dom(\nu)$,
-    in which case, we remark that
-    we can split $\nu$ into two valuations,
-    and that coefficients are good.
-
-    Otherwise, evaluation commutes with partial,
-    and we conclude by induction hypothesis.
-\end{proof}
-
-\begin{remark}
-    The converse does not hold,
-    for instance $P(X) \defined X - 1$ has all its derivatives
-    that are in $\CorrectPoly$, but is not itself in $\CorrectPoly$.
-\end{remark}
-
-\begin{fact}
-    Let $P \in \Nat[X,\vec{Y}]$, and $K,L \in \Nat$,
-    then $P(X+L, \vec{Y}) - P(X+K,\vec{Y}) \in \Nat[X, \vec{Y}]$
-    whenever $L \geq K$.
-\end{fact}
-\begin{proof}
-    We can write
-    $P = \sum_{i = 0}^n P_i(\vec{Y}) X^i$, with $P_i \in \Nat[\vec{Y}]$.
-    Now,
-    $P(X+L,\vec{Y}) - P(X+K,\vec{Y})$
-    is precisely
-    $\sum_{i = 1}^n P_i(\vec{Y}) (L-K) \left[ \sum_{j + l + 1= i} (X+L)^j (X+K)^l \right]$,
-    remaining with positive coefficients.
-\end{proof}
-
-\begin{fact}
-    Let $P \in \CorrectPoly[X,\vec{Y}]$, and $K,L \in \Nat$,
-    then $P(X+L, \vec{Y}) - P(X+K,\vec{Y}) \in \CorrectPoly$
-    whenever $L \geq K$.
-\end{fact}
-\begin{proof}
-    We can write
-    $P = \sum_{i = 0}^n P_i(\vec{Y}) X^i$, with $P_i \in \Nat[\vec{Y}]$.
-    Now,
-    $P(X+L,\vec{Y}) - P(X+K,\vec{Y})$
-    is precisely
-    $\sum_{i = 1}^n P_i(\vec{Y}) (L-K) \left[ \sum_{j + l + 1= i} (X+L)^j (X+K)^l \right]$.
-    Now, $P_i(\vec{Y})$
-    remaining with positive coefficients.
-\end{proof}
-\begin{fact}
-    For every $K \in \Nat$, and every $n \in \Nat$,
-    $\Nat^n$ is a \kl{well-quasi-ordering}
-    when endowed with the quasi-ordering $\vec{u} \leq_K \vec{v}$
-    if and only if $\vec{u} = \vec{v}$ or
-    $\vec{u}$ is smaller than $\vec{v}$ for the product ordering and
-    $\sum_{i = 1}^n  (\vec{v} - \vec{u})_i \geq K$.
-\end{fact}
-\begin{proof}
-    First, $\Nat^n$ with the product ordering is a \kl{well-quasi-ordering}.
-    Therefore, given a sequence $\seqof{\vec{u}_i}{i \in \Nat}$,
-    one can extract an infinite monotone subsequence for
-    the product ordering.
-    Either there exists $i < j$ such that $\vec{u}_i = \vec{u}_j$
-    in the subsequence, in which case $\vec{u}_i \leq \vec{u}_j$
-    and the original sequence was good. Or for all $i < j$,
-    we have $\vec{u}_i$ that is strictly smaller than 
-    $\vec{u}_j$ for the product ordering. As a consequence,
-    $\vec{u}_0 \leq \vec{u}_K$.
-\end{proof}
-
-
-
-\begin{fact}
-    Let $P \in \CorrectPoly[X_1, \dots, X_n]$. 
-    For all
-    $\vec{u} \leq \vec{v} \in \Nat^n$,
-    $Q(X_1, \dots, X_n)
-    \defined 
-    P(X_1 + v_1, \dots, X_n + v_n)
-    -
-    P(X_1 + u_1, \dots, X_n + u_n)$
-    belongs to $\CorrectPoly[X_1, \dots, X_n]$.
-\end{fact}
-\begin{proof}
-    Let us consider $K \in \Nat$ such that for all partial valuations
-    $\nu \colon \vec{X} \topartial \Nat$,
-    $\translate{K}(\restr{P}{\nu}) \in \Nat[\vec{X}]$.
-
-    Remark that
-    \begin{align*}
-        Q
-        &= 
-        P(X_1 + v_1, \dots, X_n + v_n)
-        -
-        P(X_1 + u_1, \dots, X_n + u_n) \\
-        &=
-        P(X_1 + v_1, X_2 + v_2 , \dots, X_n + v_n) - P(X_1 + u_1, X_2 + v_2, \dots, X_n + v_n) \\
-        &+
-        P(X_1 + u_1, X_2 + v_2, \dots, X_n + v_n) - P(X_1 + u_1, X_2 + u_2, \dots, X_n + v_n) \\
-        &+ \dots
-    \end{align*}
-
-    Let $\nu \colon \vec{X} \topartial \Nat$
-    be a partial valuation, let us show that
-    $\translate{K}(\restr{Q}{\nu}) \in \Nat[\vec{X}]$.
-
-    \begin{align*}
-        \translate{K}(\restr{Q}{\nu})
-        &= 
-        \translate{K}(\restr{P(X_1 + v_1, \dots, X_n + v_n)}{\nu})
-        -
-        \translate{K}(\restr{P(X_1 + u_1, \dots, X_n + u_n)}{\nu})
-    \end{align*}
-\end{proof}
-
-\begin{definition}
-    Residual $\Nat$-transducer.
-\end{definition}
-
-\begin{lemma}
-    If $P \in \CorrectPoly$, then it is computable
-    by a $\Nat$-residual transducer.
-\end{lemma}
-
-\begin{theorem}
-    The following are equivalent for \kl{commutative}.
-    \begin{itemize}
-        \item $f$ is in $\NSF$,
-        \item The residual automata of $f$ has no counters
-    \end{itemize}
-\end{theorem}
-
-
-\begin{fact}[Folklore about regular languages]
-    \label{regular:fact}
-    The language $\setof{ w \in \Sigma}{ \card[a]{w} = \card[b]{w}}$
-    is not regular, whenever $a,b \in \Sigma$.
-    Regular languages are closed under intersection.
-\end{fact}
-
-\subsection{Polyblind functions}
-
-We are going to prove that polyblind functions are essentially
-commutative.
-
-\AP Given $q,k \in \Nat$, we define $\MSO^q_k$ to be the collection of types of
-tuples of at most $k$ variables using quantifier rank at most $q$. We extend
-the notation to a function $\MSO^q_k (u)$ that assigns to a word $u$ the number
-of representative for each type.
-
-\begin{lemma}
-    Let $q \in \Nat$. The image
-    $\MSO^q_1(\Sigma^*)$ is a semilinear set.
-\end{lemma}
-\begin{proof}
-    Here is a context-free grammar that enumerates words
-    in $\Sigma^*$ with letters colored by their $\MSO^q_1$ type.
-    The initial non-terminal decides the global $\MSO^q$ type of the word,
-    and given a non-terminal with an $\MSO^q$-type, we can split it in three
-    by choosing a letter $a \in \Sigma$, an $\MSO^q$-type for the left,
-    and an $\MSO^q$-type for the right, so that the types are coherent.
-    We just have to remember the $\MSO^q$ type of the left and right
-    of the current non-terminal to do that properly.
-
-    By the Parikh’s theorem, the image of this is a semilinear set, that
-    precisely computes $\MSO^q_1(\Sigma^*)$.
-\end{proof}
-
-\AP
-Recall that a \intro{polyblind function} is a function such that.
-
-\begin{lemma}
-    Let $f \colon \Sigma^* \to \Rel$ be a \kl{polyblind function}.
-    Then, there exists a computable function $g \colon \Nat^p \to \Rel$,
-    that is \kl{commutative} and such that the following are equivalent:
-    \begin{itemize}
-        \item $g$ is $\Nat$-polyregular
-        \item $f$ is $\Nat$-polyregular
-    \end{itemize}
-\end{lemma}
-
-\AP
-Look at the image of $\MSO^q_k$, is it semi-algebraic instead of semi-linear?
-\begin{lemma}
-    $\MSO^q_k(\Sigma^*)$ is a set of tuples that is obtained as a finite union 
-    images of polynomials?
-\end{lemma}

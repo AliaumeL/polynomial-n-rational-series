@@ -2,6 +2,7 @@
 %! lang = en-US
 \section{Beyond Polynomials}
 \label{beyond-polynomials:sec}
+\label{star-free:sec}
 
 Let us now go beyond polynomials and consider the case of \kl{commutative}
 \kl{$\Rel$-polyregular functions}. The hypothesis of \kl{commutativity} reduces
@@ -28,7 +29,7 @@ $\omega$} $\ModuloTypes[\omega] \defined \set{0, \dots, \omega^2} \times \set{0,
     \label{decompose-polynomial:lem}
     Let $f \colon \Sigma^* \to \Rel$ be a \kl{commutative}
     \kl{$\Rel$-polyregular function},
-    where $\Sigma = \set{a_1, \dots, a_n}$.
+    where we fix the alphabet $\Sigma = \set{a_1, \dots, a_n}$.
     There exists a computable
     $\omega \in \Nat$,
     and computable 
@@ -43,25 +44,7 @@ $\omega$} $\ModuloTypes[\omega] \defined \set{0, \dots, \omega^2} \times \set{0,
         \quad .
     \end{equation*}
 \end{lemma}
-\begin{proof}
-    We apply
-    \cref{n-poly-combinatorics:lem} to compute the $\omega$.
-    Using this $\omega$,
-    for any choice of
-    $r \defined (r_1, \dots, r_n) \in \set{0, \dots, \omega - 1}$,
-    there exists a polynomial $P_r \in \Rel[X_1, \dots, X_p]$
-    such that $X_1, \dots, X_p \geq \omega$:
-    \begin{equation*}
-        f\left(
-        a_1^{\omega X_1 + r_1} \cdots a_n ^{\omega X_n + r_n}\right) 
-        = P_r(X_1, \dots, X_p) \quad .
-    \end{equation*}
-    To get the full family of polynomials needed requires
-    just to only iterate subsets of letters, and fix the other ones
-    to be below the threshold $\omega^2$.
-\end{proof}
 
-\subsection{$\Nat$-polyregular functions}
 
 The goal of this section is to go beyond polynomials and characterize all
 \kl{$\Rel$-polyregular functions} that are \kl{$\Nat$-polyregular}, under the
@@ -78,8 +61,7 @@ $\NPoly$ inside $\ZPoly$, even in the non-commutative setting.
     for all
     $\alpha_0, \dots, \alpha_k \in \Sigma^*$,
     for all $u_1, \dots, u_k \in \Sigma^*$,
-    there exists a polynomial $P$
-    such that $\translate{K}(P) \in \CorrectPoly$, and
+    there exists a polynomial $P \in \CorrectPoly$,  
     satisfying for all $X_1, \dots, X_k \geq \omega$:
     \begin{equation*}
         f
@@ -105,67 +87,17 @@ $\NPoly$ inside $\ZPoly$, even in the non-commutative setting.
     Furthermore, the properties are decidable,
     and one can effectively compute a representation of $f$.
 \end{theorem}
-\begin{proof}
-    \textbf{TODO: we need to talk about the number of variables hehe}
-    Let us prove that
-    \cref{f-npoly-combi:item}
-    implies \cref{f-combinatorial:item}. 
-    We compute the $\omega$ by applying 
-    \cref{n-poly-combinatorics:lem}, and then
-    notice that the polynomial $P$ obtained is
-    by definition a \kl{$\Nat$-rational polynomial}.
-
-    For the converse implication, we use \cref{decompose-polynomial:lem} to
-    effectively compute a polynomial representation of $f$. Using the
-    assumption, all of these polynomials are actually \kl{$\Nat$-rational
-    polynomials}. Let us now construct a new way to compute $f$, by first
-    computing the \kl{$\omega$-type} of the input (which is possible in
-    $\MSO$), and then computing the suitable \kl{$\Nat$-rational polynomial},
-    which is possible in $\NPoly$.
-\end{proof}
-
-\subsection{Star-free $\Nat$-polyregular functions}
-\label{star-free:sec}
 
 Let us now prove that the above characterizations of \kl{commutative}
 \kl{$\Nat$-polyregular functions} can be combined with the recent advances in
 the study of \kl{$\Rel$-polyregular functions} \cite{LOPEZ23b} to prove the
-following theorem.
-
-\begin{theorem}
-    \label{zsf-npoly-nsf:thm}
-    Let $\Sigma$ be a finite alphabet and $k \in \Nat$.
-    Then,
-    \begin{equation*}
-        \ZCommut \cap \ZSF[k] \cap \NPoly
-        = \ZCommut \cap \NSF[k]
-        \quad .
-    \end{equation*}
-\end{theorem}
-
-As a corollary of \cref{zsf-npoly-nsf:thm} and the effective decision
-procedures of $\ZSF$ obtained in \cite{LOPEZ23b}, we conclude that $\NSF$ is
-decidable inside $\NPoly$ under the assumption of commutativity,
-and that the effective procedure can be used 
-
-\begin{corollary}
-    One can decide if a \kl{commutative} \kl{$\Rel$-polyregular function}
-    can be realized by a \kl{star-free $\Nat$-polyregular function},
-    in which case the conversion is effective.
-\end{corollary}
-\begin{proof}
-    From \cite[Theorem V.13]{LOPEZ23b}, it is decidable whether
-    $f \in \ZSF[k]$ and from \cref{decidable-n-poly:thm}
-    it is decidable whether $f \in \NPoly$.
-    Furthermore, one can enumerate functions in $\NSF[k]$,
-    and check equivalence to effectively represent $f$ as a
-    \kl{star-free $\Nat$-polyregular function}.
-\end{proof}
-
-The key ingredient of this section is the use of a semantic characterization of
-\kl{star-free $\Rel$-polyregular functions} among \kl{$\Rel$-rational series}
-that generalizes the aperiodicity of languages to functions by the means of
-polynomial behaviors.
+following theorem. As a corollary of \cref{zsf-npoly-nsf:thm} and the effective
+decision procedures of $\ZSF$ obtained in \cite{LOPEZ23b}, we conclude that
+$\NSF$ is decidable inside $\NPoly$ under the assumption of commutativity, and
+that the effective procedure can be used The key ingredient of this section is
+the use of a semantic characterization of \kl{star-free $\Rel$-polyregular
+functions} among \kl{$\Rel$-rational series} that generalizes the aperiodicity
+of languages to functions by the means of polynomial behaviors.
 
 \begin{definition}[Ultimately polynomial]
     \label{ultimately-polynomial:def}
@@ -198,48 +130,19 @@ generalizes the indicator functions of regular languages.
     $\ind{L}$ is \kl{ultimately polynomial}.
 \end{example}
 
-\begin{proof}[Proof of \cref{zsf-npoly-nsf:thm}]
-    We proceed by induction on the size of the alphabet $\card{\Sigma}$.
+\begin{theorem}
+    \label{zsf-npoly-nsf:thm}
+    Let $\Sigma$ be a finite alphabet, $k \in \Nat$,
+    and $f \colon \Sigma^* \to \Rel$ be a \kl{commutative}
+    \kl{$\Nat$-polyregular function}.
+    Then, the following are equivalent:
+    \begin{itemize}
+        \item $f$ is \kl{ultimately polynomial},
+        \item $f \in \ZSF$,
+        \item $f \in \NSF[k]$.
+    \end{itemize}
+    Furthermore, membership is decidable and effective conversions
+    are possible.
+\end{theorem}
 
-    \textbf{Base Case.} When $\Sigma$ is empty, $\Sigma^*$ contains
-    only the empty word $\varepsilon$, and because $f$ is a
-    \kl{$\Nat$-polyregular function}, $f(\varepsilon) \in \Nat$.
-    Note that $f$ is therefore a constant function, equal to a natural
-    number, hence belongs to $\NSF$.
-
-    
-    \textbf{Induction.}
-    Because $f$ is \kl{ultimately polynomial},
-    there exists $N_0 \in \Nat$, 
-    and $P \in \Rel[\seqof{X_a}{a \in \Sigma}]$ 
-    such that
-    \begin{equation*}
-        f\left( \prod_{a \in \Sigma} a^{X_a} \right)
-        = 
-        P(\seqof{X_a}{a \in \Sigma})
-        \quad
-        \text{ when }
-        \forall a \in \Sigma, X_a \geq N_0
-        \quad .
-    \end{equation*}
-    Furthermore, leveraging \cref{decompose-polynomial:lem},
-    we obtain $\omega \in \Nat$
-    and a family of polynomials 
-    $\seqof{P_{t}}{t \in \ModuloTypes[\omega]^\Sigma}$
-    that represent $f$.
-    For all $t \in \ModuloTypes[\omega]^\Sigma$
-    that have threshold greater than $\omega^2$,
-    we conclude that $P_t$ and $P$ coincide (up to translation) over an infinite grid,
-    hence we conclude that
-    if all letters appear at least $N_1 \defined \max (\omega^2, N_0)$ times,
-    then $f$ computes $P$. But this also shows that
-    $\translate{N_1}(P)$ is a \kl{$\Nat$-rational polynomial}, hence is
-    \kl{represented} by a function $f_1 \in \NSF[k]$.
-    
-    To compute $f$ on words where some letter appears fewer than
-    $N_1$ times, we partially apply $f$ to obtain a function $g$
-    over a restricted input alphabet. Using the induction hypothesis,
-    $g$ belongs to $\NSF[k]$, and we can therefore (effectively) compute
-    a representation of $f$ in $\NSF[k]$.
-\end{proof}
 

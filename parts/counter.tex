@@ -1,18 +1,17 @@
 %! TeX program = xelatex
 %! lang = en-US
-\section{Polynomials}
+\section{$\Nat$-rational Polynomials}
 \label{polynomials:sec}
 
 The goal of this section is to provide semantic characterizations of
 \kl{$\Nat$-rational polynomials}, decide if a polynomial $P$ is a
 \kl{$\Nat$-rational polynomial}, and if so, explicitly compute a
-\kl{$\Nat$-polyregular function} $f$ that \kl{represents} $P$.
-
-It is an easy check that polynomials with coefficients in $\Nat$ are
-\kl{$\Nat$-rational polynomials} (\cref{n-poly-n-poly:example}). However,
-\cref{negative-but-npoly:ex} provides an example of a polynomial with negative
-coefficients that is a \kl{$\Nat$-rational polynomial}. As a consequence, the
-class of interest strictly contains $\Nat[\vec{X}]$.
+\kl{$\Nat$-polyregular function} $f$ that \kl{represents} $P$. It is an easy
+check that polynomials with coefficients in $\Nat$ are \kl{$\Nat$-rational
+polynomials} (\cref{n-poly-n-poly:example}). However,
+\cref{negative-but-npoly:ex} provides a polynomial with negative coefficients
+that is a \kl{$\Nat$-rational polynomial}. As a consequence, the class of
+interest strictly contains $\Nat[\vec{X}]$.
 
 \begin{fact}
     \label{n-poly-n-poly:example}
@@ -25,13 +24,6 @@ class of interest strictly contains $\Nat[\vec{X}]$.
     Let $P \defined X^2 -2X + 2$. Then $P$
     is a \kl{$\Nat$-rational polynomial}.
 \end{example}
-\begin{proof}
-    Remark that $P = (X-1)^2 + 1$. Let $f  \colon \Sigma^* \to \Nat$
-    that maps $aw \mapsto |w|^2$, and $\varepsilon \to 0$.
-    It is clear that $f \in \NPoly$, and that 
-    $P$ is \kl{represented} by
-    $\ind{|w| \geq 1} \times f + \ind{|w| = 0}$.
-\end{proof}
 
 Let us now introduce the characterization of \kl{$\Nat$-rational polynomials}
 given by \citeauthor{KARH77}, which is stated using a class
@@ -61,15 +53,14 @@ $\CoveredPoly[\vec{X}]$ of polynomials with multiple indeterminate.
 \subsection{The counter example}
 \label{sec:c-example}
 
-Let us now introduce the counter example that was found trying to generalize
-the original proof $\ZPoly$.
-The counter example will use three indeterminates, and
-we will prove in \cref{sec:proof} that \citeauthor{KARH77}’s theorem holds on
-polynomial with at most two indeterminate. In particular, the examples
-appearing in \cite{KARH77} are not invalidated, as they all use at most two
-indeterminates. Furthermore, the converse implication, that is, that
-\kl{$\Nat$-rational polynomials} belong to $\CoveredPoly$ is correct, and can
-even be strengthened as we will see in \cref{corrected-version:thm}.
+Let us now provide a counter example to \cref{karh:thm}. The counter example
+will use three indeterminates, and we will prove in \cref{sec:proof} that
+\cref{karh:thm} holds on polynomial with at most two indeterminate. In
+particular, the examples appearing in \cite{KARH77} are not invalidated, as
+they all use at most two indeterminates. Furthermore, the converse implication,
+that is, that \kl{$\Nat$-rational polynomials} belong to $\CoveredPoly$ is
+correct, and can even be strengthened as we will see in
+\cref{corrected-version:thm}.
 
 \begin{definition}
     \label{def:bad-polynomial}
@@ -87,8 +78,8 @@ even be strengthened as we will see in \cref{corrected-version:thm}.
     obtain
     $\BadPoly = ZX^2 + ZY^2 + 2ZXY + 2X^2 -4XY + 2Y^2$.
     The \kl{maximal monomials} of $P$
-    are $ZX^2$, $ZY^2$, and $2ZXY$, all of which have
-    \kl{positive coefficients}.
+    are $ZX^2$, $ZY^2$, and $2ZXY$, all of which are
+    \kl{non-negative}.
 
     Assume by contradiction that $\BadPoly$ is a \kl{$\Nat$-rational polynomial}.
     Let $\Sigma \defined \set{a,b,c}$ be a finite alphabet.

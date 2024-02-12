@@ -73,6 +73,7 @@
 
 \knowledge{notion}
  | computed
+ | computing
  | computes
  
 \knowledge{notion}
@@ -110,11 +111,19 @@
 
 \knowledge{notion}
  | well-quasi-ordering
+ | well-quasi-ordered
  | wqo
  | wqos
+
+\knowledge{notion}
+ | well@relation
+ | well
+
 \knowledge{notion}
  | good
  | good sequence
+ | good sequences
+
 \knowledge{notion}
  | bad
  | bad sequence
@@ -122,6 +131,7 @@
 \knowledge{notion}
  | residuals
  | residual
+
 \knowledge{notion}
  | residual transducer
  | $k$-residual transducer

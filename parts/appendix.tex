@@ -3,8 +3,44 @@
 \section{Proofs of
 section \ref{preliminaries:sec}}
 
+\begin{proof}[Proof of \cref{size-of-word-nsf:ex}]
+    Let us define $M \defined (\set{1}, \times)$ which is 
+    a finite \kl{aperiodic monoid}, $\mu \colon \Sigma^* \to M$
+    defined by $\mu(w) \defined 1$, and
+    $\pi \colon M^2 \to \Nat$
+    that is the constant function equal to $1$.
+    We check that for all $w \in \Sigma^*$:
+    \begin{equation*}
+        \pi^\dagger(w)
+        =
+        \sum_{uv = w} 1
+        =
+        \card{w} + 1
+        = f(w)
+        \quad . 
+        \qedhere
+    \end{equation*}
+\end{proof}
 
-\begin{proof}[Proof of \cref{decidable-commutative-rat:lemma}]
+\begin{proof}[Proof of \cref{decidable-commutative-poly:lemma}, in the polyregular case]
+    Let $\Sigma$ be a finite alphabet, endowed with a
+    total ordering over its letters,
+    and let $f \colon \Sigma^* \to \Rel$ be a
+    \kl{$\Rel$-polyregular function}.
+    The map $\polysort \colon \Sigma^* \to \Sigma^*$
+    that sorts the letters in the input word $w$ according
+    to the chosen ordering is a \kl{polyregular function}
+    \cite[Proposition II.12]{LOPEZ23b}.
+    As a consequence,
+    $(f \circ \polysort) \in \ZPoly$.
+    Finally, $f$ is \kl{commutative} if and only
+    if $f = f \circ \polysort$, which is decidable
+    in the case of $\ZPoly$
+    \cite[Corollary II.24]{LOPEZ23b}, and more generally in the case 
+    of $\ZRat$ \cite[Corollary 3.6 p 38]{berstel2011noncommutative}.
+\end{proof}
+
+\begin{proof}[Proof of \cref{decidable-commutative-rat:lemma} in the general case]
     Because $f$ is a \kl{$\Rel$-rational series},
     there exists a $n \in \Nat$,
     vectors $v_1$ and $v_2$,
@@ -36,7 +72,7 @@ section \ref{preliminaries:sec}}
     If $f \in \ZPoly[k]$, then 
     for every \kl{polyregular function} $g \in \Poly[\ell]$,
     $f \circ g \in \ZPoly[k+ \ell - 1]$
-    \cite[]{LOPEZ23b}.
+    \cite{LOPEZ23b}.
 
     Conversely, it was proven in \cite[Theorem III.3]{LOPEZ23b}
     that $f \in \ZPoly[k]$ if and only if
@@ -104,9 +140,30 @@ section \ref{preliminaries:sec}}
     $f \in \ZSF$.
 \end{proof}
 
+\begin{proof}[Proof of \cref{negative-not-nrat:ex}]
+    The function $w \mapsto |w|$ is a \kl{$\Nat$-polyregular function}.
+    Thus, 
+    $P(X) \defined X$ is
+    a \kl{$\Nat$-rational polynomial}. Similarly,
+    $w \mapsto |w|^2 + 3$ is a \kl{$\Nat$-polyregular function},
+    showing that $Q(X) \defined X^2 + 3$
+    is a \kl{$\Nat$-rational polynomial}.
+    Finally, 
+    $T(X) \defined - X$ cannot be 
+    a \kl{$\Nat$-rational polynomial} as \kl{$\Nat$-polyregular functions}
+    are non-negative.
+\end{proof}
+
 \section{Proofs of
 section \ref{polynomials:sec}}
 
+\begin{proof}[Proof of \cref{negative-but-npoly:ex}]
+    Remark that $P = (X-1)^2 + 1$. Let $f  \colon \Sigma^* \to \Nat$
+    that maps $aw \mapsto |w|^2$, and $\varepsilon \to 0$.
+    It is clear that $f \in \NPoly$, and that 
+    $P$ is \kl{represented} by
+    $\ind{|w| \geq 1} \times f + \ind{|w| = 0}$.
+\end{proof}
 
 \begin{proof}[Proof of
     \cref{n-poly-n-poly:example}]
@@ -162,6 +219,59 @@ section \ref{polynomials:sec}}
     which has the desired shape.
 \end{proof}
 
+\begin{proof}[Proof of \cref{n-rat-correct:lem}]
+    Let $f$ be the \kl{commutative}
+    \kl{$\Nat$-rational series}
+    with domain $\Sigma \defined \set{a_1, \dots, a_p}$
+    that \kl{represents} $P$. Because $f$ has \kl{polynomial growth},
+    it is in fact a \kl{$\Nat$-polyregular function}
+    (\cref{polynomial-rational-polyreg:fact}).
+    Using \cref{n-poly-combinatorics:lem},
+    there exists a number $\omega \in \Nat$
+    and polynomial $Q$ with \kl{non-negative}
+    \kl{maximal monomials} such that
+    for all $X_1, \dots, X_p \geq \omega$:
+    \begin{equation*}
+        f\left(
+            \prod_{i = 1}^p a_i^{\omega X_i}
+        \right)
+        = Q(X_1, \dots, X_p)
+        = P(\omega X_1, \dots, \omega X_p) 
+        \quad .
+    \end{equation*}
+    We conclude that $P(\omega X_1, \dots, \omega X_p) = Q(X_1, \dots, X_p)$
+    as polynomials,
+    and in particular that
+    the \kl{maximal monomials} of 
+    $P$ are \kl{non-negative}.
+
+    Remark that for every partial valuation $\nu \colon \vec{X} \topartial \Nat$,
+    the polynomial $\restr{P}{\nu}$ continues to be represented
+    by a \kl{$\Nat$-polyregular function}, namely
+    $f$ partially applied to a word. As a consequence,
+    the \kl{maximal monomials} of
+    $\restr{P}{\nu}$ are also \kl{non-negative}, 
+    and
+    we have proven that $P \in \CorrectPoly$.
+\end{proof}
+
+
+\begin{fact}
+    \label{maxi-monomials-submodular:fact}
+    Let $P, Q$ be two polynomials.
+    Then, $\MaximalMonomials(P+Q) \hoareleq \MaximalMonomials(P)
+    \cup \MaximalMonomials(Q)$.
+\end{fact}
+
+
+\begin{fact}
+    \label{translation-maximal:fact}
+    For all $P \in \Rel[\vec{X}]$, and $K \in \Nat$,
+    \begin{equation*}
+        \MaximalMonomials(P) = \MaximalMonomials(\translate{K}(P))
+        \quad .
+    \end{equation*}
+\end{fact}
 
 \begin{proof}[Proof of 
     \cref{derivation-monomials:fact}
@@ -185,6 +295,7 @@ section \ref{polynomials:sec}}
     In particular, $T$ \kl{divides}
     $K \frac{\prod_{i = 1}^n X_i^{k_i}}{X_p}$.
 \end{proof}
+
 
 \begin{proof}[Proof of \cref{derivation-simplifies:lemma}]
     Let $P \in \Rel[\vec{X}]$ and
@@ -331,13 +442,152 @@ section \ref{polynomials:sec}}
     \cref{d-t-transl-fin:item} and \cref{d-t-transl:item} are equivalent.
 \end{proof}
 
+\begin{proof}[Proof of \cref{decidability-correct:lem}]
+    Given $P \in \Rel[\vec{X}]$,
+    one applies \cref{derivation-translation:lem}
+    to obtain a bound $K$, and then 
+    computes $\translate{K}(\restr{P}{\nu})$ for all 
+    partial valuations $\nu \colon \vec{X} \topartial \set{0, \dots, K}$.
+    Then $P \in \CorrectPoly$ if and only if all those polynomials
+    belong to $\Nat[\vec{X}]$, which is decidable.
+\end{proof}
+
 \section{Proofs of section \ref{beyond-polynomials:sec}}
 
+\begin{proof}[Proof of \cref{decompose-polynomial:lem}]
+    We apply
+    \cref{n-poly-combinatorics:lem} to compute the $\omega$.
+    Using this $\omega$,
+    for any choice of
+    $r \defined (r_1, \dots, r_n) \in \set{0, \dots, \omega - 1}$,
+    there exists a polynomial $P_r \in \Rel[X_1, \dots, X_p]$
+    such that $X_1, \dots, X_p \geq \omega$:
+    \begin{equation*}
+        f\left(
+        a_1^{\omega X_1 + r_1} \cdots a_n ^{\omega X_n + r_n}\right) 
+        = P_r(X_1, \dots, X_p) \quad .
+    \end{equation*}
+    To get the full family of polynomials needed requires
+    just to only iterate subsets of letters, and fix the other ones
+    to be below the threshold $\omega^2$.
+\end{proof}
 
+\begin{proof}[Proof of \cref{decidable-n-poly:thm}]
+    \textbf{TODO: we need to talk about the number of variables hehe}
+    Let us prove that
+    \cref{f-npoly-combi:item}
+    implies \cref{f-combinatorial:item}. 
+    We compute the $\omega$ by applying 
+    \cref{n-poly-combinatorics:lem}, and then
+    notice that the polynomial $P$ obtained is
+    by definition a \kl{$\Nat$-rational polynomial}.
+
+    For the converse implication, we use \cref{decompose-polynomial:lem} to
+    effectively compute a polynomial representation of $f$. Using the
+    assumption, all of these polynomials are actually \kl{$\Nat$-rational
+    polynomials}. Let us now construct a new way to compute $f$, by first
+    computing the \kl{$\omega$-type} of the input (which is possible in
+    $\MSO$), and then computing the suitable \kl{$\Nat$-rational polynomial},
+    which is possible in $\NPoly$.
+\end{proof}
+
+
+\begin{proof}[Proof of \cref{zsf-npoly-nsf:thm}]
+    We proceed by induction on the size of the alphabet $\card{\Sigma}$.
+
+    \textbf{Base Case.} When $\Sigma$ is empty, $\Sigma^*$ contains
+    only the empty word $\varepsilon$, and because $f$ is a
+    \kl{$\Nat$-polyregular function}, $f(\varepsilon) \in \Nat$.
+    Note that $f$ is therefore a constant function, equal to a natural
+    number, hence belongs to $\NSF$.
+
+    
+    \textbf{Induction.}
+    Because $f$ is \kl{ultimately polynomial},
+    there exists $N_0 \in \Nat$, 
+    and $P \in \Rel[\seqof{X_a}{a \in \Sigma}]$ 
+    such that
+    \begin{equation*}
+        f\left( \prod_{a \in \Sigma} a^{X_a} \right)
+        = 
+        P(\seqof{X_a}{a \in \Sigma})
+        \quad
+        \text{ when }
+        \forall a \in \Sigma, X_a \geq N_0
+        \quad .
+    \end{equation*}
+    Furthermore, leveraging \cref{decompose-polynomial:lem},
+    we obtain $\omega \in \Nat$
+    and a family of polynomials 
+    $\seqof{P_{t}}{t \in \ModuloTypes[\omega]^\Sigma}$
+    that represent $f$.
+    For all $t \in \ModuloTypes[\omega]^\Sigma$
+    that have threshold greater than $\omega^2$,
+    we conclude that $P_t$ and $P$ coincide (up to translation) over an infinite grid,
+    hence we conclude that
+    if all letters appear at least $N_1 \defined \max (\omega^2, N_0)$ times,
+    then $f$ computes $P$. But this also shows that
+    $\translate{N_1}(P)$ is a \kl{$\Nat$-rational polynomial}, hence is
+    \kl{represented} by a function $f_1 \in \NSF[k]$.
+    
+    To compute $f$ on words where some letter appears fewer than $N_1$ times,
+    we partially apply $f$ to obtain a function $g$ over a restricted input
+    alphabet. Using the induction hypothesis, $g$ belongs to $\NSF[k]$, and we
+    can therefore (effectively) compute a representation of $f$ in $\NSF[k]$.
+
+
+    For the effective part of the theorem, 
+    we know from \cite[Theorem V.13]{LOPEZ23b}, it is decidable whether
+    $f \in \ZSF[k]$ and from \cref{decidable-n-poly:thm}
+    it is decidable whether $f \in \NPoly$.
+    Furthermore, one can enumerate functions in $\NSF[k]$,
+    and check equivalence to effectively represent $f$ as a
+    \kl{star-free $\Nat$-polyregular function}.
+\end{proof}
 
 
 \section{Proofs of section \ref{beyond-commutative:sec}}
 
+\begin{fact}
+    \label{unique-res-transducer:fact}
+    Let $f \colon \Sigma^* \to \Nat$ and $k \in \Nat$.
+    Then $f$ has at most one \kl{$k$-residual transducer}.
+\end{fact}
+\begin{proof}[Proof of \cref{unique-res-transducer:fact}]
+    Let $\aTransd_1$ and $\aTransd_2$ be two
+    \kl{$k$-residual transducers} for $f$.
+    The two initial states must be $\varepsilon$.
+    Let us prove by induction on $u \in \Sigma^*$ that
+    $\delta_1(\varepsilon, u) = \delta_2(\varepsilon, u)$
+    and that $Q_1$ equals $Q_2$ over prefixes of $u$.
+    This will prove that 
+    $Q_1 = Q_2$, hence that $\aTransd_1 = \aTransd_2$.
+
+    Let $u \in \Sigma^* \cap Q_1 \cap Q_2$ and $a \in \Sigma$, $v_1 \in Q_1$ be
+    defined as $v \defined \delta_1(u,a)$, and $v_2 \defined \delta_2(u,a)$.
+    Remark that by induction hypothesis, for all $v \prefle u$, $v \in Q_1 \cap
+    Q_2$. If $\delta_1(u,a) = Q_1$, it means that for all $v \in Q_2$ such that
+    $v \prefle ua$, we have $\neg( v \resleq{f}{k} ua )$. The only possible
+    transition in $\aTransd_2$ is therefore $\delta_2(u,a) = ua$, and $ua \in
+    Q_2$. Similarly, if $\delta_1(u,a) \prefleq u$, then $\delta_2(u,a) =
+    \delta_1(u,a)$ by definition of $\delta_2$ as a maximum.
+\end{proof}
+
+
+\begin{fact}
+    \label{q-o-prefix-cool:fact}
+    Let $f \colon \Sigma^* \to \Nat$ and $k \in \Nat$.
+    At each step of the \texttt{while loop}
+    of \cref{residual:algo}, the sets
+    $Q$ and $O$ are such that
+    \begin{enumerate}
+        \item $Q \cup O$ is a \kl{downwards closed} subset of 
+            $\Sigma^*$ for $\prefleq$;
+        \item elements in $O$ are pairwise incomparable
+            for $\prefleq$, and are maximal
+            for $\prefleq$ inside $Q \cup O$.
+    \end{enumerate}
+\end{fact}
 \begin{proof}[Proof of
     \cref{q-o-prefix-cool:fact}]
     Let us write $Q_i$ and $O_i$ for the value of the variables
@@ -366,6 +616,25 @@ section \ref{polynomials:sec}}
     We have concluded that $O_{i+1}$ continues to have pairwise incomparable
     elements.
 \end{proof}
+
+\begin{proof}[Proof of \cref{correct-residual:lemma}]
+    Because of \cref{q-o-prefix-cool:fact},
+    we already know that $q_0 = \varepsilon$,
+    $Q$ is a \kl{downwards closed} subset of $\Sigma^*$
+    for $\prefleq$, 
+    that every state of $Q$ is accessible from $q_0$.
+    Notice that at every step,
+    $\lambda(u,a)$ is defined as
+    $\app{f}{ua} - \app{f}{\delta(u,a)}$.
+    Finally, since $Q \cup O$ is a \kl{downwards closed} subset of $\Sigma^*$
+    at every step,
+    we have that at step $i$,
+    for all $ua \in O_i$,
+    $\setof{w \in Q}{w \prefleq ua} = \setof{w \in Q_i}{ w \prefleq ua}$,
+    which proves that the maximum considered in the algorithm
+    is indeed computing correctly.
+\end{proof}
+
 \begin{proof}[Proof of \cref{wqo-implies-termination:lemma}]
     Assume towards a contradiction that
     \cref{residual:algo} does not terminate.
@@ -380,7 +649,7 @@ section \ref{polynomials:sec}}
     \bigcup_{i \in \Nat} Q_i$. The set $Q_\infty$ is infinite, and is
     \kl{downwards closed} for $\prefleq$. As a consequence, it is an infinite
     tree with a finite branching (at most $\card{\Sigma}$), and has an infinite
-    branch $\seqof{u_j}{j \in \Nat}$ thanks to König’s lemma.
+    branch $\seqof{u_j}{j \in \Nat}$ thanks to König' s lemma.
 
     Let us prove that this infinite branch is a \kl{bad sequence} for the
     ordering $\resleq{f}{k}$.
@@ -452,8 +721,6 @@ section \ref{polynomials:sec}}
         m_i
         \sum_{1 \leq j \leq N_0}
         \sum_{\phi_i \in t_l^j(\vec{y}) \odot t_r^j(\vec{z})}
-        \\
-        &\quad\quad
         \underbrace{
         \left[
             \vcount{t_r^j(\vec{y})}(v)
@@ -478,4 +745,64 @@ section \ref{polynomials:sec}}
     \MSO^q(u_j)$. As a consequence, $g \defined \app{f}{u_j} - \app{f}{u_i} \in
     \NPoly$, and therefore $g \in \NPoly[k-1]$. We have proven that there
     exists $i < j$ such that $u_i \resleq{f}{k} u_j$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{aperiodic-iff-residual:lem}]
+    It is clear that $\NSF \subseteq \ZSF$, and known that if $f \in \ZSF$
+    then it is \kl{ultimately polynomial}. Furthermore, if the \kl{$0$-residual
+    transducer} of $f$ is \kl{counter-free}, then $f \in \NSF$
+    using \cref{transducer-nsf-npoly:lemma}.
+
+    Assume that $f$ is \kl{ultimately polynomial}, let us prove that the
+    \kl{$0$-residual transducer} of $f$ is \kl{counter-free}. 
+    Note that because $f \in \NPoly[0]$,
+    $u \resleq{f}{0} v$ if and only if $\app{f}{u} = \app{f}{v}$.
+    In particular, in a \kl{$0$-residual transducer} of $f$,  two states that
+    represent the same residual must be incomparable for the prefix relation.
+
+    Let $(q,w^n)$ be
+    a counter with $n \geq 1$. This means that $\delta(q, w^n) = q$ in the
+    automaton, and implies that $q \resleq{f}{0} qw^n$, hence that $\app{f}{q}
+    = \app{f}{qw^n}$. Because $f$ is \kl{ultimately polynomial},
+    we know that $\app{f}{qw^n} = \app{f}{qw^{n+1}}$,
+    hence that $\app{f}{qw} = \app{f}{q}$.
+
+    Let us write $t \defined \delta(q,w) = \delta(q,w^{n+1})$. We know that
+    $\app{f}{q} = \app{f}{t}$. Assume by contradiction that $t$ and $q$ are
+    incomparable for the prefix relation. Let us split $w = w_1 w_2$ where
+    $w_1$ is the shortest prefix of $w$ such that $s_0 \defined \delta(q,w_1)$
+    is an ancestor of $q$ and of $t$ for the prefix relation, it must exist
+    because $\delta(q,w_1 w_2) = t$.
+
+    Now, consider $s_1 \defined \delta(t, w_1)$. Assume by contradiction that
+    $s_0$ is not comparable with $s_1$ for the prefix relation. Then, consider
+    the smallest prefix $v$ of $w_1$ such that $\delta(t, v)$ is a strict
+    prefix of $s_0$. It must exist, otherwise $s_0$ is always a prefix of
+    $s_1$. Because $\app{f}{t} = \app{f}{q}$, we conclude that $\app{f}{tv} =
+    \app{f}{qv}$. However, this contradicts the minimality of $w_1$, since
+    $\delta(t,v)$ is an ancestor of $q$ and $t$.
+
+    We have proven that $s_0$ and $s_1$ are comparable, hence they are equal,
+    since $\app{f}{s_1} = \app{f}{t w_1} = \app{f}{q w_1} = \app{f}{s_0}$.
+    Finally, we have proven that $\delta(q, w_1) = s_0$, $\delta(s_0, w_2) =
+    t$, and $\delta(s_0, w_2) = \delta(t, w_1w_2) = q$ which is absurd.
+    As a consequence $t$ and $q$ were comparable for the prefix relation,
+    hence equal, and therefore $\delta(q, w) = q$.
+\end{proof}
+
+
+
+
+
+\begin{proof}[Proof sketch of \cref{sf-no-periods-on-sequences:lemma}]
+    Let $t$ be a first order type,
+    the map $g_t \colon X \mapsto \vcount{t}(uw^X)$ is a
+    \kl{commutative} \kl{star-free $\Nat$-polyregular function},
+    hence ultimately a polynomial, and therefore,
+    translated enough, it is a $\Nat[X]$ polynomial.
+    But this means that $g_t(X+1) - g_t(X) \in \Nat[X]$ for a large
+    enough $X$, which is precisely what suffices.
+    Now, we can do this for every first order type $t$
+    with fewer variables and lower quantifier rank than those
+    needed to define $f$, and conclude.
 \end{proof}

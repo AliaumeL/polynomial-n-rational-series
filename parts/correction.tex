@@ -66,42 +66,6 @@ $\NPoly$ \cite[Lemma 5.37]{gaetanphd}.
     by a \kl{$\Nat$-rational series}. Then,
     $P \in \CorrectPoly$.
 \end{corollary}
-\begin{proof}
-    Let $f$ be the \kl{commutative}
-    \kl{$\Nat$-rational series}
-    with domain $\Sigma \defined \set{a_1, \dots, a_p}$
-    that \kl{represents} $P$. Because $f$ has \kl{polynomial growth},
-    it is in fact a \kl{$\Nat$-polyregular function}
-    (\cref{polynomial-rational-polyreg:fact}).
-    Using \cref{n-poly-combinatorics:lem},
-    there exists a number $\omega \in \Nat$
-    and polynomial $Q$ with \kl{non-negative}
-    \kl{maximal monomials} such that
-    for all $X_1, \dots, X_p \geq \omega$:
-    \begin{equation*}
-        f\left(
-            \prod_{i = 1}^p a_i^{\omega X_i}
-        \right)
-        = Q(X_1, \dots, X_p)
-        = P(\omega X_1, \dots, \omega X_p) 
-        \quad .
-    \end{equation*}
-    We conclude that $P(\omega X_1, \dots, \omega X_p) = Q(X_1, \dots, X_p)$
-    as polynomials,
-    and in particular that
-    the \kl{maximal monomials} of 
-    $P$ are \kl{non-negative}.
-
-    Remark that for every partial valuation $\nu \colon \vec{X} \topartial \Nat$,
-    the polynomial $\restr{P}{\nu}$ continues to be represented
-    by a \kl{$\Nat$-polyregular function}, namely
-    $f$ partially applied to a word. As a consequence,
-    the \kl{maximal monomials} of
-    $\restr{P}{\nu}$ are also \kl{non-negative}, 
-    and
-    we have proven that $P \in \CorrectPoly$.
-\end{proof}
-
 
 \AP The core of the upcoming \cref{lem:correct-to-n-rat} leverages a notion of
 \kl{discrete derivative} to perform an induction on the \kl{maximal monomials}.
@@ -125,7 +89,7 @@ K, \dots, X_n + K)$.
 
 As one would expect, the \kl{discrete derivatives} are linear operations on
 polynomials, that commutes with \kl{translation operators}. However, the
-\kl{translations operators} do not perfectly commute with partial applications
+\kl{translation operators} do not perfectly commute with partial applications
 $\restr{\cdot}{\nu}$.
 
 \begin{fact}
@@ -140,34 +104,11 @@ $\restr{\cdot}{\nu}$.
         $\restr{\cdot}{\nu} \colon \Rel[\vec{X}] \to \Rel[\vec{X}]$
             are linear operators,
         \item $\Diff{K}{ \cdot } \circ \translate{L}
-            = \translate{K} \circ \Diff{L}{\cdot}$,
+            = \translate{L} \circ \Diff{K}{\cdot}$,
         \item $\restr{\cdot}{\nu} \circ \translate{L}
             = \translate{L} \circ \restr{\cdot}{\translate{L}(\nu)}$.
     \end{enumerate}
 \end{fact}
-
-To build some intuition on the proof to come, let us sketch the argument in the
-case of a single indeterminate $X$. Given a polynomial $P \in \CorrectPoly$,
-the goal is to build a \kl{$\Nat$-polyregular function} $f$ that
-\kl{represents} $P$. Note that in this case, the function has unary input and
-unary output. We prove the result by induction on the degree $\deg(P)$ of the
-polynomial $P$, where the base case is trivial because when $P$ is a constant
-function, this constant must be in $\Nat$. For the induction step, we can
-assume that $P = \alpha X^n + Q$, where $\deg(Q) < \deg(P)$, $n \geq 1$, and
-$\alpha > 0$. On the one hand, $\alpha X^n$ is a \kl{$\Nat$-rational
-polynomial}, but on the other hand, $Q$ may not belong to $\CorrectPoly$.
-However, there exists $K \in \Nat$ such that $\Diff{K}{X^n} + \translate{K}(Q)$
-belongs to $\CorrectPoly$, for instance by considering $K$ to be the sum of
-absolute values of coefficients of $P$. Furthermore, $\Diff{K}{X^n} +
-\translate{K}(Q)$ has degree smaller than $\deg(P)$, hence is a
-\kl{$\Nat$-rational polynomial}. Now, $\translate{K}(P) = \alpha X^n +
-\Diff{K}{X^n} + \translate{K}(Q)$ is a \kl{$\Nat$-rational polynomial},
-represented by a function $f_1$. Now, for values $k$ of $X$ that are smaller
-than $K$, we can compute $P(k) = \restr{P}{X=k}$, which belongs to $\Nat$. It
-is possible to build a \kl{$\Nat$-polyregular function} $f_2 \colon \Nat \to
-\Nat$ that outputs $P(k)$ if the input is at most $K$, and $f_1(k - K)$
-otherwise.
-
 
 In the actual statement of \cref{corrected-version:thm}, the representation of
 polynomials in $\CorrectPoly$ is strengthened from \kl{$\Nat$-polyregular
@@ -177,43 +118,24 @@ surprising, given the conjecture that \kl{ultimately polynomial}
 conjectured to be star free (\cref{zsf-nsf:conjecture}), and that polynomials
 are always \kl{ultimately polynomial}.
 
-
-When multiple indeterminate are involved, the notion of 
-degree must be adapted, and to ensure that the decision procedure
-is effective, one must obtain explicit bounds on the
-translations that are needed.
-
-
-\AP To that end, let us now introduce the ordering over which the induction of
+\AP When multiple indeterminate are involved, the notion of degree must be
+adapted, and to ensure that the decision procedure is effective, one must
+obtain explicit bounds on the translations that are needed. To that end, let us
+now introduce the ordering over which the induction of
 \cref{lem:correct-to-n-rat} is built. Recall that $\MaximalMonomials(P)$ is the
 set of \kl{maximal monomials} of $P$, hence belongs to $\Pfin(\Monomials)$. We
 order \kl{monomials} with the \kl{divisibility ordering}, making $\Monomials$ a
 \kl{well-quasi-ordering} that is isomorphic to $\Nat^k$ with the product
-ordering \cite[see e.g.][Dickson’s Lemma]{SCSC12}. We endow $\Pfin(\Monomials)$
-with the \intro{Hoare ordering}, that is, $S_1 \hoareleq S_2$ whenever for all
+ordering \cite[Dickson’s Lemma]{SCSC12}. We endow $\Pfin(\Monomials)$ with the
+\intro{Hoare ordering}, that is, $S_1 \hoareleq S_2$ whenever for all
 \kl{monomials} $M_1 \in S_1$, there exists a monomial $M_2 \in S_2$, such that
 $M_1$ \kl{divides} $M_2$. The set $(\Pfin(\Monomials), \hoareleq)$ remains a
-\kl{well-quasi-ordering} \cite[see e.g.][Hoare quasi-ordering]{SCSC12}.
+\kl{well-quasi-ordering} \cite[Hoare quasi-ordering]{SCSC12}.
 
-\begin{fact}
-    \label{maxi-monomials-submodular:fact}
-    Let $P, Q$ be two polynomials.
-    Then, $\MaximalMonomials(P+Q) \hoareleq \MaximalMonomials(P)
-    \cup \MaximalMonomials(Q)$.
-\end{fact}
 
 Let us now illustrate how the \kl{discrete differentiation} operator interacts
 with \kl{maximal monomials} with respect to the \kl{Hoare ordering}: it
 extracts \emph{submaximal} monomials from a given polynomial.
-
-\begin{fact}
-    \label{translation-maximal:fact}
-    For all $P \in \Rel[\vec{X}]$, and $K \in \Nat$,
-    \begin{equation*}
-        \MaximalMonomials(P) = \MaximalMonomials(\translate{K}(P))
-        \quad .
-    \end{equation*}
-\end{fact}
 
 \begin{fact}
     \label{derivation-monomials:fact}
@@ -235,7 +157,6 @@ extracts \emph{submaximal} monomials from a given polynomial.
     $\MaximalMonomials(\Diff{K}{P}) \hoarele
     \MaximalMonomials(P)$.
 \end{lemma}
-
 
 The following \cref{derivation-stabilises-correct:lem} is the main
 combinatorial argument of this section. It leverages the positivity of the
@@ -291,10 +212,11 @@ P_1 + \Diff{K}{P_1} + \translate{K}(P_2)$.
     function $f_\Delta$.
 
     For all partial valuations $\nu \colon \vec{X} \topartial \set{0, \dots,
-    K}$ fixing at least one indeterminate, $\MaximalMonomials(\restr{P}{\nu})
-    \hoarele \MaximalMonomials{P}$. Because $\restr{P}{\nu} \in \CorrectPoly$,
-    one can use the induction hypothesis to compute a \kl{star-free
-    $\Nat$-polyregular function} $f_\nu$ that \kl{represents} $\restr{P}{\nu}$.
+    K}$ fixing at least one indeterminate,  we know that
+    $\MaximalMonomials(\restr{P}{\nu}) \hoarele \MaximalMonomials{P}$. Because
+    $\restr{P}{\nu} \in \CorrectPoly$, one can use the induction hypothesis to
+    compute a \kl{star-free $\Nat$-polyregular function} $f_\nu$ that
+    \kl{represents} $\restr{P}{\nu}$.
 
 
     Let us assume that the alphabet over which the (\kl{commutative}) functions
@@ -348,15 +270,6 @@ needed in this characterization, as \cref{bad-poly-translate:ex} illustrates.
     \label{decidability-correct:lem}
     One can decide membership in $\CorrectPoly$.
 \end{corollary}
-\begin{proof}
-    Given $P \in \Rel[\vec{X}]$,
-    one applies \cref{derivation-translation:lem}
-    to obtain a bound $K$, and then 
-    computes $\translate{K}(\restr{P}{\nu})$ for all 
-    partial valuations $\nu \colon \vec{X} \topartial \set{0, \dots, K}$.
-    Then $P \in \CorrectPoly$ if and only if all those polynomials
-    belong to $\Nat[\vec{X}]$, which is decidable.
-\end{proof}
 
 \begin{example}
     \label{bad-poly-translate:ex}
