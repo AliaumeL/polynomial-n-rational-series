@@ -4,25 +4,25 @@
 \label{beyond-polynomials:sec}
 \label{star-free:sec}
 
-Let us now go beyond polynomials and consider the case of \kl{commutative}
-\kl{$\Rel$-polyregular functions}. The hypothesis of \kl{commutativity} reduces
-$\ZPoly$ to a combination of a finite number of polynomials, arranged by
-counting modulo some numbers. This characterization will be proven in
-\cref{decompose-polynomial:lem}, and will be the key ingredient in the decision
-procedures of $\NPoly$ inside $\ZPoly$, and $\NSF$ inside $\NPoly$. Note that
-\cref{decompose-polynomial:lem} is actually a refinement of
-\cref{n-poly-combinatorics:lem} under the extra assumption of
+The goal of this section is to go beyond polynomials and consider the case of
+\kl{commutative} \kl{$\Rel$-polyregular functions}. The hypothesis of
+\kl{commutativity} reduces $\ZPoly$ to a combination of a finite number of
+polynomials, arranged by counting modulo some numbers. This characterization
+will be proven in \cref{decompose-polynomial:lem}, and will be the key
+ingredient in the decision procedures of $\NPoly$ inside $\ZPoly$, and $\NSF$
+inside $\NPoly$. Note that \cref{decompose-polynomial:lem} is actually a
+refinement of \cref{n-poly-combinatorics:lem} under the extra assumption of
 \kl{commutativity}. 
 
-\AP To formally state the lemma, we will need some notations that will
+\AP To actually state the lemma, we will need some notations that will
 formalize the intuitive idea of counting tuples of integers modulo some
-constant. Let $\omega \in \Nat$, we write the set of \intro{types modulo
-$\omega$} $\ModuloTypes[\omega] \defined \set{0, \dots, \omega^2} \times \set{0,
-    \dots, \omega - 1}$. To a number $n \in \Nat$, we associate its
-    \intro{$\omega$-type} written $\moduloType[\omega](n)$ which is defined as the pair
-    $(t, r)$ where $t = \min (n, \omega^2)$ and $r$ is the rest of the Euclidian
-    division of $n$ by $\omega$. This notion of type is lifted to vectors in
-    $\Nat^p$ for any $p \in \Nat$ by pointwise application.
+constant. Let $\omega \in \Nat$, we define the set $\intro*\ModuloTypes[\omega]
+\defined \set{0, \dots, \omega^2} \times \set{0, \dots, \omega - 1}$ of
+\intro{types modulo $\omega$}. To a number $n \in \Nat$, we associate its
+\reintro{$\omega$-type} written $\intro*\moduloType[\omega](n)$ which is
+defined as the pair $(t, r)$ where $t = \min (n, \omega^2)$ and $r$ is the rest
+of the Euclidian division of $n$ by $\omega$. This notion of type is lifted to
+vectors in $\Nat^p$ for any $p \in \Nat$ by pointwise application.
 
 
 \begin{lemma}
@@ -45,12 +45,11 @@ $\omega$} $\ModuloTypes[\omega] \defined \set{0, \dots, \omega^2} \times \set{0,
     \end{equation*}
 \end{lemma}
 
-
-The goal of this section is to go beyond polynomials and characterize all
-\kl{$\Rel$-polyregular functions} that are \kl{$\Nat$-polyregular}, under the
-assumption that they are \kl{commutative}. We will provide a semantic property
-in the form of \cref{k-combinatorial:def}, that is conjecture to characterize
-$\NPoly$ inside $\ZPoly$, even in the non-commutative setting.
+In the spirit of previous characterizations of subclasses of $\ZPoly$ in terms
+of \emph{polynomial pumping arguments}
+\cite{doueneau2021pebble,doueneau2022hiding,LOPEZ23b}, we will provide a
+semantic property in the form of \cref{k-combinatorial:def}, that is conjecture
+to characterize $\NPoly$ inside $\ZPoly$, even in the non-commutative setting.
 
 \begin{definition}
     \label{k-combinatorial:def}
@@ -90,14 +89,11 @@ $\NPoly$ inside $\ZPoly$, even in the non-commutative setting.
 
 Let us now prove that the above characterizations of \kl{commutative}
 \kl{$\Nat$-polyregular functions} can be combined with the recent advances in
-the study of \kl{$\Rel$-polyregular functions} \cite{LOPEZ23b} to prove the
-following theorem. As a corollary of \cref{zsf-npoly-nsf:thm} and the effective
-decision procedures of $\ZSF$ obtained in \cite{LOPEZ23b}, we conclude that
-$\NSF$ is decidable inside $\NPoly$ under the assumption of commutativity, and
-that the effective procedure can be used The key ingredient of this section is
-the use of a semantic characterization of \kl{star-free $\Rel$-polyregular
-functions} among \kl{$\Rel$-rational series} that generalizes the aperiodicity
-of languages to functions by the means of polynomial behaviors.
+the study of \kl{$\Rel$-polyregular functions} \cite{LOPEZ23b} to decide
+aperiodicity. The key ingredient of this study is the use of a semantic
+characterization of \kl{star-free $\Rel$-polyregular functions} among
+\kl{$\Rel$-rational series} that generalizes the aperiodicity of languages to
+functions by the means of polynomial behaviors.
 
 \begin{definition}[Ultimately polynomial]
     \label{ultimately-polynomial:def}
@@ -132,15 +128,15 @@ generalizes the indicator functions of regular languages.
 
 \begin{theorem}
     \label{zsf-npoly-nsf:thm}
-    Let $\Sigma$ be a finite alphabet, $k \in \Nat$,
+    Let $\Sigma$ be a finite alphabet, 
     and $f \colon \Sigma^* \to \Rel$ be a \kl{commutative}
     \kl{$\Nat$-polyregular function}.
     Then, the following are equivalent:
-    \begin{itemize}
+    \begin{enumerate}
         \item $f$ is \kl{ultimately polynomial},
         \item $f \in \ZSF$,
-        \item $f \in \NSF[k]$.
-    \end{itemize}
+        \item $f \in \NSF$.
+    \end{enumerate}
     Furthermore, membership is decidable and effective conversions
     are possible.
 \end{theorem}

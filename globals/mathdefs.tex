@@ -9,10 +9,20 @@
 \newcommand{\setof}[2]{\mathopen{\{} #1 \mid #2 \mathclose{\}}}
 \newcommand{\set}[1]{\mathopen{\{} #1 \mathclose{\}}}
 
+\NewDocumentCommand{\card}{ O{} m }{ \mathopen{|} #2  \mathclose{|}_{#1}}
+
+\newcommand{\Nat}{\mathbb{N}}
+\newcommand{\Rel}{\mathbb{Z}}
+\newcommand{\Rat}{\mathbb{Q}}
+
 \newcommand{\Pfin}{\mathcal{P}_{\mathsf{fin}}}
 
-\newcommand{\MSO}{\mathsf{MSO}}
-\newcommand{\FO}{\mathsf{FO}}
+\newcommand{\MSO}{\mathsf{\kl[\MSO]{MSO}}}
+\knowledge{\MSO}{notion}
+
+\newcommand{\FO}{\mathsf{\kl[\FO]{FO}}}
+\knowledge{\FO}{notion}
+
 
 \newcommand{\ind}[1]{\mathbf{1}_{#1}}
 \newcommand{\bigO}{\mathcal{O}}
@@ -21,43 +31,51 @@
 
 
 \newcommand{\topartial}{\rightharpoonup}
+\newcommand{\tosurj}{\twoheadrightarrow}
 % functions
 
 \newcommand{\dom}{\operatorname{dom}}
 
 \NewDocumentCommand{\vcount}{ m }{ {{\#}#1} }
-% sets
 
-\NewDocumentCommand{\card}{ O{} m }{ \mathopen{|} #2  \mathclose{|}_{#1}}
-\newcommand{\Nat}{\mathbb{N}}
-\newcommand{\Rel}{\mathbb{Z}}
-\newcommand{\Rat}{\mathbb{Q}}
 
 % GOOD POLYNOMIALS
-\newcommand{\CoveredPoly}{\mathsf{PolyKu}}
-\newcommand{\CorrectPoly}{\mathsf{PolyRec}}
+\newcommand{\CoveredPoly}{\kl[\CoveredPoly]{\mathsf{PolyKu}}}
+\newcommand{\CorrectPoly}{\kl[\CorrectPoly]{\mathsf{PolyRec}}}
+\knowledge{\CoveredPoly}{notion}
+\knowledge{\CorrectPoly}{notion}
 
-\NewDocumentCommand{\Monomials}{o}{\IfNoValueTF{#1}{\mathsf{Mon}}{\mathsf{Mon}[#1]}}
-\NewDocumentCommand{\MaximalMonomials}{}{\mathop{\mathsf{maxmon}}}
+\NewDocumentCommand{\Monomials}{o}{\mathop{\kl[\Monomials]{\IfNoValueTF{#1}{\mathsf{Mon}}{\mathsf{Mon}[#1]}}}}
+\NewDocumentCommand{\MaximalMonomials}{}{\mathop{\kl[\MaximalMonomials]{\mathsf{maxmon}}}}
+\knowledge{\Monomials}{notion}
+\knowledge{\MaximalMonomials}{notion}
 
-% Differences of polynomials
-\NewDocumentCommand{\Diff}{m m}{ \Delta_{#1}(#2) }
 
 
 % Restrictions
 %\newcommand{\restr}[2]{{#1}_{\kl[\restr]{| #2}}}
-\newcommand{\restr}[2]{\kl[\restr]{[}{#1}\kl[\restr]{]}_{#2}}
+\newcommand{\restr}[2]{\withkl{\kl[\restr]}{\cmdkl{[}{#1}\cmdkl{]}_{#2}}}
 \knowledge{\restr}{notion}
 
-\NewDocumentCommand{\Poly}{O{}}{\mathsf{Poly}_{#1}}
-\NewDocumentCommand{\SF}{O{}}{\mathsf{SF}_{#1}}
-\NewDocumentCommand{\NPoly}{O{}}{\mathbb{N}\mathsf{Poly}_{#1}}
-\NewDocumentCommand{\ZPoly}{O{}}{\mathbb{Z}\mathsf{Poly}_{#1}}
-\NewDocumentCommand{\NSF}{O{}}{\mathbb{N}\mathsf{SF}_{#1}}
-\NewDocumentCommand{\ZSF}{O{}}{\mathbb{Z}\mathsf{SF}_{#1}}
-\NewDocumentCommand{\ZRat}{}{\mathbb{Z}\mathsf{Series}}
-\NewDocumentCommand{\NRat}{}{\mathbb{N}\mathsf{Series}}
-\NewDocumentCommand{\ZCommut}{}{\mathsf{Commut}}
+\NewDocumentCommand{\Poly}{O{}}{\kl[\Poly]{\mathsf{Poly}_{#1}}}
+\NewDocumentCommand{\SF}{O{}}{\kl[\SF]{\mathsf{SF}_{#1}}}
+\NewDocumentCommand{\NPoly}{O{}}{\kl[\NPoly]{\mathbb{N}\mathsf{Poly}_{#1}}}
+\NewDocumentCommand{\ZPoly}{O{}}{\kl[\ZPoly]{\mathbb{Z}\mathsf{Poly}_{#1}}}
+\NewDocumentCommand{\NSF}{O{}}{\kl[\NSF]{\mathbb{N}\mathsf{SF}_{#1}}}
+\NewDocumentCommand{\ZSF}{O{}}{\kl[\ZSF]{\mathbb{Z}\mathsf{SF}_{#1}}}
+\NewDocumentCommand{\ZRat}{}{\kl[\ZRat]{\mathbb{Z}\mathsf{Series}}}
+\NewDocumentCommand{\NRat}{}{\kl[\NRat]{\mathbb{N}\mathsf{Series}}}
+\NewDocumentCommand{\ZCommut}{}{\kl[\ZCommut]{\mathsf{Commut}}}
+
+\knowledge{\Poly}{notion}
+\knowledge{\SF}{notion}
+\knowledge{\NPoly}{notion}
+\knowledge{\ZPoly}{notion}
+\knowledge{\NSF}{notion}
+\knowledge{\ZSF}{notion}
+\knowledge{\ZRat}{notion}
+\knowledge{\NRat}{notion}
+\knowledge{\ZCommut}{notion}
 
 \NewDocumentCommand{\commute}{O{\cdot}}{\{\!\{ #1 \}\!\}}
 
@@ -68,31 +86,39 @@
 \NewDocumentCommand{\hoareleq}{}{\leq_{\mathcal{H}}}
 \NewDocumentCommand{\hoarele}{}{<_{\mathcal{H}}}
 
-\newcommand{\growth}[1]{\mathsf{growth}_{#1}}
+%\newcommand{\growth}[1]{\mathsf{growth}_{#1}}
 
-\NewDocumentCommand{\BadPoly}{}{P_{\mathsf{bad}}}
+\NewDocumentCommand{\BadPoly}{}{\kl[\BadPoly]{\mathsf{P}_{\mathsf{bad}}}}
+\knowledge{\BadPoly}{notion}
 
-\NewDocumentCommand{\translate}{m}{\tau_{#1}}
+\NewDocumentCommand{\translate}{m}{\mathop{\kl[\translate]{\tau_{#1}}}}
+\knowledge{\translate}{notion}
 
-
-\NewDocumentCommand{\cauchy}{}{\mathrel{\otimes}}
-
+% Differences of polynomials
+\NewDocumentCommand{\Diff}{m m}{ \mathop{\kl[\Diff]{\Delta_{#1}}}(#2) }
+\knowledge{\Diff}{notion}
 
 \NewDocumentCommand{\polysort}{}{\mathsf{sort}}
 \NewDocumentCommand{\polysum}{}{\mathsf{sum}}
 
 
-\NewDocumentCommand{\npolyleq}{ O{} }{\mathrel{\preceq_{\Nat #1}}}
-\NewDocumentCommand{\zpolyequiv}{ O{} }{\mathrel{\equiv}_{\Rel #1}}
+\NewDocumentCommand{\npolyleq}{ O{} }{\mathrel{\kl[\npolyleq]{\preceq_{\Nat #1}}}}
+\knowledge{\npolyleq}{notion}
+\NewDocumentCommand{\zpolyequiv}{ O{} }{\mathrel{\kl[\zpolyequiv]{\equiv_{\Rel #1}}}}
+\knowledge{\zpolyequiv}{notion}
 
-\NewDocumentCommand{\app}{ m m }{\mathop{{#2} \triangleright {#1}}}
-\NewDocumentCommand{\Res}{}{ \mathsf{Res}}
+\NewDocumentCommand{\app}{ m m }{\mathop{{#2} \mathrel{\kl[\app]{\triangleright}} {#1}}}
+\knowledge{\app}{notion}
+
+\NewDocumentCommand{\Res}{}{ \mathop{\kl[\Res]{\mathsf{Res}}}}
+\knowledge{\Res}{notion}
 
 
-\NewDocumentCommand{\divides}{}{\mathrel{|}}
+\NewDocumentCommand{\resleq}{ m m }{\mathrel{\kl[\resleq]{\leq_{{#1},{#2}}}}}
+\knowledge{\resleq}{notion}
+\NewDocumentCommand{\resleqsf}{ m m }{\mathrel{\kl[\resleqsf]{\leq_{{#1},{#2}}^{\mathsf{sf}}}}}
+\knowledge{\resleqsf}{notion}
 
-
-\NewDocumentCommand{\resleq}{ m m }{\mathrel{\leq_{{#1},{#2}}}}
 \NewDocumentCommand{\prefleq}{}{\sqsubseteq_{\mathsf{pref}}}
 \NewDocumentCommand{\prefle}{}{\sqsubset_{\mathsf{pref}}}
 \NewDocumentCommand{\preforth}{}{\bot_{\mathsf{pref}}}
@@ -101,8 +127,17 @@
 \NewDocumentCommand{\aTransd}{}{\mathcal{A}}
 
 
-\NewDocumentCommand{\ModuloTypes}{O{}}{{#1}\mathsf{Types}}
-\NewDocumentCommand{\moduloType}{O{}}{{#1}\mathsf{type}}
+\NewDocumentCommand{\ModuloTypes}{O{}}{\kl[\ModuloTypes]{{#1}\mathsf{Types}}}
+\knowledge{\ModuloTypes}{notion}
+\NewDocumentCommand{\moduloType}{O{}}{\kl[\moduloType]{{#1}\mathsf{type}}}
+\knowledge{\moduloType}{notion}
 
 
 \NewDocumentCommand{\floor}{m}{\lfloor #1 \rfloor}
+
+
+% Name of examples
+
+
+\NewDocumentCommand{\BadExOk}{}{\mathsf{f}}
+\NewDocumentCommand{\BadExKo}{}{\mathsf{g}}

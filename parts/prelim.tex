@@ -69,7 +69,7 @@ $x \in M$, $x^{n+1} = x^n$.
 \AP Let us briefly recall in the following lemma alternative characterizations
 of $\NPoly$ (resp. $\ZPoly$), some of which will be helpful in the upcoming
 analysis of their \kl{commutative} counterpart, and others that provide
-a nicer syntax to construct examples. These characterizations are known, and
+a nicer syntax to construct examples. These characterizations were previously known, and
 can be found in \cite{gaetanphd,LOPEZ23b}.
 
 \begin{lemma}
@@ -90,7 +90,8 @@ can be found in \cite{gaetanphd,LOPEZ23b}.
     \end{enumerate}
 \end{lemma}
 
-Similar characterizations can be obtained for $\NSF$ and $\ZSF$.
+Similar characterizations can be obtained for $\NSF$ and $\ZSF$, which correctly
+generalizes aperiodicity to functions as \cref{regular-language:ex} illustrates.
 
 \begin{lemma}
     Let $f \in \NPoly$ (resp. $f \in \ZPoly$), then
@@ -129,8 +130,8 @@ $\ZPoly$ (resp. $\NPoly$, $\ZSF$, $\NSF$) that can be constructed using at most
 $k$ free variables. It has been proven in
 \cite{LOPEZ23b,bojanczyk2022transducers} that the classes $\ZPoly[k]$ (resp.
 $\NPoly[k]$, $\ZSF[k]$, $\NSF[k]$) are characterized by the \kl{growth rate},
-that is, $f \in \ZPoly[k]$ if and only if $f \in \ZPoly$ and $\growth{f}(n) =
-\bigO(n^k)$, and similarly for the other classes.
+that is, $f \in \ZPoly[k]$ if and only if $f \in \ZPoly$ and $\card{f(w)} =
+\bigO\left(\card{w}^k\right)$. and similarly for the other classes.
 
 \subsection{Commutative Input}
 
@@ -138,12 +139,12 @@ that is, $f \in \ZPoly[k]$ if and only if $f \in \ZPoly$ and $\growth{f}(n) =
 input and the output, let us introduce precisely what it means and how it
 relates to other functions from $\Nat^k \to \Nat$. For that, let $\Sigma$ be a
 finite alphabet. We define $\commute \colon \Sigma^* \to \Nat^\Sigma$ for the
-map that counts occurrences of every letter in the input word, namely: $
-\commute[w] \defined (a \mapsto \card[a]{w})$. Let $X$ be a set. A function $f
-\colon \Sigma^* \to X$ is \intro{commutative} whenever for all $u,v \in
-\Sigma^*$, $f(uv) = f(vu)$. Equivalently, it is \reintro{commutative} whenever
-there exists a map $g \colon \Nat^\Sigma \to X$ such that $g \circ \commute =
-f$.
+map that counts occurrences of every letter in the input word (that is,
+computes the Parikh vector) namely: $ \commute[w] \defined (a \mapsto
+\card[a]{w})$. Let $X$ be a set, a function $f \colon \Sigma^* \to X$ is
+\intro{commutative} whenever for all $u,v \in \Sigma^*$, $f(uv) = f(vu)$.
+Equivalently, it is \reintro{commutative} whenever there exists a map $g \colon
+\Nat^\Sigma \to X$ such that $g \circ \commute = f$.
 
 To ensure that we are working inside a decidable subclass of \kl{$\Rel$-rational series}
 let us state that commutativity is decidable. The proof is straightforward in the case
@@ -157,38 +158,6 @@ of \kl{$\Rel$-polyregular functions}, and more involved for general \kl{$\Rel$-r
     is \kl{commutative}.
 \end{lemma}
 
-Let us briefly remark that the characterizations of subclasses of
-\kl{polyregular functions} that are obtained in practice can be obtained by
-pre-composition with a \kl{commutative} \kl{polyregular function}. While the
-two following
-\cref{pre-compose-growth-commut:lemma,pre-compose-sf-commut:lemma} do not
-provide simpler proofs, they suggest the central position of \kl{commutative}
-\kl{star-free polyregular functions} as \emph{test functions} for various
-properties (growth rate, aperiodicity).
-
-\begin{lemma}
-    \label{pre-compose-growth-commut:lemma}
-    Let $f \in \ZRat$, and $k \in \Nat$,
-    the following are equivalent:
-    \begin{enumerate}
-        \item $f \in \ZPoly[k]$,
-        \item For every \kl{commutative} \kl{star-free polyregular function} $h$
-            of \kl{growth rate} $l \in \Nat$,
-            $(f \circ h) \in \ZPoly[k+l-1]$.
-    \end{enumerate}
-\end{lemma}
-
-
-\begin{lemma}
-    \label{pre-compose-sf-commut:lemma}
-    Let $f \in \ZPoly$.
-    The following are equivalent:
-    \begin{enumerate}
-        \item $f \in \ZSF$,
-        \item For every \kl{commutative} \kl{star-free polyregular function} $h$,
-            $(f \circ h) \in \ZSF$.
-    \end{enumerate}
-\end{lemma}
 
 \AP A function $g \colon \Nat^n \to \Rel$ is \intro{represented} by a function
 $f \colon \Sigma^* \to \Rel$ if there exists a map $\eta \colon \set{1, \dots,
@@ -249,7 +218,7 @@ a key property of $\NRat$ recalled hereafter.
 \AP Let us now give some vocabulary on polynomials with multiple indeterminate
 over $\Rel$. A \intro{monomial} is a product of indeterminates and integers.
 For instance, $XY$ is a \kl{monomial}, $3 X$ is a \kl{monomial}, $-Y$ is a
-\kl{monomial}, but $X + Y$ or $2X^2 + XY$ are not. We write $\Monomials[X_1,
+\kl{monomial}, but $X + Y$ or $2X^2 + XY$ are not. We write $\intro*\Monomials[X_1,
 \dots, X_n]$ for the set of \kl{monomials} over these indeterminates.
 Every polynomial $P \in \Rel[X_1, \dots, X_n]$ decomposes uniquely
 into a sum of \kl{monomials}.
@@ -261,8 +230,6 @@ decomposition of $P \in \Rel[X_1, \dots, X_k]$, a \kl{monomial} is a
 \intro{maximal monomial} if it is a maximal element for the \kl{divisibility
 ordering} of \kl{monomials}. In the polynomial $P(X,Y) \defined X^2 - 2XY + X^2
 + X + Y$, the set of \reintro{maximal monomials}, written
-$\MaximalMonomials(P)$, is $\set{X^2,  -2 XY,  X^2}$. A \kl{monomial} has a
-\intro{non-negative coefficient} if its multiplicative constant belongs to
-$\Nat$, or equivalently, if it is \kl{non-negative} as a polynomial. In the
-polynomial $P(X,Y) \defined (X - Y)^2$, the \kl{non-negative} \kl{monomials}
-are $X^2$ and $Y^2$.
+$\intro*\MaximalMonomials(P)$, is $\set{X^2,  -2 XY,  X^2}$.  In the polynomial
+$P(X,Y) \defined (X - Y)^2$, the \kl{non-negative} \kl{monomials} are $X^2$ and
+$Y^2$.

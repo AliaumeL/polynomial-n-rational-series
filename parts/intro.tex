@@ -6,13 +6,13 @@
 
 Traditional results from automata theory state the equivalence of languages
 defined in terms of deterministic finite automata and regular expressions
-\cite{kleene1956representation}, Monadic Second Order Logic ($\MSO$)
+\cite{kleene1956representation}, Monadic Second Order Logic ($\intro*\MSO$)
 \cite{buchi1960weak}, or finite monoids \cite{schutzenberger1961definition}.
 Among regular languages, there exists a robust subclass sharing similar
 characterizations, namely the \emph{star-free} regular languages. These are
 obtained via counter-free (minimal) automata \cite{mcnaughton1971counter},
 represented by star-free regular expressions \cite{schutzenberger1965finite},
-definable in First Order Logic ($\FO$) \cite{perrin1986first}, and recognized
+definable in First Order Logic ($\intro*\FO$) \cite{perrin1986first}, and recognized
 by aperiodic monoids \cite{schutzenberger1965finite}. It is decidable whether a
 regular language is aperiodic, thanks to the characterizations in terms of
 minimal automaton and/or syntactic monoid.
@@ -20,39 +20,39 @@ minimal automaton and/or syntactic monoid.
 There have been recurrent attempts to generalize the notions of regularity from
 languages to functions, leading to classes of various expressiveness
 (sequential, rational, regular, and \kl{polyregular functions}). In this paper,
-we will focus on \kl{polyregular functions} ($\Poly$), that shares with regular
+we will focus on \intro{polyregular functions} ($\intro*\Poly$), that shares with regular
 languages its characterizations in terms of logic (via $\MSO$ interpretations),
 automata (via pebble automata), and adds new bridges with programming languages
 via its relationships with lambda-terms and so-called for-transducers
 \cite{bojanczyk2019string}. As for regular languages, the class
-$\SF$ of \intro{star-free polyregular function} can equivalently be introduced
+$\intro*\SF$ of \intro{star-free polyregular function} can equivalently be introduced
 in terms of first-order definability, counter-free pebble transducers, and
 suitable restrictions of for-tranducers.
 
 
 Classical problems, including the decidability of aperiodicity, become
 difficult in the case of \kl{polyregular functions}, due to the lack of
-canonical objects akin to the syntactic monoid or the minimal automaton.
-Indeed, for sequential functions that admit a canonical object, aperiodicity is
-decidable \cite{choffrut03}, and more recently, aperiodicity has been proven
-decidable for rational functions
-\cite{filiot2016aperiodicity,filiot2018canonical}. The problem remains open for
-regular functions, although it has been proven decidable when changing the
-semantics of function equality to account for the \emph{origins} in the output
-\cite{bojanczyk14}. To construct subclasses of \kl{polyregular function}, an
-interesting parameter is the \intro{growth rate} of a function $f$, which is given
-by a number $k \in \Nat$, which can be used to create a strict hierarchy inside
-$\Poly$. We write $\Poly[k]$ for the \kl{polyregular functions} of \kl{growth
-rate} $k$. It has been shown that the parameter $k$ controls the maximal
-complexity of the $\MSO$ interpretation needed to represent the function
-\cite{bojanczyk2022transducers}.
+canonical objects akin to the syntactic monoid or the minimal automaton. For
+sequential functions (that admit a canonical object), aperiodicity is decidable
+\cite{choffrut03}, and more recently, aperiodicity has been proven decidable
+for rational functions \cite{filiot2016aperiodicity,filiot2018canonical}. The
+problem remains open for regular functions, although it has been proven
+decidable when changing the semantics of function equality to account for the
+\emph{origins} in the output \cite{bojanczyk14}. To construct subclasses of
+\kl{polyregular function}, an interesting parameter is the \intro{growth rate}
+of a function $f$, which is given by a number $k \in \Nat$, which can be used
+to create a strict hierarchy inside $\Poly$. All functions in $\Poly$ have
+\intro{polynomial growth}, and we can write $\Poly[k]$ for the \kl{polyregular
+functions} of \kl{growth rate} $k$. It has been shown that the parameter $k$
+controls the maximal complexity of the $\MSO$ interpretation needed to
+represent the function \cite{bojanczyk2022transducers}.
 
 Another way to approach the problem of deciding if a \kl{polyregular function}
 is \kl{star-free}, is to not restrict the computational power (via the
 \kl{growth rate}), nor change the semantics (by adding origins), but consider
 restrictions of the output alphabet. In particular, there have been successful
 results proven on \emph{unary polyregular functions}, also known as
-\kl{$\Nat$-polyregular functions} ($\NPoly$)
+\kl{$\Nat$-polyregular functions} ($\intro*\NPoly$)
 \cite{doueneau2021pebble,doueneau2022hiding}. For instance, the \kl{growth
 rate} $k$ of a function $f \in \NPoly$ provides the minimal number of pebbles
 needed to compute $f$ \cite{doueneau2021pebble}, which does not hold on $\Poly$
@@ -64,7 +64,7 @@ enforcing commutativity on the output.
 
 Recently, aperiodicity has been shown decidable over a restricted class of
 \kl{polyregular functions} where the ouptut belongs to $\Rel$ instead of
-$\Nat$, that are called \kl{$\Rel$-polyregular functions} ($\ZPoly$)
+$\Nat$, that are called \kl{$\Rel$-polyregular functions} ($\intro*\ZPoly$)
 \cite{LOPEZ23b}. These functions generalize \kl{$\Nat$-polyregular functions}
 by allowing negative outputs, and therefore enabling a limited form of
 backtracking. As for the unary outputs, these results generalize to
@@ -73,11 +73,11 @@ generated by a finite alphabet $\Gamma$. The decidability of aperiodicity for
 \kl{$\Rel$-polyregular functions} relies on the construction of a canonical
 object called the \emph{residual transducer}, the latter being essentially
 based on differences between functions, crucially leveraging negative outputs
-(i.e., the presence of inverse elements). If the proof method does not carry
+(i.e., the presence of inverse elements). Although the proof method does not carry
 from $\Rel$-output functions to $\Nat$-output functions, it was conjectured
 that the semantic characterization of \kl{star-free $\Rel$-polyregular
-functions} ($\ZSF$) would continue to characterize \kl{star-free
-$\Nat$-polyregular functions} ($\NSF$). 
+functions} ($\intro*\ZSF$) would continue to characterize \kl{star-free
+$\Nat$-polyregular functions} ($\intro*\NSF$). 
 
 \begin{conjecture}[{\cite[Conjecture 7.61]{gaetanphd}}]
     \label{zsf-nsf:conjecture}
@@ -90,9 +90,9 @@ $\Nat$-polyregular functions} ($\NSF$).
 \end{conjecture}
 
 It is well known that $\NPoly$ (resp. $\ZPoly$) is proper subclass respectively
-of \kl{$\Nat$-rational series} ($\NRat$) (resp. of \kl{$\Rel$-rational series}
-$\ZRat$), that have been characterized in terms of \kl{growth rate}, ambiguity,
-and a notion of \emph{quantitative} $\MSO$
+of \intro{$\Nat$-rational series} ($\intro*\NRat$) (resp. of \intro{$\Rel$-rational
+series} $\intro*\ZRat$), that have been characterized in terms of \kl{growth rate},
+ambiguity, and a notion of \emph{quantitative} $\MSO$
 \cite{schutzenberger1962,kreutzer2013}, and therefore can benefit from generic
 theorems obtained on these \cite{berstel2011noncommutative}. However, for these
 larger classes of functions, several competing notions of aperiodicity exist
@@ -101,9 +101,9 @@ decidability of the ones that extends $\ZSF$ and $\NSF$ remains open.
 Furthermore, the decidability of $\NRat$ inside $\ZRat$ is also a longstanding
 open problem, that was to the knowledge of the authors, only solved by
 \textcite{KARH77} in the case of \kl{$\Rel$-rational series} that compute
-\emph{polynomials}, with an incorrect proof. The decidability of $\NPoly$
-inside $\ZPoly$ (resp. $\NSF$ inside $\ZSF$) remains an open problem \cite[Open
-question 5.55]{gaetanphd}.
+\emph{polynomials}, with an incorrect proof. Furthermore, decidability of
+$\NPoly$ inside $\ZPoly$ (resp. $\NSF$ inside $\ZSF$) remains an open problem
+\cite[Open question 5.55]{gaetanphd}.
 
 We refer the reader to \cref{previously-known-inclusions:fig} to get an
 overview of the different classes of functions appearing in the paper. Arrows
@@ -114,7 +114,8 @@ together with a question mark.
 
 
 \begin{figure}
-    \includestandalone[width=5cm]{tikz/class-inclusions}
+    \centering
+    \includestandalone[width=7cm]{tikz/class-inclusions}
     \caption{
         Decidability and inclusions of classes of functions,
         arranged along two axes. The first one is the complexity
@@ -143,31 +144,31 @@ As a byproduct of our analysis, we provide a counter example to the
 characterization of polynomials computed by \kl{$\Nat$-rational series} given
 by \textcite[Theorem 3.3, page 4; re-introduced as \cref{karh:thm}]{KARH77}.
 
-Finally, we make a first step towards understanding the non-commutative by
+Finally, we make a first step towards understanding the non-commutative case by
 introducing a canonical model of computation for \kl{$\Nat$-polyregular
 functions} built upon residuals, called the \kl{residual transducer}. This
-allows the characterization of $\NPoly[k]$ as the class of functions $f$ such
-that the collection $\Res(f)$ of all \kl{residuals} of $f$ is a
-\kl{well-quasi-ordering}, generalizing the characterization of $\ZPoly[k]$ as
-the class of functions $f$ such that $\Res(f)$ has finite index (for some
-equivalence relation). The \kl{residual transducer} is effectively computable
-if $f$ is a \kl{commutative} \kl{$\Nat$-polyregular function}, and it is
-conjectured to be computable for all functions in $\NPoly$. 
+residual transducer is obtained by shifting attention from the notion of
+equivalence relations of finite index over $\Sigma^*$, used in traditional
+automata theory and in the study of $\ZPoly$, to the notion of
+\kl{well-quasi-orderings}. The residual transducer is effectively computable if
+$f$ is \kl{commutative} and \kl{$\Nat$-polyregular}, and it is conjectured to
+be computable for all functions in $\NPoly$. 
 
 
 \paragraph*{Outline of the paper.} In \cref{preliminaries:sec}, we introduce
 the multiple characterizations of \kl{$\Nat$-polyregular function} (resp.
 $\Rel$-polyregular functions), show that one can decide if a function $f \in
-\ZPoly$ is \kl{commutative} (\cref{decidable-commutative-poly:lemma}), and give the
-basic definitions used on multivariate polynomials. In \cref{polynomials:sec},
-we focus on \emph{polynomials}, by introducing the \cref{karh:thm} of
-\textcite{KARH77}, providing a counter-example in \cref{thm:counter-example},
-and an alternative characterization in \cref{corrected-version:thm}. In
-\cref{beyond-polynomials:sec}, we leverage the results over polynomials to
-decide $\NPoly$ inside $\ZPoly$ in the \kl{commutative} case
-(\cref{decidable-n-poly:thm}), and prove that \cref{zsf-nsf:conjecture} holds
-for \kl{commutative} functions (\cref{zsf-npoly-nsf:thm}). Finally, in
-\cref{beyond-commutative:sec}, we introduce the notion of \kl{residual
-transducer} (\cref{residual-transducer:def}), and prove in
-\cref{non-commutative-npoly:thm} that it characterizes $\NPoly$ inside
-$\ZPoly$.
+\ZPoly$ is \kl{commutative} (\cref{decidable-commutative-poly:lemma}), and give
+the basic definitions used on multivariate polynomials. In
+\cref{polynomials:sec}, we focus on \emph{polynomials}, by introducing the
+\cref{karh:thm} of \textcite{KARH77}, providing a counter-example in
+\cref{thm:counter-example}, and an alternative characterization in
+\cref{corrected-version:thm}. In \cref{beyond-polynomials:sec}, we leverage the
+results over polynomials to decide $\NPoly$ inside $\ZPoly$ in the
+\kl{commutative} case (\cref{decidable-n-poly:thm}), and prove that
+\cref{zsf-nsf:conjecture} holds for \kl{commutative} functions
+(\cref{zsf-npoly-nsf:thm}). Finally, in \cref{beyond-commutative:sec}, we
+introduce the notion of \kl{residual transducer}
+(\cref{residual-transducer:def}), and prove in \cref{non-commutative-npoly:thm}
+that it characterizes $\NPoly$ inside $\ZPoly$ through a notion of
+\kl{well-quasi-ordered} collection of residuals.

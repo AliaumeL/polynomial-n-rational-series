@@ -35,6 +35,7 @@
 
 \knowledge{notion}
  | star-free polyregular functions
+ | star-free polyregular
  | star-free polyregular function
  | star-free
 
@@ -81,6 +82,7 @@
 
 \knowledge{notion}
  | divides
+ | divided
  | strictly divides
  | divide
  | divisibility ordering
@@ -111,6 +113,7 @@
 
 \knowledge{notion}
  | well-quasi-ordering
+ | well-quasi-orderings
  | well-quasi-ordered
  | wqo
  | wqos
@@ -149,7 +152,19 @@
 
 \knowledge{notion}
  | $\NPoly [0]$-transducers
+ | $\NPoly [0]$-transducer
  | $\mathcal {H}$-transducers
  | $\mathcal {H}$-transducer
  | $\NPoly [k-1]$-transducer
  | $\NSF [k-1]$-transducer
+
+
+
+
+
+\knowledge{notion}
+ | types modulo $\omega $
+ | $\omega $-type
+
+\knowledge{notion}
+ | aperiodic ordering

@@ -20,7 +20,7 @@ variables of the domain of $\nu$.
 
 \begin{definition}
     Let $\vec{X}$ be a finite tuple of indeterminates.
-    The class $\CorrectPoly[\vec{X}]$ is the collection of
+    The class $\intro*\CorrectPoly[\vec{X}]$ is the collection of
     polynomials $P \in \Rel[\vec{X}]$ such that
     $P$ is 
     such that, for every partial function $\nu \colon \vec{X} \topartial \Nat$,
@@ -68,9 +68,9 @@ $\NPoly$ \cite[Lemma 5.37]{gaetanphd}.
 \end{corollary}
 
 \AP The core of the upcoming \cref{lem:correct-to-n-rat} leverages a notion of
-\kl{discrete derivative} to perform an induction on the \kl{maximal monomials}.
+\intro{discrete derivative} to perform an induction on the \kl{maximal monomials}.
 This notion of derivation is built by translating the domain of the polynomial.
-To that end, let us write $\translate{K}$ for the \intro{translation function}
+To that end, let us write $\intro*\translate{K}$ for the \intro{translation function}
 that maps a polynomial $P \in \Rel[X_1, \dots, X_n]$ to the polynomial $P(X_1 +
 K, \dots, X_n + K)$.
 
@@ -81,7 +81,7 @@ K, \dots, X_n + K)$.
     and 
     $P \in \Rel[\vec{X}]$ be a polynomial.
     \begin{equation*}
-        \Diff{K}{P} \defined 
+        \intro*\Diff{K}{P} \defined 
         \translate{K}(P) - P
         \quad .
     \end{equation*}
@@ -92,10 +92,10 @@ polynomials, that commutes with \kl{translation operators}. However, the
 \kl{translation operators} do not perfectly commute with partial applications
 $\restr{\cdot}{\nu}$.
 
-\begin{fact}
+\begin{remark}
     \label{discrete-deriv-linear:fact}
     For all tuples $\vec{X}$ of indeterminates,
-    for all $K \in \Nat$, $L \in \Rel$, for all partial function
+    for all $K \in \Nat$, $L \in \Rel$, for all partial functions
     $\nu \colon \vec{X} \topartial \Nat$:
     \begin{enumerate}
         \item The maps $\translate{K} \colon \Rel[\vec{X}] \to \Rel[\vec{X}]$,
@@ -108,7 +108,7 @@ $\restr{\cdot}{\nu}$.
         \item $\restr{\cdot}{\nu} \circ \translate{L}
             = \translate{L} \circ \restr{\cdot}{\translate{L}(\nu)}$.
     \end{enumerate}
-\end{fact}
+\end{remark}
 
 In the actual statement of \cref{corrected-version:thm}, the representation of
 polynomials in $\CorrectPoly$ is strengthened from \kl{$\Nat$-polyregular
@@ -257,19 +257,16 @@ needed in this characterization, as \cref{bad-poly-translate:ex} illustrates.
         \item \label{d-t-correct:item} $P \in \CorrectPoly$,
         \item \label{d-t-transl:item}
             for 
-            all $\nu \colon \vec{X} \topartial \Nat$,
+            all partial functions $\nu \colon \vec{X} \topartial \Nat$,
             $\translate{K}(\restr{P}{\nu}) \in \Nat[\vec{X}]$,
         \item \label{d-t-transl-fin:item}
-            for all
+            for all partial functions
             $\nu \colon \vec{X} \topartial \set{0, \dots, K}$,
             $\translate{K}(\restr{P}{\nu}) \in \Nat[\vec{X}]$.
     \end{enumerate}
+    Furthermore, the membership is decidable.
 \end{lemma}
 
-\begin{corollary}
-    \label{decidability-correct:lem}
-    One can decide membership in $\CorrectPoly$.
-\end{corollary}
 
 \begin{example}
     \label{bad-poly-translate:ex}

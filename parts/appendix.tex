@@ -67,79 +67,6 @@ section \ref{preliminaries:sec}}
     
 
 
-\begin{proof}[Proof of
-    \cref{pre-compose-growth-commut:lemma}]
-    If $f \in \ZPoly[k]$, then 
-    for every \kl{polyregular function} $g \in \Poly[\ell]$,
-    $f \circ g \in \ZPoly[k+ \ell - 1]$
-    \cite{LOPEZ23b}.
-
-    Conversely, it was proven in \cite[Theorem III.3]{LOPEZ23b}
-    that $f \in \ZPoly[k]$ if and only if
-    for all $\alpha_0, \cdots, \alpha_k$,
-    for all $w_1, \dots, w_k$,
-    we have 
-    \begin{equation}
-        \label{k-pumpable:eqn}
-        f\left(
-            \alpha_0 \prod_{i = 1}^k w_i^{X_i} \alpha_i
-        \right)
-        = \bigO( (X_1 + \cdots X_k)^{k} )
-        \quad .
-    \end{equation}
-    Or, the \kl{commutative} \kl{star-free polyregular function} 
-    $h \colon \set{1, \dots, k}^* \to \Sigma^*$ that maps
-    a word $u$
-    to $\alpha \prod_{i = 1}^k w_i^{\card[i]{u}}$
-    has \kl{growth rate} $1$.
-    Hence, 
-    $f \circ h \in \ZPoly[k]$, 
-    and we indeed conclude that 
-    \cref{k-pumpable:eqn}
-    holds, i.e. that $f \in \ZPoly[k]$.
-\end{proof}
-
-\begin{proof}[Proof of
-    \cref{pre-compose-sf-commut:lemma}]
-    If $f \in \ZSF$, then for all $h \in \SF$,
-    $f \circ h \in \ZSF$, and \emph{a fortiori}
-    for \kl{commutative} functions $h$.
-
-    Conversely, assume that $f \circ h \in \ZSF$
-    for all \kl{commutative} functions $h \in \SF$.
-    Using \cite[Theorem V.13]{LOPEZ23b},
-    to conclude that $f \in \ZSF$,
-    it suffices to prove that
-    for all $\alpha_0, \cdots, \alpha_k \in \Sigma^*$,
-    for all $w_1, \dots, w_k \in \Sigma^*$,
-    there exists a polynomial $P \in \Rel[X_1, \dots,X_k]$
-    and a constant $N_0 \in \Nat$,
-    such that if $X_1, \dots, X_k \geq N_0$:
-    \begin{equation}
-        \label{ultimate-polynomial:eqn}
-        f\left(
-            \alpha_0 \prod_{i = 1}^k w_i^{X_i} \alpha_i
-        \right)
-        = P(X_1, \dots, X_k)
-        \quad .
-    \end{equation}
-    Let us consider
-    the \kl{commutative} \kl{star-free polyregular function}
-    $h \colon \set{1, \dots, k}^* \to \Sigma^*$ that maps
-    a word $u$
-    to $\alpha \prod_{i = 1}^k w_i^{\card[i]{u}}$.
-    We know that
-    $f \circ h \in \ZSF$, hence, that 
-    there exists $Q \in \Rel[X_1, \dots, X_n]$
-    and $M_0 \in \Nat$,
-    such that for all $X_1, \dots, X_n \geq N_0$,
-    $f \circ h( \prod_{i = 1}^k \underline{i}^{X_i}) = Q(X_1, \dots, X_n)$.
-    In particular,
-    we can take $N_0 = M_0$, and $P = Q$ to conclude that
-    \cref{ultimate-polynomial:eqn} holds, hence, that
-    $f \in \ZSF$.
-\end{proof}
-
 \begin{proof}[Proof of \cref{negative-not-nrat:ex}]
     The function $w \mapsto |w|$ is a \kl{$\Nat$-polyregular function}.
     Thus, 
@@ -440,10 +367,9 @@ section \ref{polynomials:sec}}
     and only applied partial functions using values below $K$. This not only
     shows that $K$ is computable from $P$, but also that
     \cref{d-t-transl-fin:item} and \cref{d-t-transl:item} are equivalent.
-\end{proof}
 
-\begin{proof}[Proof of \cref{decidability-correct:lem}]
-    Given $P \in \Rel[\vec{X}]$,
+    For the effective decision procedure,
+    given $P \in \Rel[\vec{X}]$,
     one applies \cref{derivation-translation:lem}
     to obtain a bound $K$, and then 
     computes $\translate{K}(\restr{P}{\nu})$ for all 
@@ -473,7 +399,6 @@ section \ref{polynomials:sec}}
 \end{proof}
 
 \begin{proof}[Proof of \cref{decidable-n-poly:thm}]
-    \textbf{TODO: we need to talk about the number of variables hehe}
     Let us prove that
     \cref{f-npoly-combi:item}
     implies \cref{f-combinatorial:item}. 
@@ -795,14 +720,222 @@ section \ref{polynomials:sec}}
 
 
 \begin{proof}[Proof sketch of \cref{sf-no-periods-on-sequences:lemma}]
-    Let $t$ be a first order type,
-    the map $g_t \colon X \mapsto \vcount{t}(uw^X)$ is a
-    \kl{commutative} \kl{star-free $\Nat$-polyregular function},
-    hence ultimately a polynomial, and therefore,
-    translated enough, it is a $\Nat[X]$ polynomial.
-    But this means that $g_t(X+1) - g_t(X) \in \Nat[X]$ for a large
-    enough $X$, which is precisely what suffices.
-    Now, we can do this for every first order type $t$
-    with fewer variables and lower quantifier rank than those
-    needed to define $f$, and conclude.
+    Let $f \in \NSF[k]$, $q \in \Nat$, and 
+    write $f = \sum_{i=1}^n m_i \times \vcount{\phi_i(\vec{x})}$, where
+    $\phi_i \in \FO$ has quantifier rank at most $q$
+    and $\card{\vec{x}} = k$.
+
+    As in the proof of \cref{n-poly-k-implies-wqo:lemma}, we are going to
+    assign a tuple of integers to a word $u \in \Sigma^*$ by counting the
+    number of realizations of each $\FO^q$ type of at most $k$ variables in
+    $u$. To that end, let us write $\FO^q(u)$ this vector.
+
+    First, let us notice that it suffices to prove that for some $n \in \Nat$,
+    $\FO^q(uw^n) \leq \FO^q(uw^{n+1})$ to conclude, since $\app{f}{uw^{n+1}} -
+    \app{f}{uw^n}$ will be obtained as a positive combination of counting
+    first-order types in the argument.
+
+    Let $t$ be a first order type with at most $k$ free variables and
+    quantifier rank at most $q$. The map $g_t \colon X \mapsto
+    \vcount{t}(uw^X)$ is a \kl{commutative} \kl{star-free $\Nat$-polyregular
+    function}. As a consequence, there exists $N_0$ and a polynomial $P \in
+    \CorrectPoly$ such that for all $X \geq N_0$, $g_t(X) = P(X)$. Now, because
+    $P \in \CorrectPoly$, there exists a $K \in \Nat$ such that
+    $\translate{K}(\Diff{1}{P}) \in \CorrectPoly$, and in particular $g_t(X +
+    N_0 + K+1) - g_t(X + N_0 + K) \in \Nat$, for all $X \geq 0$.
+
+    Because there are finitely many non-equivalent $\FO^q$ types with at most 
+    $k$ free variables, we can take the maximum of the $K$'s obtained for each 
+    of those, and conclude.
+\end{proof}
+
+\begin{proof}[Proof of
+    \cref{pre-compose-growth-commut:lemma}]
+    If $f \in \ZPoly[k]$, then 
+    for every \kl{polyregular function} $g \in \Poly[\ell]$,
+    $f \circ g \in \ZPoly[k+ \ell - 1]$
+    \cite{LOPEZ23b}.
+
+    Conversely, it was proven in \cite[Theorem III.3]{LOPEZ23b}
+    that $f \in \ZPoly[k]$ if and only if
+    for all $\alpha_0, \cdots, \alpha_k$,
+    for all $w_1, \dots, w_k$,
+    we have 
+    \begin{equation}
+        \label{k-pumpable:eqn}
+        f\left(
+            \alpha_0 \prod_{i = 1}^k w_i^{X_i} \alpha_i
+        \right)
+        = \bigO( (X_1 + \cdots X_k)^{k} )
+        \quad .
+    \end{equation}
+    Or, the \kl{commutative} \kl{star-free polyregular function} 
+    $h \colon \set{1, \dots, k}^* \to \Sigma^*$ that maps
+    a word $u$
+    to $\alpha \prod_{i = 1}^k w_i^{\card[i]{u}}$
+    has \kl{growth rate} $1$.
+    Hence, 
+    $f \circ h \in \ZPoly[k]$, 
+    and we indeed conclude that 
+    \cref{k-pumpable:eqn}
+    holds, i.e. that $f \in \ZPoly[k]$.
+\end{proof}
+
+\begin{proof}[Proof of
+    \cref{pre-compose-sf-commut:lemma}]
+    If $f \in \ZSF$, then for all $h \in \SF$,
+    $f \circ h \in \ZSF$, and \emph{a fortiori}
+    for \kl{commutative} functions $h$.
+
+    Conversely, assume that $f \circ h \in \ZSF$
+    for all \kl{commutative} functions $h \in \SF$.
+    Using \cite[Theorem V.13]{LOPEZ23b},
+    to conclude that $f \in \ZSF$,
+    it suffices to prove that
+    for all $\alpha_0, \cdots, \alpha_k \in \Sigma^*$,
+    for all $w_1, \dots, w_k \in \Sigma^*$,
+    there exists a polynomial $P \in \Rel[X_1, \dots,X_k]$
+    and a constant $N_0 \in \Nat$,
+    such that if $X_1, \dots, X_k \geq N_0$:
+    \begin{equation}
+        \label{ultimate-polynomial:eqn}
+        f\left(
+            \alpha_0 \prod_{i = 1}^k w_i^{X_i} \alpha_i
+        \right)
+        = P(X_1, \dots, X_k)
+        \quad .
+    \end{equation}
+    Let us consider
+    the \kl{commutative} \kl{star-free polyregular function}
+    $h \colon \set{1, \dots, k}^* \to \Sigma^*$ that maps
+    a word $u$
+    to $\alpha \prod_{i = 1}^k w_i^{\card[i]{u}}$.
+    We know that
+    $f \circ h \in \ZSF$, hence, that 
+    there exists $Q \in \Rel[X_1, \dots, X_n]$
+    and $M_0 \in \Nat$,
+    such that for all $X_1, \dots, X_n \geq N_0$,
+    $f \circ h( \prod_{i = 1}^k \underline{i}^{X_i}) = Q(X_1, \dots, X_n)$.
+    In particular,
+    we can take $N_0 = M_0$, and $P = Q$ to conclude that
+    \cref{ultimate-polynomial:eqn} holds, hence, that
+    $f \in \ZSF$.
+\end{proof}
+
+
+\begin{proof}[Proof of \cref{z-poly-commutative-encoding:remark}]
+    We are going to prove that if $f \in \ZPoly[k]$ is polyblind, 
+    then the conjecture \cref{z-poly-commutative-encoding:conj} holds when allowing 
+    for non polyregular functions $\mathsf{enc}$ and $\mathsf{dec}$.
+
+    Let us consider $f \in \ZPoly[k]$ that is polyblind.
+    Using \cite[Theorem 6.12]{gaetanphd},
+    we know that there exists a family of $\MSO$ formulas
+    $\seqof{\psi_{i,j}(x)}{1 \leq i,j \leq n}$,
+    and coefficients $\seqof{z_i}{1 \leq i \leq n}$,
+    such that:
+    \begin{equation*}
+        f = \sum_{i = 1}^n z_i \times \prod_{j = 1}^n \vcount{\psi_{ij}(x)}
+        \quad .
+    \end{equation*}
+
+    Let us now consider a monoid $M$ that recognizes all formulas $\psi_{ij}$
+    for $1 \leq i,j \leq n$ with a morphism $\mu \colon \Sigma^* \to M$. Let us
+    consider the map $\mathsf{t} \colon \Sigma^* \to (M^3)^*$, that associates
+    to a word $w \in \Sigma^*$ the word $\mathsf{t}(w) \defined \prod_{i =
+    1}^{|w|} ( \mu(w_{< i}), \mu(w_i), \mu(w_{> i}))$. That is, to every letter
+    one associates its left and right context in the monoid.
+
+
+    Let us define $\mathsf{s} \colon \Sigma^* \to (\Nat)^{M^3}$
+    by letting $\mathsf{s}(w)$ be the Parikh image of $\mathsf{t}$, that is,
+    counting the number of occurrences of every letter.
+    It is clear how to define the polyregular function $g \colon (\Nat)^{M^3} \to \Rel$
+    that makes the following diagram commute, at is it even a polynomial function
+    with $M^3$ indeterminates:
+    \begin{center}
+        \begin{tikzcd}
+            (M^3)^* 
+            \arrow{dr}[below,anchor=center,rotate=-39,yshift=-3pt]{\mathsf{count}}
+            & \Sigma^* \arrow{l}[above]{\mathsf{t}} \arrow{r}{f} \arrow{d}[left]{\mathsf{s}} & \Rel \\
+            & \Nat^{M^3} \arrow{ur}[below]{g} & \\
+        \end{tikzcd}
+    \end{center}
+    One problem is that the map $\mathsf{s}$ is not surjective, because of
+    potential dependencies between the types encountered in $w$.
+    Let us however notice that one can build a context-free grammar
+    recognizing exactly the image of $\mathsf{t}$. Namely,
+    \begin{align*}
+        S &\to S^{1,m,1} &  m \in M \\
+        S^{m_r, m, m_l} &\to (m_l, m, m_r) & \exists a \in \Sigma, \mu(a) = m \\
+        S^{m_r, m, m_l} &\to 
+        S^{m_r, m_x, m_y m_l}
+        S^{m_r m_x, m_y, m_l}
+                        & m_x m_y = m
+    \end{align*}
+
+    Using Parikh's Theorem \cite{parikh66context},
+    we conclude that the image of $\mathsf{s}$ is a semilinear set,
+    i.e., that there exists a finite set $Q$,
+    numbers $\seqof{d_q}{q \in Q}$,
+    vectors $\seqof{v_{i,q}}{0 \leq i \leq d_q, q \in Q}$ in $\Nat^{M^3}$,
+    such that
+    \begin{equation*}
+        \mathsf{s}(\Sigma^*) =
+        \bigcup_{q \in Q}
+        \setof{
+            v_0 + \sum_{i = 1}^{d_q} \lambda_i v_{i,q}
+        }{
+            (\lambda_1, \dots, \lambda_{d_q}) \in \Nat^{d_q}
+        } \quad .
+    \end{equation*}
+
+    We can therefore define a function $\mathsf{decode} \colon \Sigma^* \to
+    \sum_{q \in Q} \Nat^{d_q}$ that maps to a word $w$ to \emph{some} $q \in Q$
+    and parameters $(\lambda_1, \dots, \lambda_{d_q}) \in \Nat^{d_q}$ such that
+    $\mathsf{s}(w) = v_0 + \sum_{i = 1}^{d_q} \lambda_i v_{i,q}$. By taming the
+    semilinear set prior to this step, we can ensure that the function is in
+    fact uniquely defined, this is done by computing an equivalent semilinear
+    set that is \emph{unambiguous} and \emph{proper} \cite{chistikov16}.
+    Similarly, let us define $\mathsf{encode} \colon \sum_{q \in Q} \Nat^{d_q}
+    \to \Sigma^*$ that maps an element $q \in Q$ with parameters $(\lambda_1,
+    \dots, \lambda_{d_q}) \in \Nat^{d_q}$ to \emph{some} word $w \in \Sigma^*$
+    such that $\mathsf{s}(w) = v_0 + \sum_{i = 1}^{d_q} \lambda_i v_{i,q}$.
+    Notice that $\mathsf{decode} \circ \mathsf{encode} = \mathsf{id}$, by the
+    unicity of the representation in $\sum_{q \in Q} \Nat^{d_q}$.
+    We can define the map $\mathsf{repr} \colon \sum_{q \in Q} \Nat^{d_q} \to \Nat^{M^3}$
+    as follows
+    \begin{equation*}
+        \mathsf{repr}(q, \lambda_1, \dots, \lambda_{d_q}) \defined
+        v_0 + \sum_{i = 1}^{d_q} \lambda_i v_{i,q}
+        \quad .
+    \end{equation*}
+    Finally, let us define for $q \in Q$ the map $g_q \colon \Nat^{d_q} \to \Rel$ as the polynomial
+    expression:
+    \begin{equation*}
+        g_q(\lambda_1, \dots, \lambda_{d_q}) \defined \mathsf{repr}(q, \lambda_1, \dots, \lambda_{d_q}) \quad .
+    \end{equation*}
+
+    We have proven that the following diagram commutes:
+    \begin{center}
+        \begin{tikzcd}
+            \Sigma^* \arrow{rr}{f} 
+                     \arrow{dr}{\mathsf{s}}
+                     \arrow[bend right=20]{dd}[rotate=90,anchor=center,yshift=4pt]{\mathsf{decode}}
+                     &        & \Rel \\
+                     & \Nat^{M^3} \arrow{ur}[below]{g} & \\
+            \sum_{q \in Q} \Nat^{d_q}
+            \arrow[bend right=20]{uu}[right,rotate=90,anchor=center,yshift=-4pt]{\mathsf{encode}}
+            \arrow{ur}[left]{\mathsf{repr}}
+            \arrow[bend right=45]{uurr}[right]{\seqof{g_q}{q \in Q}}
+                     & & \\
+        \end{tikzcd}
+    \end{center}
+
+    The only missing part of this proof is the fact that $\mathsf{encode}$,
+    $\mathsf{decode}$ can be computed as \kl{polyregular functions}. Notice
+    that \emph{mutatis mutandis}, the same proof scheme applies to $f \in
+    \ZSF[k]$, by assuming that the monoid is aperiodic, since the functions
+    constructed (apart from $\mathsf{encode}$ and $\mathsf{decode}$) will be
+    \kl{star-free}.
 \end{proof}

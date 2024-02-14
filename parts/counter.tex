@@ -13,11 +13,11 @@ polynomials} (\cref{n-poly-n-poly:example}). However,
 that is a \kl{$\Nat$-rational polynomial}. As a consequence, the class of
 interest strictly contains $\Nat[\vec{X}]$.
 
-\begin{fact}
+\begin{remark}
     \label{n-poly-n-poly:example}
     Let $P \in \Nat[\vec{X}]$. Then, $P$
     is a \kl{$\Nat$-rational polynomial}.
-\end{fact}
+\end{remark}
 
 \begin{example}
     \label{negative-but-npoly:ex}
@@ -31,12 +31,12 @@ $\CoveredPoly[\vec{X}]$ of polynomials with multiple indeterminate.
 
 \begin{definition}[{\cite[Section 3, page 3]{KARH77}}]
     Let $\vec{X}$ be a finite tuple of indeterminate.
-    The class $\CoveredPoly[\vec{X}]$
+    The class $\intro*\CoveredPoly[\vec{X}]$
     is the class of polynomials $P \in \Rel[\vec{X}]$
     that are \kl{non-negative}
     and such that every \kl{maximal monomial} is \kl{non-negative}.
     When the indeterminate are clear from the context, we write
-    this class $\CoveredPoly$.
+    this class $\reintro*\CoveredPoly$.
 \end{definition}
 
 \begin{faketheorem}[{\cite[Theorem 3.3, page 4]{KARH77}}] 
@@ -64,7 +64,7 @@ correct, and can even be strengthened as we will see in
 
 \begin{definition}
     \label{def:bad-polynomial}
-    We define $\BadPoly(X,Y,Z) \defined Z (X + Y)^2 + 2 (X - Y)^2$.
+    We define $\intro*\BadPoly(X,Y,Z) \defined Z (X + Y)^2 + 2 (X - Y)^2$.
 \end{definition}
 
 \begin{lemma}
