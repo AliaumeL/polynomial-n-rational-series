@@ -84,7 +84,7 @@ to characterize $\NPoly$ inside $\ZPoly$, even in the non-commutative setting.
         \item \label{f-npoly-combi:item} $f \in \NPoly[k]$,
     \end{enumerate}
     Furthermore, the properties are decidable,
-    and one can effectively compute a representation of $f$.
+    and conversions effective.
 \end{theorem}
 
 Let us now prove that the above characterizations of \kl{commutative}
@@ -93,7 +93,8 @@ the study of \kl{$\Rel$-polyregular functions} \cite{LOPEZ23b} to decide
 aperiodicity. The key ingredient of this study is the use of a semantic
 characterization of \kl{star-free $\Rel$-polyregular functions} among
 \kl{$\Rel$-rational series} that generalizes the aperiodicity of languages to
-functions by the means of polynomial behaviors.
+functions by the means of polynomial behaviors (see
+\cref{aperidic-ultimately-polynomial:ex}).
 
 \begin{definition}[Ultimately polynomial]
     \label{ultimately-polynomial:def}
@@ -117,11 +118,8 @@ functions by the means of polynomial behaviors.
     \end{equation*}
 \end{definition}
 
-
-Let us recall from \cite{LOPEZ23b} that this definition correctly
-generalizes the indicator functions of regular languages.
-
 \begin{example}
+    \label{aperidic-ultimately-polynomial:ex}
     A language $L$ is aperiodic if and only if 
     $\ind{L}$ is \kl{ultimately polynomial}.
 \end{example}
@@ -137,8 +135,7 @@ generalizes the indicator functions of regular languages.
         \item $f \in \ZSF$,
         \item $f \in \NSF$.
     \end{enumerate}
-    Furthermore, membership is decidable and effective conversions
-    are possible.
+    Furthermore, membership is decidable and conversions are effective.
 \end{theorem}
 
 

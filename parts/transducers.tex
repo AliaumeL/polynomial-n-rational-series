@@ -153,10 +153,10 @@ of their underlying automata.
 function $f \colon \Sigma^* \to \Rel$,  defined by $\intro*\app{f}{u} \defined
 w \mapsto f(uw)$. The collection of \reintro{residuals} of a function $f$ is
 denoted $\intro*\Res(f)$ and is defined as the set of $\reintro*\app{f}{u}$
-where $u$ ranges over words in $\Sigma^*$. Let $k \in \Nat$. We define $f
+where $u$ ranges over words in $\Sigma^*$. Given $k \in \Nat$, we define $f
 \intro*\zpolyequiv[k] g$ if and only if $(g - f) \in \ZPoly[k-1]$, and $f
-\intro*\npolyleq[k] g$ if and only if $(g - f) \in \NPoly[k-1]$. Given a
-function $f \colon \Sigma^* \to \Rel$, we are going to study both $(\Res(f),
+\intro*\npolyleq[k] g$ if and only if $(g - f) \in \NPoly[k-1]$. The spaces of
+interest for a function $f \in \ZPoly[k]$ will be $(\Res(f),
 \reintro*\zpolyequiv[k])$, and $(\Res(f), \reintro*\npolyleq[k])$. However, to
 simplify notations, instead of writing $\app{f}{u} \reintro*\npolyleq[k]
 \app{f}{v}$ when $u,v \in \Sigma^*$, we will use the convenient notation $u

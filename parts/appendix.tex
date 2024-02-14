@@ -149,7 +149,7 @@ section \ref{polynomials:sec}}
 \begin{proof}[Proof of \cref{n-rat-correct:lem}]
     Let $f$ be the \kl{commutative}
     \kl{$\Nat$-rational series}
-    with domain $\Sigma \defined \set{a_1, \dots, a_p}$
+    with domain defined as $\Sigma \defined \set{a_1, \dots, a_p}$
     that \kl{represents} $P$. Because $f$ has \kl{polynomial growth},
     it is in fact a \kl{$\Nat$-polyregular function}
     (\cref{polynomial-rational-polyreg:fact}).
@@ -741,8 +741,9 @@ section \ref{polynomials:sec}}
     function}. As a consequence, there exists $N_0$ and a polynomial $P \in
     \CorrectPoly$ such that for all $X \geq N_0$, $g_t(X) = P(X)$. Now, because
     $P \in \CorrectPoly$, there exists a $K \in \Nat$ such that
-    $\translate{K}(\Diff{1}{P}) \in \CorrectPoly$, and in particular $g_t(X +
-    N_0 + K+1) - g_t(X + N_0 + K) \in \Nat$, for all $X \geq 0$.
+    $\translate{K}(\Diff{1}{P}) \in \Nat[X]$
+    (\cref{derivation-translation:lem}), and in particular $g_t(X + N_0 + K+1)
+    - g_t(X + N_0 + K) \in \Nat$, for all $X \geq 0$.
 
     Because there are finitely many non-equivalent $\FO^q$ types with at most 
     $k$ free variables, we can take the maximum of the $K$'s obtained for each 
@@ -904,7 +905,7 @@ section \ref{polynomials:sec}}
     Notice that $\mathsf{decode} \circ \mathsf{encode} = \mathsf{id}$, by the
     unicity of the representation in $\sum_{q \in Q} \Nat^{d_q}$.
     We can define the map $\mathsf{repr} \colon \sum_{q \in Q} \Nat^{d_q} \to \Nat^{M^3}$
-    as follows
+    as follows:
     \begin{equation*}
         \mathsf{repr}(q, \lambda_1, \dots, \lambda_{d_q}) \defined
         v_0 + \sum_{i = 1}^{d_q} \lambda_i v_{i,q}
@@ -932,7 +933,7 @@ section \ref{polynomials:sec}}
         \end{tikzcd}
     \end{center}
 
-    The only missing part of this proof is the fact that $\mathsf{encode}$,
+    The only missing part of this proof is the fact that the maps $\mathsf{encode}$ and
     $\mathsf{decode}$ can be computed as \kl{polyregular functions}. Notice
     that \emph{mutatis mutandis}, the same proof scheme applies to $f \in
     \ZSF[k]$, by assuming that the monoid is aperiodic, since the functions

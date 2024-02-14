@@ -18,24 +18,26 @@ the notions of monoid morphisms, idempotents in monoids, monadic second-order
 \AP In order to build functions in $\NPoly$, the following constructions will
 be useful. For every language $L \subseteq \Sigma^*$ we define $\ind{L} \colon
 \Sigma^* \to \set{0,1}$ as the indicator function of $L$. Given an $\MSO$
-formula with first-order free variables $\varphi(\vec{x})$, we define
-$\vcount{\varphi(\vec{x})}$ as the function from $\Sigma^*$ to $\Nat$ that maps
-a word $w$ to the number of assignments $\nu \colon \vec{x} \to w$, such that
-$w, \nu \models \varphi(\vec{x})$. If $X$ is a set of functions from $\Sigma^*$
-to $\Rel$, and a subset $\mathbb{S}$ of $\Rel$, we define
-$\Span{\mathbb{S}}(X)$ as the smallest subset of functions from $\Sigma^* \to
-\Rel$ containing $X$ and closed under (finite) sums and multiplication with $s
-\in \mathbb{S}$.
+(resp. $\FO$) formula with first-order free variables $\varphi(\vec{x})$, we
+define $\vcount{\varphi(\vec{x})}$ as the function from $\Sigma^*$ to $\Nat$
+that maps a word $w$ to the number of assignments $\nu \colon \vec{x} \to w$,
+such that $w, \nu \models \varphi(\vec{x})$. If $X$ is a set of functions from
+$\Sigma^*$ to $\Rel$, and a subset $\mathbb{S}$ of $\Rel$, we define
+$\intro*\Span{\mathbb{S}}(X)$ as the smallest subset of functions from
+$\Sigma^* \to \Rel$ containing $X$ and closed under (finite) sums and
+multiplication with $s \in \mathbb{S}$.
 
 \subsection{Polyregular Functions}
 
-\AP All functions in this paper have output in $\Nat$ or $\Rel$, hence, we
-avoid the definition of \kl{polyregular functions} in full generality. The
-following \cref{nat-rel-poly:def} is one of the equivalent definitions of
-\cite{LOPEZ23b}, and is similar in shape to the \emph{finite counting automata}
-introduced by \textcite{schutzenberger1962}. Let us recall that a monoid $M$ is
-\intro(monoid){aperiodic} whenever there exists $n \in \Nat$ such that for all
-$x \in M$, $x^{n+1} = x^n$.
+\AP Because the functions of interest in this paper have output in $\Nat$ or
+$\Rel$, we will only provide the definiton of \kl{polyregular functions} for
+these two output semgroups, and we refer the reader to
+\cite{bojanczyk2019string} for the general definition of \kl{polyregular
+functions}. The following \cref{nat-rel-poly:def} is one of the equivalent
+definitions of \cite{LOPEZ23b}, and is similar in shape to the \emph{finite
+counting automata} introduced by \textcite{schutzenberger1962}. Let us recall
+that a monoid $M$ is \intro(monoid){aperiodic} whenever there exists $n \in
+\Nat$ such that for all $x \in M$, $x^{n+1} = x^n$.
 
 \begin{definition}[$\Rel$-polyregular functions {\cite{LOPEZ23b}}]
     \label{nat-rel-poly:def}
@@ -68,9 +70,9 @@ $x \in M$, $x^{n+1} = x^n$.
 
 \AP Let us briefly recall in the following lemma alternative characterizations
 of $\NPoly$ (resp. $\ZPoly$), some of which will be helpful in the upcoming
-analysis of their \kl{commutative} counterpart, and others that provide
-a nicer syntax to construct examples. These characterizations were previously known, and
-can be found in \cite{gaetanphd,LOPEZ23b}.
+analysis of their \kl{commutative} counterpart, and others that provide a nicer
+syntax to construct examples. These characterizations were previously known,
+and can be found for instance in \cite{gaetanphd,LOPEZ23b}.
 
 \begin{lemma}
     \label{polynomial-rational-polyreg:fact}
@@ -135,10 +137,9 @@ that is, $f \in \ZPoly[k]$ if and only if $f \in \ZPoly$ and $\card{f(w)} =
 
 \subsection{Commutative Input}
 
-\AP Because this paper focuses on functions that are commutative both in the
-input and the output, let us introduce precisely what it means and how it
-relates to other functions from $\Nat^k \to \Nat$. For that, let $\Sigma$ be a
-finite alphabet. We define $\commute \colon \Sigma^* \to \Nat^\Sigma$ for the
+\AP 
+Let $\Sigma$ be a finite alphabet. 
+We define $\commute \colon \Sigma^* \to \Nat^\Sigma$ for the
 map that counts occurrences of every letter in the input word (that is,
 computes the Parikh vector) namely: $ \commute[w] \defined (a \mapsto
 \card[a]{w})$. Let $X$ be a set, a function $f \colon \Sigma^* \to X$ is
@@ -162,8 +163,8 @@ of \kl{$\Rel$-polyregular functions}, and more involved for general \kl{$\Rel$-r
 \AP A function $g \colon \Nat^n \to \Rel$ is \intro{represented} by a function
 $f \colon \Sigma^* \to \Rel$ if there exists a map $\eta \colon \set{1, \dots,
 n} \to \Sigma$ such that $g \circ (v \mapsto \seqof{v_{\eta(k)}}{1 \leq k \leq
-n}) \circ \commute = f$. A key family of functions will be \kl{represented} by
-\kl{$\Rel$-polyregular functions}, namely polynomials with multiple indeterminates.
+n}) \circ \commute = f$. This notion will be useful to formally state that a
+polynomial ``is'' a \kl{polyregular function}.
 
 \subsection{Polynomials} \AP All polynomials considered in this paper have
 coefficients in $\Rel$ unless explicitly stated otherwise. A polynomial $P \in
@@ -187,11 +188,11 @@ of occurrences of a letter in a word. As an example, the polynomial $(X - Y)^2$
 is \kl{non-negative}, and so is the polynomial $X^3$, but the polynomial $X^2 -
 2X$ is not.
 
-All \kl{$\Nat$-rational polynomials} are \kl{non-negative}, but the converse does
-not hold,
-as the following example illustrates. Note that the proof scheme of
-this example will be at the core of \cref{thm:counter-example}, and leverages
-a key property of $\NRat$ recalled hereafter.
+All \kl{$\Nat$-rational polynomials} are \kl{non-negative}, but the converse
+does not hold, as the following example illustrates. Note that the proof scheme
+of this example will be at the core of the counter-example to \cite[Theoerm
+3.3]{KARH77} in \cref{thm:counter-example}, and leverages a key property of
+$\NRat$ recalled hereafter.
 
 \begin{fact}
     \label{pre-image-regular:fact}
