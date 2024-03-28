@@ -5,21 +5,53 @@ author: Anonymous Reviewers
 
 # Review 1
 
-Summary:
-The article addresses problems regarding N polyregular functions, which enjoy several different characterizations, such as functions realized by pebble transducers with unary outputs. The authors show how to decide if a Z polyregular function is N polyregular, and if an N polyregular function is star-free, meaning eg that it can be realized by a counter-free transducer.
+Summary: The article addresses problems regarding N polyregular functions,
+which enjoy several different characterizations, such as functions realized by
+pebble transducers with unary outputs. The authors show how to decide if a Z
+polyregular function is N polyregular, and if an N polyregular function is
+star-free, meaning eg that it can be realized by a counter-free transducer.
 
-In section 3, the authors study the particular case of N-rational polynomials. They show that a theorem of [23] is wrong, and provide a way to fix it by generalizing the property of having positive maximal monomials to all possible ways of fixing the values of a subset of the polynomial variables. In particular they provide an effective characterization of N-rational polynomials (which are the same as star-free N rational polynomials) among polynomials over Z.
+In section 3, the authors study the particular case of N-rational polynomials.
+They show that a theorem of [23] is wrong, and provide a way to fix it by
+generalizing the property of having positive maximal monomials to all possible
+ways of fixing the values of a subset of the polynomial variables. In
+particular they provide an effective characterization of N-rational polynomials
+(which are the same as star-free N rational polynomials) among polynomials over
+Z.
 
-In section 4, the authors use the fact that a Z polyregular function is a finite combination of polynomials, with domains depending on some simple counting with threshold/modulo of letters. Thus they can use the results of the previous section and extend them from polynomials to Z polyregular functions.
+In section 4, the authors use the fact that a Z polyregular function is a
+finite combination of polynomials, with domains depending on some simple
+counting with threshold/modulo of letters. Thus they can use the results of the
+previous section and extend them from polynomials to Z polyregular functions.
 
-Section 5 introduces a notion of residual automaton akin to the one of [9], which they show is computable in the case of commutative inputs.
+Section 5 introduces a notion of residual automaton akin to the one of [9],
+which they show is computable in the case of commutative inputs.
 
-Evaluation:
-The article is overall reasonably well-written and has a satisfying number of examples. I found Figure 1 salutary given the sheer number of different classes that are being considered: polynomials, rational polynomials, polyregular functions, rational series, which can have N or Z variants, commutative inputs or not, be star-free or not. I don't blame the authors since i think it is intrisic to the subject, but it was still a hindrance to my comprehension. Besides the aforementionned examples, i've found that a lot of proofs are relegated to the appendix, which is not bad per se but i would have appreciated in these cases a few sentences explaining the kind of techniques used in the proofs, and the difficulty of the proofs. This would have helped me in deciding which ones to check before continuing with the flow of the article. The logic of why some proofs were included in the main body of the article and others were not is not clear to me at this point.
+Evaluation: The article is overall reasonably well-written and has a satisfying
+number of examples. I found Figure 1 salutary given the sheer number of
+different classes that are being considered: polynomials, rational polynomials,
+polyregular functions, rational series, which can have N or Z variants,
+commutative inputs or not, be star-free or not. I don't blame the authors since
+i think it is intrisic to the subject, but it was still a hindrance to my
+comprehension. Besides the aforementionned examples, i've found that a lot of
+proofs are relegated to the appendix, which is not bad per se but i would have
+appreciated in these cases a few sentences explaining the kind of techniques
+used in the proofs, and the difficulty of the proofs. This would have helped me
+in deciding which ones to check before continuing with the flow of the article.
+The logic of why some proofs were included in the main body of the article and
+others were not is not clear to me at this point.
 
-I have found the results quite interesting as well as the approach. I've particularly enjoyed the (correct!) characterization of N rational polynomials, as well as the residual automaton, which i find quite elegant. I have only check a few of the proofs of the appendix and found them convincing.
+I have found the results quite interesting as well as the approach. I've
+particularly enjoyed the (correct!) characterization of N rational polynomials,
+as well as the residual automaton, which i find quite elegant. I have only
+check a few of the proofs of the appendix and found them convincing.
 
-I have a reservation concerning this article, and it is the comparison (or lack thereof) with [9]. These two articles have a lot in common in the models they study the approaches and the results. I think it is necessary that (for instance in the introduction), the authors compare thoroughly the two articles, what they have in common, where they differ, what are the new difficulties, what are and are not new ideas etc.
+I have a reservation concerning this article, and it is the comparison (or lack
+thereof) with [9]. These two articles have a lot in common in the models they
+study the approaches and the results. I think it is necessary that (for
+instance in the introduction), the authors compare thoroughly the two articles,
+what they have in common, where they differ, what are the new difficulties,
+what are and are not new ideas etc.
 
 
 Remarks:
@@ -40,25 +72,76 @@ Please restate propositions in the appendix to avoid the back and forth.
 
 # Review 2
 
-The focus of this paper is on making progress towards understanding polyregular functions. General polyregular functions are transducers having at most polynomial growth; they form an important subject within automata theory, with many open questions. In the present paper, the author investigates N-polyregular functions, in which the output alphabet consists of a singleton; and therefore, equivalently, N-polyregular functions can be viewed as having codomain the set of natural numbers. Alternately, N-polyregular functions are a special kind of Z-polyregular functions, which in turn form a subset of the set of Z-rational series; these are classical objects of study dating back to the foundations of automata theory, and for which many open questions remain.
+The focus of this paper is on making progress towards understanding polyregular
+functions. General polyregular functions are transducers having at most
+polynomial growth; they form an important subject within automata theory, with
+many open questions. In the present paper, the author investigates
+N-polyregular functions, in which the output alphabet consists of a singleton;
+and therefore, equivalently, N-polyregular functions can be viewed as having
+codomain the set of natural numbers. Alternately, N-polyregular functions are a
+special kind of Z-polyregular functions, which in turn form a subset of the set
+of Z-rational series; these are classical objects of study dating back to the
+foundations of automata theory, and for which many open questions remain.
 
-Here, the author focuses on *commutative* N- and Z-polyregular functions, where the letters of the input alphabet are assumed to commute. Equivalently, the functions in question are constant over words having the same Parikh image. Even in this restricted setting, many questions remain highly non-trivial, and there are indeed countless open problems. The author makes several important contributions, of which the two central ones are as follows: 1) the author establishes that it is decidable whether a commutative Z-polyregular function is in fact N-polyregular (noting that the problem is wide open in the non-commutative case); and 2) it is decidable whether a commutative N-polyregular function is star-free (again, this is open in the non-commutative case, but known to be decidable for (non-commutative) Z-polyregular functions). A further remarkable contribution is to exhibit a counterexample to a 1977 (wrong) theorem of Karhumäki, concerning a characterisation of when a given multivariate polynomial is N-rational, and to provide a corrected statement and proof (Theorem 29).
+Here, the author focuses on *commutative* N- and Z-polyregular functions, where
+the letters of the input alphabet are assumed to commute. Equivalently, the
+functions in question are constant over words having the same Parikh image.
+Even in this restricted setting, many questions remain highly non-trivial, and
+there are indeed countless open problems. The author makes several important
+contributions, of which the two central ones are as follows: 1) the author
+establishes that it is decidable whether a commutative Z-polyregular function
+is in fact N-polyregular (noting that the problem is wide open in the
+non-commutative case); and 2) it is decidable whether a commutative
+N-polyregular function is star-free (again, this is open in the non-commutative
+case, but known to be decidable for (non-commutative) Z-polyregular functions).
+A further remarkable contribution is to exhibit a counterexample to a 1977
+(wrong) theorem of Karhumäki, concerning a characterisation of when a given
+multivariate polynomial is N-rational, and to provide a corrected statement and
+proof (Theorem 29).
 
-The paper unfortunately contains several typos and is not easy to read, but (given the subject matter, which requires extensive background knowledge) is in fact well written. The proofs are carried out with strong competence, and those that I have checked are all correct. The paper makes important advances to the theory of polyregular functions and I therefore recommend acceptance.
+The paper unfortunately contains several typos and is not easy to read, but
+(given the subject matter, which requires extensive background knowledge) is in
+fact well written. The proofs are carried out with strong competence, and those
+that I have checked are all correct. The paper makes important advances to the
+theory of polyregular functions and I therefore recommend acceptance.
 
 # Review 3
 
-The submission studies commutative N-polyregular functions, where N-polyregular functions are polyregular functions with unary output. The authors show various decidability results for membership between star-free (and general) N- and Z-polyregular functions, answer positively a conjectured characterisation of starfree N-polyregular functions with k free variables, provide a characterisation of commutative N-polyregular functions and a counterexample to a theorem from 1977, and introduce a model of computation for (not necessarily commutative) N-polyregular functions, among other things.
+The submission studies commutative N-polyregular functions, where N-polyregular
+functions are polyregular functions with unary output. The authors show various
+decidability results for membership between star-free (and general) N- and
+Z-polyregular functions, answer positively a conjectured characterisation of
+starfree N-polyregular functions with k free variables, provide a
+characterisation of commutative N-polyregular functions and a counterexample to
+a theorem from 1977, and introduce a model of computation for (not necessarily
+commutative) N-polyregular functions, among other things.
 
-While the results are abundant and seem quite nice, the submission is not really in a shape to be published, as a significant portion of it is inaccessible in the current form to readers that are not perfect experts. I regret this combination of (probably) quite strong content with a shape that is not suitable for communicating research. I strongly urge the authors to put more care into preparing submissions, I would be happy to see this published once it is ready.
+While the results are abundant and seem quite nice, the submission is not
+really in a shape to be published, as a significant portion of it is
+inaccessible in the current form to readers that are not perfect experts. I
+regret this combination of (probably) quite strong content with a shape that is
+not suitable for communicating research. I strongly urge the authors to put
+more care into preparing submissions, I would be happy to see this published
+once it is ready.
 
 Here are my main points of criticism:
 
-1) Central notions are not introduced/defined. For example, a) Definition 2 lacks the definition of a production function; b) NSeries and ZSeries, central notions e.g. in Lemma 4 but also to the entire paper, are not defined anywhere; c) v_l, where l is a letter, is not defined (see line 189). There are more examples.
+1) Central notions are not introduced/defined. For example, a) Definition 2
+lacks the definition of a production function; b) NSeries and ZSeries, central
+notions e.g. in Lemma 4 but also to the entire paper, are not defined anywhere;
+c) v_l, where l is a letter, is not defined (see line 189). There are more
+examples.
 
-2) The abstract and introduction are not suitable to introduce the reader as one can only follow through when one has already all the background knowledge. The structure in the introduction seems quite unclear, many formulations are rather confusing or misleading, notions that are central are not explained (growth rate, basically all notation in Conjecture 1, ...).
+2) The abstract and introduction are not suitable to introduce the reader as
+one can only follow through when one has already all the background knowledge.
+The structure in the introduction seems quite unclear, many formulations are
+rather confusing or misleading, notions that are central are not explained
+(growth rate, basically all notation in Conjecture 1, ...).
 
-3) The paper contains so many and often easily avoidable typos that it inhibits the reader to understand the statements and proofs, see my examples below. Even the parts that are probably meant to help the reader contain flaws that ruin this purpose.
+3) The paper contains so many and often easily avoidable typos that it inhibits
+the reader to understand the statements and proofs, see my examples below. Even
+the parts that are probably meant to help the reader contain flaws that ruin
+this purpose.
 
 -----
 

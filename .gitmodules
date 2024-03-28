@@ -1,0 +1,3 @@
+[submodule "transducer-bib"]
+	path = transducer-bib
+	url = git@github.com:AliaumeL/transducer-bib.git

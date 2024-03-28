@@ -4,29 +4,27 @@
 \section{Introduction}
 \label{introduction:sec}
 
-\AP
-Traditional results from automata theory state the equivalence of languages
+\AP Traditional results from automata theory state the equivalence of languages
 defined in terms of deterministic finite automata and regular expressions
-\cite{kleene1956representation}, Monadic Second Order Logic ($\intro*\MSO$)
-\cite{buchi1960weak}, or finite monoids \cite{schutzenberger1961definition}.
-Among regular languages, there exists a robust subclass sharing similar
-characterizations, namely the \emph{star-free} regular languages. These are
-obtained via counter-free (minimal) automata \cite{mcnaughton1971counter},
-represented by star-free regular expressions \cite{schutzenberger1965finite},
-definable in First Order Logic ($\intro*\FO$) \cite{perrin1986first}, and recognized
-by aperiodic monoids \cite{schutzenberger1965finite}. It is decidable whether a
-regular language is aperiodic, thanks to the characterizations in terms of
-minimal automaton and/or syntactic monoid.
+\cite{KLEE56}, Monadic Second Order Logic ($\intro*\MSO$) \cite{BUCH60}, or
+finite monoids \cite{SCHU61}. Among regular languages, there exists a robust
+subclass sharing similar characterizations, namely the \emph{star-free} regular
+languages. These are obtained via counter-free (minimal) automata
+\cite{MNPA71}, represented by star-free regular expressions \cite{SCHU65},
+definable in First Order Logic ($\intro*\FO$) \cite{PEPI86}, and recognized by
+aperiodic monoids \cite{SCHU65}. It is decidable whether a regular language is
+aperiodic, thanks to the characterizations in terms of minimal automaton and/or
+syntactic monoid.
 
 \AP There have been recurrent attempts to generalize the notions of regularity
 from languages to functions, leading to classes of various expressiveness (for
 instance, sequential, rational, regular, and \kl{polyregular functions})
-\cite{EM65,Aho1969,eilenberg1974automata,EM02}. In this paper, we will focus on
+\cite{ELME65,AHUL69,EILE74,ENMA02}. In this paper, we will focus on
 \intro{polyregular functions} ($\intro*\Poly$), that shares with regular
 languages its characterizations in terms of logic (via $\MSO$ interpretations),
 automata (via pebble automata), and adds new bridges with programming languages
 via its relationships with lambda-terms and so-called for-transducers
-\cite{bojanczyk2019string}. As for regular languages, the class $\intro*\SF$ of
+\cite{BOKL19}. As for regular languages, the class $\intro*\SF$ of
 \intro{star-free polyregular function} can equivalently be introduced in terms
 of first-order definability, counter-free pebble transducers, and suitable
 restrictions of for-tranducers.
@@ -36,18 +34,18 @@ Classical problems, including the decidability of aperiodicity, become
 difficult in the case of \kl{polyregular functions}, due to the lack of
 canonical objects akin to the syntactic monoid or the minimal automaton. For
 sequential functions (that admit a canonical object), aperiodicity is decidable
-\cite{choffrut03}, and more recently, aperiodicity has been proven decidable
-for rational functions \cite{filiot2016aperiodicity,filiot2018canonical}. The
+\cite{CHOF03}, and more recently, aperiodicity has been proven decidable
+for rational functions \cite{FGL16,FGLM18}. The
 problem remains open for regular functions, although it has been proven
 decidable when changing the semantics of function equality to account for the
-\emph{origins} in the output \cite{bojanczyk14}. To construct subclasses of
+\emph{origins} in the output \cite{BOJA14}. To construct subclasses of
 \kl{polyregular function}, an interesting parameter is the \intro{growth rate}
 of a function $f$, which is given by a number $k \in \Nat$, which can be used
 to create a strict hierarchy inside $\Poly$. All functions in $\Poly$ have
 \intro{polynomial growth}, and we can write $\Poly[k]$ for the \kl{polyregular
 functions} of \kl{growth rate} $k$. It has been shown that the parameter $k$
 controls the maximal complexity of the $\MSO$ interpretation needed to
-represent the function \cite{bojanczyk2022transducers}.
+represent the function \cite{BOJA22}.
 
 \AP
 Another way to approach the problem of deciding if a \kl{polyregular function}
@@ -56,10 +54,10 @@ is \kl{star-free}, is to not restrict the computational power (via the
 restrictions of the output alphabet. In particular, there have been successful
 results proven on \emph{unary polyregular functions}, also known as
 \kl{$\Nat$-polyregular functions} ($\intro*\NPoly$)
-\cite{doueneau2021pebble,doueneau2022hiding}. For instance, the \kl{growth
+\cite{DOUE21,DOUE22}. For instance, the \kl{growth
 rate} $k$ of a function $f \in \NPoly$ provides the minimal number of pebbles
-needed to compute $f$ \cite{doueneau2021pebble}, which does not hold on $\Poly$
-\cite{bojanczyk2022transducers}. Let us remark that the restriction to
+needed to compute $f$ \cite{DOUE21}, which does not hold on $\Poly$
+\cite{BOJA22}. Let us remark that the restriction to
 \emph{unary output} in the case of \kl{polyregular functions} can be lifted to
 outputs in the free commuative semigroup generated by a finite alphabet
 $\Gamma$. In this sense, the shift to \emph{unary output} is really about
@@ -69,7 +67,7 @@ enforcing commutativity on the output.
 Recently, aperiodicity has been shown decidable over a restricted class of
 \kl{polyregular functions} where the ouptut belongs to $\Rel$ instead of
 $\Nat$, that are called \kl{$\Rel$-polyregular functions} ($\intro*\ZPoly$)
-\cite{LOPEZ23b}. These functions generalize \kl{$\Nat$-polyregular functions}
+\cite{CDTL23}. These functions generalize \kl{$\Nat$-polyregular functions}
 by allowing negative outputs, and therefore enabling a limited form of
 backtracking. As for the unary outputs, these results generalize to
 \kl{polyregular functions} having outputs in the free commutative \emph{group}
@@ -83,7 +81,7 @@ that the semantic characterization of \kl{star-free $\Rel$-polyregular
 functions} ($\intro*\ZSF$) would continue to characterize \kl{star-free
 $\Nat$-polyregular functions} ($\intro*\NSF$). 
 
-\begin{conjecture}[{\cite[Conjecture 7.61]{gaetanphd}}]
+\begin{conjecture}[{\cite[Conjecture 7.61]{DOUE23}}]
     \label{zsf-nsf:conjecture}
     Let $k \in \Nat$.
     A function $f \in \NPoly[k]$
@@ -98,17 +96,17 @@ It is well known that $\NPoly$ (resp. $\ZPoly$) is proper subclass respectively
 of \intro{$\Nat$-rational series} ($\intro*\NRat$) (resp. of \intro{$\Rel$-rational
 series} $\intro*\ZRat$), that have been characterized in terms of \kl{growth rate},
 ambiguity, and a notion of \emph{quantitative} $\MSO$
-\cite{schutzenberger1962,kreutzer2013}, and therefore can benefit from generic
-theorems obtained on these \cite{berstel2011noncommutative}. However, for these
+\cite{SCHU62,KRRC13}, and therefore can benefit from generic
+theorems obtained on these \cite{BERE10}. However, for these
 larger classes of functions, several competing notions of aperiodicity exist
-\cite{droste2019aperiodic,reutenauer_series_1980,LOPEZ23b}, and the
+\cite{DRGA19,REUT80,CDTL23}, and the
 decidability of the ones that extends $\ZSF$ and $\NSF$ remains open.
 Furthermore, the decidability of $\NRat$ inside $\ZRat$ is also a longstanding
 open problem, that was to the knowledge of the authors, only solved by
 \textcite{KARH77} in the case of \kl{$\Rel$-rational series} that compute
 \emph{polynomials}, with an incorrect proof. Furthermore, decidability of
 $\NPoly$ inside $\ZPoly$ (resp. $\NSF$ inside $\ZSF$) remains an open problem
-\cite[Open question 5.55]{gaetanphd}.
+\cite[Open question 5.55]{DOUE23}.
 
 \AP
 We refer the reader to \cref{previously-known-inclusions:fig} to get an
@@ -161,9 +159,9 @@ $f$ is \kl{commutative} and \kl{$\Nat$-polyregular}, and it is conjectured to
 be computable for all functions in $\NPoly$. 
 
 The approach taken in this paper avoids the use of tools from the theory of
-factorizations forests in finite monoids \cite{simon90}, which has been the
+factorizations forests in finite monoids \cite{SIMO90}, which has been the
 traditional method used to understand (commutative output) \kl{polyregular
-functions} \cite{doueneau2021pebble,doueneau2022hiding,LOPEZ23b}, and instead
+functions} \cite{DOUE21,DOUE22,CDTL23}, and instead
 focuses on intrinsic description of the functions themselves (via canonical
 computational models such as the \kl{residual transducer} of
 \cref{residual-transducer:def}, or explicit encoding/decoding into polynomials
