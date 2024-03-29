@@ -70,7 +70,7 @@
 % \end{proof}
 \NewDocumentEnvironment{proofof}{o}{%
     \IfValueTF{#1}{%
-        \begin{proof}[Proof of \cref{#1}]
+        \begin{proof}[Proof of \cref{#1} on page \pageref{#1}]
         \phantomsection\label{#1:proof}
     }{%
         \begin{proof}

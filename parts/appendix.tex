@@ -405,7 +405,7 @@
 
 \section{Proofs of section \ref{beyond-polynomials:sec}}
 
-\begin{proof}[Proof of \cref{decompose-polynomial:lem}]
+\begin{proofof}[decompose-polynomial:lem]
     We apply
     \cref{n-poly-combinatorics:lem} to compute the $\omega$.
     Using this $\omega$,
@@ -421,9 +421,9 @@
     To get the full family of polynomials needed requires
     just to only iterate subsets of letters, and fix the other ones
     to be below the threshold $\omega^2$.
-\end{proof}
+\end{proofof}
 
-\begin{proof}[Proof of \cref{decidable-n-poly:thm}]
+\begin{proofof}[decidable-n-poly:thm]
     Let us prove that
     \cref{f-npoly-combi:item}
     implies \cref{f-combinatorial:item}. 
@@ -439,10 +439,10 @@
     computing the \kl{$\omega$-type} of the input (which is possible in
     $\MSO$), and then computing the suitable \kl{$\Nat$-rational polynomial},
     which is possible in $\NPoly$.
-\end{proof}
+\end{proofof}
 
 
-\begin{proof}[Proof of \cref{zsf-npoly-nsf:thm}]
+\begin{proofof}[zsf-npoly-nsf:thm]
     We proceed by induction on the size of the alphabet $\card{\Sigma}$.
 
     \textbf{Base Case.} When $\Sigma$ is empty, $\Sigma^*$ contains
@@ -493,7 +493,7 @@
     Furthermore, one can enumerate functions in $\NSF[k]$,
     and check equivalence to effectively represent $f$ as a
     \kl{star-free $\Nat$-polyregular function}.
-\end{proof}
+\end{proofof}
 
 
 \section{Proofs of section \ref{beyond-commutative:sec}}
@@ -567,7 +567,7 @@
     elements.
 \end{proof}
 
-\begin{proof}[Proof of \cref{correct-residual:lemma}]
+\begin{proofof}[correct-residual:lemma]
     Because of \cref{q-o-prefix-cool:fact},
     we already know that $q_0 = \varepsilon$,
     $Q$ is a \kl{downwards closed} subset of $\Sigma^*$
@@ -583,9 +583,9 @@
     $\setof{w \in Q}{w \prefleq ua} = \setof{w \in Q_i}{ w \prefleq ua}$,
     which proves that the maximum considered in the algorithm
     is indeed computing correctly.
-\end{proof}
+\end{proofof}
 
-\begin{proof}[Proof of \cref{wqo-implies-termination:lemma}]
+\begin{proofof}[wqo-implies-termination:lemma]
     Assume towards a contradiction that
     \cref{residual:algo} does not terminate.
     Then, the \texttt{else} branch in the \texttt{while loop}
@@ -613,10 +613,10 @@
     We have proven that the infinite branch is a \kl{bad sequence}
     for $\resleq{f}{k}$, which contradicts the assumption.
     Hence, \cref{residual:algo} must terminate.
-\end{proof}
+\end{proofof}
 
 
-\begin{proof}[Proof of \cref{n-poly-k-implies-wqo:lemma}]
+\begin{proofof}[n-poly-k-implies-wqo:lemma]
     Because $f \in \NPoly[k]$, there exists
     a tuple $\vec{x}$ of first order free variables,
     $\MSO$ formulas $\seqof{\psi_i(\vec{x})}{1 \leq i \leq n}$,
@@ -695,12 +695,12 @@
     \MSO^q(u_j)$. As a consequence, $g \defined \app{f}{u_j} - \app{f}{u_i} \in
     \NPoly$, and therefore $g \in \NPoly[k-1]$. We have proven that there
     exists $i < j$ such that $u_i \resleq{f}{k} u_j$.
-\end{proof}
+\end{proofof}
 
 
 \section{Proofs of section \ref{sec:ccl}}
 
-\begin{proof}[Proof of \cref{aperiodic-iff-residual:lem}]
+\begin{proofof}[aperiodic-iff-residual:lem]
     It is clear that $\NSF \subseteq \ZSF$, and known that if $f \in \ZSF$
     then it is \kl{ultimately polynomial}. Furthermore, if the \kl{$0$-residual
     transducer} of $f$ is \kl{counter-free}, then $f \in \NSF$
@@ -741,13 +741,13 @@
     t$, and $\delta(s_0, w_2) = \delta(t, w_1w_2) = q$ which is absurd.
     As a consequence $t$ and $q$ were comparable for the prefix relation,
     hence equal, and therefore $\delta(q, w) = q$.
-\end{proof}
+\end{proofof}
 
 
 
 
 
-\begin{proof}[Proof sketch of \cref{sf-no-periods-on-sequences:lemma}]
+\begin{proofof}[sf-no-periods-on-sequences:lemma]
     Let $f \in \NSF[k]$, $q \in \Nat$, and 
     write $f = \sum_{i=1}^n m_i \times \vcount{\phi_i(\vec{x})}$, where
     $\phi_i \in \FO$ has quantifier rank at most $q$
@@ -776,10 +776,9 @@
     Because there are finitely many non-equivalent $\FO^q$ types with at most 
     $k$ free variables, we can take the maximum of the $K$'s obtained for each 
     of those, and conclude.
-\end{proof}
+\end{proofof}
 
-\begin{proof}[Proof of
-    \cref{pre-compose-growth-commut:lemma}]
+\begin{proofof}[pre-compose-growth-commut:lemma]
     If $f \in \ZPoly[k]$, then 
     for every \kl{polyregular function} $g \in \Poly[\ell]$,
     $f \circ g \in \ZPoly[k+ \ell - 1]$
@@ -808,10 +807,9 @@
     and we indeed conclude that 
     \cref{k-pumpable:eqn}
     holds, i.e. that $f \in \ZPoly[k]$.
-\end{proof}
+\end{proofof}
 
-\begin{proof}[Proof of
-    \cref{pre-compose-sf-commut:lemma}]
+\begin{proofof}[pre-compose-sf-commut:lemma]
     If $f \in \ZSF$, then for all $h \in \SF$,
     $f \circ h \in \ZSF$, and \emph{a fortiori}
     for \kl{commutative} functions $h$.
@@ -849,10 +847,10 @@
     we can take $N_0 = M_0$, and $P = Q$ to conclude that
     \cref{ultimate-polynomial:eqn} holds, hence, that
     $f \in \ZSF$.
-\end{proof}
+\end{proofof}
 
 
-\begin{proof}[Proof of \cref{z-poly-commutative-encoding:remark}]
+\begin{proofof}[z-poly-commutative-encoding:remark]
     We are going to prove that if $f \in \ZPoly[k]$ is polyblind, 
     then the conjecture \cref{z-poly-commutative-encoding:conj} holds when allowing 
     for non polyregular functions $\mathsf{enc}$ and $\mathsf{dec}$.
@@ -967,4 +965,4 @@
     \ZSF[k]$, by assuming that the monoid is aperiodic, since the functions
     constructed (apart from $\mathsf{encode}$ and $\mathsf{decode}$) will be
     \kl{star-free}.
-\end{proof}
+\end{proofof}

@@ -28,10 +28,15 @@
 
 \knowledge{notion}
  | regular function
+ | regular functions
+
+\knowledge{notion}
+ | rational series 
 
 \knowledge{notion}
  | polyregular function
  | polyregular functions
+ | Polyregular functions
 
 \knowledge{notion}
  | star-free polyregular functions

@@ -254,6 +254,7 @@ existence of the \kl{$k$-residual transducer}.
     If \cref{residual:algo} terminates on 
     an input $f \colon \Sigma^* \to \Nat$, $k \in \Nat$,
     then it computes the \kl{$k$-residual transducer} of $f$.
+    \proofref{correct-residual:lemma}
 \end{lemma}
 
 
@@ -266,6 +267,7 @@ existence of the \kl{$k$-residual transducer}.
     (or equivalently, such that the relation $(\prefleq \Rightarrow \resleq{f}{k})$
     is \kl{well}).
     Then, \cref{residual:algo} terminates on the input $(f,k)$.
+    \proofref{wqo-implies-termination:lemma}
 \end{lemma}
 
 The following \cref{n-poly-k-implies-wqo:lemma} is the core argument of the
@@ -279,6 +281,7 @@ increasing in every direction.
     \label{n-poly-k-implies-wqo:lemma}
     Let $k \in \Nat$, and let $f \in \NPoly[k]$.
     Then, $(\Sigma^* \resleq{f}{k})$ is a \kl{well-quasi-ordering}.
+    \proofref{n-poly-k-implies-wqo:lemma}
 \end{lemma}
 
 \begin{theorem}
@@ -341,6 +344,7 @@ defined by $u \reintro*\resleqsf{f}{k} v$ whenever $(\app{f}{v} - \app{f}{u})
     $f \in \ZSF$, if and only if
     $f$ is \kl{ultimately polynomial}, if and only if 
     the \kl{$0$-residual transducer} of $f$ is \kl{counter-free}.
+    \proofref{aperiodic-iff-residual:lem}
 \end{lemma}
 
 \begin{example}
@@ -361,6 +365,7 @@ defined by $u \reintro*\resleqsf{f}{k} v$ whenever $(\app{f}{v} - \app{f}{u})
     Let $k \in \Nat$, and $f \in \SF[k]$. Then,
     $(\Sigma^*, \resleqsf{f}{k})$ is an
     \kl[aperiodic ordering]{aperiodic} \kl{well-quasi-ordering}.
+    \proofref{sf-no-periods-on-sequences:lemma}
 \end{lemma}
 
 \begin{conjecture}
