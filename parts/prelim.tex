@@ -13,32 +13,33 @@ $w$, and $\card[a]{w}$ be the number of occurrences of $a$ in $w$. We assume
 that the reader is familiar with the basics of automata theory, in particular
 the notions of monoid morphisms, idempotents in monoids, monadic second-order
 ($\MSO$) logic and first-order ($\FO$) logic over finite words (see e.g.
-\cite{THOM97}). 
+\cite{THOM97}). Let us recall that a monoid $M$ is \intro(monoid){aperiodic}
+whenever for all $x \in M$, there exists $n \in \Nat$ such that $x^{n+1} =
+x^n$.
 
-\AP In order to build functions in $\NPoly$, the following constructions will
-be useful. For every language $L \subseteq \Sigma^*$ we define $\ind{L} \colon
-\Sigma^* \to \set{0,1}$ as the indicator function of $L$. Given an $\MSO$
-(resp. $\FO$) formula with first-order free variables $\varphi(\vec{x})$, we
-define $\vcount{\varphi(\vec{x})}$ as the function from $\Sigma^*$ to $\Nat$
-that maps a word $w$ to the number of assignments $\nu \colon \vec{x} \to w$,
-such that $w, \nu \models \varphi(\vec{x})$. If $X$ is a set of functions from
-$\Sigma^*$ to $\Rel$, and a subset $\mathbb{S}$ of $\Rel$, we define
-$\intro*\Span{\mathbb{S}}(X)$ as the smallest subset of functions from
-$\Sigma^* \to \Rel$ containing $X$ and closed under (finite) sums and
-multiplication with $s \in \mathbb{S}$.
+\AP We also assume the reader to be familiar with rational series and weighted
+automata, and refer to \cite{BERE10} for a comprehensive introduction. Let us
+recall that one of the equivalent definitions of a $K$-rational series (where
+$K$ is a ring) is given by weighted automata, which are non-deterministic
+finite automata with transitions labelled by elements of $K$, and whose output
+on a given word is the sum over all accepting paths of the products of the
+weights along the path.
+
+\AP We use the notation $\commute \colon \Sigma^* \to \Nat^\Sigma$ for the map
+that counts occurrences of every letter in the input word (that is, computes
+the Parikh vector) namely: $ \commute[w] \defined (a \mapsto \card[a]{w})$.
+Given a set $X$, a function $f \colon \Sigma^* \to X$ is \intro{commutative}
+whenever for all $u \in \Sigma^*$, for all permutations $\sigma$ of $\set{1,
+\dots, \card{w}}$, $f(\sigma(u)) = f(u)$. Equivalently, it is
+\reintro{commutative} whenever there exists a map $g \colon \Nat^\Sigma \to X$
+such that $g \circ \commute = f$. A function $g \colon \Nat^n \to X$ is
+\intro{represented} by a function $f \colon \Sigma^* \to X$ if there exists a
+map $\eta \colon \set{1, \dots, n} \to \Sigma$ such that $g \circ (v \colon
+\Nat^\Sigma \mapsto \seqof{v(\eta(k))}{1 \leq k \leq n} \colon \Nat^n) \circ
+\commute = f$. This notion will be useful to formally state that a polynomial
+``is'' a \kl{polyregular function}.
 
 \subsection{Polyregular Functions}
-
-\AP
-% How the problem has been approached so far
-To construct subclasses of
-\kl{polyregular function}, an interesting parameter is the \intro{growth rate}
-of a function $f$, which is given by a number $k \in \Nat$, which can be used
-to create a strict hierarchy inside $\Poly$. All functions in $\Poly$ have
-\intro{polynomial growth}, and we can write $\Poly[k]$ for the \kl{polyregular
-functions} of \kl{growth rate} $k$. It has been shown that the parameter $k$
-controls the maximal complexity of the $\MSO$ interpretation needed to
-represent the function \cite{BOJA22}.
 
 \AP Because the functions of interest in this paper have output in $\Nat$ or
 $\Rel$, we will only provide the definition of \kl{polyregular functions} for
@@ -46,15 +47,13 @@ these two output semigroups, and we refer the reader to \cite{BOKL19} for the
 general definition of \kl{polyregular functions}. The following
 \cref{nat-rel-poly:def} is one of the equivalent definitions of \cite{CDTL23},
 and is similar in shape to the \emph{finite counting automata} introduced by
-\cite{SCHU62}. Let us recall that a monoid $M$ is \intro(monoid){aperiodic}
-whenever for all $x \in M$, there exists $n \in \Nat$ such that $x^{n+1} =
-x^n$.
+\cite{SCHU62}. 
 
 \begin{definition}[$\Rel$-polyregular functions {\cite{CDTL23}}]
     \label{nat-rel-poly:def}
     Let $M$ be a finite monoid, $\mu \colon \Sigma^* \to M$
     be a morphism, $k \in \Nat$, and 
-    $\pi \colon M^k \to \Rel$ be a production function.
+    $\pi \colon M^k \to \Rel$ be a function.
     The \intro{$\Rel$-polyregular function}
     $\pi^\dagger \colon \Sigma^* \to \Rel$
     is computed as follows:
@@ -65,6 +64,7 @@ x^n$.
     \end{equation*}
     When $\pi$ has co-domain $\Nat$, the function $\pi^\dagger$
     is called \intro{$\Nat$-polyregular}.
+    We call $\pi$ the \emph{production function} of $\pi^\dagger$.
     When the monoid $M$ is \kl(monoid){aperiodic}
     then
     the function $f$ is \intro{star-free $\Rel$-polyregular}
@@ -76,15 +76,52 @@ x^n$.
     \label{size-of-word-nsf:ex}
     The map $f \colon w \mapsto \card{w} + 1$
     belongs to $\NSF$.
-    \proofref{size-of-word-nsf:ex}
 \end{example}
+\begin{proof}
+    Let us define $M \defined (\set{1}, \times)$ which is 
+    a finite \kl{aperiodic monoid}, $\mu \colon \Sigma^* \to M$
+    defined by $\mu(w) \defined 1$, and
+    $\pi \colon M^2 \to \Nat$
+    that is the constant function equal to $1$.
+    We check that for all $w \in \Sigma^*$:
+    \begin{equation*}
+        \pi^\dagger(w)
+        =
+        \sum_{uv = w} 1
+        =
+        \card{w} + 1
+        = f(w)
+        \quad . 
+        \qedhere
+    \end{equation*}
+\end{proof}
 
+\AP The \intro{growth rate} of a function $f \colon \Sigma^* \to \Rel$ is
+defined as the minimal $k$ such that $\card{f(w)} =
+\bigO\left(\card{w}^k\right)$. If such a $k$ exists, we say that the function
+$f$ has \intro{polynomial growth}. We write $\reintro*\ZPoly[k]$ (resp. $\reintro*\NPoly[k]$) for
+the functions in $\ZPoly$ (resp. $\NPoly$) that have growth rate at most $k$.
+It is clear that a function $f \in \ZPoly$ defined using a production function
+$\pi \colon M^k \to \Rel$ has \kl{growth rate} at most $k-1$, and more
+generally it is known that \kl{polyregular functions} have \kl{polynomial
+growth} \cite{BOJA22}. Not all \kl{$\Nat$-rational series} have \kl{polynomial
+growth}, a typical example being the function $a^n \mapsto 2^n$.
 
-\AP Let us briefly recall in the following lemma alternative characterizations
+\AP Let us briefly recall in the following lemmas alternative characterizations
 of $\NPoly$ (resp. $\ZPoly$), some of which will be helpful in the upcoming
 analysis of their \kl{commutative} counterpart, and others that provide a nicer
 syntax to construct examples. These characterizations were previously known,
-and can be found for instance in \cite{DOUE23,CDTL23}.
+and can be found for instance in \cite{DOUE23,CDTL23}. For every language $L
+\subseteq \Sigma^*$ we define $\ind{L} \colon \Sigma^* \to \set{0,1}$ as the
+indicator function of $L$. Given an $\MSO$ (resp. $\FO$) formula with
+first-order free variables $\varphi(\vec{x})$, we define
+$\vcount{\varphi(\vec{x})}$ as the function from $\Sigma^*$ to $\Nat$ that maps
+a word $w$ to the number of assignments $\nu \colon \vec{x} \to w$, such that
+$w, \nu \models \varphi(\vec{x})$. If $X$ is a set of functions from $\Sigma^*$
+to $\Rel$, and a subset $\mathbb{S}$ of $\Rel$, we define
+$\intro*\Span{\mathbb{S}}(X)$ as the smallest subset of functions from
+$\Sigma^* \to \Rel$ containing $X$ and closed under (finite) sums and
+multiplication with elements $s \in \mathbb{S}$.
 
 \begin{lemma}
     \label{polynomial-rational-polyreg:fact}
@@ -135,33 +172,15 @@ generalizes aperiodicity to functions as \cref{regular-language:ex} illustrates.
     \kl{star-free $\Nat$-polyregular function}.
 \end{example}
 
+It has been proven in \cite{CDTL23,BOJA22} that the classes $\ZPoly[k]$ (resp.
+$\NPoly[k]$, $\ZSF[k]$, $\NSF[k]$) are also characterized by the maximal number
+of first order free variables used to construct the function as in
+\cref{npoly-counting-mso:item} of \cref{polynomial-rational-polyreg:fact}.
 
-\AP Inside $\ZPoly$ there is an infinite hierarchy of classes, defined by
-limiting the maximal number of free variables used to construct the function as
-a sum of counting formulas (\cref{npoly-counting-mso:item}). We write
-$\ZPoly[k]$ (resp. $\NPoly[k]$, $\ZSF[k]$, $\NSF[k]$) for the functions in
-$\ZPoly$ (resp. $\NPoly$, $\ZSF$, $\NSF$) that can be constructed using at most
-$k$ free variables. It has been proven in
-\cite{CDTL23,BOJA22} that the classes $\ZPoly[k]$ (resp.
-$\NPoly[k]$, $\ZSF[k]$, $\NSF[k]$) are characterized by the \kl{growth rate},
-that is, $f \in \ZPoly[k]$ if and only if $f \in \ZPoly$ and $\card{f(w)} =
-\bigO\left(\card{w}^k\right)$, and similarly for the other classes.
-
-\subsection{Commutative Input}
-
-\AP 
-Let $\Sigma$ be a finite alphabet. 
-We define $\commute \colon \Sigma^* \to \Nat^\Sigma$ for the
-map that counts occurrences of every letter in the input word (that is,
-computes the Parikh vector) namely: $ \commute[w] \defined (a \mapsto
-\card[a]{w})$. Let $X$ be a set, a function $f \colon \Sigma^* \to X$ is
-\intro{commutative} whenever for all $u,v \in \Sigma^*$, $f(uv) = f(vu)$.
-Equivalently, it is \reintro{commutative} whenever there exists a map $g \colon
-\Nat^\Sigma \to X$ such that $g \circ \commute = f$.
-
-To ensure that we are working inside a decidable subclass of \kl{$\Rel$-rational series}
-let us state that commutativity is decidable. The proof is straightforward in the case
-of \kl{$\Rel$-polyregular functions}, and more involved for general \kl{$\Rel$-rational series}.
+Let us briefly state that \kl{commutativity} is a decidable property of
+\kl{$\Rel$-rational series}. The proof is straightforward in the case of
+\kl{$\Rel$-polyregular functions}, and slightly more involved for general
+\kl{$\Rel$-rational series}.
 
 \begin{lemma}
     \label{decidable-commutative-poly:lemma}
@@ -170,13 +189,6 @@ of \kl{$\Rel$-polyregular functions}, and more involved for general \kl{$\Rel$-r
     $f$
     is \kl{commutative}.
 \end{lemma}
-
-
-\AP A function $g \colon \Nat^n \to \Rel$ is \intro{represented} by a function
-$f \colon \Sigma^* \to \Rel$ if there exists a map $\eta \colon \set{1, \dots,
-n} \to \Sigma$ such that $g \circ (v \mapsto \seqof{v_{\eta(k)}}{1 \leq k \leq
-n}) \circ \commute = f$. This notion will be useful to formally state that a
-polynomial ``is'' a \kl{polyregular function}.
 
 \subsection{Polynomials} \AP All polynomials considered in this paper have
 coefficients in $\Rel$ unless explicitly stated otherwise. A polynomial $P \in

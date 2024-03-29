@@ -2,26 +2,6 @@
 %! lang = en-US
 \section{Proofs of section \ref{preliminaries:sec}}
 
-
-\begin{proofof}[size-of-word-nsf:ex]
-    Let us define $M \defined (\set{1}, \times)$ which is 
-    a finite \kl{aperiodic monoid}, $\mu \colon \Sigma^* \to M$
-    defined by $\mu(w) \defined 1$, and
-    $\pi \colon M^2 \to \Nat$
-    that is the constant function equal to $1$.
-    We check that for all $w \in \Sigma^*$:
-    \begin{equation*}
-        \pi^\dagger(w)
-        =
-        \sum_{uv = w} 1
-        =
-        \card{w} + 1
-        = f(w)
-        \quad . 
-        \qedhere
-    \end{equation*}
-\end{proofof}
-
 \begin{proof}[Proof of \cref{decidable-commutative-poly:lemma}, in the polyregular case]
     Let $\Sigma$ be a finite alphabet, endowed with a
     total ordering over its letters,

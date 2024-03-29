@@ -44,7 +44,7 @@ approach has been to develop so-called canonical objects, akin to the minimal
 automaton or the syntactic monoid of regular languages, over which aperiodicity
 is equivalent to a simple syntactic criterion (e.g. having no counters). This
 is the proof scheme that has been implemented for sequential functions
-\cite{CHOF03}, and more recently for rational functions \cite{FGL18}.
+\cite{CHOF03}, and more recently for rational functions \cite{FGL16,FGLM18}.
 Unfortunately, such a canonical object remains to be defined for regular and
 polyregular functions.
 
@@ -168,7 +168,7 @@ that remains open even in the
 restricted case of $\NPoly$ and $\ZPoly$ \cite[Open question 5.55]{DOUE23}.
 
 \AP It was conjectured that, analogously to classes appearing in
-\cref{computational-models:fig}, the following equation would hold $\NSF =
+\cref{computational-models:fig}, the following equation would hold: $\NSF =
 \NPoly \cap \ZSF$ \cite[Conjecture 7.61]{DOUE23}. This would imply the
 decidability of aperiodicity for single letter output polyregular functions
 since aperiodicity is decidable for $\ZSF$. We refer the reader to
@@ -199,18 +199,19 @@ question mark.
 \paragraph*{Contributions.} This paper focuses on \kl{$\Nat$-polyregular
 functions} that are furthermore \kl{commutative}. Remark that this enforces a
 commutativity property both on the input alphabet and on the output alphabet.
-In this restricted setting, we answer positively to \cref{zsf-nsf:conjecture},
-and prove that the membership problems between $\NSF$, $\ZSF$, $\NPoly$, and
-$\ZPoly$ are all decidable, with effective conversion algorithms. This
-effectively shows that all arrows in the lower left square of
-\cref{previously-known-inclusions:fig} are decidable in the \kl{commutative}
-setting. Furthermore, we characterize \kl{commutative} \kl{$\Nat$-polyregular
-function} as the class of \kl{$\Rel$-polyregular functions} that are
-\kl{combinatorial} (defined page \kpageref{combinatorial}), which is a semantic
-property akin to the one \kl{ultimate polynomiality} that characterizes $\ZSF$.
-As a byproduct of our analysis, we provide a counter example to the
-characterization of polynomials computed by \kl{$\Nat$-rational series} given
-by \cite[Theorem 3.3, page 4; re-introduced as \cref{karh:thm}]{KARH77}.
+In this restricted setting, we answer positively to \cite[Conjecture
+7.61]{DOUE23} (restated in \cref{zsf-nsf:conjecture}), and prove that the
+membership problems between $\NSF$, $\ZSF$, $\NPoly$, and $\ZPoly$ are all
+decidable, with effective conversion algorithms. This effectively shows that
+all arrows in the upper left square of \cref{previously-known-inclusions:fig}
+are decidable in the \kl{commutative} setting. Furthermore, we characterize
+\kl{commutative} \kl{$\Nat$-polyregular function} as the class of
+\kl{$\Rel$-polyregular functions} that are \kl{combinatorial} (defined page
+\kpageref{combinatorial}), which is a semantic property akin to the one
+\kl{ultimate polynomiality} that characterizes $\ZSF$ inside $\ZPoly$
+\cite{CDTL23}. As a byproduct of our analysis, we provide a counter example to
+the characterization of polynomials computed by \kl{$\Nat$-rational series}
+given by \cite[Theorem 3.3, page 4; re-introduced as \cref{karh:thm}]{KARH77}.
 
 Finally, we make a first step towards understanding the non-commutative case by
 introducing a canonical model of computation for \kl{$\Nat$-polyregular
@@ -243,7 +244,9 @@ the basic definitions used on multivariate polynomials. In
 \cref{corrected-version:thm}. In \cref{beyond-polynomials:sec}, we leverage the
 results over polynomials to decide $\NPoly$ inside $\ZPoly$ in the
 \kl{commutative} case (\cref{decidable-n-poly:thm}), and prove that
-\cref{zsf-nsf:conjecture} holds for \kl{commutative} functions
+\cref{zsf-nsf:conjecture}
+\cite[Conjecture 7.61]{DOUE23} 
+holds for \kl{commutative} functions
 (\cref{zsf-npoly-nsf:thm}). Finally, in \cref{beyond-commutative:sec}, we
 introduce the notion of \kl{residual transducer}
 (\cref{residual-transducer:def}), and prove in \cref{non-commutative-npoly:thm}

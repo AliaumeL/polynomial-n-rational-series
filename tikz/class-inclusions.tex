@@ -55,8 +55,8 @@
         fill=D3,
     }
     ]
-    \node[cls] (SF)  at (0,  0) {$\SF$};
-    \node[cls] (P)   at (4,  0) {$\Poly$};
+    \node[cls] (SF)  at (0,  -9) {$\SF$};
+    \node[cls] (P)   at (4,  -9) {$\Poly$};
     \node[cls] (ZSF) at (0, -3) {$\ZSF$};
     \node[cls] (NSF) at (0, -6) {$\NSF$};
     \node[cls] (ZP)  at (4, -3) {$\ZPoly$};
@@ -67,8 +67,8 @@
     \draw[decidable] (ZSF) to (ZP);
     \draw[decidable] (ZP) to (ZR);
     \draw[decidable] (NP) to (NR);
-    % \draw[decidable] (ZP) to (P);
-    % \draw[decidable] (ZSF) to (SF);
+    \draw[decidable] (NP) to (P);
+    \draw[decidable] (NSF) to (SF);
 
     \draw[inclusion] (NP) to (ZP);
     \draw[inclusion] (NSF) to (ZSF);
@@ -76,26 +76,6 @@
     \draw[inclusion] (SF) to (P);
     \draw[inclusion] (NSF) to (NP);
 
-    \draw[axis] (-1,-6.5) -- 
-        node[midway, below] {Computational power}
-        (9,-6.5);
-    \draw[axis] (-1,-6.5) -- 
-        node[midway, above, rotate=90] {Output alphabet}
-        (-1,0.5);
-
-    \begin{scope}[on background layer]
-        % Big groups
-        %polynomial growth
-        \draw[group,polygrowth] (SF.north west) rectangle ($(NP.south east)!0.5!(NR.south west)$);
-        %commutative output
-        \draw[group,zoutput] ($(ZSF.north west)!0.5!(SF.south west)$) rectangle (NR.south east);
-
-        % Small groups
-        % star-free
-        \draw[group,starfree] (SF.north west) rectangle ($(NSF.south east)!0.5!(NP.south west)$);
-        % N-defined
-        \draw[group,noutput] ($(NSF.north west)!0.5!(ZSF.south west)$) rectangle (NR.south east);
-    \end{scope}
 \end{tikzpicture}
 \end{document}
 
