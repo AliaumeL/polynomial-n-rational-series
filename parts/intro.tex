@@ -17,16 +17,17 @@ aperiodic, thanks to the characterizations in terms of minimal automaton and/or
 syntactic monoid.
 
 \AP There have been recurrent attempts to generalize the notions of regularity
-from languages to functions, leading to classes of various expressiveness:
-Mealy Machines ($\intro*\Mealy$) \cite{MEAL55}, sequential functions
-($\intro*\Sequential$) \cite{SCHU77}, rational functions ($\intro*\Rational$)
-\cite{EILE74}, regular functions ($\intro*\Regular$) \cite{ENMA02},
-and polyregular functions ($\intro*\Poly$) \cite{BOKL19}. For all of these
-models, an \emph{aperiodic} counterpart can be defined (respectively,
-$\intro*\AMealy$, $\intro*\ASequential$, $\intro*\ARational$,
-$\intro*\ARegular$, $\intro*\SF$), lifting the correspondence between
-counter-free automata, star-free languages and aperiodic monoids to the
-functional setting \cite{FKT14,BOJA14,CADA15,BOKL19}. The inclusions between
+from languages to functions, leading to classes of various expressiveness, such
+as\footnote{This list is far from exhaustive.} Mealy Machines ($\intro*\Mealy$)
+\cite{MEAL55}, sequential functions ($\intro*\Sequential$) \cite{SCHU77},
+rational functions ($\intro*\Rational$) \cite{EILE74}, regular functions
+($\intro*\Regular$) \cite{ENMA02}, and polyregular functions ($\intro*\Poly$)
+\cite{BOKL19}. For all of these models, an \emph{aperiodic} counterpart can be
+defined (respectively, $\intro*\AMealy$, $\intro*\ASequential$,
+$\intro*\ARational$, $\intro*\ARegular$, $\intro*\SF$), lifting the
+correspondence between counter-free automata, star-free languages and aperiodic
+monoids to the functional setting
+\cite{FKT14,BOJA14,CADA15,DJR16,BDK18,BOKL19,DGK21}. The inclusions between
 these classes of functions are all known to be strict, and we depicted in
 \cref{computational-models:fig} the status of the \emph{membership problem}
 associated to these strict inclusions (that is, given a function $f$, decide if
@@ -173,11 +174,7 @@ restricted case of $\NPoly$ and $\ZPoly$ \cite[Open question 5.55]{DOUE23}.
 decidability of aperiodicity for single letter output polyregular functions
 since aperiodicity is decidable for $\ZSF$. We refer the reader to
 \cref{previously-known-inclusions:fig} to get an overview of the different
-classes of functions appearing in the paper. Arrows denote strict inclusions,
-and effectiveness (both in terms of decidability and of effective
-representation) is represented by thick double arrows. Inclusions that are
-suspected to be effective are represented using a dashed arrow together with a
-question mark.
+classes of functions appearing in the paper. 
 
 
 
@@ -191,6 +188,11 @@ question mark.
         one is the allowed computational power
         (star-free polyregular functions, polyregular functions, 
         rational series).
+        Arrows denote strict inclusions,
+        and effectiveness (both in terms of decidability and of effective
+        representation) is represented by thick double arrows. Inclusions that are
+        suspected to be effective are represented using a dashed arrow together with a
+        question mark.
     }
     \label{previously-known-inclusions:fig}
 \end{figure}
