@@ -4,29 +4,29 @@
 \label{polynomials:sec}
 
 The goal of this section is to provide semantic characterizations of
-\kl{$\Nat$-rational polynomials}, decide if a polynomial $P$ is a
-\kl{$\Nat$-rational polynomial}, and if so, explicitly compute a
+\kl{$\Nat$-rational polynomials}, decide if a polynomial $P$ is an
+\kl{$\Nat$-rational polynomial}, and if so, explicitly compute an
 \kl{$\Nat$-polyregular function} $f$ that \kl{represents} $P$. It is an easy
 check that polynomials with coefficients in $\Nat$ are \kl{$\Nat$-rational
 polynomials} (\cref{n-poly-n-poly:example}). However,
 \cref{negative-but-npoly:ex} provides a polynomial with negative coefficients
-that is a \kl{$\Nat$-rational polynomial}. As a consequence, the class of
+that is an \kl{$\Nat$-rational polynomial}. As a consequence, the class of
 interest strictly contains $\Nat[\vec{X}]$.
 
 \begin{remark}
     \label{n-poly-n-poly:example}
     Let $P \in \Nat[\vec{X}]$. Then, $P$
-    is a \kl{$\Nat$-rational polynomial}.
+    is an \kl{$\Nat$-rational polynomial}.
 \end{remark}
 
 \begin{example}
     \label{negative-but-npoly:ex}
     Let $P \defined X^2 -2X + 2$. Then $P$
-    is a \kl{$\Nat$-rational polynomial}.
+    is an \kl{$\Nat$-rational polynomial}.
 \end{example}
 
 Let us now introduce the characterization of \kl{$\Nat$-rational polynomials}
-given by \citeauthor{KARH77}, which is stated using a class
+given by \cite{KARH77}, which is stated using a class
 $\CoveredPoly[\vec{X}]$ of polynomials with multiple indeterminate.
 
 \begin{definition}[{\cite[Section 3, page 3]{KARH77}}]
@@ -44,7 +44,7 @@ $\CoveredPoly[\vec{X}]$ of polynomials with multiple indeterminate.
     Let $\Sigma$ be a finite alphabet
     and $P$ be a polynomial. The following are equivalent:
     \begin{enumerate}
-        \item $P$ is a \kl{$\Nat$-rational polynomial},
+        \item $P$ is an \kl{$\Nat$-rational polynomial},
         \item $P \in \CoveredPoly$.
     \end{enumerate}
 \end{faketheorem}
@@ -70,7 +70,7 @@ correct, and can even be strengthened as we will see in
 \begin{lemma}
     \label{thm:counter-example}
     The polynomial $\BadPoly$ belongs to $\CoveredPoly$,
-    but is not a \kl{$\Nat$-rational polynomial}.
+    but is not an \kl{$\Nat$-rational polynomial}.
 \end{lemma}
 \begin{proof}
     It is clear that $\BadPoly$ is \kl{non-negative}. We can develop
@@ -81,7 +81,7 @@ correct, and can even be strengthened as we will see in
     are $ZX^2$, $ZY^2$, and $2ZXY$, all of which are
     \kl{non-negative}.
 
-    Assume by contradiction that $\BadPoly$ is a \kl{$\Nat$-rational polynomial}.
+    Assume by contradiction that $\BadPoly$ is an \kl{$\Nat$-rational polynomial}.
     Let $\Sigma \defined \set{a,b,c}$ be a finite alphabet.
     There exists a \kl{commutative}
     \kl{$\Nat$-polyregular function} $f \colon \Sigma^* \to \Nat$

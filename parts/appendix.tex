@@ -1,9 +1,9 @@
 %! TeX program = xelatex
 %! lang = en-US
-\section{Proofs of
-section \ref{preliminaries:sec}}
+\section{Proofs of section \ref{preliminaries:sec}}
 
-\begin{proof}[Proof of \cref{size-of-word-nsf:ex}]
+
+\begin{proofof}[size-of-word-nsf:ex]
     Let us define $M \defined (\set{1}, \times)$ which is 
     a finite \kl{aperiodic monoid}, $\mu \colon \Sigma^* \to M$
     defined by $\mu(w) \defined 1$, and
@@ -20,7 +20,7 @@ section \ref{preliminaries:sec}}
         \quad . 
         \qedhere
     \end{equation*}
-\end{proof}
+\end{proofof}
 
 \begin{proof}[Proof of \cref{decidable-commutative-poly:lemma}, in the polyregular case]
     Let $\Sigma$ be a finite alphabet, endowed with a
@@ -30,14 +30,14 @@ section \ref{preliminaries:sec}}
     The map $\polysort \colon \Sigma^* \to \Sigma^*$
     that sorts the letters in the input word $w$ according
     to the chosen ordering is a \kl{polyregular function}
-    \cite[Proposition II.12]{LOPEZ23b}.
+    \cite[Proposition II.12]{CDTL23}.
     As a consequence,
     $(f \circ \polysort) \in \ZPoly$.
     Finally, $f$ is \kl{commutative} if and only
     if $f = f \circ \polysort$, which is decidable
     in the case of $\ZPoly$
-    \cite[Corollary II.24]{LOPEZ23b}, and more generally in the case 
-    of $\ZRat$ \cite[Corollary 3.6 p 38]{berstel2011noncommutative}.
+    \cite[Corollary II.24]{CDTL23}, and more generally in the case 
+    of $\ZRat$ \cite[Corollary 3.6 p 38]{BERE10}.
 \end{proof}
 
 \begin{proof}[Proof of \cref{decidable-commutative-rat:lemma} in the general case]
@@ -81,8 +81,7 @@ section \ref{preliminaries:sec}}
     are non-negative.
 \end{proof}
 
-\section{Proofs of
-section \ref{polynomials:sec}}
+\section{Proofs of section \ref{polynomials:sec}}
 
 \begin{proof}[Proof of \cref{negative-but-npoly:ex}]
     Remark that $P = (X-1)^2 + 1$. Let $f  \colon \Sigma^* \to \Nat$
@@ -462,7 +461,7 @@ section \ref{polynomials:sec}}
 
 
     For the effective part of the theorem, 
-    we know from \cite[Theorem V.13]{LOPEZ23b}, it is decidable whether
+    we know from \cite[Theorem V.13]{CDTL23}, it is decidable whether
     $f \in \ZSF[k]$ and from \cref{decidable-n-poly:thm}
     it is decidable whether $f \in \NPoly$.
     Furthermore, one can enumerate functions in $\NSF[k]$,
@@ -758,9 +757,9 @@ section \ref{polynomials:sec}}
     If $f \in \ZPoly[k]$, then 
     for every \kl{polyregular function} $g \in \Poly[\ell]$,
     $f \circ g \in \ZPoly[k+ \ell - 1]$
-    \cite{LOPEZ23b}.
+    \cite{CDTL23}.
 
-    Conversely, it was proven in \cite[Theorem III.3]{LOPEZ23b}
+    Conversely, it was proven in \cite[Theorem III.3]{CDTL23}
     that $f \in \ZPoly[k]$ if and only if
     for all $\alpha_0, \cdots, \alpha_k$,
     for all $w_1, \dots, w_k$,
@@ -793,7 +792,7 @@ section \ref{polynomials:sec}}
 
     Conversely, assume that $f \circ h \in \ZSF$
     for all \kl{commutative} functions $h \in \SF$.
-    Using \cite[Theorem V.13]{LOPEZ23b},
+    Using \cite[Theorem V.13]{CDTL23},
     to conclude that $f \in \ZSF$,
     it suffices to prove that
     for all $\alpha_0, \cdots, \alpha_k \in \Sigma^*$,
@@ -833,7 +832,7 @@ section \ref{polynomials:sec}}
     for non polyregular functions $\mathsf{enc}$ and $\mathsf{dec}$.
 
     Let us consider $f \in \ZPoly[k]$ that is polyblind.
-    Using \cite[Theorem 6.12]{gaetanphd},
+    Using \cite[Theorem 6.12]{DOUE23},
     we know that there exists a family of $\MSO$ formulas
     $\seqof{\psi_{i,j}(x)}{1 \leq i,j \leq n}$,
     and coefficients $\seqof{z_i}{1 \leq i \leq n}$,
@@ -878,7 +877,7 @@ section \ref{polynomials:sec}}
                         & m_x m_y = m
     \end{align*}
 
-    Using Parikh's Theorem \cite{parikh66context},
+    Using Parikh's Theorem \cite{PARI66},
     we conclude that the image of $\mathsf{s}$ is a semilinear set,
     i.e., that there exists a finite set $Q$,
     numbers $\seqof{d_q}{q \in Q}$,
@@ -900,7 +899,7 @@ section \ref{polynomials:sec}}
     $\mathsf{s}(w) = v_0 + \sum_{i = 1}^{d_q} \lambda_i v_{i,q}$. By taming the
     semilinear set prior to this step, we can ensure that the function is in
     fact uniquely defined, this is done by computing an equivalent semilinear
-    set that is \emph{unambiguous} and \emph{proper} \cite{chistikov16}.
+    set that is \emph{unambiguous} and \emph{proper} \cite{CHHA16}.
     Similarly, let us define $\mathsf{encode} \colon \sum_{q \in Q} \Nat^{d_q}
     \to \Sigma^*$ that maps an element $q \in Q$ with parameters $(\lambda_1,
     \dots, \lambda_{d_q}) \in \Nat^{d_q}$ to \emph{some} word $w \in \Sigma^*$

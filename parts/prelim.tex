@@ -4,7 +4,7 @@
 \label{preliminaries:sec}
 
 \AP In the rest of this paper, $\Rel$ (resp. $\Nat$) denotes the set of
-integers (resp. nonnegative integers). The capital letters $\Sigma,\Gamma$
+integers (resp. non-negative integers). The capital letters $\Sigma,\Gamma$
 denotes fixed alphabets, i.e. a finite set of letters, and $\Sigma^*, \Gamma^*$
 (resp. $\Sigma^+, \Gamma^+$) are the set of words (resp. non-empty words) over
 $\Sigma, \Gamma$. The empty word is written $\varepsilon \in \Sigma^*$. When $w
@@ -13,7 +13,7 @@ $w$, and $\card[a]{w}$ be the number of occurrences of $a$ in $w$. We assume
 that the reader is familiar with the basics of automata theory, in particular
 the notions of monoid morphisms, idempotents in monoids, monadic second-order
 ($\MSO$) logic and first-order ($\FO$) logic over finite words (see e.g.
-\cite{thomas1997languages}). 
+\cite{THOM97}). 
 
 \AP In order to build functions in $\NPoly$, the following constructions will
 be useful. For every language $L \subseteq \Sigma^*$ we define $\ind{L} \colon
@@ -29,17 +29,28 @@ multiplication with $s \in \mathbb{S}$.
 
 \subsection{Polyregular Functions}
 
-\AP Because the functions of interest in this paper have output in $\Nat$ or
-$\Rel$, we will only provide the definiton of \kl{polyregular functions} for
-these two output semgroups, and we refer the reader to
-\cite{bojanczyk2019string} for the general definition of \kl{polyregular
-functions}. The following \cref{nat-rel-poly:def} is one of the equivalent
-definitions of \cite{LOPEZ23b}, and is similar in shape to the \emph{finite
-counting automata} introduced by \textcite{schutzenberger1962}. Let us recall
-that a monoid $M$ is \intro(monoid){aperiodic} whenever there exists $n \in
-\Nat$ such that for all $x \in M$, $x^{n+1} = x^n$.
+\AP
+% How the problem has been approached so far
+To construct subclasses of
+\kl{polyregular function}, an interesting parameter is the \intro{growth rate}
+of a function $f$, which is given by a number $k \in \Nat$, which can be used
+to create a strict hierarchy inside $\Poly$. All functions in $\Poly$ have
+\intro{polynomial growth}, and we can write $\Poly[k]$ for the \kl{polyregular
+functions} of \kl{growth rate} $k$. It has been shown that the parameter $k$
+controls the maximal complexity of the $\MSO$ interpretation needed to
+represent the function \cite{BOJA22}.
 
-\begin{definition}[$\Rel$-polyregular functions {\cite{LOPEZ23b}}]
+\AP Because the functions of interest in this paper have output in $\Nat$ or
+$\Rel$, we will only provide the definition of \kl{polyregular functions} for
+these two output semigroups, and we refer the reader to \cite{BOKL19} for the
+general definition of \kl{polyregular functions}. The following
+\cref{nat-rel-poly:def} is one of the equivalent definitions of \cite{CDTL23},
+and is similar in shape to the \emph{finite counting automata} introduced by
+\cite{SCHU62}. Let us recall that a monoid $M$ is \intro(monoid){aperiodic}
+whenever for all $x \in M$, there exists $n \in \Nat$ such that $x^{n+1} =
+x^n$.
+
+\begin{definition}[$\Rel$-polyregular functions {\cite{CDTL23}}]
     \label{nat-rel-poly:def}
     Let $M$ be a finite monoid, $\mu \colon \Sigma^* \to M$
     be a morphism, $k \in \Nat$, and 
@@ -65,6 +76,7 @@ that a monoid $M$ is \intro(monoid){aperiodic} whenever there exists $n \in
     \label{size-of-word-nsf:ex}
     The map $f \colon w \mapsto \card{w} + 1$
     belongs to $\NSF$.
+    \proofref{size-of-word-nsf:ex}
 \end{example}
 
 
@@ -72,7 +84,7 @@ that a monoid $M$ is \intro(monoid){aperiodic} whenever there exists $n \in
 of $\NPoly$ (resp. $\ZPoly$), some of which will be helpful in the upcoming
 analysis of their \kl{commutative} counterpart, and others that provide a nicer
 syntax to construct examples. These characterizations were previously known,
-and can be found for instance in \cite{gaetanphd,LOPEZ23b}.
+and can be found for instance in \cite{DOUE23,CDTL23}.
 
 \begin{lemma}
     \label{polynomial-rational-polyreg:fact}
@@ -82,7 +94,7 @@ and can be found for instance in \cite{gaetanphd,LOPEZ23b}.
         \item $f \in \NPoly$ (resp. $\ZPoly$);
         \item $f$ is a \kl{polyregular function} with output
             in $\set{1}^*$,
-            postcomposed with $\polysum$
+            post-composed with $\polysum$
             (resp. with output in $\set{-1,+1}^*$);
         \item $f$ has \kl{polynomial growth};
         \item \label{npoly-counting-mso:item} $f$ belongs to
@@ -102,7 +114,7 @@ generalizes aperiodicity to functions as \cref{regular-language:ex} illustrates.
         \item $f \in \NSF$ (resp. $\ZSF$);
         \item $f$ is a \kl{star-free polyregular function} with output
             in $\set{1}^*$,
-            postcomposed with $\polysum$
+            post-composed with $\polysum$
             (resp. with output in $\set{-1,+1}^*$);
         \item $f$ belongs to
             $\Span{\mathbb{S}}(\setof{\vcount{\varphi}}{\varphi(\vec{x}) \in \FO})$
@@ -130,10 +142,10 @@ a sum of counting formulas (\cref{npoly-counting-mso:item}). We write
 $\ZPoly[k]$ (resp. $\NPoly[k]$, $\ZSF[k]$, $\NSF[k]$) for the functions in
 $\ZPoly$ (resp. $\NPoly$, $\ZSF$, $\NSF$) that can be constructed using at most
 $k$ free variables. It has been proven in
-\cite{LOPEZ23b,bojanczyk2022transducers} that the classes $\ZPoly[k]$ (resp.
+\cite{CDTL23,BOJA22} that the classes $\ZPoly[k]$ (resp.
 $\NPoly[k]$, $\ZSF[k]$, $\NSF[k]$) are characterized by the \kl{growth rate},
 that is, $f \in \ZPoly[k]$ if and only if $f \in \ZPoly$ and $\card{f(w)} =
-\bigO\left(\card{w}^k\right)$. and similarly for the other classes.
+\bigO\left(\card{w}^k\right)$, and similarly for the other classes.
 
 \subsection{Commutative Input}
 
@@ -168,7 +180,7 @@ polynomial ``is'' a \kl{polyregular function}.
 
 \subsection{Polynomials} \AP All polynomials considered in this paper have
 coefficients in $\Rel$ unless explicitly stated otherwise. A polynomial $P \in
-\Rel[X_1, \dots, X_n]$ is a \intro{$\Nat$-rational polynomial} if it is
+\Rel[X_1, \dots, X_n]$ is an \intro{$\Nat$-rational polynomial} if it is
 \kl{represented} by a \kl{$\Nat$-polyregular function}. The analogue notion of
 \intro{$\Rel$-rational polynomials} is not of particular interest, since every
 polynomial $P$ is \kl{represented} by a \kl{$\Rel$-polyregular function}.
@@ -177,7 +189,7 @@ polynomial $P$ is \kl{represented} by a \kl{$\Rel$-polyregular function}.
     \label{negative-not-nrat:ex}
     The polynomials $X$, and $X^2 + 3$ are \kl{$\Nat$-rational polynomials},
     but $- X$ is a \kl{$\Rel$-rational polynomial} that is 
-    not a \kl{$\Nat$-rational polynomial}.
+    not an \kl{$\Nat$-rational polynomial}.
 \end{example}
 
 \AP A polynomial $P \in \Rel[X_1, \dots, X_k]$ is \intro{non-negative} when for
@@ -196,7 +208,7 @@ $\NRat$ recalled hereafter.
 
 \begin{fact}
     \label{pre-image-regular:fact}
-    The pre-image of a regular language by a \kl{$\Nat$-rational series}
+    The pre-image of a regular language by an \kl{$\Nat$-rational series}
     is a regular language. 
 \end{fact}
 
@@ -204,7 +216,7 @@ $\NRat$ recalled hereafter.
     Let $P(X, Y) \defined (X - Y)^2$.
     Then $P$ is
     is \kl{non-negative}, but is
-    not a \kl{$\Nat$-rational polynomial}.
+    not an \kl{$\Nat$-rational polynomial}.
 \end{example}
 \begin{proof}
     Assume by contradiction that

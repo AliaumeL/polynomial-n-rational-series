@@ -17,104 +17,168 @@ aperiodic, thanks to the characterizations in terms of minimal automaton and/or
 syntactic monoid.
 
 \AP There have been recurrent attempts to generalize the notions of regularity
-from languages to functions, leading to classes of various expressiveness (for
-instance, sequential, rational, regular, and \kl{polyregular functions})
-\cite{ELME65,AHUL69,EILE74,ENMA02}. In this paper, we will focus on
-\intro{polyregular functions} ($\intro*\Poly$), that shares with regular
-languages its characterizations in terms of logic (via $\MSO$ interpretations),
-automata (via pebble automata), and adds new bridges with programming languages
-via its relationships with lambda-terms and so-called for-transducers
-\cite{BOKL19}. As for regular languages, the class $\intro*\SF$ of
-\intro{star-free polyregular function} can equivalently be introduced in terms
-of first-order definability, counter-free pebble transducers, and suitable
-restrictions of for-tranducers.
+from languages to functions, leading to classes of various expressiveness:
+Mealy Machines ($\intro*\Mealy$) \cite{MEAL55}, sequential functions
+($\intro*\Sequential$) \cite{SCHU77}, rational functions ($\intro*\Rational$)
+\cite{EILE74}, regular functions ($\intro*\Regular$) \cite{ENMA02},
+and polyregular functions ($\intro*\Poly$) \cite{BOKL19}. For all of these
+models, an \emph{aperiodic} counterpart can be defined (respectively,
+$\intro*\AMealy$, $\intro*\ASequential$, $\intro*\ARational$,
+$\intro*\ARegular$, $\intro*\SF$), lifting the correspondence between
+counter-free automata, star-free languages and aperiodic monoids to the
+functional setting \cite{FKT14,BOJA14,CADA15,BOKL19}. The inclusions between
+these classes of functions are all known to be strict, and we depicted in
+\cref{computational-models:fig} the status of the \emph{membership problem}
+associated to these strict inclusions (that is, given a function $f$, decide if
+$f$ can be computed by a function of a proper subclass). Note that in
+\cref{computational-models:fig}, if $\mathsf{B}$ is a proper subclass of
+$\mathsf{C}$, then the \emph{aperiodic} variant of $\mathsf{B}$ is precisely
+the intersection of $\mathsf{B}$ with the \emph{aperiodic} variant of the
+larger class $\mathsf{C}$. As an example, to conclude that a function can be
+computed by an \emph{aperiodic sequential function} ($\ASequential$) it is
+enough to prove that it is sequential ($\Sequential$), and computed by an
+aperiodic polyregular function ($\SF$).
 
-\AP
-Classical problems, including the decidability of aperiodicity, become
-difficult in the case of \kl{polyregular functions}, due to the lack of
-canonical objects akin to the syntactic monoid or the minimal automaton. For
-sequential functions (that admit a canonical object), aperiodicity is decidable
-\cite{CHOF03}, and more recently, aperiodicity has been proven decidable
-for rational functions \cite{FGL16,FGLM18}. The
-problem remains open for regular functions, although it has been proven
-decidable when changing the semantics of function equality to account for the
-\emph{origins} in the output \cite{BOJA14}. To construct subclasses of
-\kl{polyregular function}, an interesting parameter is the \intro{growth rate}
-of a function $f$, which is given by a number $k \in \Nat$, which can be used
-to create a strict hierarchy inside $\Poly$. All functions in $\Poly$ have
-\intro{polynomial growth}, and we can write $\Poly[k]$ for the \kl{polyregular
-functions} of \kl{growth rate} $k$. It has been shown that the parameter $k$
-controls the maximal complexity of the $\MSO$ interpretation needed to
-represent the function \cite{BOJA22}.
+\AP To approach the \emph{aperiodicity} membership problems the traditional
+approach has been to develop so-called canonical objects, akin to the minimal
+automaton or the syntactic monoid of regular languages, over which aperiodicity
+is equivalent to a simple syntactic criterion (e.g. having no counters). This
+is the proof scheme that has been implemented for sequential functions
+\cite{CHOF03}, and more recently for rational functions \cite{FGL18}.
+Unfortunately, such a canonical object remains to be defined for regular and
+polyregular functions.
 
-\AP
-Another way to approach the problem of deciding if a \kl{polyregular function}
-is \kl{star-free}, is to not restrict the computational power (via the
-\kl{growth rate}), nor change the semantics (by adding origins), but consider
-restrictions of the output alphabet. In particular, there have been successful
-results proven on \emph{unary polyregular functions}, also known as
-\kl{$\Nat$-polyregular functions} ($\intro*\NPoly$)
-\cite{DOUE21,DOUE22}. For instance, the \kl{growth
-rate} $k$ of a function $f \in \NPoly$ provides the minimal number of pebbles
-needed to compute $f$ \cite{DOUE21}, which does not hold on $\Poly$
-\cite{BOJA22,KLEP23}. Let us remark that the restriction to
-\emph{unary output} in the case of \kl{polyregular functions} can be lifted to
-outputs in the free commuative semigroup generated by a finite alphabet
-$\Gamma$. In this sense, the shift to \emph{unary output} is really about
-enforcing commutativity on the output.
+\begin{figure}
+    \centering
+    \begin{tikzpicture}[
+        xscale=1.2,
+        decidable/.style={
+            ->, thick, color=black
+        },
+        unknown/.style={
+            ->, dashed, color=gray
+        }
+        ]
+        % Create nodes for the classes and their aperiodic variants
+        % Mealy / sequential / rational / regular / polyregular
+        \node (mealy)  at (0, 2) {$\Mealy$};
+        \node (seq)    at (2, 2) {$\Sequential$};
+        \node (rat)    at (4, 2) {$\Rational$};
+        \node (reg)    at (6, 2) {$\Regular$};
+        \node (poly)   at (8, 2) {$\Poly$};
+        % Aperiodic variants
+        \node (amealy) at (0,0) {$\AMealy$};
+        \node (aseq)   at (2,0) {$\ASequential$};
+        \node (arat)   at (4,0) {$\ARational$};
+        \node (areg)   at (6,0) {$\ARegular$};
+        \node (apoly)  at (8,0) {$\SF$};
+        % Arrows
+        % The decidability is known for inclusions
+        % mealy -> sequential -> rational -> regular -> polyregular
+        % similarly for the aperiodic variants
+        \draw[decidable] (mealy) --
+            node[midway, above] {folklore}
+            (seq);
+        \draw[decidable] (seq)   -- 
+            node[midway, above] {\cite{CHOF03}}
+            (rat);
+        \draw[decidable] (rat)   -- 
+            node[midway, above] {\cite{FGRS13,BGMP15}}
+            (reg);
+        \draw[decidable] (reg)   -- 
+            node[midway, above] {\cite{BOKL19}}
+            (poly);
+        \draw[decidable] (amealy) --
+            (aseq);
+        \draw[decidable] (aseq) --
+            (arat);
+        \draw[decidable] (arat) --
+            (areg);
+        \draw[decidable] (areg) --
+            (apoly);
+        % Decidability of the aperidoic variants are known
+        % for mealy, sequential, rational but not for regular nor polyregular.
+        % we draw the arrows
+        \draw[decidable] (amealy) --
+            node[midway, left] {\cite{SCHU65,MNPA71}}
+            (mealy);
+        \draw[decidable] (aseq) -- 
+            node[midway, left] {\cite{CHOF03}}
+            (seq);
+        \draw[decidable] (arat) -- 
+            node[midway, left] {\cite{FGL16,FGLM18}}
+            (rat);
+        \draw[unknown] (areg) --
+            node[midway, left] {$\simeq$\cite{BOJA14}}
+            (reg);
+        \draw[unknown] (apoly) --
+            node[midway, left] {?}
+            (poly);
+    \end{tikzpicture}
+    \caption{
+        In this picture, arrows denote strict inclusions. Plain
+        arrows signify that the corresponding membership problem is decidable,
+        while dashed arrows signify that the corresponding membership problem
+        is conjectured to be decidable. In the case of \kl{regular functions}
+        ($\Regular$),
+        the decidability has only been obtained under a different notion
+        of equivalence of functions \cite{BOJA14}.
+    }
+    \label{computational-models:fig}
+\end{figure}
 
-\AP
-Recently, aperiodicity has been shown decidable over a restricted class of
-\kl{polyregular functions} where the ouptut belongs to $\Rel$ instead of
-$\Nat$, that are called \kl{$\Rel$-polyregular functions} ($\intro*\ZPoly$)
-\cite{CDTL23}. These functions generalize \kl{$\Nat$-polyregular functions}
-by allowing negative outputs, and therefore enabling a limited form of
-backtracking. As for the unary outputs, these results generalize to
-\kl{polyregular functions} having outputs in the free commutative \emph{group}
-generated by a finite alphabet $\Gamma$. The decidability of aperiodicity for
-\kl{$\Rel$-polyregular functions} relies on the construction of a canonical
-object called the \emph{residual transducer}, the latter being essentially
-based on differences between functions, crucially leveraging negative outputs
-(i.e., the presence of inverse elements). Although the proof method does not carry
-from $\Rel$-output functions to $\Nat$-output functions, it was conjectured
-that the semantic characterization of \kl{star-free $\Rel$-polyregular
-functions} ($\intro*\ZSF$) would continue to characterize \kl{star-free
-$\Nat$-polyregular functions} ($\intro*\NSF$). 
 
-\begin{conjecture}[{\cite[Conjecture 7.61]{DOUE23}}]
-    \label{zsf-nsf:conjecture}
-    Let $k \in \Nat$.
-    A function $f \in \NPoly[k]$
-    belongs to $\NSF[k]$ if and only if
-    it is \kl{ultimately polynomial} (defined page \kpageref{ultimately polynomial}).
-    In particular,
-    $\NSF[k] = \ZSF[k] \cap \NPoly$.
-\end{conjecture}
+\AP In order to approach the decidability of decision problems on
+\kl{polyregular functions}, restricting the output alphabet to a single letter
+has proven to be a fruitful approach \cite{DOUE21,DOUE22}. The key advantage of
+single-letter output alphabets is that the particular order in which letters
+are produced by the machine is irrelevant. This allows to obtain results that
+would otherwise fail because of this ordering, such as the so-called
+\emph{pebble minimization theorem} of \cite{DOUE21}, which fails in the general
+case \cite{BOJA22,KLEP23}. Let us remark that the restriction to \emph{unary
+output} in the case of \kl{polyregular functions} can often be lifted to
+outputs in the free commutative semigroup generated by a finite alphabet
+$\Gamma$. In this sense, the shift to \emph{single letter output alphabet} is
+really about enforcing commutativity on the output. However, even with the
+restriction to single letter output alphabets, the decidability of
+\kl{star-free polyregular functions} among \kl{polyregular functions} remains
+an open problem \cite[Conjecture 7.61]{DOUE23}.
 
-\AP
-It is well known that $\NPoly$ (resp. $\ZPoly$) is proper subclass respectively
-of \intro{$\Nat$-rational series} ($\intro*\NRat$) (resp. of \intro{$\Rel$-rational
-series} $\intro*\ZRat$), that have been characterized in terms of \kl{growth rate},
-ambiguity, and a notion of \emph{quantitative} $\MSO$
-\cite{SCHU62,KRRC13}, and therefore can benefit from generic
-theorems obtained on these \cite{BERE10}. However, for these
-larger classes of functions, several competing notions of aperiodicity exist
-\cite{DRGA19,REUT80,CDTL23}, and the
-decidability of the ones that extends $\ZSF$ and $\NSF$ remains open.
-Furthermore, the decidability of $\NRat$ inside $\ZRat$ is also a longstanding
-open problem, that was to the knowledge of the authors, only solved by
-\textcite{KARH77} in the case of \kl{$\Rel$-rational series} that compute
-\emph{polynomials}, with an incorrect proof. Furthermore, decidability of
-$\NPoly$ inside $\ZPoly$ (resp. $\NSF$ inside $\ZSF$) remains an open problem
-\cite[Open question 5.55]{DOUE23}.
+\AP \kl{Polyregular functions} with a single letter output alphabet can be seen
+as having outputs in $\Nat$, and this is why they were introduced respectively
+as \kl{$\Nat$-polyregular functions} ($\intro*\NPoly$) and \kl{star-free
+$\Nat$-polyregular functions} ($\intro*\NSF$) \cite{DOUE21,DOUE22}. From this
+point of view, $\NPoly$ is a subclass of a larger and well-studied class of
+functions called (non-commutative) \intro{rational series}
+\cite{REUT80,BERE88,BERE10}. It has been noticed in \cite{CDTL23} that
+\kl{$\Nat$-polyregular functions} correspond to a natural subclass of
+\kl{$\Nat$-rational series} that was frequently rediscovered in the literature
+\cite{SCHU62,KRRC13}. In \cite{CDTL23}, the authors introduced the class of
+\kl{$\Rel$-polyregular functions} ($\intro*\ZPoly$) that generalize
+\kl{$\Nat$-polyregular functions} by allowing negative outputs. This remains a
+subclass of \kl{rational series}, more precisely, of the class of
+\kl{$\Rel$-rational series} ($\intro*\ZRat$). For this class of functions the
+aperiodic variant $\intro*\ZSF$ has been shown to be decidable \cite{CDTL23}.
+Note however that $\ZPoly$ does not correspond to a restriction of
+\kl{polyregular functions}, because of the extra expressive power introduced by
+the negative outputs \cite{CDTL23}. Furthermore, deciding the membership of
+$\NRat$ inside $\ZRat$ is an open problem
+(see e.g. \cite{KARH77}),
+that remains open even in the
+restricted case of $\NPoly$ and $\ZPoly$ \cite[Open question 5.55]{DOUE23}.
 
-\AP
-We refer the reader to \cref{previously-known-inclusions:fig} to get an
-overview of the different classes of functions appearing in the paper. Arrows
-denote strict inclusions, and effectiveness (both in terms of decidability and
-of effective representation) is represented by thick double arrows. Inclusions
-that are suspected to be effective are represented using a dashed arrow
-together with a question mark.
+\AP It was conjectured that, analogously to classes appearing in
+\cref{computational-models:fig}, the following equation would hold $\NSF =
+\NPoly \cap \ZSF$ \cite[Conjecture 7.61]{DOUE23}. This would imply the
+decidability of aperiodicity for single letter output polyregular functions
+since aperiodicity is decidable for $\ZSF$. We refer the reader to
+\cref{previously-known-inclusions:fig} to get an overview of the different
+classes of functions appearing in the paper. Arrows denote strict inclusions,
+and effectiveness (both in terms of decidability and of effective
+representation) is represented by thick double arrows. Inclusions that are
+suspected to be effective are represented using a dashed arrow together with a
+question mark.
+
 
 
 \begin{figure}
@@ -146,7 +210,7 @@ function} as the class of \kl{$\Rel$-polyregular functions} that are
 property akin to the one \kl{ultimate polynomiality} that characterizes $\ZSF$.
 As a byproduct of our analysis, we provide a counter example to the
 characterization of polynomials computed by \kl{$\Nat$-rational series} given
-by \textcite[Theorem 3.3, page 4; re-introduced as \cref{karh:thm}]{KARH77}.
+by \cite[Theorem 3.3, page 4; re-introduced as \cref{karh:thm}]{KARH77}.
 
 Finally, we make a first step towards understanding the non-commutative case by
 introducing a canonical model of computation for \kl{$\Nat$-polyregular
@@ -174,7 +238,7 @@ $\Rel$-polyregular functions), show that one can decide if a function $f \in
 \ZPoly$ is \kl{commutative} (\cref{decidable-commutative-poly:lemma}), and give
 the basic definitions used on multivariate polynomials. In
 \cref{polynomials:sec}, we focus on \emph{polynomials}, by introducing the
-\cref{karh:thm} of \textcite{KARH77}, providing a counter-example in
+\cref{karh:thm} of \cite{KARH77}, providing a counter-example in
 \cref{thm:counter-example}, and an alternative characterization in
 \cref{corrected-version:thm}. In \cref{beyond-polynomials:sec}, we leverage the
 results over polynomials to decide $\NPoly$ inside $\ZPoly$ in the

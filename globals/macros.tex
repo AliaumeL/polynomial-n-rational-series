@@ -61,6 +61,30 @@
 }
 \makeatother
 
+% Create a proof environment for results in appendix,
+% that take a label of a theorem in the main text, and
+% produce a proof
+% \begin{proof}[Proof of \cref{the-label}]
+% \phantomsection\label{the-label:proof}
+% content
+% \end{proof}
+\NewDocumentEnvironment{proofof}{o}{%
+    \IfValueTF{#1}{%
+        \begin{proof}[Proof of \cref{#1}]
+        \phantomsection\label{#1:proof}
+    }{%
+        \begin{proof}
+    }
+}{%
+    \end{proof}
+}
 
-\NewDocumentCommand{\textcite}{O{} m}{\cite{#2}}
-\NewDocumentCommand{\citeauthor}{O{} m}{\cite{#2}}
+% Refers to the proof of a result
+\NewDocumentCommand{\proofref}{m}{%
+    % if appendices are present, then refer to the appendix
+    % otherwise do nothing.
+    % \hyperref[#1:proof]{Proof of \cref{#1}}
+    \IfRefUndefinedExpandable{#1:proof}{}{%
+        \hfill\hyperref[#1:proof]{(Proof p.\pageref{#1:proof})}
+    }
+}

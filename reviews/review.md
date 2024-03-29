@@ -171,7 +171,9 @@ l. 61: what type of backtracking do you mean?
 
 l. 68: I do not understand what you mean by "would continue to characterize"
 
-l. 70: this entire conjecture is inaccessible as the notions have not been defined or introduced. Also, do not put "defined on page ..." into an important statement like a theorem or a conjecture you are disproving!
+l. 70: this entire conjecture is inaccessible as the notions have not been
+defined or introduced. Also, do not put "defined on page ..." into an important
+statement like a theorem or a conjecture you are disproving!
 
 l. 72: "a" missing
 

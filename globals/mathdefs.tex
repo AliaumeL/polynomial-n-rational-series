@@ -41,7 +41,7 @@
 
 
 % GOOD POLYNOMIALS
-\newcommand{\CoveredPoly}{\kl[\CoveredPoly]{\mathsf{PolyKu}}}
+\newcommand{\CoveredPoly}{\kl[\CoveredPoly]{\mathsf{PolyPos}}}
 \newcommand{\CorrectPoly}{\kl[\CorrectPoly]{\mathsf{PolyRec}}}
 \knowledge{\CoveredPoly}{notion}
 \knowledge{\CorrectPoly}{notion}
@@ -60,6 +60,31 @@
 
 \NewDocumentCommand{\Poly}{O{}}{\kl[\Poly]{\mathsf{Poly}_{#1}}}
 \NewDocumentCommand{\SF}{O{}}{\kl[\SF]{\mathsf{SF}_{#1}}}
+
+% Add commands for Mealy / Sequential / Rational / Regular
+\NewDocumentCommand{\Mealy}{O{}}{\kl[\Mealy]{\mathsf{Mealy}_{#1}}}
+\NewDocumentCommand{\Sequential}{O{}}{\kl[\Sequential]{\mathsf{Seq}_{#1}}}
+\NewDocumentCommand{\Rational}{O{}}{\kl[\Rational]{\mathsf{Rat}_{#1}}}
+\NewDocumentCommand{\Regular}{O{}}{\kl[\Regular]{\mathsf{Reg}_{#1}}}
+\knowledge{\Mealy}{notion}
+\knowledge{\Sequential}{notion}
+\knowledge{\Rational}{notion}
+\knowledge{\Regular}{notion}
+
+% Do the same for the aperiodic variants of Mealy, Sequential, Rational and Regular
+\NewDocumentCommand{\AMealy}{O{}}{\kl[\AMealy]{\mathsf{AMealy}_{#1}}}
+\NewDocumentCommand{\ASequential}{O{}}{\kl[\ASequential]{\mathsf{ASeq}_{#1}}}
+\NewDocumentCommand{\ARational}{O{}}{\kl[\ARational]{\mathsf{ARat}_{#1}}}
+\NewDocumentCommand{\ARegular}{O{}}{\kl[\ARegular]{\mathsf{AReg}_{#1}}}
+\knowledge{\AMealy}{notion}
+\knowledge{\ASequential}{notion}
+\knowledge{\ARational}{notion}
+\knowledge{\ARegular}{notion}
+
+
+
+
+
 \NewDocumentCommand{\NPoly}{O{}}{\kl[\NPoly]{\mathbb{N}\mathsf{Poly}_{#1}}}
 \NewDocumentCommand{\ZPoly}{O{}}{\kl[\ZPoly]{\mathbb{Z}\mathsf{Poly}_{#1}}}
 \NewDocumentCommand{\NSF}{O{}}{\kl[\NSF]{\mathbb{N}\mathsf{SF}_{#1}}}
