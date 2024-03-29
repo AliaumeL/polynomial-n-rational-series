@@ -76,25 +76,8 @@ and is similar in shape to the \emph{finite counting automata} introduced by
     \label{size-of-word-nsf:ex}
     The map $f \colon w \mapsto \card{w} + 1$
     belongs to $\NSF$.
+    \proofref{size-of-word-nsf:ex}
 \end{example}
-\begin{proof}
-    Let us define $M \defined (\set{1}, \times)$ which is 
-    a finite \kl{aperiodic monoid}, $\mu \colon \Sigma^* \to M$
-    defined by $\mu(w) \defined 1$, and
-    $\pi \colon M^2 \to \Nat$
-    that is the constant function equal to $1$.
-    We check that for all $w \in \Sigma^*$:
-    \begin{equation*}
-        \pi^\dagger(w)
-        =
-        \sum_{uv = w} 1
-        =
-        \card{w} + 1
-        = f(w)
-        \quad . 
-        \qedhere
-    \end{equation*}
-\end{proof}
 
 \AP The \intro{growth rate} of a function $f \colon \Sigma^* \to \Rel$ is
 defined as the minimal $k$ such that $\card{f(w)} =
@@ -141,8 +124,7 @@ multiplication with elements $s \in \mathbb{S}$.
     \end{enumerate}
 \end{lemma}
 
-Similar characterizations can be obtained for $\NSF$ and $\ZSF$, which correctly
-generalizes aperiodicity to functions as \cref{regular-language:ex} illustrates.
+
 
 \begin{lemma}
     Let $f \in \NPoly$ (resp. $f \in \ZPoly$), then
@@ -160,22 +142,23 @@ generalizes aperiodicity to functions as \cref{regular-language:ex} illustrates.
     \end{enumerate}
 \end{lemma}
 
-\begin{example}
-    \label{regular-language:ex}
-    Let $\Sigma$ be a finite alphabet, and
-    $L \subseteq \Sigma^*$. Then,
-    $L$ is a regular language if and only if
-    $\ind{L} \colon \Sigma^* \to \set{0,1}$ is a
-    \kl{$\Nat$-polyregular function}.
-    Furthermore, $L$ is a star-free regular language
-    if and only if $\ind{L}$ is a
-    \kl{star-free $\Nat$-polyregular function}.
-\end{example}
-
-It has been proven in \cite{CDTL23,BOJA22} that the classes $\ZPoly[k]$ (resp.
-$\NPoly[k]$, $\ZSF[k]$, $\NSF[k]$) are also characterized by the maximal number
-of first order free variables used to construct the function as in
-\cref{npoly-counting-mso:item} of \cref{polynomial-rational-polyreg:fact}.
+%Similar characterizations can be obtained for $\NSF$ and $\ZSF$, which correctly
+%generalizes aperiodicity to functions as \cref{regular-language:ex} illustrates.
+%\begin{example}
+%    \label{regular-language:ex}
+%    Let $\Sigma$ be a finite alphabet, and
+%    $L \subseteq \Sigma^*$. Then,
+%    $L$ is a regular language if and only if
+%    $\ind{L} \colon \Sigma^* \to \set{0,1}$ is a
+%    \kl{$\Nat$-polyregular function}.
+%    Furthermore, $L$ is a star-free regular language
+%    if and only if $\ind{L}$ is a
+%    \kl{star-free $\Nat$-polyregular function}.
+%\end{example}
+%It has been proven in \cite{CDTL23,BOJA22} that the classes $\ZPoly[k]$ (resp.
+%$\NPoly[k]$, $\ZSF[k]$, $\NSF[k]$) are also characterized by the maximal number
+%of first order free variables used to construct the function as in
+%\cref{npoly-counting-mso:item} of \cref{polynomial-rational-polyreg:fact}.
 
 Let us briefly state that \kl{commutativity} is a decidable property of
 \kl{$\Rel$-rational series}. The proof is straightforward in the case of
@@ -202,6 +185,7 @@ polynomial $P$ is \kl{represented} by a \kl{$\Rel$-polyregular function}.
     The polynomials $X$, and $X^2 + 3$ are \kl{$\Nat$-rational polynomials},
     but $- X$ is a \kl{$\Rel$-rational polynomial} that is 
     not an \kl{$\Nat$-rational polynomial}.
+    \proofref{negative-not-nrat:ex}
 \end{example}
 
 \AP A polynomial $P \in \Rel[X_1, \dots, X_k]$ is \intro{non-negative} when for

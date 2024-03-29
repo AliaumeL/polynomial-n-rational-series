@@ -23,9 +23,8 @@ every infinite sequence is \reintro{good} is said to be \intro{well}
 
 As a model of computation, we will use the following definition of transducers,
 that is based on the marble transducers \cite{EHB99}, and follows the general
-pattern of transducers introduced in \cite{CDTL23}. Note that we only
-consider $\Nat$-valued functions, but could consider other commutative
-semigroups.
+pattern of transducers introduced in \cite{CDTL23}. Note that we only consider
+$\Nat$-valued functions, but could consider other commutative semigroups.
 
 \begin{definition}
     Let $\mathcal{H}$ be a family of functions
@@ -42,11 +41,6 @@ semigroups.
         \item $F \colon Q \to \Nat$ is an output function.
     \end{itemize}
 \end{definition}
-
-Given the syntax of an \kl{$\mathcal{H}$-transducer}, let us now 
-introduce its semantics, which is given by a simple recursion
-scheme. Intuitively, the function computed by a transducer is
-
 
 \begin{definition}
     Let $\aTransd \defined (Q,q_0, \delta, \lambda, F)$ be an \kl{$\mathcal{H}$-transducer}.
@@ -140,13 +134,11 @@ of their underlying automata.
 \begin{lemma}[{\cite[Theorems 5.15 and 7.10]{DOUE23}}]
     \label{transducer-nsf-npoly:lemma}
     Let $f \colon \Sigma^* \to \Nat$, and let $k \in \Nat$.
-    The following are equivalent:
-    \begin{itemize}
-        \item $f \in \NPoly[k]$ (respectively $\NSF[k]$),
-        \item $f$ is \kl{computed} by an \kl{$\NPoly[k-1]$-transducer}
-            (respectively by an \kl{$\NSF[k-1]$-transducer} that is 
-            \kl{counter-free}).
-    \end{itemize}
+    Then, 
+    $f \in \NPoly[k]$ (respectively $\NSF[k]$) if and only if
+    $f$ is \kl{computed} by an \kl{$\NPoly[k-1]$-transducer}
+        (respectively by an \kl{$\NSF[k-1]$-transducer} that is 
+        \kl{counter-free}).
 \end{lemma}
 
 \AP The core concept of this section is that of a \intro{residual} of a
@@ -321,3 +313,59 @@ increasing in every direction.
     Finally, because a \kl{$k$-residual transducer} is a \kl{$\NPoly[k-1]$-transducer},
     \cref{n-poly-residual:item} implies \cref{n-poly-1-transd:item}.
 \end{proof}
+
+\AP
+We can prove that for functions in $\NPoly[0]$, aperiodicity is equivalent to
+the absence of counters in the \kl{residual transducer} of the function (see
+\cref{aperiodic-iff-residual:lem}), however this result does not generalize to
+higher growth rates, as witnessed by \cref{non-aperiodic-residual-transd:ex}.
+In the example, no \kl{$\NPoly[0]$-transducer} with the minimal number of
+states computing the function is \kl{counter-free}, which suggests that a more
+sophisticated object is needed to observe aperiodicity. In the spirit of the
+characterization of $\NPoly$ based the $(\resleq{f}{k})$ quasi-ordering
+(\cref{non-commutative-npoly:thm}), we introduce the notion of \intro{aperiodic
+ordering} of $\Sigma^*$ as follows: $(\Sigma^*, \leq)$ is \reintro[aperiodic
+ordering]{aperiodic} whenever for all $u, w \in \Sigma^*$, there exists $N_0
+\in \Nat$, such that the sequence $\seqof{uw^n}{n \geq N_0}$ is increasing.
+This leads to the following \cref{sf-no-periods-on-sequences:conj}, of which
+the easy implication is already known to hold
+(\cref{sf-no-periods-on-sequences:lemma}), and requires the introduction of the
+\emph{star-free variant} $(\intro*\resleqsf{f}{k})$ of $(\resleq{f}{k})$,
+defined by $u \reintro*\resleqsf{f}{k} v$ whenever $(\app{f}{v} - \app{f}{u})
+\in \NSF[k-1]$.
+
+\begin{lemma}
+    \label{aperiodic-iff-residual:lem}
+    Let $f \in \NPoly[0]$. Then,
+    $f \in \NSF$ if and only if 
+    $f \in \ZSF$, if and only if
+    $f$ is \kl{ultimately polynomial}, if and only if 
+    the \kl{$0$-residual transducer} of $f$ is \kl{counter-free}.
+\end{lemma}
+
+\begin{example}
+    \label{non-aperiodic-residual-transd:ex}
+    Let us define
+    $\BadExKo(\varepsilon) = 1$,
+    $\BadExKo(a) = 0$,
+    $\BadExKo(a^2) = 1$,
+    and $\BadExKo(a^n) = n - 3$ for all $n \geq 3$.
+    The \kl{$0$-residual transducer} of $\BadExKo$ has a \kl{counter} and two states.
+    Furthermore,
+    every \kl{$\NPoly[0]$-transducer} with two states contains a \kl{counter}.
+\end{example}
+
+
+\begin{lemma}
+    \label{sf-no-periods-on-sequences:lemma}
+    Let $k \in \Nat$, and $f \in \SF[k]$. Then,
+    $(\Sigma^*, \resleqsf{f}{k})$ is an
+    \kl[aperiodic ordering]{aperiodic} \kl{well-quasi-ordering}.
+\end{lemma}
+
+\begin{conjecture}
+    \label{sf-no-periods-on-sequences:conj}
+    For all $k \in \Nat$ and $f \colon \Sigma^* \to \Rel$,
+    $f \in \NSF[k]$ if and only if $(\Sigma^*, \resleqsf{f}{k})$ is an \kl[aperiodic ordering]{aperiodic}
+    \kl{well-quasi-ordering}.
+\end{conjecture}

@@ -127,45 +127,32 @@ functions by the means of polynomial behaviors (see
     $\ind{L}$ is \kl{ultimately polynomial}.
 \end{example}
 
-\AP
-The decidability of aperiodicity for
-\kl{$\Rel$-polyregular functions} relies on the construction of a canonical
-object called the \emph{residual transducer}, the latter being essentially
-based on differences between functions, crucially leveraging negative outputs
-(i.e., the presence of inverse elements). Although the proof method does not carry
-from $\Rel$-output functions to $\Nat$-output functions, it was conjectured
-that the semantic property of being \kl{ultimately polynomial}
-would also characterize $\NSF$ inside $\NPoly$, a conjecture that
-is restated hereafter.
+\AP The decidability of aperiodicity for \kl{$\Rel$-polyregular functions}
+relies on the construction of a canonical object called the \emph{residual
+transducer}, the latter being essentially based on differences between
+functions, crucially leveraging negative outputs \cite{CDTL23}. Although the
+proof method does not carry from $\Rel$-output functions to $\Nat$-output
+functions, it was conjectured that the semantic property of being
+\kl{ultimately polynomial} would also characterize $\NSF$ inside $\NPoly$, a
+conjecture that is restated hereafter.
 
 \begin{conjecture}[{\cite[Conjecture 7.61]{DOUE23}}]
     \label{zsf-nsf:conjecture}
     Let $k \in \Nat$.
     A function $f \in \NPoly[k]$
     belongs to $\NSF[k]$ if and only if
-    it is \kl{ultimately polynomial} (defined page \kpageref{ultimately polynomial}).
+    it is \kl{ultimately polynomial}.
     In particular,
     $\NSF[k] = \ZSF[k] \cap \NPoly$.
 \end{conjecture}
 
-\AP
-It is well known that $\NPoly$ (resp. $\ZPoly$) is proper subclass respectively
-of \intro{$\Nat$-rational series} ($\intro*\NRat$) (resp. of \intro{$\Rel$-rational
-series} $\intro*\ZRat$), that have been characterized in terms of \kl{growth rate},
-ambiguity, and a notion of \emph{quantitative} $\MSO$
-\cite{SCHU62,KRRC13}, and therefore can benefit from generic
-theorems obtained on these \cite{BERE10}. However, for these
-larger classes of functions, several competing notions of aperiodicity exist
-\cite{DRGA19,REUT80,CDTL23}, and the
-decidability of the ones that extends $\ZSF$ and $\NSF$ remains open.
-Furthermore, the decidability of $\NRat$ inside $\ZRat$ is also a longstanding
-open problem, that was to the knowledge of the authors, only solved by
-\cite{KARH77} in the case of \kl{$\Rel$-rational series} that compute
-\emph{polynomials}, with an incorrect proof. Furthermore, decidability of
-$\NPoly$ inside $\ZPoly$ (resp. $\NSF$ inside $\ZSF$) remains an open problem
-\cite[Open question 5.55]{DOUE23}.
-
-
+We answer positively to \cref{zsf-nsf:conjecture} in the commutative case, by
+leveraging the semantic characterizations respectively of $\ZSF$ inside
+$\ZPoly$ (\kl{ultimately polynomial}) and $\NPoly$ inside $\ZPoly$
+(\kl{$(k,\Nat)$-combinatorial}), which is possible thanks to the decomposition
+obtained in \cref{decompose-polynomial:lem}. Decidability then follows
+immediately from the effective conversions, and the previous decidability
+result for $\ZSF$.
 
 \begin{theorem}
     \label{zsf-npoly-nsf:thm}

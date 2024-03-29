@@ -3,98 +3,33 @@
 \section{Outlook}
 \label{sec:ccl}
 
-
-In the commutative case, the conjectured semantic characterizations of $\NSF$
-and $\NPoly$ have been proven to hold. Furthermore, the existence of a
-canonical transducer computing functions in $\NPoly$ opens the door to several
-questions with respect to aperiodicity. We can prove that for functions in
-$\NPoly[0]$, aperiodicity is equivalent to the absence of counters in the
-\kl{residual transducer} of the function (see
-\cref{aperiodic-iff-residual:lem}), however this result does not generalize to
-higher growth rates, as witnessed by \cref{non-aperiodic-residual-transd:ex}.
-In the example, no \kl{$\NPoly[0]$-transducer} with the minimal number
-of states computing the function is \kl{counter-free}, which suggests that a
-more sophisticated object is needed to observe aperiodicity.
-
-\begin{lemma}
-    \label{aperiodic-iff-residual:lem}
-    Let $f \in \NPoly[0]$, the following are equivalent:
-    \begin{enumerate}
-        \item $f \in \NSF$,
-        \item $f \in \ZSF$,
-        \item $f$ is \kl{ultimately polynomial},
-        \item The \kl{$0$-residual transducer} of $f$ is \kl{counter-free}.
-    \end{enumerate}
-\end{lemma}
-
-\begin{example}
-    \label{non-aperiodic-residual-transd:ex}
-    Let us define
-    $\BadExKo(\varepsilon) = 1$,
-    $\BadExKo(a) = 0$,
-    $\BadExKo(a^2) = 1$,
-    and $\BadExKo(a^n) = n - 3$ for all $n \geq 3$.
-    The \kl{$0$-residual transducer} of $\BadExKo$ has a \kl{counter} and two states.
-    Furthermore,
-    every \kl{$\NPoly[0]$-transducer} with two states contains a \kl{counter}.
-\end{example}
-
-\AP In the spirit of the characterization of $\NPoly$ based the
-$(\resleq{f}{k})$ quasi-ordering (\cref{non-commutative-npoly:thm}), we
-introduce the notion of \intro{aperiodic ordering} of $\Sigma^*$ as follows:
-$(\Sigma^*, \leq)$ is \reintro[aperiodic ordering]{aperiodic} whenever for all
-$u, w \in \Sigma^*$, there exists $N_0 \in \Nat$, such that the sequence
-$\seqof{uw^n}{n \geq N_0}$ is increasing. This leads to the following
-\cref{sf-no-periods-on-sequences:conj}, of which the easy implication is
-already known to hold (\cref{sf-no-periods-on-sequences:lemma}), and requires
-the introduction of the \emph{star-free variant} $(\intro*\resleqsf{f}{k})$ of
-$(\resleq{f}{k})$, defined by $u \reintro*\resleqsf{f}{k} v$ whenever $(\app{f}{v} - \app{f}{u}) \in
-\NSF[k-1]$.
-
-\begin{lemma}
-    \label{sf-no-periods-on-sequences:lemma}
-    Let $k \in \Nat$, and $f \in \SF[k]$. Then,
-    $(\Sigma^*, \resleqsf{f}{k})$ is an
-    \kl[aperiodic ordering]{aperiodic} \kl{well-quasi-ordering}.
-\end{lemma}
-
-\begin{conjecture}
-    \label{sf-no-periods-on-sequences:conj}
-    For all $k \in \Nat$ and $f \colon \Sigma^* \to \Rel$,
-    $f \in \NSF[k]$ if and only if $(\Sigma^*, \resleqsf{f}{k})$ is an \kl[aperiodic ordering]{aperiodic}
-    \kl{well-quasi-ordering}.
-\end{conjecture}
-
-
-
 Let us conclude with a more general remark on the status of commutative input
-in the study of polyregular functions. Notice that semantic characterizations
-of subclasses of \kl{polyregular functions} (\kl{combinatorial}, \kl{ultimately
+in the study of unary output polyregular functions. Notice that all semantic
+characterizations of subclasses of $\ZPoly$ (\kl{combinatorial}, \kl{ultimately
 polynomial}, pumpable) arise from pre-composition with a \kl{commutative}
 \kl{star-free polyregular function}, as formally stated in
-\cref{pre-compose-growth-commut:lemma,pre-compose-sf-commut:lemma}.
-Generalizing this idea, we conjecture that an effective encoding of $\ZPoly$ in
-terms of commutative functions could be obtained, as stated in
-\cref{z-poly-commutative-encoding:conj}, playing the same role as the
-decomposition obtained in \cref{decompose-polynomial:lem} in the
-\kl{commutative} case.
+\cref{pre-compose-growth-commut:lemma,pre-compose-sf-commut:lemma}. Following
+this idea, we conjecture that $\ZPoly$ and $\NPoly$ can be described as
+combinations of commutative functions, leading to
+\cref{z-poly-commutative-encoding:conj}. This conjecture would play the role of
+\cref{decompose-polynomial:lem} in the study of functions in $\ZPoly$.
 
-\begin{remark}
+\begin{lemma}
     \label{pre-compose-growth-commut:lemma}
     Let $f \in \ZRat$, and $k \in \Nat$. Then,
     $f \in \ZPoly[k]$ if and only if 
     for every \kl{commutative} \kl{star-free polyregular function} $h$
             of \kl{growth rate} $l \in \Nat$,
             $(f \circ h) \in \ZPoly[k+l-1]$.
-\end{remark}
+\end{lemma}
 
 
-\begin{remark}
+\begin{lemma}
     \label{pre-compose-sf-commut:lemma}
     Let $f \in \ZPoly$. Then, $f \in \ZSF$,
     if and only if for every \kl{commutative} \kl{star-free polyregular function} $h$,
             $(f \circ h) \in \ZSF$.
-\end{remark}
+\end{lemma}
 
 \begin{conjecture}
     \label{z-poly-commutative-encoding:conj}
@@ -119,14 +54,11 @@ because they essentially behave as commutative functions \cite[Theorem
 6.12]{DOUE23}. Indeed, a suitable application of Parikh's Theorem
 \cite{PARI66} guarantees the existence of the functions $\mathsf{enc}$
 and $\mathsf{dec}$, although they may fail to be  \kl{polyregular functions}.
-Although \cref{z-poly-commutative-encoding:remark} is not yet applicable in
-practice, we consider this partial result as a strong indicator in favor of the
-conjecture.
 
-\begin{remark}
+\begin{lemma}
     \label{z-poly-commutative-encoding:remark}
     The \cref{z-poly-commutative-encoding:conj} holds for the
     subclass of polyblind functions when dropping the assumption that
     $\mathsf{enc}$ and $\mathsf{dec}$ are \kl{polyregular functions}
     (resp. \kl{star-free polyregular functions}).
-\end{remark}
+\end{lemma}

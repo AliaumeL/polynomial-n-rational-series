@@ -3,13 +3,13 @@
 \subsection{The Corrected Theorem}
 \label{sec:proof}
 
+\AP
 The counter example provided by \cref{def:bad-polynomial} relies on the fact
 that $\CoveredPoly$ is not stable under fixing indeterminates, while
 \kl{$\Nat$-polyregular functions} are. In this section, we prove that closing
 $\CorrectPoly$ under assignments of variable is enough to recover from
 \cref{karh:thm}.
-
-\AP We use the following notation to fix the value of some indeterminate, if
+We use the following notation to fix the value of some indeterminate, if
 $P(X,Y)$ is a polynomial in $\Rel[X,Y]$, then $\intro*\restr{P(X,Y)}{X = 1}$ is
 the polynomial $P(1,Y) \in \Rel[Y]$. More generally, if $\nu$ is a partial
 function from $\vec{X}$ to $\Nat$, written $\nu \colon \vec{X} \topartial
@@ -43,7 +43,7 @@ $\NPoly$ \cite[Lemma 5.37]{DOUE23}.
 
 \begin{lemma}
     \label{n-poly-combinatorics:lem}
-    Let $f$ be a  \kl{$\Nat$-polyregular} function. 
+    Let $f$ be an \kl{$\Nat$-polyregular} function. 
     There exists a computable $\omega \in \Nat$
     such that for all $p \in \Nat$,
     for all $\alpha_0, \dots, \alpha_p \in \Sigma^*$,
@@ -57,14 +57,16 @@ $\NPoly$ \cite[Lemma 5.37]{DOUE23}.
         \right)
         = P(X_1, \dots, X_p) \quad .
     \end{equation*}
+    \proofref{n-poly-combinatorics:lem}
 \end{lemma}
 
 
 \begin{corollary}
     \label{n-rat-correct:lem}
-    Let $P \in \Rel[X_1, \dots, X_p]$ be \kl{represented}
-    by a \kl{$\Nat$-rational series}. Then,
+    Let $P \in \Rel[X_1, \dots, X_p]$ be an \kl{$\Nat$-rational polynomial}.
+    Then,
     $P \in \CorrectPoly$.
+    \proofref{n-rat-correct:lem}
 \end{corollary}
 
 \AP The core of the upcoming \cref{lem:correct-to-n-rat} leverages a notion of
@@ -150,6 +152,7 @@ extracts \emph{sub-maximal} monomials from a given polynomial.
     $T$ \kl{divides} some \kl{maximal monomial}
     of $\Diff{K}{M}$, which has a coefficient
     that is a multiple of $K$.
+    \proofref{derivation-monomials:fact}
 \end{fact}
 
 \begin{lemma}
@@ -158,6 +161,7 @@ extracts \emph{sub-maximal} monomials from a given polynomial.
     for all $K \in \Nat$,
     $\MaximalMonomials(\Diff{K}{P}) \hoarele
     \MaximalMonomials(P)$.
+    \proofref{derivation-simplifies:lemma}
 \end{lemma}
 
 The following \cref{derivation-stabilises-correct:lem} is the main
@@ -176,6 +180,7 @@ P_1 + \Diff{K}{P_1} + \translate{K}(P_2)$.
     There exists a computable $K$,
     such that
     $Q \defined (\Diff{K}{P_1} + \translate{K}(P_2)) \in \CorrectPoly$.
+    \proofref{derivation-stabilises-correct:lem}
 \end{lemma}
 
 
@@ -267,6 +272,7 @@ needed in this characterization, as \cref{bad-poly-translate:ex} illustrates.
             $\translate{K}(\restr{P}{\nu}) \in \Nat[\vec{X}]$.
     \end{enumerate}
     Furthermore, the membership is decidable.
+    \proofref{derivation-translation:lem}
 \end{lemma}
 
 
@@ -313,30 +319,13 @@ Let us now state, for the sake of completeness, the equality of $\CorrectPoly$
 and $\CoveredPoly$ in the case of two indeterminates. This is relevant because
 it shows that examples given in \cite{KARH77} are actually correct, even though
 based on an invalid result, and it may be the case for other works based on
-\cite{KARH77}.
+\cite{KARH77}. The proof is based the fact that for (non-negative) univariate
+it is enough that the dominant coefficient is non-negative to be an
+\kl{$\Nat$-rational polynomial}.
 
 \begin{lemma}
     \label{lem:correct-covered-2}
     $\CorrectPoly[X,Y] = \CoveredPoly[X,Y]$.
+    \proofref{lem:correct-covered-2}
 \end{lemma}
-\begin{proof}
-    It is clear that $\CorrectPoly[X,Y] \subseteq \CoveredPoly[X,Y]$,
-    by considering the empty valuation $\nu \colon \set{X,Y} \topartial \Nat$.
-    For the converse inclusion, let us consider $P(X,Y)$
-    that is \kl{non-negative}, such that the \kl{maximal monomials}
-    are  \kl{non-negative}.
-   
-
-    If we fix none of the variables, then the \kl{maximal monomials}
-    are \kl{non-negative} by assumption. If we fix one of the
-    variables, we can assume without loss of generality that we 
-    fix $X = k$ for some $k \in \Nat$.
-    Then $P(k,Y)$ is a \kl{non-negative} \emph{univariate} polynomial, 
-    and therefore must have a positive leading coefficient
-    (which is the unique \kl{maximal monomial} in this case)
-    or be constant equal to 0. In both cases, the \kl{maximal monomials}
-    have positive coefficient.
-    The same reasoning applies \emph{a fortiori} in the case where
-    we fix the two indeterminates, leading to a constant polynomial.
-\end{proof}
 

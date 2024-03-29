@@ -13,11 +13,12 @@ polynomials} (\cref{n-poly-n-poly:example}). However,
 that is an \kl{$\Nat$-rational polynomial}. As a consequence, the class of
 interest strictly contains $\Nat[\vec{X}]$.
 
-\begin{remark}
+\begin{lemma}
     \label{n-poly-n-poly:example}
     Let $P \in \Nat[\vec{X}]$. Then, $P$
     is an \kl{$\Nat$-rational polynomial}.
-\end{remark}
+    \proofref{n-poly-n-poly:example}
+\end{lemma}
 
 \begin{example}
     \label{negative-but-npoly:ex}
@@ -42,11 +43,10 @@ $\CoveredPoly[\vec{X}]$ of polynomials with multiple indeterminate.
 \begin{faketheorem}[{\cite[Theorem 3.3, page 4]{KARH77}}] 
     \label{karh:thm}
     Let $\Sigma$ be a finite alphabet
-    and $P$ be a polynomial. The following are equivalent:
-    \begin{enumerate}
-        \item $P$ is an \kl{$\Nat$-rational polynomial},
-        \item $P \in \CoveredPoly$.
-    \end{enumerate}
+    and $P$ be a polynomial. Then,
+    $P$ is an \kl{$\Nat$-rational polynomial}
+    if and only if 
+    $P \in \CoveredPoly$.
 \end{faketheorem}
 
 
