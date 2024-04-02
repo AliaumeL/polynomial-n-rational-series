@@ -1,9 +1,7 @@
 % ! TeX program = xelatex
 % ! TeX root = pnrs.tex
 % ! lang = en-US
-\documentclass[a4paper,UKenglish,autoref,thm-restate]{lipics-v2021}
-\pdfoutput=1
-\hideLIPIcs
+\documentclass[a4,10pt]{article}
 
 % INPUTS
 \input{globals/packages}
@@ -18,6 +16,12 @@
 %\includecomment{forshort}
 %\excludecomment{proof}
 
+\addbibresource{transducer-bib/automata.bib}
+\addbibresource{transducer-bib/model-theory.bib}
+\addbibresource{transducer-bib/sublinear.bib}
+\addbibresource{transducer-bib/rational-series.bib}
+\addbibresource{transducer-bib/polyregular.bib}
+\addbibresource{transducer-bib/wqos.bib}
 
 \crefname{conjecture}{Conjecture}{Conjectures}
 \Crefname{conjecture}{Conjecture}{Conjectures}
@@ -33,7 +37,7 @@
 % FRONT MATTER
 \maketitle
 \makeabstract
-%\acknowledge
+\acknowledge
 
 \input{parts/intro.tex}
 \input{parts/prelim.tex}
@@ -44,13 +48,8 @@
 \input{parts/conclusion.tex}
 
 % BACKMATTER
-\bibliographystyle{plainurl}
-\bibliography{transducer-bib/automata,%
-transducer-bib/model-theory,%
-transducer-bib/sublinear,%
-transducer-bib/rational-series,%
-transducer-bib/polyregular,%
-transducer-bib/wqos}
+
+\printbibliography
 
 \appendix
 
