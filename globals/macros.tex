@@ -75,8 +75,11 @@
     }{%
         \begin{proof}
     }
+    \let\oldqedsymbol\qedsymbol
+    \renewcommand\qedsymbol{\hyperref[#1]{\oldqedsymbol}}
 }{%
     \end{proof}
+    \renewcommand\qedsymbol{\oldqedsymbol}
 }
 
 % Refers to the proof of a result
