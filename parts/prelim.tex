@@ -13,17 +13,17 @@ $w$, and $\card[a]{w}$ be the number of occurrences of $a$ in $w$. We assume
 that the reader is familiar with the basics of automata theory, in particular
 the notions of monoid morphisms, idempotents in monoids, monadic second-order
 ($\MSO$) logic and first-order ($\FO$) logic over finite words (see e.g.
-\cite{THOM97}). Let us recall that a monoid $M$ is \intro(monoid){aperiodic}
-whenever for all $x \in M$, there exists $n \in \Nat$ such that $x^{n+1} =
-x^n$.
+\cite{THOM97}). As aperiodicity will be a central notion of this paper, let us
+recall that a monoid $M$ is \intro(monoid){aperiodic} whenever for all $x \in
+M$, there exists $n \in \Nat$ such that $x^{n+1} = x^n$.
 
-\AP We also assume the reader to be familiar with rational series and weighted
-automata, and refer to \cite{BERE10} for a comprehensive introduction. Let us
-recall that one of the equivalent definitions of a $K$-rational series (where
-$K$ is a ring) is given by weighted automata, which are non-deterministic
-finite automata with transitions labelled by elements of $K$, and whose output
-on a given word is the sum over all accepting paths of the products of the
-weights along the path.
+\AP We also assume the reader to be familiar with \kl{rational series} and
+weighted automata, and refer to \cite{BERE10} for a comprehensive introduction.
+Let us recall that one of the equivalent definitions of a $K$-rational series
+(where $K$ is a ring) is given by the functions from $\Sigma^*$ to $K$ computed
+by weighted automata, which are non-deterministic finite automata with
+transitions labelled by elements of $K$, and whose output on a given word is
+the sum over all accepting paths of the products of the weights along the path.
 
 \AP We use the notation $\commute \colon \Sigma^* \to \Nat^\Sigma$ for the map
 that counts occurrences of every letter in the input word (that is, computes

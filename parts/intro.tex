@@ -20,8 +20,8 @@ syntactic monoid.
 from languages to functions, leading to classes of various expressiveness, such
 as\footnote{This list is far from exhaustive.} Mealy Machines ($\intro*\Mealy$)
 \cite{MEAL55}, sequential functions ($\intro*\Sequential$) \cite{SCHU77},
-rational functions ($\intro*\Rational$) \cite{EILE74}, regular functions
-($\intro*\Regular$) \cite{ENMA02}, and polyregular functions ($\intro*\Poly$)
+rational functions ($\intro*\Rational$) \cite{EILE74}, \intro{regular functions}
+($\intro*\Regular$) \cite{ENMA02}, and \intro{polyregular functions} ($\intro*\Poly$)
 \cite{BOKL19}. For all of these models, an \emph{aperiodic} counterpart can be
 defined (respectively, $\intro*\AMealy$, $\intro*\ASequential$,
 $\intro*\ARational$, $\intro*\ARegular$, $\intro*\SF$), lifting the
@@ -38,7 +38,7 @@ the intersection of $\mathsf{B}$ with the \emph{aperiodic} variant of the
 larger class $\mathsf{C}$. As an example, to conclude that a function can be
 computed by an \emph{aperiodic sequential function} ($\ASequential$) it is
 enough to prove that it is sequential ($\Sequential$), and computed by an
-aperiodic polyregular function ($\SF$).
+\intro{aperiodic polyregular function} ($\SF$).
 
 \AP To approach the \emph{aperiodicity} membership problems the traditional
 approach has been to develop so-called canonical objects, akin to the minimal
@@ -153,17 +153,17 @@ point of view, $\NPoly$ is a subclass of a larger and well-studied class of
 functions called (non-commutative) \intro{rational series}
 \cite{REUT80,BERE88,BERE10}. It has been noticed in \cite{CDTL23} that
 \kl{$\Nat$-polyregular functions} correspond to a natural subclass of
-\kl{$\Nat$-rational series} that was frequently rediscovered in the literature
-\cite{SCHU62,KRRC13}. In \cite{CDTL23}, the authors introduced the class of
-\kl{$\Rel$-polyregular functions} ($\intro*\ZPoly$) that generalize
-\kl{$\Nat$-polyregular functions} by allowing negative outputs. This remains a
-subclass of \kl{rational series}, more precisely, of the class of
-\kl{$\Rel$-rational series} ($\intro*\ZRat$). For this class of functions the
-aperiodic variant $\intro*\ZSF$ has been shown to be decidable \cite{CDTL23}.
-Beware that concurrent (non-equivalent) notions of aperiodicity exists in the
-research area of rational series \cite{REUT80,DRGA19,CDTL23}, and that we only
-refer to the one applying to rational series of polynomial growths introduced
-in \cite{CDTL23}.
+\intro{$\Nat$-rational series} ($\intro*\NRat$) that was frequently
+rediscovered in the literature \cite{SCHU62,KRRC13}. In \cite{CDTL23}, the
+authors introduced the class of \kl{$\Rel$-polyregular functions}
+($\intro*\ZPoly$) that generalize \kl{$\Nat$-polyregular functions} by allowing
+negative outputs. This remains a subclass of \kl{rational series}, more
+precisely, of the class of \intro{$\Rel$-rational series} ($\intro*\ZRat$). For
+this class of functions the aperiodic variant $\intro*\ZSF$ has been shown to
+be decidable \cite{CDTL23}. Beware that several non-equivalent notions of
+aperiodicity coexist for rational series \cite{REUT80,DRGA19,CDTL23}, and that
+we only refer to the one applying to rational series of polynomial growths
+introduced in \cite{CDTL23}.
 
 \AP This approach through rational series has several limitations. First,
 $\ZPoly$ does not correspond to a restriction of \kl{polyregular functions},
@@ -185,10 +185,10 @@ classes of functions appearing in the paper.
     \caption{
         Decidability and inclusions of classes of functions,
         arranged along two axes. The first one is the complexity
-        of the output alphabet ($\Nat$, $\Rel$, $\Sigma$). The second
+        of the output alphabet ($\Rel$, $\Nat$, $\Sigma$). The second
         one is the allowed computational power
-        (star-free polyregular functions, polyregular functions, 
-        rational series).
+        (\kl{star-free polyregular functions}, \kl{polyregular functions}, 
+        \kl{rational series}).
         Arrows denote strict inclusions,
         and effectiveness (both in terms of decidability and of effective
         representation) is represented by thick double arrows. Inclusions that are
