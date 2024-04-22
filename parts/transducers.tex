@@ -249,26 +249,7 @@ existence of the \kl{$k$-residual transducer}.
     \label{residual:algo}
 \end{algorithm}
 
-\begin{lemma}
-    \label{correct-residual:lemma}
-    If \cref{residual:algo} terminates on 
-    an input $f \colon \Sigma^* \to \Nat$, $k \in \Nat$,
-    then it computes the \kl{$k$-residual transducer} of $f$.
-    \proofref{correct-residual:lemma}
-\end{lemma}
 
-
-
-\begin{lemma}
-    \label{wqo-implies-termination:lemma}
-    Let $f \colon \Sigma^* \to \Nat$, and $k \in \Nat$ be such that
-    every infinite, $\prefleq$-increasing sequence is \kl{good}
-    in $(\Sigma^*, \resleq{f}{k})$
-    (or equivalently, such that the relation $(\prefleq \Rightarrow \resleq{f}{k})$
-    is \kl{well}).
-    Then, \cref{residual:algo} terminates on the input $(f,k)$.
-    \proofref{wqo-implies-termination:lemma}
-\end{lemma}
 
 The following \cref{n-poly-k-implies-wqo:lemma} is the core argument of the
 section, and states that for a function $f \in \NPoly[k]$, not only $(\prefleq
@@ -276,13 +257,6 @@ section, and states that for a function $f \in \NPoly[k]$, not only $(\prefleq
 \kl{well-quasi-ordering}. This has to be compared with the property of being
 \kl{$(k,\Nat)$-combinatorial}, which states that ultimately, the function is
 increasing in every direction.
-
-\begin{lemma}
-    \label{n-poly-k-implies-wqo:lemma}
-    Let $k \in \Nat$, and let $f \in \NPoly[k]$.
-    Then, $(\Sigma^* \resleq{f}{k})$ is a \kl{well-quasi-ordering}.
-    \proofref{n-poly-k-implies-wqo:lemma}
-\end{lemma}
 
 \begin{theorem}
     \label{non-commutative-npoly:thm}
