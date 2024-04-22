@@ -189,6 +189,29 @@
 \end{proofof}
 
 
+As one would expect, the \kl{discrete derivatives} are linear operations on
+polynomials, that commutes with \kl{translation operators}. However, the
+\kl{translation operators} do not perfectly commute with partial applications
+$\restr{\cdot}{\nu}$.
+
+\begin{remark}
+    \label{discrete-deriv-linear:fact}
+    For all tuples $\vec{X}$ of indeterminates,
+    for all $K \in \Nat$, $L \in \Rel$, for all partial functions
+    $\nu \colon \vec{X} \topartial \Nat$:
+    \begin{enumerate}
+        \item The maps $\translate{K} \colon \Rel[\vec{X}] \to \Rel[\vec{X}]$,
+        $\Diff{K}{ \cdot } \colon \Rel[\vec{X}] \to \Rel[\vec{X}]$,
+        and
+        $\restr{\cdot}{\nu} \colon \Rel[\vec{X}] \to \Rel[\vec{X}]$
+            are linear operators,
+        \item $\Diff{K}{ \cdot } \circ \translate{L}
+            = \translate{L} \circ \Diff{K}{\cdot}$,
+        \item $\restr{\cdot}{\nu} \circ \translate{L}
+            = \translate{L} \circ \restr{\cdot}{\translate{L}(\nu)}$.
+    \end{enumerate}
+\end{remark}
+
 \begin{fact}
     \label{maxi-monomials-submodular:fact}
     Let $P, Q$ be two polynomials.
