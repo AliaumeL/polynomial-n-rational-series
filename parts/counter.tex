@@ -2,16 +2,19 @@
 %! lang = en-US
 \section{$\Nat$-rational Polynomials}
 \label{polynomials:sec}
+%\subsection{The counter example}
+\label{sec:c-example}
 
-The goal of this section is to provide semantic characterizations of
-\kl{$\Nat$-rational polynomials}, decide if a polynomial $P$ is an
-\kl{$\Nat$-rational polynomial}, and if so, explicitly compute an
-\kl{$\Nat$-polyregular function} $f$ that \kl{represents} $P$. It is an easy
-check that polynomials with coefficients in $\Nat$ are \kl{$\Nat$-rational
-polynomials} (\cref{n-poly-n-poly:example}). However,
-\cref{negative-but-npoly:ex} provides a polynomial with negative coefficients
-that is an \kl{$\Nat$-rational polynomial}. As a consequence, the class of
-interest strictly contains $\Nat[\vec{X}]$.
+\AP A polynomial $P \in \Rel[X_1, \dots, X_n]$ is an \intro{$\Nat$-rational
+polynomial} if it is \kl{represented} by a \kl{$\Nat$-polyregular function}.
+The analogue notion of \intro{$\Rel$-rational polynomials} is not of particular
+interest, since every polynomial $P$ is \kl{represented} by a
+\kl{$\Rel$-polyregular function}. It is an easy check that polynomials with
+coefficients in $\Nat$ are \kl{$\Nat$-rational polynomials}
+(\cref{n-poly-n-poly:example}). However, \cref{negative-but-npoly:ex} provides
+a polynomial with negative coefficients that is an \kl{$\Nat$-rational
+polynomial}. As a consequence, the class of interest strictly contains
+$\Nat[\vec{X}]$.
 
 \begin{lemma}
     \label{n-poly-n-poly:example}
@@ -21,23 +24,32 @@ interest strictly contains $\Nat[\vec{X}]$.
 \end{lemma}
 
 \begin{example}
+    \label{negative-not-nrat:ex}
     \label{negative-but-npoly:ex}
-    Let $P \defined X^2 -2X + 2$. Then $P$
-    is an \kl{$\Nat$-rational polynomial}.
-    \proofref{negative-but-npoly:ex}
+    The polynomials $X$, $X^2 + 3$,
+    and $X^2 - 2X + 2$
+    are \kl{$\Nat$-rational polynomials},
+    but $- X$ is a \kl{$\Rel$-rational polynomial} that is 
+    not an \kl{$\Nat$-rational polynomial}.
+    \proofref{negative-not-nrat:ex}
 \end{example}
 
-Let us now introduce the characterization of \kl{$\Nat$-rational polynomials}
-given by \cite{KARH77}, which is stated using a class
-$\CoveredPoly[\vec{X}]$ of polynomials with multiple indeterminate.
+
+The goal of this section is to provide semantic characterizations of
+\kl{$\Nat$-rational polynomials}, decide if a polynomial $P$ is an
+\kl{$\Nat$-rational polynomial}, and if so, explicitly compute an
+\kl{$\Nat$-polyregular function} $f$ that \kl{represents} $P$. To that end, let
+us now introduce the characterization of \kl{$\Nat$-rational polynomials} given
+by \cite{KARH77}, which is stated using a class $\CoveredPoly[\vec{X}]$ of
+polynomials with multiple indeterminates.
 
 \begin{definition}[{\cite[Section 3, page 3]{KARH77}}]
-    Let $\vec{X}$ be a finite tuple of indeterminate.
+    Let $\vec{X}$ be a finite tuple of indeterminates.
     The class $\intro*\CoveredPoly[\vec{X}]$
     is the class of polynomials $P \in \Rel[\vec{X}]$
     that are \kl{non-negative}
     and such that every \kl{maximal monomial} is \kl{non-negative}.
-    When the indeterminate are clear from the context, we write
+    When the indeterminates are clear from the context, we write
     this class $\reintro*\CoveredPoly$.
 \end{definition}
 
@@ -50,11 +62,41 @@ $\CoveredPoly[\vec{X}]$ of polynomials with multiple indeterminate.
     $P \in \CoveredPoly$.
 \end{faketheorem}
 
+To understand why \cref{karh:thm} is false, we need to understand why some
+non-negative polynomials are not \kl{$\Nat$-rational polynomials}, which is
+illustrated by \cref{non-neg-not-nrat:ex}. Note that the proof scheme of this
+example is almost a counter-example to \cite[Theoerm 3.3]{KARH77} in
+\cref{thm:counter-example}, and leverages a key property of $\NRat$ recalled
+hereafter.
 
-%\subsection{The counter example}
-\label{sec:c-example}
+\begin{fact}
+    \label{pre-image-regular:fact}
+    The pre-image of a regular language by an \kl{$\Nat$-rational series}
+    is a regular language. 
+\end{fact}
 
-Let us now provide a counter example to \cref{karh:thm}. 
+\begin{example}
+    \label{non-neg-not-nrat:ex}
+    Let $P(X, Y) \defined (X - Y)^2$.
+    Then $P$ is
+    is \kl{non-negative}, but is
+    not an \kl{$\Nat$-rational polynomial}.
+\end{example}
+\begin{proof}
+    Assume by contradiction that
+    $f \in \NPoly$ \kl{represents} $f$ over the alphabet $\Sigma \defined \set{a,b}$.
+    Then, $f^{-1}(\set{0})$ is a regular language
+    (\cref{pre-image-regular:fact}),
+    but $S^{-1}(\set{0}) = \setof{ w \in \Sigma }{ \card[a]{w} = \card[b]{w} }$
+    is not.
+\end{proof}
+
+
+Let us now design a counter example to \cref{karh:thm} by suitably
+tweaking \cref{non-neg-not-nrat:ex} to ensure that the polynomial not only is
+\kl{non-negative}, but also belongs to
+$\CoveredPoly$.
+
 \begin{definition}
     \label{def:bad-polynomial}
     We define $\intro*\BadPoly(X,Y,Z) \defined Z (X + Y)^2 + 2 (X - Y)^2$.
@@ -64,41 +106,8 @@ Let us now provide a counter example to \cref{karh:thm}.
     \label{thm:counter-example}
     The polynomial $\BadPoly$ belongs to $\CoveredPoly$,
     but is not an \kl{$\Nat$-rational polynomial}.
-\end{lemma}
-%
-%\begin{proof}
-%    It is clear that $\BadPoly$ is \kl{non-negative}. We can develop
-%    the expression of $\BadPoly$ to 
-%    obtain
-%    $\BadPoly = ZX^2 + ZY^2 + 2ZXY + 2X^2 -4XY + 2Y^2$.
-%    The \kl{maximal monomials} of $P$
-%    are $ZX^2$, $ZY^2$, and $2ZXY$, all of which are
-%    \kl{non-negative}.
-%
-%    Assume by contradiction that $\BadPoly$ is an \kl{$\Nat$-rational polynomial}.
-%    Let $\Sigma \defined \set{a,b,c}$ be a finite alphabet.
-%    There exists a \kl{commutative}
-%    \kl{$\Nat$-polyregular function} $f \colon \Sigma^* \to \Nat$
-%    such that for all $w \in \Sigma^*$,
-%    $\BadPoly(\card[a]{w}, \card[b]{w}, \card[c]{w}) = f(w)$.
-%
-%    Remark that $\BadPoly(X,Y,Z) = 0$
-%    if and only if $Z(X+Y)^2 = -2 (X-Y)^2$. Hence,
-%    $\BadPoly(X,Y,Z)=0$ if and only if $Z = 0$ and $X = Y$, or 
-%    $Z \neq 0$, and $X = Y = 0$.
-%
-%    Now, let us consider the language $L \defined \setof{w}{ f(w) = 0}$. By the
-%    above computation, we conclude that $L = \setof{ w \in \set{a,b}^* }{
-%    \card[a]{w} = \card[b]{w} } \cup \set{ c }^*$.
-%    Because $L \cap \set{a,b}^*$ not a regular language,
-%    we
-%    conclude that $L$ is not a regular language.
-%    However, $L = f^{-1}(\set{0})$ is a regular language
-%    (\cref{pre-image-regular:fact}). 
-%\end{proof}
-
-\begin{corollary}
-    The result stated in \cite[Theorem 3.3]{KARH77}, restated
+    As a corollary, 
+    the result stated in \cite[Theorem 3.3]{KARH77}, restated
     in \cref{karh:thm}, is false
     when allowing at least $3$ indeterminates.
-\end{corollary}
+\end{lemma}

@@ -46,12 +46,10 @@ $\Nat$-valued functions, but could consider other commutative semigroups.
     Let $\aTransd \defined (Q,q_0, \delta, \lambda, F)$ be an \kl{$\mathcal{H}$-transducer}.
     The function
     $\aTransd \colon Q \times \Sigma^* \to \Nat$
-    is defined inductively  as follows:
-    \begin{itemize}
-        \item $\aTransd(q, \varepsilon) \defined F(q)$;
-        \item $\aTransd(q, a u) \defined \aTransd(\delta(q,a), u)
+    is defined inductively as follows:
+        $\aTransd(q, \varepsilon) \defined F(q)$, and
+        $\aTransd(q, a u) \defined \aTransd(\delta(q,a), u)
             + \lambda(q,a)(u)$.
-    \end{itemize}
     The function \intro{computed} by a transducer $\aTransd$
     is $w \mapsto \aTransd(q_0, w)$.
 \end{definition}
@@ -278,18 +276,6 @@ increasing in every direction.
     If $f$ is assumed to be \kl{commutative}, then all the above
     properties are decidable, and the conversions effective.
 \end{theorem}
-\begin{proof}
-    \cref{n-poly-1-transd:item} implies \cref{n-poly-k:item} by
-    \cref{transducer-nsf-npoly:lemma}. Then,
-    \cref{n-poly-k:item} implies \cref{n-poly-wqo:item} by
-    \cref{n-poly-k-implies-wqo:lemma}.
-    The implication \cref{n-poly-wqo:item} $\Rightarrow$ \cref{n-poly-well:item}
-    is obvious.
-    Then, \cref{wqo-implies-termination:lemma} proves
-    that \cref{n-poly-well:item} implies \cref{n-poly-residual:item}.
-    Finally, because a \kl{$k$-residual transducer} is a \kl{$\NPoly[k-1]$-transducer},
-    \cref{n-poly-residual:item} implies \cref{n-poly-1-transd:item}.
-\end{proof}
 
 \AP
 We can prove that for functions in $\NPoly[0]$, aperiodicity is equivalent to

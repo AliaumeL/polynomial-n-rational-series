@@ -174,21 +174,8 @@ Let us briefly state that \kl{commutativity} is a decidable property of
 \end{lemma}
 
 \subsection{Polynomials} \AP All polynomials considered in this paper have
-coefficients in $\Rel$ unless explicitly stated otherwise. A polynomial $P \in
-\Rel[X_1, \dots, X_n]$ is an \intro{$\Nat$-rational polynomial} if it is
-\kl{represented} by a \kl{$\Nat$-polyregular function}. The analogue notion of
-\intro{$\Rel$-rational polynomials} is not of particular interest, since every
-polynomial $P$ is \kl{represented} by a \kl{$\Rel$-polyregular function}.
-
-\begin{example}
-    \label{negative-not-nrat:ex}
-    The polynomials $X$, and $X^2 + 3$ are \kl{$\Nat$-rational polynomials},
-    but $- X$ is a \kl{$\Rel$-rational polynomial} that is 
-    not an \kl{$\Nat$-rational polynomial}.
-    \proofref{negative-not-nrat:ex}
-\end{example}
-
-\AP A polynomial $P \in \Rel[X_1, \dots, X_k]$ is \intro{non-negative} when for
+coefficients in $\Rel$ unless explicitly stated otherwise. 
+A polynomial $P \in \Rel[X_1, \dots, X_k]$ is \intro{non-negative} when for
 all non-negative integer inputs $n_1, \dots, n_k \geq 0$, the output  $P(n_1,
 \dots, n_k)$ of the polynomial is non-negative. Beware that we do not consider
 negative values as input, as the numbers $n_i$ will ultimately count the number
@@ -196,35 +183,7 @@ of occurrences of a letter in a word. As an example, the polynomial $(X - Y)^2$
 is \kl{non-negative}, and so is the polynomial $X^3$, but the polynomial $X^2 -
 2X$ is not.
 
-All \kl{$\Nat$-rational polynomials} are \kl{non-negative}, but the converse
-does not hold, as the following example illustrates. Note that the proof scheme
-of this example will be at the core of the counter-example to \cite[Theoerm
-3.3]{KARH77} in \cref{thm:counter-example}, and leverages a key property of
-$\NRat$ recalled hereafter.
-
-\begin{fact}
-    \label{pre-image-regular:fact}
-    The pre-image of a regular language by an \kl{$\Nat$-rational series}
-    is a regular language. 
-\end{fact}
-
-\begin{example}
-    Let $P(X, Y) \defined (X - Y)^2$.
-    Then $P$ is
-    is \kl{non-negative}, but is
-    not an \kl{$\Nat$-rational polynomial}.
-\end{example}
-\begin{proof}
-    Assume by contradiction that
-    $f \in \NPoly$ \kl{represents} $f$ over the alphabet $\Sigma \defined \set{a,b}$.
-    Then, $f^{-1}(\set{0})$ is a regular language
-    (\cref{pre-image-regular:fact}),
-    but $S^{-1}(\set{0}) = \setof{ w \in \Sigma }{ \card[a]{w} = \card[b]{w} }$
-    is not.
-\end{proof}
-
-
-\AP Let us now give some vocabulary on polynomials with multiple indeterminate
+\AP Let us now give some vocabulary on polynomials with multiple indeterminates
 over $\Rel$. A \intro{monomial} is a product of indeterminates and integers.
 For instance, $XY$ is a \kl{monomial}, $3 X$ is a \kl{monomial}, $-Y$ is a
 \kl{monomial}, but $X + Y$ or $2X^2 + XY$ are not. We write $\intro*\Monomials[X_1,
