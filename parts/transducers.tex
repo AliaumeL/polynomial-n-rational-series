@@ -4,22 +4,21 @@
 \section{Beyond commutativity}
 \label{beyond-commutative:sec}
 
-\AP The goal of this section is to provide tools that do not require the
-assumption of \kl{commutativity}. To that end, we introduce the notion of
+\AP The goal of this section is to introduce new tools that do not require the
+assumption of \kl{commutativity}. To that end, we propose a notion of
 \kl{$k$-residual transducer}, that generalizes the notion of residual
 transducer introduced for \kl{$\Rel$-polyregular functions} in \cite{CDTL23}.
-This notion of residual transducer has its own interest, as it shifts the
-attention from (compatible) equivalence relations of finite index that are the
-classical tool in automata theory, towards (compatible) order relations that
-are \kl{well-quasi-ordered}, which is the order counterpart of having finite
-index. Let us recall that a sequence $\seqof{u_i}{i \in \Nat}$ of elements in a
-quasi-ordered set $(X, \leq)$ is \intro{good} whenever there exist $i < j$ such
-that $u_i \leq u_j$. The set $X$ is a \intro{well-quasi-ordering} when every
-infinite sequence is \reintro{good}. A sequence is \intro{bad} when it is not
-\reintro{good}. The notion of \reintro{good sequences} can also be applied to
-binary relations that are not orderings, and a binary relation $R$ for which
-every infinite sequence is \reintro{good} is said to be \intro{well}
-\cite{MELL98}.
+This is done by shifting the attention from (compatible) equivalence relations
+of finite index that are the classical tool in automata theory, towards
+(compatible) order relations that are \kl{well-quasi-ordered}, which is the
+order counterpart of having finite index. Let us recall that a sequence
+$\seqof{u_i}{i \in \Nat}$ of elements in a quasi-ordered set $(X, \leq)$ is
+\intro{good} whenever there exist $i < j$ such that $u_i \leq u_j$. The set $X$
+is a \intro{well-quasi-ordering} when every infinite sequence is
+\reintro{good}. A sequence is \intro{bad} when it is not \reintro{good}. The
+notion of \reintro{good sequences} can also be applied to binary relations that
+are not orderings, and a binary relation $R$ for which every infinite sequence
+is \reintro{good} is said to be \intro{well} \cite{MELL98}.
 
 \AP The core concept of this section is that of a \intro{residual} of a
 function $f \colon \Sigma^* \to \Rel$,  defined by $\intro*\app{f}{u} \defined
@@ -37,18 +36,16 @@ simplify notations, instead of writing $\app{f}{u} \reintro*\npolyleq[k]
 
 
 \AP Given a function $f$, our goal is to leverage $\resleq{f}{k}$ to build a
-canonical \kl{$\NPoly[k-1]$-transducer} that \kl{computes} $f$. The naïve
-approach is to consider as states some representatives for the $\resleq{f}{k}$
-minimal elements of $\Sigma^*$ (assuming there are finitely many of them),
-%all computing the same function (\cref{good-residual-ordering:fact}),
-and define transitions by letting $\delta(u, a)$ be \emph{one} state $v$ such
-that $v \resleq{f}{k} ua$. This naïve approach does not yield a canonical
-model, as illustrated by the two distinct \kl{$\NPoly[0]$-transducers} of
+canonical \kl{$\NPoly[k-1]$-transducer} that \kl{computes} $f$. The idea is to
+consider as states the minimal elements of $\Sigma^*$ for $\resleq{f}{k}$, and
+define transitions by letting $\delta(u, a)$ be some state $v$ such that $v
+\resleq{f}{k} ua$. To produce a canonical model, this has to be done carefully,
+as illustrated by the two distinct \kl{$\NPoly[0]$-transducers} of
 \cref{non-canonical-transd:fig} computing the function $\BadExOk$ of
 \cref{non-canonical-transd:ex}, and having as states minimal elements for
-$\resleq{\BadExOk}{0}$. To obtain a canonical notion, we enforce that the set
-of states is a \intro{downwards closed} subset of $\Sigma^*$ for the prefix
-ordering $(\prefleq)$, that is, every prefix of a state is also a state. 
+$\resleq{\BadExOk}{0}$. To ensure unicity, we ask that the set of states is a
+\intro{downwards closed} subset of $\Sigma^*$ for the prefix ordering
+$(\prefleq)$, i.e. that every prefix of a state is also a state. 
 
 \begin{definition}
     \label{residual-transducer:def}
@@ -74,8 +71,7 @@ ordering $(\prefleq)$, that is, every prefix of a state is also a state.
 \end{definition}
 
 
-Because of the restriction on prefixes, the \kl{$k$-residual transducer} is
-actually unique when it exists. We now introduce \cref{residual:algo} to
+We now introduce \cref{residual:algo} to
 compute the \kl{$k$-residual transducer} given a function $f$. Notice that this
 algorithm requires the ability to test if a function belongs to $\NPoly[k]$,
 which is only known to be feasible for \kl{commutative} \kl{polyregular
@@ -133,7 +129,7 @@ termination of \cref{residual:algo} is based on the fact that for a function $f
         \item \label{n-poly-residual:item} $f$ is \kl{computed} by a
             \kl{$k$-residual transducer}.
     \end{enumerate}
-    If $f$ is assumed to be \kl{commutative}, the  
+    If $f$ is \kl{commutative}, the  
     properties are decidable, and the conversions effective.
     \proofref{non-commutative-npoly:thm}
 \end{theorem}
@@ -143,7 +139,21 @@ algorithm to decide $\NSF$ inside $\NPoly$ in the general setting. While we can
 prove that for functions in $\NPoly[0]$, aperiodicity is equivalent to the
 absence of counters in the \kl{residual transducer} of the function (see
 \cref{aperiodic-iff-residual:lem}), this result does not generalize to higher
-growth rates, as witnessed by \cref{non-aperiodic-residual-transd:ex}.
+growth rates, as witnessed by \cref{non-aperiodic-residual-transd:ex}, which
+suggests that a more sophisticated object is needed to observe aperiodicity. In
+the spirit of the characterization of $\NPoly$ based the $(\resleq{f}{k})$
+quasi-ordering (\cref{non-commutative-npoly:thm}), we introduce the notion of
+\intro{aperiodic ordering} of $\Sigma^*$ as follows: $(\Sigma^*, \leq)$ is
+\reintro[aperiodic ordering]{aperiodic} whenever for all $u, w \in \Sigma^*$,
+there exists $N_0 \in \Nat$, such that the sequence $\seqof{uw^n}{n \geq N_0}$
+is increasing. This leads to the following
+\cref{sf-no-periods-on-sequences:conj}, of which the easy implication is
+already known to hold (\cref{sf-no-periods-on-sequences:lemma}), and requires
+the introduction of the \emph{star-free variant} $(\intro*\resleqsf{f}{k})$ of
+$(\resleq{f}{k})$, defined by $u \reintro*\resleqsf{f}{k} v$ whenever
+$(\app{f}{v} - \app{f}{u}) \in \NSF[k-1]$.
+ 
+
 
 \begin{lemma} 
     \label{aperiodic-iff-residual:lem}
@@ -167,26 +177,10 @@ growth rates, as witnessed by \cref{non-aperiodic-residual-transd:ex}.
     every \kl{$\NPoly[0]$-transducer} with two states contains a \kl{counter}.
 \end{example}
 
-In the example, no \kl{$\NPoly[0]$-transducer} with the minimal number of
-states computing the function is \kl{counter-free}, which suggests that a more
-sophisticated object is needed to observe aperiodicity. In the spirit of the
-characterization of $\NPoly$ based the $(\resleq{f}{k})$ quasi-ordering
-(\cref{non-commutative-npoly:thm}), we introduce the notion of \intro{aperiodic
-ordering} of $\Sigma^*$ as follows: $(\Sigma^*, \leq)$ is \reintro[aperiodic
-ordering]{aperiodic} whenever for all $u, w \in \Sigma^*$, there exists $N_0
-\in \Nat$, such that the sequence $\seqof{uw^n}{n \geq N_0}$ is increasing.
-This leads to the following \cref{sf-no-periods-on-sequences:conj}, of which
-the easy implication is already known to hold
-(\cref{sf-no-periods-on-sequences:lemma}), and requires the introduction of the
-\emph{star-free variant} $(\intro*\resleqsf{f}{k})$ of $(\resleq{f}{k})$,
-defined by $u \reintro*\resleqsf{f}{k} v$ whenever $(\app{f}{v} - \app{f}{u})
-\in \NSF[k-1]$.
- 
-
 
 \begin{lemma}
     \label{sf-no-periods-on-sequences:lemma}
-    Let $k \in \Nat$, and $f \in \SF[k]$. Then,
+    Let $k \in \Nat$, and $f \in \NPoly[k]$. If $f \in \NSF[k]$, then
     $(\Sigma^*, \resleqsf{f}{k})$ is an
     \kl[aperiodic ordering]{aperiodic} \kl{well-quasi-ordering}.
     \proofref{sf-no-periods-on-sequences:lemma}
@@ -194,7 +188,8 @@ defined by $u \reintro*\resleqsf{f}{k} v$ whenever $(\app{f}{v} - \app{f}{u})
 
 \begin{conjecture}
     \label{sf-no-periods-on-sequences:conj}
-    For all $k \in \Nat$ and $f \colon \Sigma^* \to \Rel$,
-    $f \in \NSF[k]$ if and only if $(\Sigma^*, \resleqsf{f}{k})$ is an \kl[aperiodic ordering]{aperiodic}
-    \kl{well-quasi-ordering}.
+    The implication of \cref{sf-no-periods-on-sequences:lemma} is actually an equivalence.
+    %For all $k \in \Nat$ and $f \colon \Sigma^* \to \Rel$,
+    %$f \in \NSF[k]$ if and only if $(\Sigma^*, \resleqsf{f}{k})$ is an \kl[aperiodic ordering]{aperiodic}
+    %\kl{well-quasi-ordering}.
 \end{conjecture}

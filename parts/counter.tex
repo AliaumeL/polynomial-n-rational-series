@@ -5,16 +5,25 @@
 %\subsection{The counter example}
 \label{sec:c-example}
 
-\AP A polynomial $P \in \Rel[X_1, \dots, X_n]$ is an \intro{$\Nat$-rational
-polynomial} if it is \kl{represented} by a \kl{$\Nat$-polyregular function}.
-The analogue notion of \intro{$\Rel$-rational polynomials} is not of particular
-interest, since every polynomial $P$ is \kl{represented} by a
-\kl{$\Rel$-polyregular function}. It is an easy check that polynomials with
+\AP Before deciding $\NPoly$ inside $\ZPoly$ (which will be done in
+\cref{beyond-polynomials:sec}), let us restrict our attention to simpler
+functions, namely polynomials. A polynomial $P \in \Rel[X_1, \dots, X_n]$ is an
+\intro{$\Nat$-rational polynomial} if it is \kl{represented} by a
+\kl{$\Nat$-polyregular function}. It is an easy check that polynomials with
 coefficients in $\Nat$ are \kl{$\Nat$-rational polynomials}
 (\cref{n-poly-n-poly:example}). However, \cref{negative-but-npoly:ex} provides
 a polynomial with negative coefficients that is an \kl{$\Nat$-rational
-polynomial}. As a consequence, the class of interest strictly contains
-$\Nat[\vec{X}]$.
+polynomial}.
+
+
+The analogue notion of \intro{$\Rel$-rational
+polynomials} is not of particular interest, since every polynomial $P$ is
+\kl{represented} by a \kl{$\Rel$-polyregular function}. Our goal is to decide
+if a \kl{$\Rel$-rational polynomial} (so, any polynomial) is an
+\kl{$\Nat$-rational polynomial}, and if so, to compute an
+\kl{$\Nat$-polyregular function} that \kl{represents} it. 
+This particular problem was claimed to be solved in  \cite{KARH77}, 
+using a characterization restated in \cref{karh:thm}.
 
 \begin{lemma}
     \label{n-poly-n-poly:example}
@@ -34,14 +43,6 @@ $\Nat[\vec{X}]$.
     \proofref{negative-not-nrat:ex}
 \end{example}
 
-
-The goal of this section is to provide semantic characterizations of
-\kl{$\Nat$-rational polynomials}, decide if a polynomial $P$ is an
-\kl{$\Nat$-rational polynomial}, and if so, explicitly compute an
-\kl{$\Nat$-polyregular function} $f$ that \kl{represents} $P$. To that end, let
-us now introduce the characterization of \kl{$\Nat$-rational polynomials} given
-by \cite{KARH77}, which is stated using a class $\CoveredPoly[\vec{X}]$ of
-polynomials with multiple indeterminates.
 
 \begin{definition}[{\cite[Section 3, page 3]{KARH77}}]
     Let $\vec{X}$ be a finite tuple of indeterminates.
