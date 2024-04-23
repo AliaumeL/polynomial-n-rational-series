@@ -21,40 +21,6 @@ binary relations that are not orderings, and a binary relation $R$ for which
 every infinite sequence is \reintro{good} is said to be \intro{well}
 \cite{MELL98}.
 
-As a model of computation, we will use the following definition of transducers,
-that is based on the marble transducers \cite{EHB99}, and follows the general
-pattern of transducers introduced in \cite{CDTL23}. Note that we only consider
-$\Nat$-valued functions, but could consider other commutative semigroups.
-
-\begin{definition}
-    Let $\mathcal{H}$ be a family of functions
-    from $\Sigma^*$ to $\Nat$.
-    An \intro{$\mathcal{H}$-transducer} $\aTransd$ is
-    a tuple $(Q, q_0, \delta, \lambda, F)$ where
-    \begin{itemize}
-        \item $Q$ is a finite set of states,
-        \item $q_0 \in Q$ is an initial state,
-        \item $\delta \colon Q \times \Sigma \to Q$
-            is a deterministic transition function,
-        \item $\lambda \colon Q \times \Sigma \to \mathcal{H}$
-            is a correction function,
-        \item $F \colon Q \to \Nat$ is an output function.
-    \end{itemize}
-\end{definition}
-
-\begin{definition}
-    Let $\aTransd \defined (Q,q_0, \delta, \lambda, F)$ be an \kl{$\mathcal{H}$-transducer}.
-    The function
-    $\aTransd \colon Q \times \Sigma^* \to \Nat$
-    is defined inductively as follows:
-        $\aTransd(q, \varepsilon) \defined F(q)$, and
-        $\aTransd(q, a u) \defined \aTransd(\delta(q,a), u)
-            + \lambda(q,a)(u)$.
-    The function \intro{computed} by a transducer $\aTransd$
-    is $w \mapsto \aTransd(q_0, w)$.
-\end{definition}
-
-
 \begin{example}
     \label{non-canonical-transd:ex}
     Let $\BadExOk \colon \set{a}^* \to \Nat$
@@ -152,20 +118,6 @@ simplify notations, instead of writing $\app{f}{u} \reintro*\npolyleq[k]
 \app{f}{v}$ when $u,v \in \Sigma^*$, we will use the convenient notation $u
 \intro*\resleq{f}{k} v$, and directly consider the space $(\Sigma^*,
 \reintro*\resleq{f}{k})$. 
-
-
-\begin{remark}
-    \label{good-residual-ordering:fact}
-    Let $k \in \Nat$, and let $f \colon \Sigma^* \to \Nat$. Then,
-    $(\resleq{f}{k})$ is a quasi-ordering, satisfying the following
-    extra properties:
-    \begin{enumerate}
-        \item For all $u,v,w \in \Sigma^*$, $u \resleq{f}{k} v$
-            implies $uw \resleq{f}{k} vw$,
-        \item If $u \resleq{f}{k} v$ and $v \resleq{f}{k} u$,
-            then $\app{f}{u} = \app{f}{v}$.
-    \end{enumerate}
-\end{remark}
 
 
 \AP

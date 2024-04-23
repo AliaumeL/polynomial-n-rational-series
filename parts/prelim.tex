@@ -173,6 +173,44 @@ Let us briefly state that \kl{commutativity} is a decidable property of
     is \kl{commutative}.
 \end{lemma}
 
+
+\AP
+As a model of computation, we will use the following definition of transducers,
+that is based on the marble transducers \cite{EHB99}, and follows the general
+pattern of transducers introduced in \cite{CDTL23}. Note that we only consider
+$\Nat$-valued functions, but could consider other commutative semigroups.
+
+\begin{definition}
+    Let $\mathcal{H}$ be a family of functions
+    from $\Sigma^*$ to $\Nat$.
+    An \intro{$\mathcal{H}$-transducer} $\aTransd$ is
+    a tuple $(Q, q_0, \delta, \lambda, F)$ where
+    \begin{itemize}
+        \item $Q$ is a finite set of states,
+        \item $q_0 \in Q$ is an initial state,
+        \item $\delta \colon Q \times \Sigma \to Q$
+            is a deterministic transition function,
+        \item $\lambda \colon Q \times \Sigma \to \mathcal{H}$
+            is a correction function,
+        \item $F \colon Q \to \Nat$ is an output function.
+    \end{itemize}
+\end{definition}
+
+\begin{definition}
+    Let $\aTransd \defined (Q,q_0, \delta, \lambda, F)$ be an \kl{$\mathcal{H}$-transducer}.
+    The function
+    $\aTransd \colon Q \times \Sigma^* \to \Nat$
+    is defined inductively as follows:
+        $\aTransd(q, \varepsilon) \defined F(q)$, and
+        $\aTransd(q, a u) \defined \aTransd(\delta(q,a), u)
+            + \lambda(q,a)(u)$.
+    The function \intro{computed} by a transducer $\aTransd$
+    is $w \mapsto \aTransd(q_0, w)$.
+\end{definition}
+
+
+
+
 \subsection{Polynomials} \AP All polynomials considered in this paper have
 coefficients in $\Rel$ unless explicitly stated otherwise. 
 A polynomial $P \in \Rel[X_1, \dots, X_k]$ is \intro{non-negative} when for

@@ -622,6 +622,20 @@ $\restr{\cdot}{\nu}$.
 
 \section{Proofs of section \ref{beyond-commutative:sec}}
 
+\begin{remark}
+    \label{good-residual-ordering:fact}
+    Let $k \in \Nat$, and let $f \colon \Sigma^* \to \Nat$. Then,
+    $(\resleq{f}{k})$ is a quasi-ordering, satisfying the following
+    extra properties:
+    \begin{enumerate}
+        \item For all $u,v,w \in \Sigma^*$, $u \resleq{f}{k} v$
+            implies $uw \resleq{f}{k} vw$,
+        \item If $u \resleq{f}{k} v$ and $v \resleq{f}{k} u$,
+            then $\app{f}{u} = \app{f}{v}$.
+    \end{enumerate}
+\end{remark}
+
+
 \begin{fact}
     \label{unique-res-transducer:fact}
     Let $f \colon \Sigma^* \to \Nat$ and $k \in \Nat$.
