@@ -4,15 +4,15 @@
 \label{beyond-polynomials:sec}
 \label{star-free:sec}
 
-The goal of this section is to go beyond polynomials and consider the case of
-\kl{commutative} \kl{$\Rel$-polyregular functions}. The hypothesis of
-\kl{commutativity} reduces $\ZPoly$ to a combination of a finite number of
-polynomials, arranged by counting modulo some numbers. This characterization
-will be proven in \cref{decompose-polynomial:lem}, and will be the key
-ingredient in the decision procedures of $\NPoly$ inside $\ZPoly$, and $\NSF$
-inside $\NPoly$. Note that \cref{decompose-polynomial:lem} is actually a
-refinement of \cref{n-poly-combinatorics:lem} under the extra assumption of
-\kl{commutativity}. 
+In this section, we leverage the decidability results of \cref{polynomials:sec}
+to decide $\NPoly$ inside $\ZPoly$ and $\NSF$ inside $\NPoly$, both under the
+extra assumption of \kl{commutativity}. The hypothesis of \kl{commutativity}
+reduces $\ZPoly$ to a combination of a finite number of polynomials, arranged
+by counting modulo some numbers. This characterization will be proven in
+\cref{decompose-polynomial:lem}, and will be the key ingredient in the decision
+procedures of $\NPoly$ inside $\ZPoly$, and $\NSF$ inside $\NPoly$. Note that
+\cref{decompose-polynomial:lem} refines
+\cref{n-poly-combinatorics:lem} for \kl{commutative} functions.
 
 \AP To actually state the lemma, we will need some notations that will
 formalize the intuitive idea of counting tuples of integers modulo some
@@ -47,10 +47,9 @@ vectors in $\Nat^p$ for any $p \in \Nat$ by pointwise application.
 \end{lemma}
 
 In the spirit of previous characterizations of subclasses of $\ZPoly$ in terms
-of \emph{polynomial pumping arguments}
-\cite{DOUE21,DOUE22,CDTL23}, we will provide a
-semantic property in the form of \cref{k-combinatorial:def}, that is conjectured
-to characterize $\NPoly$ inside $\ZPoly$, even in the non-commutative setting.
+of \emph{polynomial pumping arguments} \cite{DOUE21,DOUE22,CDTL23}, we will
+provide a semantic property in the form of \cref{k-combinatorial:def}, that is
+conjectured to characterize $\NPoly$ inside $\ZPoly$ in the general setting.
 
 \begin{definition}
     \label{k-combinatorial:def}

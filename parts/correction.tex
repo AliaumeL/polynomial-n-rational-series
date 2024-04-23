@@ -93,10 +93,7 @@ K, \dots, X_n + K)$.
 \end{definition}
 
 
-\AP When multiple indeterminates are involved, the notion of degree must be
-adapted, and to ensure that the decision procedure is effective, one must
-obtain explicit bounds on the \kl{translations} that are needed. To that end,
-let us now introduce the ordering over which the induction of
+\AP Let us now introduce the ordering over which the induction of
 \cref{lem:correct-to-n-rat} is built. Recall that $\MaximalMonomials(P)$ is the
 set of \kl{maximal monomials} of $P$, hence belongs to $\Pfin(\Monomials)$. We
 order \kl{monomials} with the \kl{divisibility ordering}, making $\Monomials$ a
@@ -107,7 +104,6 @@ ordering \cite[Dickson’s Lemma]{SCSC12}. We endow $\Pfin(\Monomials)$ with the
 $M_1$ \kl{divides} $M_2$. The set $(\Pfin(\Monomials), \hoareleq)$ remains a
 \kl{well-quasi-ordering}, and is in particular well-founded \cite[Hoare
 quasi-ordering]{SCSC12}.
-
 
 Let us now illustrate how the \kl{discrete differentiation} operator interacts
 with \kl{maximal monomials} with respect to the \kl{Hoare ordering}: it
@@ -209,23 +205,8 @@ We are now ready to state the corrected and generalized version of
         \item \label{corrected-3:item} $P$ is \kl{represented} by a \kl{$\Nat$-polyregular function},
         \item \label{corrected-4:item} $P$ is \kl{represented} by a \kl{star-free $\Nat$-polyregular function},
     \end{enumerate}
-    Furthermore, the membership is decidable, and effective conversion
-    procedures exist between all the representations.
+    Furthermore, the properties are decidable, and conversions effective.
 \end{theorem}
-\begin{proof}
-    The implications 
-    \cref{corrected-4:item} $\implies$
-    \cref{corrected-3:item} $\implies$
-    \cref{corrected-2:item} are obvious.
-    \cref{lem:correct-to-n-rat} proves
-    \cref{corrected-1:item} $\implies$ \cref{corrected-4:item},
-    while \cref{n-rat-correct:lem}
-    proves 
-    \cref{corrected-2:item} $\implies$ \cref{corrected-1:item}.
-    Note that the lemmas provide effective conversion procedures,
-    and that \cref{lem:correct-to-n-rat} also provides a decision
-    procedure.
-\end{proof}
 
 
 The counter example of \cref{thm:counter-example} used three indeterminates,

@@ -2,6 +2,125 @@
 %! lang = en-US
 \section{Proofs of section \ref{preliminaries:sec}}
 
+\AP
+The following
+\cref{nat-rel-poly:def} is one of the equivalent definitions of \cite{CDTL23},
+and is similar in shape to the \emph{finite counting automata} introduced by
+\cite{SCHU62}. 
+
+\begin{definition}[$\Rel$-polyregular functions {\cite{CDTL23}}]
+    \label{nat-rel-poly:def}
+    Let $M$ be a finite monoid, $\mu \colon \Sigma^* \to M$
+    be a morphism, $k \in \Nat$, and 
+    $\pi \colon M^k \to \Rel$ be a function.
+    The \intro{$\Rel$-polyregular function}
+    $\pi^\dagger \colon \Sigma^* \to \Rel$
+    is computed as follows:
+    \begin{equation*}
+        \pi^\dagger (w) \defined
+        \sum_{w = u_1 \cdots u_k} \pi(\mu(u_1), \dots, \mu(u_k))
+        \quad .
+    \end{equation*}
+    When $\pi$ has co-domain $\Nat$, the function $\pi^\dagger$
+    is called \intro{$\Nat$-polyregular}.
+    We call $\pi$ the \emph{production function} of $\pi^\dagger$.
+    When the monoid $M$ is \kl(monoid){aperiodic}
+    then
+    the function $f$ is \intro{star-free $\Rel$-polyregular}
+    (resp. \intro{star-free $\Nat$-polyregular}).
+\end{definition}
+
+
+
+\textbf{TODO: remove this example}
+\begin{example}
+    \label{size-of-word-nsf:ex}
+    The map $f \colon w \mapsto \card{w} + 1$
+    belongs to $\NSF$.
+    \proofref{size-of-word-nsf:ex}
+\end{example}
+
+\textbf{TODO: remove this lemma}
+\begin{lemma}[{\cite[Theorems 5.15 and 7.10]{DOUE23}}]
+    \label{transducer-nsf-npoly:lemma}
+    Let $f \colon \Sigma^* \to \Nat$, and let $k \in \Nat$.
+    Then, 
+    $f \in \NPoly[k]$ (respectively $\NSF[k]$) if and only if
+    $f$ is \kl{computed} by an \kl{$\NPoly[k-1]$-transducer}
+        (respectively by an \kl{$\NSF[k-1]$-transducer} that is 
+        \kl{counter-free}).
+\end{lemma}
+
+\AP Let us briefly recall in the following lemmas alternative characterizations
+of $\NPoly$ (resp. $\ZPoly$), some of which will be helpful in the upcoming
+analysis of their \kl{commutative} counterpart, and others that provide a nicer
+syntax to construct examples. These characterizations were previously known,
+and can be found for instance in \cite{DOUE23,CDTL23}. For every language $L
+\subseteq \Sigma^*$ we define $\ind{L} \colon \Sigma^* \to \set{0,1}$ as the
+indicator function of $L$. Given an $\MSO$ (resp. $\FO$) formula with
+first-order free variables $\varphi(\vec{x})$, we define
+$\vcount{\varphi(\vec{x})}$ as the function from $\Sigma^*$ to $\Nat$ that maps
+a word $w$ to the number of assignments $\nu \colon \vec{x} \to w$, such that
+$w, \nu \models \varphi(\vec{x})$. If $X$ is a set of functions from $\Sigma^*$
+to $\Rel$, and a subset $\mathbb{S}$ of $\Rel$, we define
+$\intro*\Span{\mathbb{S}}(X)$ as the smallest subset of functions from
+$\Sigma^* \to \Rel$ containing $X$ and closed under (finite) sums and
+multiplication with elements $s \in \mathbb{S}$.
+
+\begin{lemma}
+    \label{polynomial-rational-polyreg:fact}
+    Let $f \in \NRat$ (resp. $f \in \ZRat$), then
+    the following are equivalent:
+    \begin{enumerate}
+        \item $f \in \NPoly$ (resp. $\ZPoly$);
+        \item $f$ is a \kl{polyregular function} with output
+            in $\set{1}^*$,
+            post-composed with $\polysum$
+            (resp. with output in $\set{-1,+1}^*$);
+        \item $f$ has \kl{polynomial growth};
+        \item \label{npoly-counting-mso:item} $f$ belongs to
+            $\Span{\mathbb{S}}(\setof{\vcount{\varphi}}{\varphi(\vec{x}) \in \MSO})$
+            with $\mathbb{S} = \Nat$
+            (resp. $\mathbb{S} = \Rel$).
+    \end{enumerate}
+\end{lemma}
+
+
+
+\begin{lemma}
+    Let $f \in \NPoly$ (resp. $f \in \ZPoly$), then
+    the following are equivalent:
+    \begin{enumerate}
+        \item $f \in \NSF$ (resp. $\ZSF$);
+        \item $f$ is a \kl{star-free polyregular function} with output
+            in $\set{1}^*$,
+            post-composed with $\polysum$
+            (resp. with output in $\set{-1,+1}^*$);
+        \item $f$ belongs to
+            $\Span{\mathbb{S}}(\setof{\vcount{\varphi}}{\varphi(\vec{x}) \in \FO})$
+            with $\mathbb{S} = \Nat$
+            (resp. $\mathbb{S} = \Rel$).
+    \end{enumerate}
+\end{lemma}
+
+%Similar characterizations can be obtained for $\NSF$ and $\ZSF$, which correctly
+%generalizes aperiodicity to functions as \cref{regular-language:ex} illustrates.
+%\begin{example}
+%    \label{regular-language:ex}
+%    Let $\Sigma$ be a finite alphabet, and
+%    $L \subseteq \Sigma^*$. Then,
+%    $L$ is a regular language if and only if
+%    $\ind{L} \colon \Sigma^* \to \set{0,1}$ is a
+%    \kl{$\Nat$-polyregular function}.
+%    Furthermore, $L$ is a star-free regular language
+%    if and only if $\ind{L}$ is a
+%    \kl{star-free $\Nat$-polyregular function}.
+%\end{example}
+%It has been proven in \cite{CDTL23,BOJA22} that the classes $\ZPoly[k]$ (resp.
+%$\NPoly[k]$, $\ZSF[k]$, $\NSF[k]$) are also characterized by the maximal number
+%of first order free variables used to construct the function as in
+%\cref{npoly-counting-mso:item} of \cref{polynomial-rational-polyreg:fact}.
+
 \begin{proofof}[size-of-word-nsf:ex]
     Let us define $M \defined (\set{1}, \times)$ which is 
     a finite \kl{aperiodic monoid}, $\mu \colon \Sigma^* \to M$
@@ -504,6 +623,21 @@ $\restr{\cdot}{\nu}$.
     partial valuations $\nu \colon \vec{X} \topartial \set{0, \dots, K}$.
     Then $P \in \CorrectPoly$ if and only if all those polynomials
     belong to $\Nat[\vec{X}]$, which is decidable.
+\end{proofof}
+
+\begin{proofof}[corrected-version:thm]
+    The implications 
+    \cref{corrected-4:item} $\implies$
+    \cref{corrected-3:item} $\implies$
+    \cref{corrected-2:item} are obvious.
+    \cref{lem:correct-to-n-rat} proves
+    \cref{corrected-1:item} $\implies$ \cref{corrected-4:item},
+    while \cref{n-rat-correct:lem}
+    proves 
+    \cref{corrected-2:item} $\implies$ \cref{corrected-1:item}.
+    Note that the lemmas provide effective conversion procedures,
+    and that \cref{lem:correct-to-n-rat} also provides a decision
+    procedure.
 \end{proofof}
 
 \begin{proofof}[lem:correct-covered-2]
