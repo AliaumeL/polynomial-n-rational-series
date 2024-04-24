@@ -363,6 +363,18 @@ $\restr{\cdot}{\nu}$.
     \end{enumerate}
 \end{remark}
 
+\AP Let us now introduce the ordering over which the induction of
+\cref{lem:correct-to-n-rat} is built. Recall that $\MaximalMonomials(P)$ is the
+set of \kl{maximal monomials} of $P$, hence belongs to $\Pfin(\Monomials)$. We
+order \kl{monomials} with the \kl{divisibility ordering}, making $\Monomials$ a
+\kl{well-quasi-ordering} that is isomorphic to $\Nat^k$ with the product
+ordering \cite[Dickson’s Lemma]{SCSC12}. We endow $\Pfin(\Monomials)$ with the
+\intro{Hoare ordering}, that is, $S_1 \hoareleq S_2$ whenever for all
+\kl{monomials} $M_1 \in S_1$, there exists a monomial $M_2 \in S_2$, such that
+$M_1$ \kl{divides} $M_2$. The set $(\Pfin(\Monomials), \hoareleq)$ remains a
+\kl{well-quasi-ordering}, and is in particular well-founded \cite[Hoare
+quasi-ordering]{SCSC12}.
+
 \begin{fact}
     \label{maxi-monomials-submodular:fact}
     Let $P, Q$ be two polynomials.
