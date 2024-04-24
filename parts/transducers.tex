@@ -71,15 +71,16 @@ $(\prefleq)$, i.e. that every prefix of a state is also a state.
 \end{definition}
 
 
-We now introduce \cref{residual:algo} to
-compute the \kl{$k$-residual transducer} given a function $f$. Notice that this
-algorithm requires the ability to test if a function belongs to $\NPoly[k]$,
-which is only known to be feasible for \kl{commutative} \kl{polyregular
-functions}. However, the termination of this algorithm also proves the
-existence of the \kl{$k$-residual transducer}. The key argument proving the
-termination of \cref{residual:algo} is based on the fact that for a function $f
-\in \NPoly[k]$, the quasi-ordering $(\resleq{f}{k})$ is a
-\kl{well-quasi-ordering}.
+Let us now introduce \cref{residual:algo} to compute the \kl{$k$-residual
+transducer} given a function $f$. Notice that this algorithm requires the
+ability to test if a function belongs to $\NPoly[k]$, which is only known to be
+feasible for \kl{commutative} \kl{polyregular functions}. However, the
+termination of this algorithm also proves the existence of the \kl{$k$-residual
+transducer}. The key argument proving the termination of \cref{residual:algo}
+is based on the fact that for a function $f \in \NPoly[k]$, the quasi-ordering
+$(\resleq{f}{k})$ is a \kl{well-quasi-ordering}. This connection is made
+possible through the characterization of $\NPoly$ as counting the number of
+valuations of some $\MSO$ formulas \cite{KRRC13,CDTL23}.
 
 \begin{algorithm}[t]
     $Q \defined \{ \varepsilon \}$;

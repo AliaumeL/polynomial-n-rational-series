@@ -3,18 +3,6 @@
 \section{Proofs of section \ref{preliminaries:sec}}
 
 
-\textbf{TODO: remove this lemma}
-\begin{lemma}[{\cite[Theorems 5.15 and 7.10]{DOUE23}}]
-    \label{transducer-nsf-npoly:lemma}
-    Let $f \colon \Sigma^* \to \Nat$, and let $k \in \Nat$.
-    Then, 
-    $f \in \NPoly[k]$ (respectively $\NSF[k]$) if and only if
-    $f$ is \kl{computed} by an \kl{$\NPoly[k-1]$-transducer}
-        (respectively by an \kl{$\NSF[k-1]$-transducer} that is 
-        \kl{counter-free}).
-\end{lemma}
-
-
 \begin{proof}[Proof of \cref{decidable-commutative-poly:lemma}, in the polyregular case]
     Let $\Sigma$ be a finite alphabet, endowed with a
     total ordering over its letters,
@@ -335,9 +323,8 @@ quasi-ordering]{SCSC12}.
     $T$ \kl{divides} some \kl{maximal monomial}
     of $\Diff{K}{M}$, which has a coefficient
     that is a multiple of $K$.
-    \proofref{derivation-monomials:fact}
 \end{fact}
-\begin{proofof}[derivation-monomials:fact]
+\begin{proof}
     Let $M \defined X_1^{k_1} \cdots X_n^{k_n}$,
     where $k_1, \dots, k_n > 0$ and $n > 0$.
     Let us compute
@@ -356,7 +343,7 @@ quasi-ordering]{SCSC12}.
     and there exists $1 \leq p \leq n$ such that$ t_j < k_j$.
     In particular, $T$ \kl{divides}
     $K \frac{\prod_{i = 1}^n X_i^{k_i}}{X_p}$.
-\end{proofof}
+\end{proof}
 
 
 \begin{lemma}
@@ -725,7 +712,7 @@ quasi-ordering]{SCSC12}.
     Let $f \colon \Sigma^* \to \Nat$ and $k \in \Nat$.
     Then $f$ has at most one \kl{$k$-residual transducer}.
 \end{fact}
-\begin{proof}[Proof of \cref{unique-res-transducer:fact}]
+\begin{proof}
     Let $\aTransd_1$ and $\aTransd_2$ be two
     \kl{$k$-residual transducers} for $f$.
     The two initial states must be $\varepsilon$.
@@ -760,8 +747,7 @@ quasi-ordering]{SCSC12}.
             for $\prefleq$ inside $Q \cup O$.
     \end{enumerate}
 \end{fact}
-\begin{proof}[Proof of
-    \cref{q-o-prefix-cool:fact}]
+\begin{proof}
     Let us write $Q_i$ and $O_i$ for the value of the variables
     $Q$ and $O$ at step $i$ of the \texttt{while loop}.
     We prove the desired property by induction on $i$.
@@ -797,8 +783,7 @@ quasi-ordering]{SCSC12}.
     then it computes the \kl{$k$-residual transducer} of $f$.
     \proofref{correct-residual:lemma}
 \end{lemma}
-
-\begin{proofof}[correct-residual:lemma]
+\begin{proof}
     Because of \cref{q-o-prefix-cool:fact},
     we already know that $q_0 = \varepsilon$,
     $Q$ is a \kl{downwards closed} subset of $\Sigma^*$
@@ -814,7 +799,7 @@ quasi-ordering]{SCSC12}.
     $\setof{w \in Q}{w \prefleq ua} = \setof{w \in Q_i}{ w \prefleq ua}$,
     which proves that the maximum considered in the algorithm
     is indeed computing correctly.
-\end{proofof}
+\end{proof}
 
 \begin{lemma}
     \label{wqo-implies-termination:lemma}
@@ -826,7 +811,7 @@ quasi-ordering]{SCSC12}.
     Then, \cref{residual:algo} terminates on the input $(f,k)$.
     \proofref{wqo-implies-termination:lemma}
 \end{lemma}
-\begin{proofof}[wqo-implies-termination:lemma]
+\begin{proof}
     Assume towards a contradiction that
     \cref{residual:algo} does not terminate.
     Then, the \texttt{else} branch in the \texttt{while loop}
@@ -854,45 +839,9 @@ quasi-ordering]{SCSC12}.
     We have proven that the infinite branch is a \kl{bad sequence}
     for $\resleq{f}{k}$, which contradicts the assumption.
     Hence, \cref{residual:algo} must terminate.
-\end{proofof}
+\end{proof}
 
 
-
-\begin{lemma}
-    \label{polynomial-rational-polyreg:fact}
-    Let $f \in \NRat$ (resp. $f \in \ZRat$), then
-    the following are equivalent:
-    \begin{enumerate}
-        \item $f \in \NPoly$ (resp. $\ZPoly$);
-        \item $f$ is a \kl{polyregular function} with output
-            in $\set{1}^*$,
-            post-composed with $\polysum$
-            (resp. with output in $\set{-1,+1}^*$);
-        \item $f$ has \kl{polynomial growth};
-        \item \label{npoly-counting-mso:item} $f$ belongs to
-            $\Span{\mathbb{S}}(\setof{\vcount{\varphi}}{\varphi(\vec{x}) \in \MSO})$
-            with $\mathbb{S} = \Nat$
-            (resp. $\mathbb{S} = \Rel$).
-    \end{enumerate}
-\end{lemma}
-
-
-
-\begin{lemma}
-    Let $f \in \NPoly$ (resp. $f \in \ZPoly$), then
-    the following are equivalent:
-    \begin{enumerate}
-        \item $f \in \NSF$ (resp. $\ZSF$);
-        \item $f$ is a \kl{star-free polyregular function} with output
-            in $\set{1}^*$,
-            post-composed with $\polysum$
-            (resp. with output in $\set{-1,+1}^*$);
-        \item $f$ belongs to
-            $\Span{\mathbb{S}}(\setof{\vcount{\varphi}}{\varphi(\vec{x}) \in \FO})$
-            with $\mathbb{S} = \Nat$
-            (resp. $\mathbb{S} = \Rel$).
-    \end{enumerate}
-\end{lemma}
 
 \begin{lemma}
     \label{n-poly-k-implies-wqo:lemma}
@@ -905,7 +854,8 @@ quasi-ordering]{SCSC12}.
     $\MSO$ formulas $\seqof{\psi_i(\vec{x})}{1 \leq i \leq n}$,
     and positive coefficients $\seqof{m_i}{1 \leq i \leq n}$,
     such that
-    $f = \sum_{i = 1}^n m_i \times \vcount{\varphi_i(\vec{x})}$.
+    $f = \sum_{i = 1}^n m_i \times \vcount{\varphi_i(\vec{x})}$
+    \cite[Theorem 5.15]{DOUE23}.
 
     Let $q$ be the maximal quantifier rank of formulas $\seqof{\psi_i}{1 \leq i
     \leq n}$. To a word $u \in \Sigma^*$, we associate the vector $\MSO^q(u)$
@@ -984,7 +934,7 @@ quasi-ordering]{SCSC12}.
 
 \begin{proofof}[non-commutative-npoly:thm]
     \cref{n-poly-1-transd:item} implies \cref{n-poly-k:item} by
-    \cref{transducer-nsf-npoly:lemma}. Then,
+    definition. Then,
     \cref{n-poly-k:item} implies \cref{n-poly-wqo:item} by
     \cref{n-poly-k-implies-wqo:lemma}.
     The implication \cref{n-poly-wqo:item} $\Rightarrow$ \cref{n-poly-well:item}
@@ -999,7 +949,7 @@ quasi-ordering]{SCSC12}.
     It is clear that $\NSF \subseteq \ZSF$, and known that if $f \in \ZSF$
     then it is \kl{ultimately polynomial}. Furthermore, if the \kl{$0$-residual
     transducer} of $f$ is \kl{counter-free}, then $f \in \NSF$
-    using \cref{transducer-nsf-npoly:lemma}.
+    by definition of $\NSF$.
 
     Assume that $f$ is \kl{ultimately polynomial}, let us prove that the
     \kl{$0$-residual transducer} of $f$ is \kl{counter-free}. 
@@ -1046,7 +996,8 @@ quasi-ordering]{SCSC12}.
     Let $f \in \NSF[k]$, $q \in \Nat$, and 
     write $f = \sum_{i=1}^n m_i \times \vcount{\phi_i(\vec{x})}$, where
     $\phi_i \in \FO$ has quantifier rank at most $q$
-    and $\card{\vec{x}} = k$.
+    and $\card{\vec{x}} = k$
+    \cite[Theorem 7.10]{DOUE23}.
 
     As in the proof of \cref{n-poly-k-implies-wqo:lemma}, we are going to
     assign a tuple of integers to a word $u \in \Sigma^*$ by counting the

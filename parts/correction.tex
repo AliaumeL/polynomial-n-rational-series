@@ -37,9 +37,11 @@ coefficient for a \kl{maximal monomial}, namely $-2XY$.
 
 Let us now prove that \kl{$\Nat$-rational polynomials} are in $\CorrectPoly$.
 This follows from the correct implication in the statement of \cref{karh:thm},
-but we provide a self-contained proof using a refinement of the
-classical combinatorial arguments for $\ZPoly$ \cite[Lemma 4.16]{CDTL23} and
-$\NPoly$ \cite[Lemma 5.37]{DOUE23}.
+but we provide a self-contained proof using a refinement of the classical
+combinatorial arguments for $\ZPoly$ \cite[Lemma 4.16]{CDTL23} and $\NPoly$
+\cite[Lemma 5.37]{DOUE23}. The proof is based on a combinatorial
+characterization of $\NPoly$ reminiscent of the \emph{finite counting automata}
+introduced by \cite{SCHU62}.
 
 \begin{lemma}
     \label{n-poly-combinatorics:lem}
@@ -132,6 +134,7 @@ idea that polynomials are not periodic functions (for instance, in
     If $P \in \CorrectPoly$, then $P$ is \kl{represented}
     by a \kl{star-free $\Nat$-polyregular function},
     which is computable given $P$.
+    \proofref{lem:correct-to-n-rat}
 \end{lemma}
 
 
