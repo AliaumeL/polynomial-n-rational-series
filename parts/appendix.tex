@@ -2,43 +2,6 @@
 %! lang = en-US
 \section{Proofs of section \ref{preliminaries:sec}}
 
-\AP
-The following
-\cref{nat-rel-poly:def} is one of the equivalent definitions of \cite{CDTL23},
-and is similar in shape to the \emph{finite counting automata} introduced by
-\cite{SCHU62}. 
-
-\begin{definition}[$\Rel$-polyregular functions {\cite{CDTL23}}]
-    \label{nat-rel-poly:def}
-    Let $M$ be a finite monoid, $\mu \colon \Sigma^* \to M$
-    be a morphism, $k \in \Nat$, and 
-    $\pi \colon M^k \to \Rel$ be a function.
-    The \intro{$\Rel$-polyregular function}
-    $\pi^\dagger \colon \Sigma^* \to \Rel$
-    is computed as follows:
-    \begin{equation*}
-        \pi^\dagger (w) \defined
-        \sum_{w = u_1 \cdots u_k} \pi(\mu(u_1), \dots, \mu(u_k))
-        \quad .
-    \end{equation*}
-    When $\pi$ has co-domain $\Nat$, the function $\pi^\dagger$
-    is called \intro{$\Nat$-polyregular}.
-    We call $\pi$ the \emph{production function} of $\pi^\dagger$.
-    When the monoid $M$ is \kl(monoid){aperiodic}
-    then
-    the function $f$ is \intro{star-free $\Rel$-polyregular}
-    (resp. \intro{star-free $\Nat$-polyregular}).
-\end{definition}
-
-
-
-\textbf{TODO: remove this example}
-\begin{example}
-    \label{size-of-word-nsf:ex}
-    The map $f \colon w \mapsto \card{w} + 1$
-    belongs to $\NSF$.
-    \proofref{size-of-word-nsf:ex}
-\end{example}
 
 \textbf{TODO: remove this lemma}
 \begin{lemma}[{\cite[Theorems 5.15 and 7.10]{DOUE23}}]
@@ -51,94 +14,6 @@ and is similar in shape to the \emph{finite counting automata} introduced by
         \kl{counter-free}).
 \end{lemma}
 
-\AP Let us briefly recall in the following lemmas alternative characterizations
-of $\NPoly$ (resp. $\ZPoly$), some of which will be helpful in the upcoming
-analysis of their \kl{commutative} counterpart, and others that provide a nicer
-syntax to construct examples. These characterizations were previously known,
-and can be found for instance in \cite{DOUE23,CDTL23}. For every language $L
-\subseteq \Sigma^*$ we define $\ind{L} \colon \Sigma^* \to \set{0,1}$ as the
-indicator function of $L$. Given an $\MSO$ (resp. $\FO$) formula with
-first-order free variables $\varphi(\vec{x})$, we define
-$\vcount{\varphi(\vec{x})}$ as the function from $\Sigma^*$ to $\Nat$ that maps
-a word $w$ to the number of assignments $\nu \colon \vec{x} \to w$, such that
-$w, \nu \models \varphi(\vec{x})$. If $X$ is a set of functions from $\Sigma^*$
-to $\Rel$, and a subset $\mathbb{S}$ of $\Rel$, we define
-$\intro*\Span{\mathbb{S}}(X)$ as the smallest subset of functions from
-$\Sigma^* \to \Rel$ containing $X$ and closed under (finite) sums and
-multiplication with elements $s \in \mathbb{S}$.
-
-\begin{lemma}
-    \label{polynomial-rational-polyreg:fact}
-    Let $f \in \NRat$ (resp. $f \in \ZRat$), then
-    the following are equivalent:
-    \begin{enumerate}
-        \item $f \in \NPoly$ (resp. $\ZPoly$);
-        \item $f$ is a \kl{polyregular function} with output
-            in $\set{1}^*$,
-            post-composed with $\polysum$
-            (resp. with output in $\set{-1,+1}^*$);
-        \item $f$ has \kl{polynomial growth};
-        \item \label{npoly-counting-mso:item} $f$ belongs to
-            $\Span{\mathbb{S}}(\setof{\vcount{\varphi}}{\varphi(\vec{x}) \in \MSO})$
-            with $\mathbb{S} = \Nat$
-            (resp. $\mathbb{S} = \Rel$).
-    \end{enumerate}
-\end{lemma}
-
-
-
-\begin{lemma}
-    Let $f \in \NPoly$ (resp. $f \in \ZPoly$), then
-    the following are equivalent:
-    \begin{enumerate}
-        \item $f \in \NSF$ (resp. $\ZSF$);
-        \item $f$ is a \kl{star-free polyregular function} with output
-            in $\set{1}^*$,
-            post-composed with $\polysum$
-            (resp. with output in $\set{-1,+1}^*$);
-        \item $f$ belongs to
-            $\Span{\mathbb{S}}(\setof{\vcount{\varphi}}{\varphi(\vec{x}) \in \FO})$
-            with $\mathbb{S} = \Nat$
-            (resp. $\mathbb{S} = \Rel$).
-    \end{enumerate}
-\end{lemma}
-
-%Similar characterizations can be obtained for $\NSF$ and $\ZSF$, which correctly
-%generalizes aperiodicity to functions as \cref{regular-language:ex} illustrates.
-%\begin{example}
-%    \label{regular-language:ex}
-%    Let $\Sigma$ be a finite alphabet, and
-%    $L \subseteq \Sigma^*$. Then,
-%    $L$ is a regular language if and only if
-%    $\ind{L} \colon \Sigma^* \to \set{0,1}$ is a
-%    \kl{$\Nat$-polyregular function}.
-%    Furthermore, $L$ is a star-free regular language
-%    if and only if $\ind{L}$ is a
-%    \kl{star-free $\Nat$-polyregular function}.
-%\end{example}
-%It has been proven in \cite{CDTL23,BOJA22} that the classes $\ZPoly[k]$ (resp.
-%$\NPoly[k]$, $\ZSF[k]$, $\NSF[k]$) are also characterized by the maximal number
-%of first order free variables used to construct the function as in
-%\cref{npoly-counting-mso:item} of \cref{polynomial-rational-polyreg:fact}.
-
-\begin{proofof}[size-of-word-nsf:ex]
-    Let us define $M \defined (\set{1}, \times)$ which is 
-    a finite \kl{aperiodic monoid}, $\mu \colon \Sigma^* \to M$
-    defined by $\mu(w) \defined 1$, and
-    $\pi \colon M^2 \to \Nat$
-    that is the constant function equal to $1$.
-    We check that for all $w \in \Sigma^*$:
-    \begin{equation*}
-        \pi^\dagger(w)
-        =
-        \sum_{uv = w} 1
-        =
-        \card{w} + 1
-        = f(w)
-        \quad . 
-        \qedhere
-    \end{equation*}
-\end{proofof}
 
 \begin{proof}[Proof of \cref{decidable-commutative-poly:lemma}, in the polyregular case]
     Let $\Sigma$ be a finite alphabet, endowed with a
@@ -262,8 +137,63 @@ multiplication with elements $s \in \mathbb{S}$.
     (\cref{pre-image-regular:fact}). 
 \end{proofof}
 
+\AP In order to prove \cref{n-poly-combinatorics:lem}, we will rely on an
+equivalent definition of \kl{$\Nat$-polyregular functions} that is more
+combinatorial in nature, and is similar in shape to the \emph{finite counting
+automata} introduced by \cite{SCHU62}.
+
+\begin{lemma}[$\Rel$-polyregular functions {\cite{CDTL23}}]
+    \label{nat-rel-poly:def}
+    Let $M$ be a finite monoid, $\mu \colon \Sigma^* \to M$
+    be a morphism, $k \in \Nat$, and 
+    $\pi \colon M^k \to \Rel$ be a function.
+    The following function 
+    $\pi^\dagger \colon \Sigma^* \to \Rel$
+    is \kl{$\Rel$-polyregular}:
+    \begin{equation*}
+        \pi^\dagger (w) \defined
+        \sum_{w = u_1 \cdots u_k} \pi(\mu(u_1), \dots, \mu(u_k))
+        \quad .
+    \end{equation*}
+    When $\pi$ has co-domain $\Nat$, the function $\pi^\dagger$
+    is furthermore \kl{$\Nat$-polyregular}.
+    We call $\pi$ the \emph{production function} of $\pi^\dagger$.
+    When the monoid $M$ is \kl(monoid){aperiodic}
+    then
+    the function $f$ is \kl{star-free $\Rel$-polyregular}
+    (resp. \kl{star-free $\Nat$-polyregular}).
+\end{lemma}
+
+In order to illustrate the above definition, let us provide an example of a
+\kl{$\Nat$-polyregular function} computed using a finite monoid.
+
+\begin{example}
+    \label{size-of-word-nsf:ex}
+    The map $f \colon w \mapsto \card{w} + 1$
+    belongs to $\NSF$.
+\end{example}
+\begin{proof}
+    Let us define $M \defined (\set{1}, \times)$ which is 
+    a finite \kl{aperiodic monoid}, $\mu \colon \Sigma^* \to M$
+    defined by $\mu(w) \defined 1$, and
+    $\pi \colon M^2 \to \Nat$
+    that is the constant function equal to $1$.
+    We check that for all $w \in \Sigma^*$:
+    \begin{equation*}
+        \pi^\dagger(w)
+        =
+        \sum_{uv = w} 1
+        =
+        \card{w} + 1
+        = f(w)
+        \quad . 
+        \qedhere
+    \end{equation*}
+\end{proof}
 
 \begin{proofof}[n-poly-combinatorics:lem]
+    We leverage the characterization of \kl{$\Nat$-polyregular functions}
+    given in \cref{nat-rel-poly:def}.
     Let $\omega$ be an idempotent power for the finite monoid $M$,
     and
     $w \defined \alpha_0 \prod_{i = 1}^p (u_i^{\omega \times X_i} \alpha_i)$.
@@ -303,13 +233,14 @@ multiplication with elements $s \in \mathbb{S}$.
     which has the desired shape.
 \end{proofof}
 
+
 \begin{proofof}[n-rat-correct:lem]
     Let $f$ be the \kl{commutative}
     \kl{$\Nat$-rational series}
     with domain defined as $\Sigma \defined \set{a_1, \dots, a_p}$
     that \kl{represents} $P$. Because $f$ has \kl{polynomial growth},
     it is in fact a \kl{$\Nat$-polyregular function}
-    (\cref{polynomial-rational-polyreg:fact}).
+    (\cite[Theorem 5.22]{DOUE23}).
     Using \cref{n-poly-combinatorics:lem},
     there exists a number $\omega \in \Nat$
     and polynomial $Q$ with \kl{non-negative}
@@ -434,9 +365,8 @@ quasi-ordering]{SCSC12}.
     for all $K \in \Nat$,
     $\MaximalMonomials(\Diff{K}{P}) \hoarele
     \MaximalMonomials(P)$.
-    \proofref{derivation-simplifies:lemma}
 \end{lemma}
-\begin{proofof}[derivation-simplifies:lemma]
+\begin{proof}
     Let $P \in \Rel[\vec{X}]$ and
     $K \in \Nat$.
     Leveraging 
@@ -453,7 +383,7 @@ quasi-ordering]{SCSC12}.
         \quad .
         \qedhere
     \end{align*}
-\end{proofof}
+\end{proof}
 
 
 \begin{proofof}[derivation-stabilises-correct:lem]
@@ -929,12 +859,47 @@ quasi-ordering]{SCSC12}.
 
 
 \begin{lemma}
+    \label{polynomial-rational-polyreg:fact}
+    Let $f \in \NRat$ (resp. $f \in \ZRat$), then
+    the following are equivalent:
+    \begin{enumerate}
+        \item $f \in \NPoly$ (resp. $\ZPoly$);
+        \item $f$ is a \kl{polyregular function} with output
+            in $\set{1}^*$,
+            post-composed with $\polysum$
+            (resp. with output in $\set{-1,+1}^*$);
+        \item $f$ has \kl{polynomial growth};
+        \item \label{npoly-counting-mso:item} $f$ belongs to
+            $\Span{\mathbb{S}}(\setof{\vcount{\varphi}}{\varphi(\vec{x}) \in \MSO})$
+            with $\mathbb{S} = \Nat$
+            (resp. $\mathbb{S} = \Rel$).
+    \end{enumerate}
+\end{lemma}
+
+
+
+\begin{lemma}
+    Let $f \in \NPoly$ (resp. $f \in \ZPoly$), then
+    the following are equivalent:
+    \begin{enumerate}
+        \item $f \in \NSF$ (resp. $\ZSF$);
+        \item $f$ is a \kl{star-free polyregular function} with output
+            in $\set{1}^*$,
+            post-composed with $\polysum$
+            (resp. with output in $\set{-1,+1}^*$);
+        \item $f$ belongs to
+            $\Span{\mathbb{S}}(\setof{\vcount{\varphi}}{\varphi(\vec{x}) \in \FO})$
+            with $\mathbb{S} = \Nat$
+            (resp. $\mathbb{S} = \Rel$).
+    \end{enumerate}
+\end{lemma}
+
+\begin{lemma}
     \label{n-poly-k-implies-wqo:lemma}
     Let $k \in \Nat$, and let $f \in \NPoly[k]$.
     Then, $(\Sigma^* \resleq{f}{k})$ is a \kl{well-quasi-ordering}.
-    \proofref{n-poly-k-implies-wqo:lemma}
 \end{lemma}
-\begin{proofof}[n-poly-k-implies-wqo:lemma]
+\begin{proof}
     Because $f \in \NPoly[k]$, there exists
     a tuple $\vec{x}$ of first order free variables,
     $\MSO$ formulas $\seqof{\psi_i(\vec{x})}{1 \leq i \leq n}$,
@@ -1013,7 +978,7 @@ quasi-ordering]{SCSC12}.
     \MSO^q(u_j)$. As a consequence, $g \defined \app{f}{u_j} - \app{f}{u_i} \in
     \NPoly$, and therefore $g \in \NPoly[k-1]$. We have proven that there
     exists $i < j$ such that $u_i \resleq{f}{k} u_j$.
-\end{proofof}
+\end{proof}
 
 
 
