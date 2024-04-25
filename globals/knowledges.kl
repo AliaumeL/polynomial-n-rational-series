@@ -163,6 +163,10 @@
  | $\mathcal {H}$-transducer
  | $\NPoly [k-1]$-transducer
  | $\NSF [k-1]$-transducer
+ | $\reintro *\ZPoly [k-1]$-transducer
+ | $\reintro *\NPoly [k-1]$-transducer
+ | $\reintro *\NPoly [k]$-transducers
+ | $\reintro *\NSF [k]$-transducers
 
 
 
@@ -171,6 +175,9 @@
 \knowledge{notion}
  | types modulo $\omega $
  | $\omega $-type
+
+\knowledge{notion}
+ | prefix ordering
 
 \knowledge{notion}
  | aperiodic ordering

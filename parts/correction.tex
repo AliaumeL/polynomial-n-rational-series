@@ -102,7 +102,7 @@ binomial expansion. Using this lemma, the induction is performed as follows:
 after decomposing a polynomial $P$ into a sum of \kl{maximal monomials} $P_1$
 and the rest $P_2$, notice that for all $K \in \Nat$, $\translate{K}(P) = P_1 +
 \Diff{K}{P_1} + \translate{K}(P_2)$. Then, because $P \in \CorrectPoly$, $P_1$
-is a \kl{$\Nat$-rational polynomial}, furthermore, we can use the induction
+is a \kl{$\Nat$-rational polynomial}. Furthermore, we can use the induction
 hypothesis on $\Diff{K}{P_1} + \translate{k}(P_2)$ since it has lower degree
 monomials and is in $\CorrectPoly$, finally we can also apply the induction
 hypothesis to $\restr{P}{\nu}$ where $\nu$ is a partial function from $\vec{X}$
@@ -111,7 +111,7 @@ of combining these functions to obtain a \kl{$\Nat$-polyregular function} that
 \kl{represents} $P$. Notice that in \cref{lem:correct-to-n-rat}, polynomials
 can be represented using \kl{star-free $\Nat$-polyregular functions}, which is
 a stronger statement than the one in \cref{karh:thm}, but is in line with the
-idea that polynomials are not periodic functions (for instance, in
+idea that polynomials are not periodic functions (this will be made precise in
 \cref{zsf-nsf:conjecture}).
 
 \begin{lemma}

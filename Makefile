@@ -7,6 +7,19 @@ BIB=globals/papers.bib
 pnrs.pdf: $(TEX) $(BIB)
 	latexmk -pdf -xelatex pnrs.tex
 
+
+# Create a bibtex file by contatenating all the bib files
+# inside the transducer-bib directory
+globals/papers.bib: transducer-bib/*.bib
+	cat transducer-bib/*.bib > globals/papers.bib
+
+# Create an arxiv file by inlining everything
+arxiv.tex: pnrs.pdf
+	latexpand -o arxiv.tex \
+			  --empty-comments \
+			  --expand-bbl pnrs.bbl \
+			  pnrs.tex
+
 arxiv.tar.gz: pnrs.pdf
 	mkdir -p arxiv/globals
 	mkdir -p arxiv/tikz

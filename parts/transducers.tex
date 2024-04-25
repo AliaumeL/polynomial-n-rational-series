@@ -44,8 +44,8 @@ as illustrated by the two distinct \kl{$\NPoly[0]$-transducers} of
 \cref{non-canonical-transd:fig} computing the function $\BadExOk$ of
 \cref{non-canonical-transd:ex}, and having as states minimal elements for
 $\resleq{\BadExOk}{0}$. To ensure unicity, we ask that the set of states is a
-\intro{downwards closed} subset of $\Sigma^*$ for the prefix ordering
-$(\prefleq)$, i.e. that every prefix of a state is also a state. 
+\intro{downwards closed} subset of $\Sigma^*$ for the \intro{prefix ordering}
+$(\intro*\prefleq)$, i.e. that every prefix of a state is also a state. 
 
 \begin{definition}
     \label{residual-transducer:def}
@@ -127,8 +127,10 @@ valuations of some $\MSO$ formulas \cite{KRRC13,CDTL23}.
         \item \label{n-poly-well:item} every $\prefleq$-increasing sequence
             of $\Sigma^*$  is a \kl{good sequence}
             for $\resleq{f}{k}$;
-        \item \label{n-poly-residual:item} $f$ is \kl{computed} by a
-            \kl{$k$-residual transducer}.
+        \item \label{n-poly-residual:item} The
+            \kl{$k$-residual transducer}
+            of 
+            $f$ exists.
     \end{enumerate}
     If $f$ is \kl{commutative}, the  
     properties are decidable, and the conversions effective.
