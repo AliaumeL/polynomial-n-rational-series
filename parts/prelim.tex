@@ -3,41 +3,54 @@
 \section{Preliminaries}
 \label{preliminaries:sec}
 
-\AP In the rest of this paper, $\Rel$ (resp. $\Nat$) denotes the set of
-integers (resp. non-negative integers). The capital letters $\Sigma,\Gamma$
-denotes fixed alphabets, i.e. a finite set of letters, and $\Sigma^*, \Gamma^*$
-(resp. $\Sigma^+, \Gamma^+$) are the set of words (resp. non-empty words) over
+\AP In the rest of this paper, we use the symbol $\Rel$ to denote the set of
+integers, $\Rat$ to denote the set of rational numbers, and $\Nat$ to denote
+the set of non-negative integers. The capital letters $\Sigma,\Gamma$ denote
+fixed alphabets, i.e. finite set of letters, and $\Sigma^*, \Gamma^*$ (resp.
+$\Sigma^+, \Gamma^+$) are the set of words (resp. non-empty words) over
 $\Sigma, \Gamma$. The empty word is written $\varepsilon \in \Sigma^*$. When $w
 \in \Sigma^*$ and $a \in \Sigma$, we let $\card{w} \in \Nat$ be the length of
-$w$, and $\card[a]{w}$ be the number of occurrences of $a$ in $w$. We assume
-that the reader is familiar with the basics of automata theory, in particular
-the notions of monoid morphisms, idempotents in monoids, monadic second-order
-($\MSO$) logic and first-order ($\FO$) logic over finite words (see e.g.
-\cite{THOM97}). As aperiodicity will be a central notion of this paper, let us
-recall that a monoid $M$ is \intro(monoid){aperiodic} whenever for all $x \in
-M$, there exists $n \in \Nat$ such that $x^{n+1} = x^n$.
+$w$, and $\card[a]{w}$ be the number of occurrences of $a$ in $w$. 
 
-\AP We also assume the reader to be familiar with \kl{rational series} and
-weighted automata, and refer to \cite{BERE10} for a comprehensive introduction.
-Let us recall that one of the equivalent definitions of a $K$-rational series
-(where $K$ is a ring) is given by the functions from $\Sigma^*$ to $K$ computed
-by weighted automata, which are non-deterministic finite automata with
-transitions labelled by elements of $K$, and whose output on a given word is
-the sum over all accepting paths of the products of the weights along the path.
+\AP
+We assume that the reader is familiar with the basics of automata theory, in
+particular the notions of monoid morphisms, idempotents in monoids, monadic
+second-order ($\MSO$) logic and first-order ($\FO$) logic over finite words
+(see e.g. \cite{THOM97}). As aperiodicity will be a central notion of this
+paper, let us recall that a monoid $M$ is \intro(monoid){aperiodic} whenever
+for all $x \in M$, there exists $n \in \Nat$ such that $x^{n+1} = x^n$.
+
+\AP Let us briefly recall that one of the equivalent definitions of a
+\intro{$K$-rational series} (where $K$ is a ring), and refer to \cite{BERE10}
+for a comprehensive introduction. The \kl{$K$-rational series} from $\Sigma^*$
+to $K$ are the functions computed by \intro{$K$-weighted automata} which are
+non-deterministic finite automata with transitions labelled by elements of $K$,
+and whose output on a given word is the sum over all accepting paths of the
+products of the weights along the path. For instance, the function $w \mapsto
+2^{\card{w}}$ is computed by an \kl{$\Nat$-weighted automaton} with a single
+state, and a loop labelled by $2$, and is therefore an \kl{$\Nat$-rational
+series}.
 
 \AP We use the notation $\commute \colon \Sigma^* \to \Nat^\Sigma$ for the map
 that counts occurrences of every letter in the input word (that is, computes
-the Parikh vector) namely: $ \commute[w] \defined (a \mapsto \card[a]{w})$.
-Given a set $X$, a function $f \colon \Sigma^* \to X$ is \intro{commutative}
-whenever for all $u \in \Sigma^*$, for all permutations $\sigma$ of $\set{1,
-\dots, \card{w}}$, $f(\sigma(u)) = f(u)$. Equivalently, it is
-\reintro{commutative} whenever there exists a map $g \colon \Nat^\Sigma \to X$
-such that $g \circ \commute = f$. A function $g \colon \Nat^n \to X$ is
-\intro{represented} by a function $f \colon \Sigma^* \to X$ if there exists a
-map $\eta \colon \set{1, \dots, n} \to \Sigma$ such that $g \circ (v \colon
-\Nat^\Sigma \mapsto \seqof{v(\eta(k))}{1 \leq k \leq n} \colon \Nat^n) \circ
-\commute = f$. This notion will be useful to formally state that a polynomial
-``is'' a \kl{polyregular function}.
+the Parikh vector) namely: $ \commute[w] \defined \seqof{a \mapsto
+\card[a]{w}}{a \in \Sigma}$. Given a set $X$, a function $f \colon \Sigma^* \to
+X$ is \intro{commutative} whenever for all $u \in \Sigma^*$, for all
+permutations $\sigma$ of $\set{1, \dots, \card{w}}$, $f(\sigma(u)) = f(u)$.
+Equivalently, it is \reintro{commutative} whenever there exists a map $g \colon
+\Nat^\Sigma \to X$ such that $g \circ \commute = f$.
+
+\AP Let $n \in \Nat$, and let $\Sigma$ be a finite alphabet. Given a function
+$\eta \colon \set{1, \dots, n} \to \Sigma$, we define the $\eta^\dagger \colon
+\Nat^n \to \Sigma^*$ as $\eta^\dagger(\vec{x}) \defined \eta(1)^{x_1} \dots
+\eta(n)^{x_n}$. A function $f \colon \Nat^n \to X$ is \intro{represented} by a
+\kl{commutative} function $g \colon \Sigma^* \to X$ if there exists a map $\eta
+\colon \set{1, \dots, n} \to \Sigma$ such that $g \circ \eta^\dagger = f$. This
+notion will be useful to formally state that a polynomial ``is'' a
+\kl{commutative} \kl{polyregular function}. For instance, the polynomial
+function $P(X,Y) = X \times Y$ is \kl{represented} by the \kl{commutative}
+function $g \colon \set{a,b}^* \to \Rel$ defined by $g(w) \defined \card[a]{w}
+\times \card[b]{w}$.
 
 \subsection{Polyregular Functions}
 
@@ -56,15 +69,22 @@ $\Nat$-valued) functions, but could consider other commutative semigroups.
     An \intro{$\mathcal{H}$-transducer} $\aTransd$ is
     a tuple $(Q, q_0, \delta, \lambda, F)$ where
          $Q$ is a finite set of states,
-         $q_0 \in Q$ is an initial state,
+         $q_0 \in Q$ is called the initial state of the transducer,
          $\delta \colon Q \times \Sigma \to Q$
-            is a deterministic transition function,
+            is called the deterministic transition function of the transducer,
          $\lambda \colon Q \times \Sigma \to \mathcal{H}$
-            is a correction function,
-         and $F \colon Q \to \Rel$ is an output function.
+            is called the correction function of the transducer,
+         and $F \colon Q \to \Rel$ is called the output function of the transducer.
 \end{definition}
 
+Based on this syntax, let us now define the semantics of a transducer, in terms
+of the function from $\Sigma^*$ to $\Rel$ that it computes. The intuition is
+that it suffices to apply the correction function $\lambda$ on every transition
+of the underlying automaton, sum the results, and add to this number the output
+associated to the final state of the computation.
+
 \begin{definition}
+    \label{transducer-sem:def}
     Let $\aTransd \defined (Q,q_0, \delta, \lambda, F)$ be an \kl{$\mathcal{H}$-transducer}.
     The function
     $\aTransd \colon Q \times \Sigma^* \to \Rel$
@@ -121,6 +141,12 @@ $\NPoly$ and $\ZPoly$.
     and $\BadExOk(a^n) = n - 1$ for all $n \geq 2$.
     The function $\BadExOk$ is \kl{computed} by the two \kl{$\NPoly[0]$-transducers}
     depicted in \cref{non-canonical-transd:fig}.
+    As a consequence, $f \in \NPoly[1]$.
+    Furthermore, because the automaton of 
+        \cref{non-canonical-transd:fig:counter-free}
+        has no \kl{counter},
+    and the correction function only uses functions in $\NSF[0]$,
+    $f \in \NSF[1]$.
 \end{example}
 
 
@@ -143,7 +169,7 @@ $\NPoly$ and $\ZPoly$.
 
             \draw[->] (A) to node[midway, below] {$a \mid 0$} (B);
 
-            \draw[->] (B) to[bend right=45] node[midway, above] {$a \mid 1 + \ind{\card{w} \geq 1}$} (A);
+            \draw[->] (B) to[bend right=45] node[midway, above] {$a \mid \ind{\card{w} > 1} + \ind{\card{w} \geq 1}$} (A);
         \end{tikzpicture}
         \caption{This automaton has a \kl{counter}.}
     \end{subfigure}
@@ -168,6 +194,7 @@ $\NPoly$ and $\ZPoly$.
                 {$a \mid 1 + \ind{\card{w} = 0}$} (B);
         \end{tikzpicture}
         \caption{This automaton is \kl{counter-free}.}
+        \label{non-canonical-transd:fig:counter-free}
     \end{subfigure}
     \caption{Two \kl{$\NPoly[0]$-transducers}
     \kl{computing} the function $\BadExOk$ of \cref{non-canonical-transd:ex}.}
