@@ -96,6 +96,53 @@ associated to the final state of the computation.
     is $w \mapsto \aTransd(q_0, w)$.
 \end{definition}
 
+\begin{example}
+    \label{simple-transd:ex}
+    Let $\mathsf{Const}$ be the set of constant functions from $\Sigma^*$ to $\Rel$,
+    and let us write $\const{n}$ for the constant function equal to $n \in \Rel$.
+    In 
+    \cref{simple-transd:fig}, we provide a graphical depiction of a
+    \kl{$\mathsf{Const}$-transducer} that \kl{computes} the function
+    $f \colon \set{a,b}^* \to \Rel$ defined by
+    $f(\varepsilon) = 1$,
+    $f(aw) = 3 \times \card{w}$,
+    and $f(bw) = 3 \times \card{w} + 1$.
+\end{example}
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}[
+        etat/.style={minimum size=2em}
+        ]
+        \node[etat,state,initial,
+            accepting by arrow,
+            accepting text={$1$},
+            accepting where=below,
+            ] (A) at (0,0) {$q_0$};
+        \node[etat,state,
+            accepting by arrow,
+            accepting text={$0$},
+            accepting where=below,
+            ] (B) at (2.5,0) {$q_1$};
+
+        \draw[->] (A) to[bend right=20] node[midway, below] {$a \mid \const{0}$} (B);
+        \draw[->] (A) to[bend left=20] node[midway, above] {$b \mid \const{1}$} (B);
+
+
+        \draw[->] (B) edge[loop right] node[midway, right]
+            {$a,b \mid \const{3}$} (B);
+    \end{tikzpicture}
+    \caption{A \kl{$\mathsf{Const}$-transducer}, where $\mathsf{Const}$ is the set of constant functions
+        from $\set{a,b}^*$ to $\Rel$,
+        with a set of states $Q \defined \set{ q_0, q_1 }$,
+        an initial state $q_0$,
+        an output function $F \colon Q \to \Rel$ such that $F(q_0) = 1$ and $F(q_1) = 0$,
+        and correction functions $\lambda(q,a) = \const{0}$, $\lambda(q,b) = \const{1}$,
+        and $\lambda(q_1,a) = \lambda(q_1,b) = \const{3}$.
+    }
+    \label{simple-transd:fig}
+\end{figure}
+
 \AP Let us recall that a \intro{counter} in an automaton is a pair $u,w$ of
 words together with an integer $n > 1$, such that $\delta(q_0, uw^n) =
 \delta(q_0, u)$ and $\delta(q_0, u w^k) \neq \delta(q_0, u)$ for all $k < n$;
@@ -138,7 +185,7 @@ $\NPoly$ and $\ZPoly$.
     be defined as
     $\BadExOk(\varepsilon) = 1$,
     $\BadExOk(a) = 0$,
-    and $\BadExOk(a^n) = n - 1$ for all $n \geq 2$.
+    and $\BadExOk(a^n) = n-1$ for all $n \geq 2$.
     The function $\BadExOk$ is \kl{computed} by the two \kl{$\NPoly[0]$-transducers}
     depicted in \cref{non-canonical-transd:fig}.
     As a consequence, $f \in \NPoly[1]$.
@@ -148,6 +195,46 @@ $\NPoly$ and $\ZPoly$.
     and the correction function only uses functions in $\NSF[0]$,
     $f \in \NSF[1]$.
 \end{example}
+\begin{proofof}[non-canonical-transd:ex]
+    Let us prove that the transducer of
+    \cref{non-canonical-transd:fig:counter-free}
+    computes $f$.
+    We prove by induction on $w$
+    that $A(q_0, w) = f(w)$,
+    and that $A(q_1, w) = f(aw)$.
+    Let us first remark that $f(au) = \card{u}$.
+    
+    When $w = \varepsilon$, $A(q_0, \varepsilon) = F(\varepsilon) = 1 = f(\varepsilon)$.
+    Similarly, $A(q_1, \varepsilon) = F(q_1) = 0 = f(a)$.
+
+    Assume that $w = au$. Then:
+    \begin{align*}
+        A(q_0, w) = A(q_0, au) &= \lambda(q_0, a)(u) + A(q_1, u) \\ 
+                               &= 0 + A(q_1,u) \\
+                               &= f(au) & \text{by induction hypothesis} \\
+                               &= f(w) 
+    \end{align*}
+    Similarly,
+    \begin{align*}
+        A(q_1, w) = A(q_1, au) &= \lambda(q_1, a)(u) + A(q_1, u) \\ 
+                               &= 1 + \ind{\card{u} = 0} + A(q_1,u) \\
+                               &= 1 + \ind{\card{u} = 0} + f(au) & \text{by induction hypothesis} \\
+                               &= \begin{cases}
+                                    2 + f(a) & \text{if $u = \varepsilon$} \\
+                                    1 + f(au) & \text{otherwise}
+                               \end{cases}
+                               \\
+                               &= \begin{cases}
+                                    2 & \text{if $u = \varepsilon$} \\
+                                    1 + \card{u} & \text{otherwise}
+                               \end{cases}
+                               \\
+                               &= \begin{cases}
+                                   f(aa) & \text{if $u = \varepsilon$} \\
+                                   f(
+                               \end{cases}
+    \end{align*}
+\end{proofof}
 
 
 \begin{figure}
@@ -169,7 +256,7 @@ $\NPoly$ and $\ZPoly$.
 
             \draw[->] (A) to node[midway, below] {$a \mid 0$} (B);
 
-            \draw[->] (B) to[bend right=45] node[midway, above] {$a \mid \ind{\card{w} > 1} + \ind{\card{w} \geq 1}$} (A);
+            \draw[->] (B) to[bend right=45] node[midway, above] {$a \mid 1 + \ind{\card{w} \geq 1}$} (A);
         \end{tikzpicture}
         \caption{This automaton has a \kl{counter}.}
     \end{subfigure}
@@ -191,13 +278,15 @@ $\NPoly$ and $\ZPoly$.
             \draw[->] (A) to node[midway, below] {$a \mid 0$} (B);
 
             \draw[->] (B) edge[loop right] node[midway, right]
-                {$a \mid 1 + \ind{\card{w} = 0}$} (B);
+                {$a \mid 1$} (B);
         \end{tikzpicture}
         \caption{This automaton is \kl{counter-free}.}
         \label{non-canonical-transd:fig:counter-free}
     \end{subfigure}
     \caption{Two \kl{$\NPoly[0]$-transducers}
-    \kl{computing} the function $\BadExOk$ of \cref{non-canonical-transd:ex}.}
+    \kl{computing} the function $\BadExOk$ of \cref{non-canonical-transd:ex},
+    that maps $a^n$ to $n$ for all $n \geq 2$, $a$ to $0$, and $\varepsilon$ to $1$.
+    }
     \label{non-canonical-transd:fig}
 \end{figure}
 
