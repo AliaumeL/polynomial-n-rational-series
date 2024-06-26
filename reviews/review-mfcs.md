@@ -199,35 +199,60 @@ mistake pops up again in the proof?
 117: denotes fixed alphabets, i.e. a finite set of letters → "denote fixed alphabets, i.e. finite sets of letters"
 136-137: this is difficult to parse
 148: what is a "correction function"? the term is nonstandard and appears nowhere else in the paper
+     -> I am *defining* this term
 167: have an N-valued output functions → remove "an"
+     -> NO
 169: In Example 3, it would be desirable to say that this means f ∈ NPoly_1, to fix the reader's ideas about the offset of 1 between NPoly_(k-1)-transducers and the class NPoly_k.
+     -> ok
 222: in Fact 9, the meaning of the first occurrence of "regular language" is not completely obvious, maybe say "ultimately periodic subset"?
+    - > ok
 237: "closing PolyRec under" → at this point PolyRec has not yet been mentioned, so the phrasing is a bit confusing at first
+    -> ok
 237 (again): assignments of variable → "of variables" (actually, "variable assignments" sounds a bit better?)
+    -> ok
 244: such that P is such that → redundant
+     -> ok
 269: allowing to perform → "allowing us to perform" (or "that allows us to perform", which sounds better)
+    -> ok
 274: τ_k → τ_K
+    -> ok
 275: "and is in PolyRec" → only for a well-chosen value of K…
+    -> ok 
 323: it might be more elegant to take ωTypes := {0,…,ω²} + {0,…,ω-1} and say that the type of n∈ℕ belongs to the second summand only when n>ω²?
+    -> ok, there is still an if though.
 325: the rest of the Euclidian division → the *remainder* of the *Euclidean* division
+    -> ok
 339: What's the point of this notion of "(k,ℕ)-combinatorial for all k"?
+    -> ok
 355: Example 27 is true, but it may be worth mentioning that for a bounded function, "ultimately polynomial" means "ultimately constant"
+    -> ok
 364: We answer positively to Conjecture 28 → "We answer Conjecture 28 positively"
+    -> 
 682: "ε → 0" should be \mapsto
 683: this expression represents (X-1)² i.e. P-1, not P
 686: We can develop → "We can expand"
 692-693: instead of using formal indeterminates X,Y,Z, you should say "for all n,m,p∈ℕ, P_bad(n,m,p) …" (non-negativity of the arguments is important in the reasoning)
+    -> ok
 706: When the monoid M is aperiodic then → either remove "then" or replace "When" by "If"
+    -> ok
 748: commutes → commute
 750: Remark 42 is more like a "Proposition" or a "Fact" than a "Remark"
 759: isomorphic to ℕ^k with the product ordering → the correspondence is not bijective since it forgets the coefficient of the monomial and keeps only the degree, but the quotiented poset is isomorphic to ℕ^k hence the original preorder is a wqo
+    -> NO, the divisibility ordering does not care about the degree.
 775: such thatt_j → missing space
+     -> ok
 817: fixing at least one indeterminate → this indeterminate must occur in P (can this be assumed without loss of generality? morally yes, formally one has to be a bit careful)
+    -> it was an assumption, so yes thank you for reading the proof
 824: please give the definition of the chosen ν (I assume it maps the indeterminate X_i to the value X_i, which by the way shows that it would be better to use a different notation for the latter)
+    -> ok
 870: In both cases, the maximal monomials have positive coefficient → non-negative coefficient
+    -> ok
 874: We apply Lemma 14 → since this lemma applies only to ℕ-polyregular functions, you need to reduce the ℤ-polyregular case to the ℕ-polyregular case (say, by considering a linear combination)
+    -> ok
 884: Using the assumption, all of these polynomials are actually ℕ-rational → this looks true, but requires a little bit of reasoning (each polynomial in the decomposition coincides with some ℕ-rational polynomial on enough points…); in particular the ω from (k,ℕ)-combinatoriality and the ω from Lemma 23 are not the same
+    -> ok
 900: hence is represented by a function f_1 ∈ ℕSF_k → here you should invoke Lemma 18
+    -> 
 1043: Or, … → Now, …
 1059: then the conjecture Conjecture 38 → redundant
 
