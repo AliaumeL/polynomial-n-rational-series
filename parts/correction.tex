@@ -7,7 +7,7 @@
 The counter example provided by \cref{def:bad-polynomial} relies on the fact
 that $\CoveredPoly$ is not stable under fixing indeterminates, while
 \kl{$\Nat$-polyregular functions} are. In this section, we prove that closing
-$\CorrectPoly$ under assignments of variable is enough to recover from
+$\CoveredPoly$ under variable assignments is enough to recover from
 \cref{karh:thm}.
 We use the following notation to fix the value of some indeterminate, if
 $P(X,Y)$ is a polynomial in $\Rel[X,Y]$, then $\intro*\restr{P(X,Y)}{X = 1}$ is
@@ -21,9 +21,8 @@ variables of the domain of $\nu$.
 \begin{definition}
     Let $\vec{X}$ be a finite tuple of indeterminates.
     The class $\intro*\CorrectPoly[\vec{X}]$ is the collection of
-    polynomials $P \in \Rel[\vec{X}]$ such that
-    $P$ is 
-    such that, for every partial function $\nu \colon \vec{X} \topartial \Nat$,
+    polynomials $P \in \Rel[\vec{X}]$ such that,
+    for every partial function $\nu \colon \vec{X} \topartial \Nat$,
     every \kl{maximal monomial} of
     $\restr{P}{\nu}$ is \kl{non-negative}.
 \end{definition}
@@ -96,15 +95,17 @@ K, \dots, X_n + K)$.
 
 \AP The key lemma of this section is \cref{lem:correct-to-n-rat}, which is
 proved by induction on the \kl{maximal monomials} of a polynomial $P$. The core
-combinatorial argument allowing to perform the induction is
+combinatorial argument allowing us to perform the induction is
 \cref{derivation-stabilises-correct:lem}, which is proved by a straightforward
 binomial expansion. Using this lemma, the induction is performed as follows:
 after decomposing a polynomial $P$ into a sum of \kl{maximal monomials} $P_1$
 and the rest $P_2$, notice that for all $K \in \Nat$, $\translate{K}(P) = P_1 +
 \Diff{K}{P_1} + \translate{K}(P_2)$. Then, because $P \in \CorrectPoly$, $P_1$
-is a \kl{$\Nat$-rational polynomial}. Furthermore, we can use the induction
-hypothesis on $\Diff{K}{P_1} + \translate{k}(P_2)$ since it has lower degree
-monomials and is in $\CorrectPoly$, finally we can also apply the induction
+is a \kl{$\Nat$-rational polynomial}. Furthermore, using a large enough value
+of $K$, the polynomial $\Diff{K}{P_1} + \translate{K}(P_2)$ has lower degree
+than $P$, and belongs to $\CorrectPoly$. As a consequence, we conclude that
+$\translate{K}(P)$ is an \kl{$\Nat$-rational polynomial}. To conclude that $P$
+itself is a \kl{$\Nat$-rational polynomial}, it suffices to apply the induction
 hypothesis to $\restr{P}{\nu}$ where $\nu$ is a partial function from $\vec{X}$
 to $\set{0, \dots, K}$ fixing at least one variable. It is then just a matter
 of combining these functions to obtain a \kl{$\Nat$-polyregular function} that
@@ -120,7 +121,7 @@ idea that polynomials are not periodic functions (this will be made precise in
     $P_1$ be the sum of \kl{maximal monomials} of $P$,
     and $P_2 \defined P - P_1$ be the sum of
     non-maximal monomials of $P$.
-    There exists a computable $K$,
+    There exists a computable number $K \in \Nat$,
     such that
     $Q \defined (\Diff{K}{P_1} + \translate{K}(P_2)) \in \CorrectPoly$.
     \proofref{derivation-stabilises-correct:lem}
@@ -149,8 +150,9 @@ Effectiveness was the last missing piece of our main result
 
 \begin{lemma}
     \label{derivation-translation:lem}
-    Let $P \in \Rel[\vec{X}]$, 
-    there exists a computable $K \in \Nat$
+    Let $\vec{X}$ be a tuple of indeterminates,
+    and let $P \in \Rel[\vec{X}]$.
+    There exists a computable number $K \in \Nat$
     such that the following are equivalent:
     \begin{enumerate}
         \item \label{d-t-correct:item} $P \in \CorrectPoly$,
@@ -163,7 +165,6 @@ Effectiveness was the last missing piece of our main result
             $\nu \colon \vec{X} \topartial \set{0, \dots, K}$,
             $\translate{K}(\restr{P}{\nu}) \in \Nat[\vec{X}]$.
     \end{enumerate}
-    Furthermore, the membership is decidable.
     \proofref{derivation-translation:lem}
 \end{lemma}
 
@@ -178,7 +179,8 @@ Effectiveness was the last missing piece of our main result
 
 \begin{theorem}
     \label{corrected-version:thm}
-    Let $P \in \Rel[\vec{X}]$ be a polynomial.
+    Let $\vec{X}$ be a tuple of indeterminates,
+    and let $P \in \Rel[\vec{X}]$.
     The following are equivalent:
     \begin{enumerate}
         \item \label{corrected-1:item} $P \in \CorrectPoly$,
@@ -194,9 +196,9 @@ For completeness, let us remark that the counter example of
 coincidence: in the particular case of at most two indeterminates, the classes
 $\CorrectPoly$ and $\CoveredPoly$ coincide. In particular, the examples
 appearing in \cite{KARH77} are not invalidated, as they all use at most two
-indeterminates. This is because, in the univariate case, being non-negative and
-having non-negative maximal coefficient implies being an \kl{$\Nat$-rational
-polynomial}.
+indeterminates. Note that the equivalence is clear for the univariate case,
+where being non-negative and having non-negative maximal coefficient clearly
+imply being an \kl{$\Nat$-rational polynomial}.
 
 \begin{lemma}
     \label{lem:correct-covered-2}
