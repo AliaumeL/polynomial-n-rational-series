@@ -53,6 +53,7 @@ function $g \colon \set{a,b}^* \to \Rel$ defined by $g(w) \defined \card[a]{w}
 \times \card[b]{w}$.
 
 \subsection{Polyregular Functions}
+\label{polyregular:sec}
 
 \AP Because the functions of interest in this paper have output in $\Nat$ or
 $\Rel$, we will only provide the definition of \kl{polyregular functions} for
@@ -194,47 +195,8 @@ $\NPoly$ and $\ZPoly$.
         has no \kl{counter},
     and the correction function only uses functions in $\NSF[0]$,
     $f \in \NSF[1]$.
+    \proofref{non-canonical-transd:ex}
 \end{example}
-\begin{proofof}[non-canonical-transd:ex]
-    Let us prove that the transducer of
-    \cref{non-canonical-transd:fig:counter-free}
-    computes $f$.
-    We prove by induction on $w$
-    that $A(q_0, w) = f(w)$,
-    and that $A(q_1, w) = f(aw)$.
-    Let us first remark that $f(au) = \card{u}$.
-    
-    When $w = \varepsilon$, $A(q_0, \varepsilon) = F(\varepsilon) = 1 = f(\varepsilon)$.
-    Similarly, $A(q_1, \varepsilon) = F(q_1) = 0 = f(a)$.
-
-    Assume that $w = au$. Then:
-    \begin{align*}
-        A(q_0, w) = A(q_0, au) &= \lambda(q_0, a)(u) + A(q_1, u) \\ 
-                               &= 0 + A(q_1,u) \\
-                               &= f(au) & \text{by induction hypothesis} \\
-                               &= f(w) 
-    \end{align*}
-    Similarly,
-    \begin{align*}
-        A(q_1, w) = A(q_1, au) &= \lambda(q_1, a)(u) + A(q_1, u) \\ 
-                               &= 1 + \ind{\card{u} = 0} + A(q_1,u) \\
-                               &= 1 + \ind{\card{u} = 0} + f(au) & \text{by induction hypothesis} \\
-                               &= \begin{cases}
-                                    2 + f(a) & \text{if $u = \varepsilon$} \\
-                                    1 + f(au) & \text{otherwise}
-                               \end{cases}
-                               \\
-                               &= \begin{cases}
-                                    2 & \text{if $u = \varepsilon$} \\
-                                    1 + \card{u} & \text{otherwise}
-                               \end{cases}
-                               \\
-                               &= \begin{cases}
-                                   f(aa) & \text{if $u = \varepsilon$} \\
-                                   f(
-                               \end{cases}
-    \end{align*}
-\end{proofof}
 
 
 \begin{figure}
@@ -256,7 +218,7 @@ $\NPoly$ and $\ZPoly$.
 
             \draw[->] (A) to node[midway, below] {$a \mid 0$} (B);
 
-            \draw[->] (B) to[bend right=45] node[midway, above] {$a \mid 1 + \ind{\card{w} \geq 1}$} (A);
+            \draw[->] (B) to[bend right=45] node[midway, above] {$a \mid 1 - 2 \times \ind{\card{w} = 0}$} (A);
         \end{tikzpicture}
         \caption{This automaton has a \kl{counter}.}
     \end{subfigure}
@@ -300,9 +262,7 @@ function $f \colon \Sigma^* \to \Rel$ is defined as the minimal $k$ such that
 $\card{f(w)} = \bigO\left(\card{w}^k\right)$. If such a $k$ exists, we say that
 the function $f$ has \intro{polynomial growth}. It turns out that for all $k
 \in \Nat$, $\ZPoly[k]$ (resp. $\NPoly[k]$) are precisely functions in $\ZRat$
-(resp. in $\NRat)$ that have growth rate at most $k$. Not all
-\kl{$\Nat$-rational series} have \kl{polynomial growth}, a typical example
-being the function $a^n \mapsto 2^n$.
+(resp. in $\NRat)$ that have growth rate at most $k$ \cite{CDTL23}. 
 
 Let us briefly state that \kl{commutativity} is a decidable property of
 \kl{$\Rel$-rational series}, hence of \kl{$\Rel$-polyregular functions}.
@@ -329,7 +289,7 @@ is \kl{non-negative}, and so is the polynomial $X^3$, but the polynomial $X^2 -
 \AP Let us now give some vocabulary on polynomials with multiple indeterminates
 over $\Rel$. A \intro{monomial} is a product of indeterminates and integers.
 For instance, $XY$ is a \kl{monomial}, $3 X$ is a \kl{monomial}, $-Y$ is a
-\kl{monomial}, but $X + Y$ or $2X^2 + XY$ are not. We write $\intro*\Monomials[X_1,
+\kl{monomial}, but $X + Y$ and $2X^2 + XY$ are not. We write $\intro*\Monomials[X_1,
 \dots, X_n]$ for the set of \kl{monomials} over these indeterminates.
 Every polynomial $P \in \Rel[X_1, \dots, X_n]$ decomposes uniquely
 into a sum of \kl{monomials}.

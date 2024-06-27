@@ -2,6 +2,42 @@
 %! lang = en-US
 \section{Proofs of section \ref{preliminaries:sec}}
 
+\begin{proofof}[non-canonical-transd:ex]
+    Let us prove that the transducer of
+    \cref{non-canonical-transd:fig:counter-free}
+    computes $f$.
+    We prove by induction on $w$
+    that $A(q_0, w) = f(w)$,
+    and that $A(q_1, w) = f(aw)$.
+    To that end, let us first remark that $f(\varepsilon) = 1$,
+    and $f(au) = \card{u}$.
+    
+    When $w = \varepsilon$, $A(q_0, \varepsilon) = F(\varepsilon) = 1 = f(\varepsilon)$.
+    Similarly, $A(q_1, \varepsilon) = F(q_1) = 0 = f(a)$.
+
+    Assume that $w = au$. Then:
+    \begin{align*}
+        A(q_0, w) = A(q_0, au) &= \lambda(q_0, a)(u) + A(q_1, u) \\ 
+                               &= 0 + A(q_1,u) \\
+                               &= f(au) & \text{by induction hypothesis} \\
+                               &= f(w) 
+    \end{align*}
+    Similarly,
+    \begin{align*}
+        A(q_1, w) = A(q_1, au) &= \lambda(q_1, a)(u) + A(q_1, u) \\ 
+                               &= 1 + A(q_1,u) \\
+                               &= 1 + f(au) & \text{by induction hypothesis} \\
+                               &= 1 + \card{u} \\
+                               &= \card{au} \\
+                               &= f(aau) \\
+    \end{align*}
+
+    The proof for the other automaton is similar. The
+    key ingredient in the induction hypothesis is that if $\card{u} \geq 1$, then:
+    $f(au) - f(u) = 1$ and otherwise $f(a) - f(\varepsilon) = -1$.
+    Hence, $f(au) - f(u) = 1 - 2 \times \ind{\card{u} = 0} = \lambda(q_1, a)(u)$.
+\end{proofof}
+
 
 \begin{proof}[Proof of \cref{decidable-commutative-poly:lemma}, in the polyregular case]
     Let $\Sigma$ be a finite alphabet, endowed with a

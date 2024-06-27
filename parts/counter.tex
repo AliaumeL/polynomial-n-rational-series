@@ -2,12 +2,12 @@
 %! lang = en-US
 \section{$\Nat$-rational Polynomials}
 \label{polynomials:sec}
-%\subsection{The counter example}
+%\subsection{The counterexample}
 \label{sec:c-example}
 
 \AP Before deciding $\NPoly$ inside $\ZPoly$ (which will be done in
 \cref{beyond-polynomials:sec}), let us restrict our attention to simpler
-functions, namely polynomials. A polynomial $P \in \Rel[X_1, \dots, X_n]$ is an
+functions, namely polynomials. A polynomial $P \in \Rat[X_1, \dots, X_n]$ is an
 \intro{$\Nat$-rational polynomial} if it is \kl{represented} by a
 \kl{$\Nat$-polyregular function}. It is an easy check that polynomials with
 coefficients in $\Nat$ are \kl{$\Nat$-rational polynomials}
@@ -63,34 +63,40 @@ using a characterization restated in \cref{karh:thm}.
     $P \in \CoveredPoly$.
 \end{faketheorem}
 
-To understand why \cref{karh:thm} is false, we need to understand why some
-non-negative polynomials are not \kl{$\Nat$-rational polynomials}, which is
-illustrated by \cref{non-neg-not-nrat:ex}. 
+Before giving a counterexample to the above statement, let us first provide via
+\cref{non-neg-not-nrat:ex} simple proof that there exists some
+\kl{non-negative} polynomial that is not an \kl{$\Nat$-rational polynomial}.
+While the example will not be in $\CoveredPoly$, it illustrates the key
+difference between \kl{non-negative} polynomials and \kl{$\Nat$-rational
+polynomials}. In order to derive this example, we will need the following
+result about the pre-image of regular languages by \kl{polyregular functions}.\footnote{
+    In this particular case, one could have
+    considered more generally \kl{$\Nat$-rational series},
+    and replaced regular languages over a unary alphabet
+    by semi-linear sets.
+}
 
-\begin{fact}
+\begin{theorem}[{\cite[Theorem 1.7]{BOJA18}}]
     \label{pre-image-regular:fact}
-    The pre-image of a regular language by an \kl{$\Nat$-rational series}
-    is a regular language. 
-\end{fact}
+    The pre-image of a regular language by a \kl{polyregular function}
+    is a regular language.
+\end{theorem}
 
 \begin{example}
     \label{non-neg-not-nrat:ex}
     Let $P(X, Y) \defined (X - Y)^2$.
-    Then $P$ is
-    is \kl{non-negative}, but is
+    Then $P$ is \kl{non-negative}, but is
     not an \kl{$\Nat$-rational polynomial}.
-\end{example}
-\begin{proof}
-    Assume by contradiction that
+    Indeed, assume by contradiction that
     $f \in \NPoly$ \kl{represents} $f$ over the alphabet $\Sigma \defined \set{a,b}$.
     Then, $f^{-1}(\set{0})$ is a regular language
     (\cref{pre-image-regular:fact}),
-    but $S^{-1}(\set{0}) = \setof{ w \in \Sigma }{ \card[a]{w} = \card[b]{w} }$
+    but $f^{-1}(\set{0}) = \setof{ w \in \Sigma }{ \card[a]{w} = \card[b]{w} }$
     is not.
-\end{proof}
+\end{example}
 
 
-Let us now design a counter example to \cref{karh:thm} by suitably tweaking
+Let us now design a counterexample to \cref{karh:thm} by suitably tweaking
 \cref{non-neg-not-nrat:ex} to ensure that the polynomial not only is
 \kl{non-negative}, but also belongs to $\CoveredPoly$.
 
