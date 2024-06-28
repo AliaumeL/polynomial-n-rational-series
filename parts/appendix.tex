@@ -79,7 +79,7 @@
     Let us compute $\overline{S \times S}$ the Zariski closure of $S \times S$.
     The above polynomial vanishes over $S \times S$ if and only
     if it belongs to the Zariski closure, which is decidable
-    \cite{HOPW18}.
+    \cite[\textbf{WHERE}]{HOPW18}.
 \end{proof}
 
 \begin{proof}[A simpler proof of \cref{decidable-commutative-rat:lemma} in the general case]
@@ -91,7 +91,7 @@
     $f \circ c$ and $f \circ t$ are both rational series that can be
     effectively computed from $f$, and since equivalence
     of rational series is decidable 
-    \cite{BERE10}
+    \cite[\textbf{WHERE}]{BERE10}
     we have obtained a decision procedure.
 \end{proof}
     
@@ -118,10 +118,10 @@
     is a \kl{$\Nat$-rational polynomial}.
 
     Remark that $P = (X-1)^2 + 1$. Let $f  \colon \Sigma^* \to \Nat$
-    that maps $aw \mapsto |w|^2$, and $\varepsilon \to 0$.
+    that maps $aw \mapsto |w|^2$, and $\varepsilon \mapsto 0$.
     It is clear that $f \in \NPoly$, and that 
     $P$ is \kl{represented} by
-    $\ind{|w| \geq 1} \times f + \ind{|w| = 0}$.
+    $\ind{|w| \geq 1} \times f + \ind{|w| = 0} + 1$.
 
     Finally, 
     $T(X) \defined - X$ cannot be 
@@ -131,7 +131,7 @@
 
 
 \begin{proofof}[thm:counter-example]
-    It is clear that $\BadPoly$ is \kl{non-negative}. We can develop
+    It is clear that $\BadPoly$ is \kl{non-negative}. We can expand
     the expression of $\BadPoly$ to 
     obtain
     $\BadPoly = ZX^2 + ZY^2 + 2ZXY + 2X^2 -4XY + 2Y^2$.
@@ -146,10 +146,10 @@
     such that for all $w \in \Sigma^*$,
     $\BadPoly(\card[a]{w}, \card[b]{w}, \card[c]{w}) = f(w)$.
 
-    Remark that $\BadPoly(X,Y,Z) = 0$
-    if and only if $Z(X+Y)^2 = -2 (X-Y)^2$. Hence,
-    $\BadPoly(X,Y,Z)=0$ if and only if $Z = 0$ and $X = Y$, or 
-    $Z \neq 0$, and $X = Y = 0$.
+    Remark that for all $x,y,z \geq 0$, $\BadPoly(x,y,z) = 0$
+    if and only if $z(x+y)^2 = -2 (x-y)^2$. Hence,
+    $\BadPoly(x,y,z)=0$ if and only if $z = 0$ and $x = Y$, or 
+    $z \neq 0$, and $x = y = 0$.
 
     Now, let us consider the language $L \defined \setof{w}{ f(w) = 0}$. By the
     above computation, we conclude that $L = \setof{ w \in \set{a,b}^* }{
@@ -182,7 +182,7 @@ automata} introduced by \cite{SCHU62}.
     When $\pi$ has co-domain $\Nat$, the function $\pi^\dagger$
     is furthermore \kl{$\Nat$-polyregular}.
     We call $\pi$ the \emph{production function} of $\pi^\dagger$.
-    When the monoid $M$ is \kl(monoid){aperiodic}
+    If the monoid $M$ is \kl(monoid){aperiodic}
     then
     the function $f$ is \kl{star-free $\Rel$-polyregular}
     (resp. \kl{star-free $\Nat$-polyregular}).
@@ -216,6 +216,8 @@ In order to illustrate the above definition, let us provide an example of a
 \end{proof}
 
 \begin{proofof}[n-poly-combinatorics:lem]
+    \textbf{TODO: reprove}
+
     We leverage the characterization of \kl{$\Nat$-polyregular functions}
     given in \cref{nat-rel-poly:def}.
     Let $\omega$ be an idempotent power for the finite monoid $M$,
@@ -254,7 +256,15 @@ In order to illustrate the above definition, let us provide an example of a
     and therefore the number of possible choices
     is either constant, or 
     is a product of binomials of the form $\binom{X - l}{s}$
-    which has the desired shape.
+    which almost has the desired shape.
+
+    Indeed, the binomial 
+    $\binom{X - l}{s}$ is equal to
+    $(X-l) \cdots (X-l-s+1) / s!$.
+    As a consequence,
+    $\binom{s! X - l}{s} \in \Rel[X]$,
+    and considering $\omega' \defined \omega \times s!$ (for some large enough $s$)
+    allows us to conclude.
 \end{proofof}
 
 
@@ -296,11 +306,11 @@ In order to illustrate the above definition, let us provide an example of a
 
 
 As one would expect, the \kl{discrete derivatives} are linear operations on
-polynomials, that commutes with \kl{translation operators}. However, the
+polynomials, that commute with \kl{translation operators}. However, the
 \kl{translation operators} do not perfectly commute with partial applications
 $\restr{\cdot}{\nu}$.
 
-\begin{remark}
+\begin{fact}
     \label{discrete-deriv-linear:fact}
     For all tuples $\vec{X}$ of indeterminates,
     for all $K \in \Nat$, $L \in \Rel$, for all partial functions
@@ -316,19 +326,19 @@ $\restr{\cdot}{\nu}$.
         \item $\restr{\cdot}{\nu} \circ \translate{L}
             = \translate{L} \circ \restr{\cdot}{\translate{L}(\nu)}$.
     \end{enumerate}
-\end{remark}
+\end{fact}
 
 \AP Let us now introduce the ordering over which the induction of
 \cref{lem:correct-to-n-rat} is built. Recall that $\MaximalMonomials(P)$ is the
 set of \kl{maximal monomials} of $P$, hence belongs to $\Pfin(\Monomials)$. We
 order \kl{monomials} with the \kl{divisibility ordering}, making $\Monomials$ a
-\kl{well-quasi-ordering} that is isomorphic to $\Nat^k$ with the product
-ordering \cite[Dickson’s Lemma]{SCSC12}. We endow $\Pfin(\Monomials)$ with the
-\intro{Hoare ordering}, that is, $S_1 \hoareleq S_2$ whenever for all
-\kl{monomials} $M_1 \in S_1$, there exists a monomial $M_2 \in S_2$, such that
-$M_1$ \kl{divides} $M_2$. The set $(\Pfin(\Monomials), \hoareleq)$ remains a
-\kl{well-quasi-ordering}, and is in particular well-founded \cite[Hoare
-quasi-ordering]{SCSC12}.
+\kl{well-quasi-ordering} that is isomorphic (once quotiented to be a partial
+ordering) to $\Nat^k$ with the product ordering \cite[Dickson’s Lemma]{SCSC12}.
+We endow $\Pfin(\Monomials)$ with the \intro{Hoare ordering}, that is, $S_1
+\hoareleq S_2$ whenever for all \kl{monomials} $M_1 \in S_1$, there exists a
+monomial $M_2 \in S_2$, such that $M_1$ \kl{divides} $M_2$. The set
+$(\Pfin(\Monomials), \hoareleq)$ remains a \kl{well-quasi-ordering}, and is in
+particular well-founded \cite[Hoare quasi-ordering]{SCSC12}.
 
 \begin{fact}
     \label{maxi-monomials-submodular:fact}
@@ -347,7 +357,7 @@ quasi-ordering]{SCSC12}.
     \end{equation*}
 \end{fact}
 
-
+\textbf{TODO: fix this?}
 \begin{fact}
     \label{derivation-monomials:fact}
     Let $K > 0$,
@@ -376,7 +386,7 @@ quasi-ordering]{SCSC12}.
     Let $T$ be a \kl{monomial} that \kl{strictly divides} $M$,
     then, $T = \prod_{i = 1}^n X_i^{t_i}$, 
     for all $1 \leq i \leq n$, $t_i \leq k_i$,
-    and there exists $1 \leq p \leq n$ such that$ t_j < k_j$.
+    and there exists $1 \leq p \leq n$ such that $t_j < k_j$.
     In particular, $T$ \kl{divides}
     $K \frac{\prod_{i = 1}^n X_i^{k_i}}{X_p}$.
 \end{proof}
@@ -403,12 +413,12 @@ quasi-ordering]{SCSC12}.
         \MaximalMonomials(\Diff{K}{M}) \\
         &\hoarele
         \MaximalMonomials(P)
-        \quad .
-        \qedhere
+        & \text{ because } \deg(\Diff{K}{P}) < \deg(P)
     \end{align*}
+    Which concludes the proof.
 \end{proof}
 
-
+\textbf{Redo the proof}.
 \begin{proofof}[derivation-stabilises-correct:lem]
     If $P$ is constant, then $P_2 = 0$, and $\Diff{K}{P_1} = 0$,
     hence for $K = 0$, $Q \in \CorrectPoly$.
@@ -495,7 +505,8 @@ quasi-ordering]{SCSC12}.
     $\MaximalMonomials(\restr{P}{\nu}) \hoarele \MaximalMonomials{P}$. Because
     $\restr{P}{\nu} \in \CorrectPoly$, one can use the induction hypothesis to
     compute a \kl{star-free $\Nat$-polyregular function} $f_\nu$ that
-    \kl{represents} $\restr{P}{\nu}$.
+    \kl{represents} $\restr{P}{\nu}$. This is possible because we assumed 
+    that all indeterminates in $\vec{X}$ are used in $P$.
 
 
     Let us assume that the alphabet over which the (\kl{commutative}) functions
@@ -503,13 +514,13 @@ quasi-ordering]{SCSC12}.
     representing the indeterminate $X_i$ of the polynomials. Now, let us define
     by case analysis the following \kl{commutative} \kl{star-free
     $\Nat$-polyregular function}, defined on words $w$ of the form $w \defined
-    a_1^{X_1} \cdots a_n^{X_n}$, with $X_1, \dots, X_n \geq 0$.
+    a_1^{x_1} \cdots a_n^{x_n}$, with $x_1, \dots, x_n \geq 0$.
 
     \begin{equation*}
         f(w) \defined
         \begin{cases}
-            f_\nu(w) & \text{ if } \exists i \in \set{1, \dots, n}, X_i \leq K \\
-            f_\Delta(a_1^{X_1 - K} \cdots a_n^{X_n - K}) & \text{ otherwise }
+            f_{[X_i \mapsto x_i]}(w) & \text{ if } \exists i \in \set{1, \dots, n}, x_i \leq K \\
+            f_\Delta(a_1^{x_1 - K} \cdots a_n^{x_n - K}) & \text{ otherwise }
         \end{cases}
         \quad .
     \end{equation*}
@@ -637,8 +648,11 @@ quasi-ordering]{SCSC12}.
 \section{Proofs of section \ref{beyond-polynomials:sec}}
 
 \begin{proofof}[decompose-polynomial:lem]
+    Let us first write $f \in \ZPoly$ as a linear combination 
+    $f = f_+ - f_-$ where both $f_+$ and $f_-$ are in $\NPoly$.
+
     We apply
-    \cref{n-poly-combinatorics:lem} to compute the $\omega$.
+    \cref{n-poly-combinatorics:lem} to compute the $\omega$ that works for both $f_+$ and $f_-$.
     Using this $\omega$,
     for any choice of
     $r \defined (r_1, \dots, r_n) \in \set{0, \dots, \omega - 1}$,
@@ -664,7 +678,10 @@ quasi-ordering]{SCSC12}.
     by definition a \kl{$\Nat$-rational polynomial}.
 
     For the converse implication, we use \cref{decompose-polynomial:lem} to
-    effectively compute a polynomial representation of $f$. Using the
+    effectively compute a polynomial representation of $f$. 
+
+    \textbf{TODO: this is because they coincide en enough points}.
+    Using the
     assumption, all of these polynomials are actually \kl{$\Nat$-rational
     polynomials}. Let us now construct a new way to compute $f$, by first
     computing the \kl{$\omega$-type} of the input (which is possible in
@@ -709,7 +726,9 @@ quasi-ordering]{SCSC12}.
     if all letters appear at least $N_1 \defined \max (\omega^2, N_0)$ times,
     then $f$ computes $P$. But this also shows that
     $\translate{N_1}(P)$ is a \kl{$\Nat$-rational polynomial}, hence is
-    \kl{represented} by a function $f_1 \in \NSF[k]$.
+    \kl{represented} by a function $f_1 \in \NSF[k]$,
+    thanks to
+    \cref{lem:correct-to-n-rat}.
     
     To compute $f$ on words where some letter appears fewer than $N_1$ times,
     we partially apply $f$ to obtain a function $g$ over a restricted input
@@ -1081,7 +1100,7 @@ quasi-ordering]{SCSC12}.
         = \bigO( (X_1 + \cdots X_k)^{k} )
         \quad .
     \end{equation}
-    Or, the \kl{commutative} \kl{star-free polyregular function} 
+    Now, the \kl{commutative} \kl{star-free polyregular function} 
     $h \colon \set{1, \dots, k}^* \to \Sigma^*$ that maps
     a word $u$
     to $\alpha \prod_{i = 1}^k w_i^{\card[i]{u}}$
@@ -1136,7 +1155,7 @@ quasi-ordering]{SCSC12}.
 
 \begin{proofof}[z-poly-commutative-encoding:remark]
     We are going to prove that if $f \in \ZPoly[k]$ is polyblind, 
-    then the conjecture \cref{z-poly-commutative-encoding:conj} holds when allowing 
+    then the \cref{z-poly-commutative-encoding:conj} holds when allowing 
     for non polyregular functions $\mathsf{enc}$ and $\mathsf{dec}$.
 
     Let us consider $f \in \ZPoly[k]$ that is polyblind.
