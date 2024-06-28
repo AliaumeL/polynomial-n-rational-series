@@ -20,8 +20,8 @@ constant. Let $\omega \in \Nat$, we define the set $\intro*\ModuloTypes[\omega]
 \defined \set{0, \dots, \omega^2} \times \set{0, \dots, \omega - 1}$ of
 \intro{types modulo $\omega$}. To a number $n \in \Nat$, we associate its
 \reintro{$\omega$-type} written $\intro*\moduloType[\omega](n)$ which is
-defined as the pair $(t, r)$ where $t = \min (n, \omega^2)$ and $r$ is the rest
-of the Euclidian division of $n$ by $\omega$. This notion of type is lifted to
+defined as the pair $(t, r)$ where $t = \min (n, \omega^2)$ and $r$ is the  remainder
+of the Euclidean division of $n$ by $\omega$. This notion of type is lifted to
 vectors in $\Nat^p$ for any $p \in \Nat$ by pointwise application.
 
 
@@ -61,17 +61,15 @@ conjectured to characterize $\NPoly$ inside $\ZPoly$ in the general setting.
     $\alpha_0, \dots, \alpha_k \in \Sigma^*$,
     for all $u_1, \dots, u_k \in \Sigma^*$,
     there exists a polynomial $P \in \CorrectPoly$,  
-    satisfying for all $X_1, \dots, X_k \geq \omega$:
+    satisfying for all $x_1, \dots, x_k \geq \omega$:
     \begin{equation*}
         f
         \left(
-            \alpha_0 \prod_{i = 1}^k u_i^{\omega X_i} \alpha_i
+            \alpha_0 \prod_{i = 1}^k u_i^{\omega x_i} \alpha_i
         \right)
         = 
-        P(X_1, \dots, X_k) \quad .
+        P(x_1, \dots, x_k) \quad .
     \end{equation*}
-    We say that $f$ is \reintro{combinatorial}
-    if it is \reintro{$(k,\Nat)$-combinatorial} for all $k \in \Nat$.
 \end{definition}
 
 \begin{theorem}
@@ -95,7 +93,12 @@ aperiodicity. The key ingredient of this study is the use of a semantic
 characterization of \kl{star-free $\Rel$-polyregular functions} among
 \kl{$\Rel$-rational series} that generalizes the aperiodicity of languages to
 functions by the means of polynomial behaviors (see
-\cref{aperidic-ultimately-polynomial:ex}).
+\cref{aperidic-ultimately-polynomial:ex}). Note that up until now, we only had
+to consider polynomials with coefficients in $\Rel$. However, there are some
+polynomials with coefficients in $\Rat$ that can be \kl{represented} by a
+\kl{$\Nat$-polyregular function}. For instance, the polynomial $P(X) \defined
+X(X+1)/2$. This is why, in the upcoming definition, we have to consider
+polynomials with coefficients in $\Rat$.
 
 \begin{definition}[Ultimately polynomial]
     \label{ultimately-polynomial:def}
@@ -105,27 +108,71 @@ functions by the means of polynomial behaviors (see
     when there exists $N_0 \in \Nat$ such that
     for all $n \in \Nat$
     and for all words $\alpha_0, w_1, \alpha_1, \cdots, \alpha_{n-1}, w_n, \alpha_n
-    \in \Sigma^*$, there exists a polynomial $P \in \Rel[X_1, \dots, X_n]$
-    such that
+    \in \Sigma^*$, there exists a polynomial $P \in \Rat[X_1, \dots, X_n]$
+    such that:
     \begin{equation*}
         f\left(
-            \alpha_0 \prod_{i = 1}^{n} w_i^{X_i} \alpha_i
+            \alpha_0 \prod_{i = 1}^{n} w_i^{x_i} \alpha_i
         \right)
         = 
-        P(X_1, \dots, X_n)
+        P(x_1, \dots, x_n)
         \quad 
-        \forall X_1, \dots, X_n \geq N_0
+        \forall x_1, \dots, x_n \geq N_0
         \quad .
     \end{equation*}
 \end{definition}
+
+Let us recall that a language $L$ is \intro(language){aperiodic} whenever it is
+recognized by an \kl(monoid){aperiodic} finite monoid, which turns out to be
+equivalent to the following characterisation among regular languages: for all
+$u,v,w$, there exists $n \in \Nat$, $u v^n w \in L$ if and only if $u v^{n+1} w
+\in L$. As a consequence of this characterization, a language $L$ is aperiodic
+if and only if its indicator function $\ind{L}$ is \kl{ultimately polynomial}.
+This was already observed in \cite[\textbf{statement?}]{CDTL23}, and reproven
+in \cite[\textbf{statement?}]{DOUE23}, but we include a proof hereafter for
+readability and didactic purposes.
 
 \begin{example}
     \label{aperidic-ultimately-polynomial:ex}
     A language $L$ is aperiodic if and only if 
     $\ind{L}$ is \kl{ultimately polynomial}.
 \end{example}
+\begin{proof}
+    Assume that $\ind{L}$ is \kl{ultimately polynomial}. Let $u,v,w \in
+    \Sigma^*$. There exists a polynomial $P \in \Rat[X]$ and a number $N_0 \in
+    \Nat$, such that $\ind{L}(u v^n w) = P(n)$ for all $n \geq N_0$. Because
+    $\ind{L}$ has co-domain included in $\set{0,1}$, so does $P$, which proves
+    that $P$ is a constant polynomial. Then, $\ind{L}(u v^{n+1} w) = P(n+1) =
+    P(n) = \ind{L}(uv^n w)$ for all $n \geq N_0$. We have proven that $L$
+    is aperiodic.
 
-\AP The decidability of aperiodicity for \kl{$\Rel$-polyregular functions}
+    Conversely, assume that $L$ is aperiodic, let $n \in \Nat$ be a number, and
+    let $\alpha_0$, $w_1$, $\alpha_1$, $\ldots$, $\alpha_{n-1}$, $w_n$, $\alpha_n$
+    be words in $\Sigma^*$. Because $L$ is \kl(language){aperodic}, the language
+    $L$ is recognized by an \kl(monoid){aperiodic} finite monoid $M$, via a
+    morphism $\mu \colon \Sigma^* \to M$ and an accepting part $F \subseteq M$.
+    Because $M$ is a \kl(monoid){aperiodic}, there exists $N_0$
+    such that for all $m \in M$, $m^{N_0+1} = m^{N_0}$. As a consequence,
+    for all $1 \leq i \leq n$,
+    whenever $x_i \geq N_0$, we have $\mu(w_i)^{x_i} = \mu(w_i)^{N_0}$.
+    Therefore, for all $x_1, \dots, x_n \geq N_0$, we have:
+    \begin{align*}
+        \ind{L}\left(\alpha_0 \prod_{i= 1}^n w_i^{x_i} \alpha_i \right) 
+        &= 
+        \ind{P}\left(\mu(\alpha_0) \cdot \prod_{i= 1}^n \mu(w_i)^{x_i} \cdot \mu(\alpha_i)\right)
+        & \text{ because $M$ recognizes $L$}
+        \\
+        &= 
+        \ind{P}\left(\mu(\alpha_0) \cdot \prod_{i= 1}^n \mu(w_i)^{N_0} \cdot \mu(\alpha_i)\right)
+        & \text{ by aperiodicity }
+        \\
+        &\defined P(x_1, \dots, x_n) & \text{ constant polynomial }
+    \end{align*}
+    Which proves that $\ind{L}$ is \kl{ultimately polynomial}.
+\end{proof}
+
+\AP The decidability of aperiodicity for \kl{$\Rel$-polyregular functions}, that is
+the membership of $\ZSF$ inside $\ZPoly$,
 relies on the construction of a canonical object called the \emph{residual
 transducer}, the latter being essentially based on differences between
 functions, crucially leveraging negative outputs \cite{CDTL23}. Although the
@@ -144,7 +191,9 @@ conjecture that is restated hereafter.
     $\NSF[k] = \ZSF[k] \cap \NPoly$.
 \end{conjecture}
 
-We answer positively to \cref{zsf-nsf:conjecture} in the commutative case, by
+We answer
+\cref{zsf-nsf:conjecture} 
+positively in the commutative case, by
 leveraging the semantic characterizations respectively of $\ZSF$ inside
 $\ZPoly$ (\kl{ultimately polynomial}) and $\NPoly$ inside $\ZPoly$
 (\kl{$(k,\Nat)$-combinatorial}), which is possible thanks to the decomposition
