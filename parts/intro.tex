@@ -6,42 +6,49 @@
 
 \AP Traditional results from automata theory state the equivalence of languages
 defined in terms of deterministic finite automata and regular expressions
-\cite{KLEE56}, Monadic Second Order Logic ($\intro*\MSO$) \cite{BUCH60}, or
-finite monoids \cite{SCHU61}. Among regular languages, there exists a robust
-subclass sharing similar characterizations, namely the \emph{star-free} regular
-languages. These are obtained via counter-free (minimal) automata
-\cite{MNPA71}, represented by star-free regular expressions \cite{SCHU65},
-definable in First Order Logic ($\intro*\FO$) \cite{PEPI86}, and recognized by
-aperiodic monoids \cite{SCHU65}. It is decidable whether a regular language is
-aperiodic, thanks to the characterizations in terms of minimal automaton and/or
-syntactic monoid.
+\cite{KLEE56}, Monadic Second Order Logic ($\intro*\MSO$)
+\cite{BUCH60,ELGO61,TRAK66}, or finite monoids \cite{RABI59,SCHU61}. Among regular
+languages, there exists a robust subclass sharing similar characterizations,
+namely the \emph{star-free} regular languages. These are obtained via
+counter-free (minimal) automata \cite{MNPA71}, represented by star-free regular
+expressions \cite{SCHU65}, definable in First Order Logic ($\intro*\FO$)
+\cite{MNPA71}, and recognized by aperiodic monoids \cite{SCHU65}. It is
+decidable whether a regular language is aperiodic, thanks to the
+characterizations in terms of minimal automaton and/or syntactic monoid.
 
 \AP There have been recurrent attempts to generalize the notions of regularity
 and aperiodicity from languages to functions, leading to classes of various
 expressiveness, such as\footnote{This list is far from exhaustive.} Mealy
 Machines ($\intro*\Mealy$) \cite{MEAL55}, sequential functions
 ($\intro*\Sequential$) \cite{SCHU77}, rational functions ($\intro*\Rational$)
-\cite{EILE74}, \intro{regular functions} ($\intro*\Regular$) \cite{ENMA02}, and
-\intro{polyregular functions} ($\intro*\Poly$) \cite{BOKL19}. For all of these
-models, an \emph{aperiodic} counterpart can be defined (respectively,
-$\intro*\AMealy$, $\intro*\ASequential$, $\intro*\ARational$,
+\cite{EILE74}, \intro{regular functions} ($\intro*\Regular$) \cite{ENHO01}, and
+\intro{polyregular functions} ($\intro*\Poly$) \cite{ENMA02,BOJA18,BOKL19}. For
+all of these models, an \emph{aperiodic} counterpart can be defined
+(respectively, $\intro*\AMealy$, $\intro*\ASequential$, $\intro*\ARational$,
 $\intro*\ARegular$, $\intro*\SF$), lifting the correspondence between
 counter-free automata, star-free regular languages and aperiodic monoids to the
-functional setting \textbf{TODO: cite more carefully here}
-\cite{FKT14,BOJA14,CADA15,DJR16,BDK18,BOKL19,DGK21}. The inclusions between
-these classes of functions are all known to be strict, and we depicted in
+functional setting: 
+for Mealy Machines \cite{SCHU65,MNPA71},
+for sequential functions \cite{CHOF03}, 
+for rational functions \cite{FGL16,FGLM18}, for regular
+functions \cite{BOJA14,CADA15,DJR16,DGK21}, and for polyregular
+functions \cite{BDK18,BOKL19}. The inclusions between these classes of
+functions are all known to be strict, and we depicted in
 \cref{computational-models:fig} the status of the \emph{membership problem}
 associated to these strict inclusions (that is, given a function $f$, decide if
-$f$ can be computed by a function of a proper subclass). Note that in
-\cref{computational-models:fig}, if $\mathsf{B}$ is a proper subclass of
-$\mathsf{C}$, then the \emph{aperiodic} variant of $\mathsf{B}$ is precisely
-the intersection of $\mathsf{B}$ with the \emph{aperiodic} variant of the
-larger class $\mathsf{C}$. Because such a (strong) statement does not
-explicitly appear in the literature, a standalone proof will be given in
-\cref{orthogonal-aperiodic-power:thm}. As an example, to conclude that a
-function can be computed by an \emph{aperiodic sequential function}
-($\ASequential$) it is enough to prove that it is sequential ($\Sequential$),
-and computed by an \intro{aperiodic polyregular function} ($\SF$). 
+$f$ can be computed by a function of a proper subclass).
+
+
+%Note that in
+%\cref{computational-models:fig}, if $\mathsf{B}$ is a proper subclass of
+%$\mathsf{C}$, then the \emph{aperiodic} variant of $\mathsf{B}$ is precisely
+%the intersection of $\mathsf{B}$ with the \emph{aperiodic} variant of the
+%larger class $\mathsf{C}$. Because such a (strong) statement does not
+%explicitly appear in the literature, a standalone proof will be given in
+%\cref{orthogonal-aperiodic-power:thm}. As an example, to conclude that a
+%function can be computed by an \emph{aperiodic sequential function}
+%($\ASequential$) it is enough to prove that it is sequential ($\Sequential$),
+%and computed by an \intro{aperiodic polyregular function} ($\SF$). 
 
 
 \AP To approach the \emph{aperiodicity} membership problems the traditional

@@ -83,8 +83,27 @@ conjectured to characterize $\NPoly$ inside $\ZPoly$ in the general setting.
     \end{enumerate}
     Furthermore, the properties are decidable,
     and conversions effective.
-    \proofref{decidable-n-poly:thm}
 \end{theorem}
+\begin{proof}
+    Let us prove that
+    \cref{f-npoly-combi:item}
+    implies \cref{f-combinatorial:item}. 
+    We compute the $\omega$ by applying 
+    \cref{n-poly-combinatorics:lem}, and then
+    notice that the polynomial $P$ obtained is
+    by definition a \kl{$\Nat$-rational polynomial}.
+
+    For the converse implication, we use \cref{decompose-polynomial:lem} to
+    effectively compute a polynomial representation of $f$. 
+
+    \textbf{TODO: this is because they coincide en enough points}.
+    Using the
+    assumption, all of these polynomials are actually \kl{$\Nat$-rational
+    polynomials}. Let us now construct a new way to compute $f$, by first
+    computing the \kl{$\omega$-type} of the input (which is possible in
+    $\MSO$), and then computing the suitable \kl{$\Nat$-rational polynomial},
+    which is possible in $\NPoly$.
+\end{proof}
 
 Let us now prove that the above characterizations of \kl{commutative}
 \kl{$\Nat$-polyregular functions} can be combined with the recent advances in
