@@ -15,24 +15,24 @@ order counterpart of having finite index. Let us recall that a sequence
 $\seqof{u_i}{i \in \Nat}$ of elements in a quasi-ordered set $(X, \leq)$ is
 \intro{good} whenever there exist $i < j$ such that $u_i \leq u_j$. The set $X$
 is a \intro{well-quasi-ordering} when every infinite sequence is
-\reintro{good}. A sequence is \intro{bad} when it is not \reintro{good}. The
-notion of \reintro{good sequences} can also be applied to binary relations that
+\kl{good}. A sequence is \intro{bad} when it is not \kl{good}. The
+notion of \kl{good sequences} can also be applied to binary relations that
 are not orderings, and a binary relation $R$ for which every infinite sequence
-is \reintro{good} is said to be \intro{well} \cite{MELL98}.
+is \kl{good} is said to be \intro{well} \cite{MELL98}.
 
 \AP The core concept of this section is that of a \intro{residual} of a
 function $f \colon \Sigma^* \to \Rel$,  defined by $\intro*\app{f}{u} \defined
-w \mapsto f(uw)$. The collection of \reintro{residuals} of a function $f$ is
-denoted $\intro*\Res(f)$ and is defined as the set of $\reintro*\app{f}{u}$
+w \mapsto f(uw)$. The collection of \kl{residuals} of a function $f$ is
+denoted $\intro*\Res(f)$ and is defined as the set of $\app{f}{u}$
 where $u$ ranges over words in $\Sigma^*$. Given $k \in \Nat$, we define $f
 \intro*\zpolyequiv[k] g$ if and only if $(g - f) \in \ZPoly[k-1]$, and $f
 \intro*\npolyleq[k] g$ if and only if $(g - f) \in \NPoly[k-1]$. The spaces of
 interest for a function $f \in \ZPoly[k]$ will be $(\Res(f),
-\reintro*\zpolyequiv[k])$, and $(\Res(f), \reintro*\npolyleq[k])$. However, to
-simplify notations, instead of writing $\app{f}{u} \reintro*\npolyleq[k]
+\zpolyequiv[k])$, and $(\Res(f), \npolyleq[k])$. However, to
+simplify notations, instead of writing $\app{f}{u} \npolyleq[k]
 \app{f}{v}$ when $u,v \in \Sigma^*$, we will use the convenient notation $u
 \intro*\resleq{f}{k} v$, and directly consider the space $(\Sigma^*,
-\reintro*\resleq{f}{k})$. 
+\resleq{f}{k})$. 
 
 
 \AP Given a function $f$, our goal is to leverage $\resleq{f}{k}$ to build a
