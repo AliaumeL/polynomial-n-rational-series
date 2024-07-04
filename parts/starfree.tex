@@ -105,6 +105,7 @@ conjectured to characterize $\NPoly$ inside $\ZPoly$ in the general setting.
     which is possible in $\NPoly$.
 \end{proof}
 
+
 Let us now prove that the above characterizations of \kl{commutative}
 \kl{$\Nat$-polyregular functions} can be combined with the recent advances in
 the study of \kl{$\Rel$-polyregular functions} \cite{CDTL23} to decide
@@ -147,9 +148,9 @@ equivalent to the following characterisation among regular languages: for all
 $u,v,w$, there exists $n \in \Nat$, $u v^n w \in L$ if and only if $u v^{n+1} w
 \in L$. As a consequence of this characterization, a language $L$ is aperiodic
 if and only if its indicator function $\ind{L}$ is \kl{ultimately polynomial}.
-This was already observed in \cite[\textbf{statement?}]{CDTL23}, and reproven
-in \cite[\textbf{statement?}]{DOUE23}, but we include a proof hereafter for
-readability and didactic purposes.
+This was already observed in \cite[Claim V.6]{CDTL23}, and reproven in
+\cite[Claim 7.45, Lemma 7.53]{DOUE23}. We include a self-contained proof
+hereafter for readability and didactic purposes.
 
 \begin{example}
     \label{aperidic-ultimately-polynomial:ex}
@@ -236,3 +237,13 @@ result for $\ZSF$.
 \end{theorem}
 
 
+\textbf{TODO: prove the following conjecture to conclude on polynomials in general
+and not just Z coefficients.}
+\begin{conjecture}
+    Let $\vec{X}$ be a vector of variables, and $P \in \Rel[\vec{X}]$ be a
+    polynomial. The following properties are decidable
+    \begin{itemize}
+        \item Is $P$ \kl{represented} by a \kl{$\Rel$-polyregular function}?
+        \item Is $P$ \kl{represented} by a \kl{$\Nat$-polyregular function}?
+    \end{itemize}
+\end{conjecture}
