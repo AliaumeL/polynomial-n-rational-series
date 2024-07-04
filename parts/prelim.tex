@@ -64,6 +64,60 @@ transducers \cite{EHB99}, and follows the general pattern of transducers
 introduced in \cite{CDTL23}. Note that we only consider $\Rel$-valued (resp.
 $\Nat$-valued) functions, but could consider other commutative semigroups.
 
+\AP In order to prove \cref{n-poly-combinatorics:lem}, we will rely on an
+equivalent definition of \kl{$\Nat$-polyregular functions} that is more
+combinatorial in nature, and is similar in shape to the \emph{finite counting
+automata} introduced by \cite{SCHU62}.
+
+\begin{lemma}[$\Rel$-polyregular functions {\cite{CDTL23}}]
+    \label{nat-rel-poly:def}
+    Let $M$ be a finite monoid, $\mu \colon \Sigma^* \to M$
+    be a morphism, $k \in \Nat$, and 
+    $\pi \colon M^k \to \Rel$ be a function.
+    The following function 
+    $\pi^\dagger \colon \Sigma^* \to \Rel$
+    is \kl{$\Rel$-polyregular}:
+    \begin{equation*}
+        \pi^\dagger (w) \defined
+        \sum_{w = u_1 \cdots u_k} \pi(\mu(u_1), \dots, \mu(u_k))
+        \quad .
+    \end{equation*}
+    When $\pi$ has co-domain $\Nat$, the function $\pi^\dagger$
+    is furthermore \kl{$\Nat$-polyregular}.
+    We call $\pi$ the \emph{production function} of $\pi^\dagger$.
+    If the monoid $M$ is \kl(monoid){aperiodic}
+    then
+    the function $f$ is \kl{star-free $\Rel$-polyregular}
+    (resp. \kl{star-free $\Nat$-polyregular}).
+\end{lemma}
+
+In order to illustrate the above definition, let us provide an example of a
+\kl{$\Nat$-polyregular function} computed using a finite monoid.
+
+\begin{example}
+    \label{size-of-word-nsf:ex}
+    The map $f \colon w \mapsto \card{w} + 1$
+    belongs to $\NSF$.
+\end{example}
+\begin{proof}
+    Let us define $M \defined (\set{1}, \times)$ which is 
+    a finite \kl{aperiodic monoid}, $\mu \colon \Sigma^* \to M$
+    defined by $\mu(w) \defined 1$, and
+    $\pi \colon M^2 \to \Nat$
+    that is the constant function equal to $1$.
+    We check that for all $w \in \Sigma^*$:
+    \begin{equation*}
+        \pi^\dagger(w)
+        =
+        \sum_{uv = w} 1
+        =
+        \card{w} + 1
+        = f(w)
+        \quad . 
+        \qedhere
+    \end{equation*}
+\end{proof}
+
 \begin{definition}
     Let $\mathcal{H}$ be a family of functions
     from $\Sigma^*$ to $\Rel$.

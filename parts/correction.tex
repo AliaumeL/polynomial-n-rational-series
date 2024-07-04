@@ -119,6 +119,41 @@ introduced by \cite{SCHU62}.
     $P \in \CorrectPoly$.
     \proofref{n-rat-correct:lem}
 \end{corollary}
+\begin{proof}
+    Let $f$ be the \kl{commutative}
+    \kl{$\Nat$-rational series}
+    with domain defined as $\Sigma \defined \set{a_1, \dots, a_p}$
+    that \kl{represents} $P$. Because $f$ has \kl{polynomial growth},
+    it is in fact a \kl{$\Nat$-polyregular function}
+    (\cite[Theorem 5.22]{DOUE23}).
+    Using \cref{n-poly-combinatorics:lem},
+    there exists a number $\omega \in \Nat$
+    and polynomial $Q$ with \kl{non-negative}
+    \kl{maximal monomials} such that
+    for all $X_1, \dots, X_p \geq \omega$:
+    \begin{equation*}
+        f\left(
+            \prod_{i = 1}^p a_i^{\omega X_i}
+        \right)
+        = Q(X_1, \dots, X_p)
+        = P(\omega X_1, \dots, \omega X_p) 
+        \quad .
+    \end{equation*}
+    We conclude that $P(\omega X_1, \dots, \omega X_p) = Q(X_1, \dots, X_p)$
+    as polynomials,
+    and in particular that
+    the \kl{maximal monomials} of 
+    $P$ are \kl{non-negative}.
+
+    Remark that for every partial valuation $\nu \colon \vec{X} \topartial \Nat$,
+    the polynomial $\restr{P}{\nu}$ continues to be represented
+    by a \kl{$\Nat$-polyregular function}, namely
+    $f$ partially applied to a word. As a consequence,
+    the \kl{maximal monomials} of
+    $\restr{P}{\nu}$ are also \kl{non-negative}, 
+    and
+    we have proven that $P \in \CorrectPoly$.
+\end{proof}
 
 \AP The core of the upcoming \cref{lem:correct-to-n-rat} leverages a notion of
 \intro{discrete derivative} to perform an induction on the \kl{maximal monomials}.
