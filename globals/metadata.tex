@@ -30,18 +30,21 @@
 
 \newcommand{\makeabstract}{
     \begin{abstract}
-This paper addresses two questions regarding $\Nat$-polyregular functions, that
-forms a proper subset of $\Nat$-rational series. We show that given a $\Rel$-rational
-series, it is decidable whether it is computable via a commutative
-$\Nat$-polyregular function, and provide a counter-example to the theorem of
-Karhumäki that studied the same question in the case of polynomials. We also
-prove that it is decidable whether a commutative $\Nat$-polyregular function is
-star-free, by proving the stronger statement that star-free $\Rel$-polyregular
-functions that are $\Nat$-polyregular are in fact computable using a star-free
-$\Nat$-polyregular function. Building towards answering the same questions in the
-non-commutative case, we present a canonical model of computation of
-$\Nat$-polyregular functions by generalizing the notion of residual transducers
-previously introduced in $\Rel$-polyregular functions.
+This paper studies which functions computed by $\Rel$-weighted automata can be
+realised by $\Nat$-weighted automata, under two extra assumptions:
+commutativity (the order of letters in the input does not matter) and
+polynomial growth (the ouptut of the function is bounded by a polynomial in the
+size of the input). This continues the work of Karhumäki, who studied the same
+question under the assumption that the computed function was a polynomial,
+which is more restrictive. Answering this question starts by exhibiting a
+counterexample to the theorem of Karhumäki, proposing a new and valid
+characterization in the case of polynomials, that lifts to the more general
+setting of polynomial growth and commutativity. Surprisingly, we manage to
+leverage this effective characterization to decide whether a function computed
+by a commutative $\Nat$-weighted automaton of polynomial growth is star-free, a
+notion borrowed from the theory of regular languages that has been the subject
+of many investigations in the context of string-to-string functions
+in the last decade. 
     \end{abstract}
 }
 

@@ -177,8 +177,8 @@ functions} ($\ZPoly$) that generalize \kl{$\Nat$-polyregular functions} by
 allowing negative outputs. This remains a subclass of \kl{rational series},
 more precisely, of the class of \intro{$\Rel$-rational series}
 ($\intro*\ZRat$). For this class of functions the aperiodic variant $\ZSF$ has
-been shown to be decidable \cite{CDTL23}. Beware that several non-equivalent
-notions of aperiodicity coexist for rational series
+been shown to be decidable \cite{CDTL23}. Let us underline that several
+non-equivalent notions of aperiodicity coexist for rational series
 \cite{REUT80,DRGA19,CDTL23}, and that we only refer to the one applying to
 \kl{rational series} that are actually in $\ZPoly$ \cite{CDTL23}.
 
@@ -188,13 +188,13 @@ because of the extra expressive power introduced by the negative outputs
 \cite{CDTL23}. Furthermore, deciding the membership of $\NRat$ inside $\ZRat$
 is an open problem (see e.g. \cite{KARH77}), that remains open even in the
 restricted case of $\NPoly$ and $\ZPoly$ \cite[Open question 5.55]{DOUE23}. It
-was conjectured that, analogously to classes appearing in
-\cref{computational-models:fig}, the following equation would hold: $\NSF =
-\NPoly \cap \ZSF$ \cite[Conjecture 7.61]{DOUE23}. This would imply the
-decidability of aperiodicity for single letter output polyregular functions
-since aperiodicity is decidable for $\ZSF$. We refer the reader to
-\cref{previously-known-inclusions:fig} to get an overview of the different
-classes of functions appearing in the paper. 
+was conjectured that, being ``computable using $\Nat$ coefficients'' and being
+``star-free'' were two orthogonal properties, and therefore that the following
+equation would hold: $\NSF = \NPoly \cap \ZSF$ \cite[Conjecture 7.61]{DOUE23}.
+This would imply the decidability of aperiodicity for single letter output
+polyregular functions since aperiodicity is decidable for $\ZSF$. We refer the
+reader to \cref{previously-known-inclusions:fig} to get an overview of the
+different classes of functions appearing in the paper. 
 
 \begin{figure}
     \centering
@@ -216,7 +216,7 @@ classes of functions appearing in the paper.
 \end{figure}
 
 
-\paragraph*{Contributions.} This paper focuses on \kl{$\Nat$-polyregular
+\subparagraph*{Contributions.} This paper focuses on \kl{$\Nat$-polyregular
 functions} that are furthermore \kl{commutative}, that is where the output of
 the functions remains unchanged when the letters of the input word are permuted.
 In this restricted setting, we answer positively to \cite[Conjecture
@@ -233,27 +233,15 @@ are decidable in the \kl{commutative} setting. Furthermore, we characterize
 the characterization of polynomials computed by \kl{$\Nat$-rational series}
 given by \cite[Theorem 3.3, page 4; re-introduced as \cref{karh:thm}]{KARH77}.
 
-Finally, we make a first step towards understanding the non-commutative case by
-introducing a canonical model of computation for \kl{$\Nat$-polyregular
-functions} built upon residuals, called the \kl{residual transducer}. This
-residual transducer is obtained by shifting attention from the notion of
-equivalence relations of finite index over $\Sigma^*$, used in traditional
-automata theory and in the study of $\ZPoly$, to the notion of
-\kl{well-quasi-orderings}. The residual transducer is effectively computable if
-$f$ is \kl{commutative} and \kl{$\Nat$-polyregular}, and it is conjectured to
-be computable for all functions in $\NPoly$. 
-
 The approach taken in this paper avoids the use of tools from the theory of
 factorizations forests in finite monoids \cite{SIMO90}, which has been the
 traditional method used to understand (commutative output) \kl{polyregular
-functions} \cite{DOUE21,DOUE22,CDTL23}, and instead
-focuses on intrinsic description of the functions themselves (via canonical
-computational models such as the \kl{residual transducer} of
-\cref{residual-transducer:def}, or explicit encoding/decoding into polynomials
-via \cref{decompose-polynomial:lem}). 
+functions} \cite{DOUE21,DOUE22,CDTL23}, and instead focuses on intrinsic
+description of the functions themselves, via  explicit encoding/decoding into
+polynomials (see for instance \cref{decompose-polynomial:lem}).
 
 
-\paragraph*{Outline of the paper.} In \cref{preliminaries:sec}, we introduce
+\subparagraph*{Outline of the paper.} In \cref{preliminaries:sec}, we introduce
 the multiple characterizations of \kl{$\Nat$-polyregular functions} (resp.
 $\Rel$-polyregular functions), show that one can decide if a function $f \in
 \ZPoly$ is \kl{commutative} (\cref{decidable-commutative-poly:lemma}), and give
@@ -261,14 +249,10 @@ the basic definitions used on multivariate polynomials. In
 \cref{polynomials:sec}, we focus on \emph{polynomials}, by introducing the
 \cref{karh:thm} of \cite{KARH77}, providing a counter-example in
 \cref{thm:counter-example}, and an alternative characterization in
-\cref{corrected-version:thm}. In \cref{beyond-polynomials:sec}, we leverage the
+\cref{corrected-version:thm}. Finally, in \cref{beyond-polynomials:sec}, we leverage the
 results over polynomials to decide $\NPoly$ inside $\ZPoly$ in the
 \kl{commutative} case (\cref{decidable-n-poly:thm}), and prove that
 \cref{zsf-nsf:conjecture}
 \cite[Conjecture 7.61]{DOUE23} 
 holds for \kl{commutative} functions
-(\cref{zsf-npoly-nsf:thm}). Finally, in \cref{beyond-commutative:sec}, we
-introduce the notion of \kl{residual transducer}
-(\cref{residual-transducer:def}), and prove in \cref{non-commutative-npoly:thm}
-that it characterizes $\NPoly$ inside $\ZPoly$ through a notion of
-\kl{well-quasi-ordered} collection of residuals.
+(\cref{zsf-npoly-nsf:thm}).

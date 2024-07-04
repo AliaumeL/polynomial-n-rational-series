@@ -114,3 +114,33 @@ Let us now design a counterexample to \cref{karh:thm} by suitably tweaking
     in \cref{karh:thm}, is false
     when allowing at least $3$ indeterminates.
 \end{lemma}
+\begin{proof}
+    It is clear that $\BadPoly$ is \kl{non-negative}. We can expand
+    the expression of $\BadPoly$ to 
+    obtain
+    $\BadPoly = ZX^2 + ZY^2 + 2ZXY + 2X^2 -4XY + 2Y^2$.
+    The \kl{maximal monomials} of $P$
+    are $ZX^2$, $ZY^2$, and $2ZXY$, all of which are
+    \kl{non-negative}.
+
+    Assume by contradiction that $\BadPoly$ is an \kl{$\Nat$-rational polynomial}.
+    Let $\Sigma \defined \set{a,b,c}$ be a finite alphabet.
+    There exists a \kl{commutative}
+    \kl{$\Nat$-polyregular function} $f \colon \Sigma^* \to \Nat$
+    such that for all $w \in \Sigma^*$,
+    $\BadPoly(\card[a]{w}, \card[b]{w}, \card[c]{w}) = f(w)$.
+
+    Remark that for all $x,y,z \geq 0$, $\BadPoly(x,y,z) = 0$
+    if and only if $z(x+y)^2 = -2 (x-y)^2$. Hence,
+    $\BadPoly(x,y,z)=0$ if and only if $z = 0$ and $x = Y$, or 
+    $z \neq 0$, and $x = y = 0$.
+
+    Now, let us consider the language $L \defined \setof{w}{ f(w) = 0}$. By the
+    above computation, we conclude that $L = \setof{ w \in \set{a,b}^* }{
+    \card[a]{w} = \card[b]{w} } \cup \set{ c }^*$.
+    Because $L \cap \set{a,b}^*$ not a regular language,
+    we
+    conclude that $L$ is not a regular language.
+    However, $L = f^{-1}(\set{0})$ is a regular language
+    (\cref{pre-image-regular:fact}). 
+\end{proof}

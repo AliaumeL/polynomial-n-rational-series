@@ -130,36 +130,6 @@
 \end{proofof}
 
 
-\begin{proofof}[thm:counter-example]
-    It is clear that $\BadPoly$ is \kl{non-negative}. We can expand
-    the expression of $\BadPoly$ to 
-    obtain
-    $\BadPoly = ZX^2 + ZY^2 + 2ZXY + 2X^2 -4XY + 2Y^2$.
-    The \kl{maximal monomials} of $P$
-    are $ZX^2$, $ZY^2$, and $2ZXY$, all of which are
-    \kl{non-negative}.
-
-    Assume by contradiction that $\BadPoly$ is an \kl{$\Nat$-rational polynomial}.
-    Let $\Sigma \defined \set{a,b,c}$ be a finite alphabet.
-    There exists a \kl{commutative}
-    \kl{$\Nat$-polyregular function} $f \colon \Sigma^* \to \Nat$
-    such that for all $w \in \Sigma^*$,
-    $\BadPoly(\card[a]{w}, \card[b]{w}, \card[c]{w}) = f(w)$.
-
-    Remark that for all $x,y,z \geq 0$, $\BadPoly(x,y,z) = 0$
-    if and only if $z(x+y)^2 = -2 (x-y)^2$. Hence,
-    $\BadPoly(x,y,z)=0$ if and only if $z = 0$ and $x = Y$, or 
-    $z \neq 0$, and $x = y = 0$.
-
-    Now, let us consider the language $L \defined \setof{w}{ f(w) = 0}$. By the
-    above computation, we conclude that $L = \setof{ w \in \set{a,b}^* }{
-    \card[a]{w} = \card[b]{w} } \cup \set{ c }^*$.
-    Because $L \cap \set{a,b}^*$ not a regular language,
-    we
-    conclude that $L$ is not a regular language.
-    However, $L = f^{-1}(\set{0})$ is a regular language
-    (\cref{pre-image-regular:fact}). 
-\end{proofof}
 
 
 
@@ -442,60 +412,6 @@ particular well-founded \cite[Hoare quasi-ordering]{SCSC12}.
 
 
 
-\begin{proofof}[zsf-npoly-nsf:thm]
-    We proceed by induction on the size of the alphabet $\card{\Sigma}$.
-
-    \textbf{Base Case.} When $\Sigma$ is empty, $\Sigma^*$ contains
-    only the empty word $\varepsilon$, and because $f$ is a
-    \kl{$\Nat$-polyregular function}, $f(\varepsilon) \in \Nat$.
-    Note that $f$ is therefore a constant function, equal to a natural
-    number, hence belongs to $\NSF$.
-
-    
-    \textbf{Induction.}
-    Because $f$ is \kl{ultimately polynomial},
-    there exists $N_0 \in \Nat$, 
-    and $P \in \Rel[\seqof{X_a}{a \in \Sigma}]$ 
-    such that
-    \begin{equation*}
-        f\left( \prod_{a \in \Sigma} a^{X_a} \right)
-        = 
-        P(\seqof{X_a}{a \in \Sigma})
-        \quad
-        \text{ when }
-        \forall a \in \Sigma, X_a \geq N_0
-        \quad .
-    \end{equation*}
-    Furthermore, leveraging \cref{decompose-polynomial:lem},
-    we obtain $\omega \in \Nat$
-    and a family of polynomials 
-    $\seqof{P_{t}}{t \in \ModuloTypes[\omega]^\Sigma}$
-    that represent $f$.
-    For all $t \in \ModuloTypes[\omega]^\Sigma$
-    that have threshold greater than $\omega^2$,
-    we conclude that $P_t$ and $P$ coincide (up to translation) over an infinite grid,
-    hence we conclude that
-    if all letters appear at least $N_1 \defined \max (\omega^2, N_0)$ times,
-    then $f$ computes $P$. But this also shows that
-    $\translate{N_1}(P)$ is a \kl{$\Nat$-rational polynomial}, hence is
-    \kl{represented} by a function $f_1 \in \NSF[k]$,
-    thanks to
-    \cref{lem:correct-to-n-rat}.
-    
-    To compute $f$ on words where some letter appears fewer than $N_1$ times,
-    we partially apply $f$ to obtain a function $g$ over a restricted input
-    alphabet. Using the induction hypothesis, $g$ belongs to $\NSF[k]$, and we
-    can therefore (effectively) compute a representation of $f$ in $\NSF[k]$.
-
-
-    For the effective part of the theorem, 
-    we know from \cite[Theorem V.13]{CDTL23}, it is decidable whether
-    $f \in \ZSF[k]$ and from \cref{decidable-n-poly:thm}
-    it is decidable whether $f \in \NPoly$.
-    Furthermore, one can enumerate functions in $\NSF[k]$,
-    and check equivalence to effectively represent $f$ as a
-    \kl{star-free $\Nat$-polyregular function}.
-\end{proofof}
 
 
 \section{Proofs of section \ref{beyond-commutative:sec}}
