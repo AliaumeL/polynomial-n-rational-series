@@ -40,29 +40,3 @@ because they essentially behave as commutative functions \cite[Theorem
     \proofref{pre-compose-sf-commut:lemma}
 \end{lemma}
 
-\begin{conjecture}
-    \label{z-poly-commutative-encoding:conj}
-    Let $k \in \Nat$, and let $f \in \ZPoly[k]$ (resp. $\ZSF[k]$).
-    There exists a finite set $Q$, 
-    parameters $l_q \in \Nat$ for all $q \in Q$,
-    \kl{commutative} polyregular functions (resp. \kl{star-free polyregular})
-    $(g_q)_{q \in Q}$
-    from $\Nat^{l_q}$ to $\Rel$,
-    a surjective polyregular function (resp. \kl{star-free polyregular})
-    $\mathsf{dec} \colon \Sigma^* \tosurj \sum_{q \in Q} \Nat^{l_q}$,
-    and a polyregular function (resp. \kl{star-free polyregular})
-    $\mathsf{enc} \colon \sum_{q \in Q} \Nat^{l_q} \to \Sigma^*$,
-    such that
-    $f = (\sum_{q \in Q} g_q) \circ \mathsf{dec}$
-    and $\mathsf{dec} \circ \mathsf{enc} = \mathsf{id}$.
-\end{conjecture}
-
-
-\begin{lemma}
-    \label{z-poly-commutative-encoding:remark}
-    The \cref{z-poly-commutative-encoding:conj} holds for the
-    subclass of polyblind functions when dropping the assumption that
-    $\mathsf{enc}$ and $\mathsf{dec}$ are \kl{polyregular functions}
-    (resp. \kl{star-free polyregular functions}).
-    \proofref{z-poly-commutative-encoding:remark}
-\end{lemma}

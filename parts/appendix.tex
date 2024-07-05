@@ -82,19 +82,9 @@
     \cite[\textbf{WHERE}]{HOPW18}.
 \end{proof}
 
-    
-
 \section{Proofs of section \ref{polynomials:sec}}
 
 
-\begin{proofof}[n-poly-n-poly:example]
-    The polynomials of $\Nat[\vec{X}]$
-    are obtained from basic functions (constant in $\Nat$,
-    $X_i$ for some $1 \leq i \leq n$)
-    by products and sums. Because the basic functions are
-    \kl{represented} by \kl{star-free $\Nat$-polyregular} functions,
-    that are closed under these operations, we conclude.
-\end{proofof}
 
 \begin{proofof}[negative-not-nrat:ex]
     The function $w \mapsto |w|$ is a \kl{$\Nat$-polyregular function}.
@@ -123,118 +113,6 @@
 
 
 
-As one would expect, the \kl{discrete derivatives} are linear operations on
-polynomials, that commute with \kl{translation operators}. However, the
-\kl{translation operators} do not perfectly commute with partial applications
-$\restr{\cdot}{\nu}$.
-
-\begin{fact}
-    \label{discrete-deriv-linear:fact}
-    For all tuples $\vec{X}$ of indeterminates,
-    for all $K \in \Nat$, $L \in \Rel$, for all partial functions
-    $\nu \colon \vec{X} \topartial \Nat$:
-    \begin{enumerate}
-        \item The maps $\translate{K} \colon \Rel[\vec{X}] \to \Rel[\vec{X}]$,
-        $\Diff{K}{ \cdot } \colon \Rel[\vec{X}] \to \Rel[\vec{X}]$,
-        and
-        $\restr{\cdot}{\nu} \colon \Rel[\vec{X}] \to \Rel[\vec{X}]$
-            are linear operators,
-        \item $\Diff{K}{ \cdot } \circ \translate{L}
-            = \translate{L} \circ \Diff{K}{\cdot}$,
-        \item $\restr{\cdot}{\nu} \circ \translate{L}
-            = \translate{L} \circ \restr{\cdot}{\translate{L}(\nu)}$.
-    \end{enumerate}
-\end{fact}
-
-\AP Let us now introduce the ordering over which the induction of
-\cref{lem:correct-to-n-rat} is built. Recall that $\MaximalMonomials(P)$ is the
-set of \kl{maximal monomials} of $P$, hence belongs to $\Pfin(\Monomials)$. We
-order \kl{monomials} with the \kl{divisibility ordering}, making $\Monomials$ a
-\kl{well-quasi-ordering} that is isomorphic (once quotiented to be a partial
-ordering) to $\Nat^k$ with the product ordering \cite[Dickson’s Lemma]{SCSC12}.
-We endow $\Pfin(\Monomials)$ with the \intro{Hoare ordering}, that is, $S_1
-\hoareleq S_2$ whenever for all \kl{monomials} $M_1 \in S_1$, there exists a
-monomial $M_2 \in S_2$, such that $M_1$ \kl{divides} $M_2$. The set
-$(\Pfin(\Monomials), \hoareleq)$ remains a \kl{well-quasi-ordering}, and is in
-particular well-founded \cite[Hoare quasi-ordering]{SCSC12}.
-
-\begin{fact}
-    \label{maxi-monomials-submodular:fact}
-    Let $P, Q$ be two polynomials.
-    Then, $\MaximalMonomials(P+Q) \hoareleq \MaximalMonomials(P)
-    \cup \MaximalMonomials(Q)$.
-\end{fact}
-
-
-\begin{fact}
-    \label{translation-maximal:fact}
-    For all $P \in \Rel[\vec{X}]$, and $K \in \Nat$,
-    \begin{equation*}
-        \MaximalMonomials(P) = \MaximalMonomials(\translate{K}(P))
-        \quad .
-    \end{equation*}
-\end{fact}
-
-\textbf{TODO: fix this?}
-\begin{fact}
-    \label{derivation-monomials:fact}
-    Let $K > 0$,
-    and let $M,T$ be two \kl{monomials}, such that
-    $T$ \kl{strictly divides} $M$.
-    Then,
-    every \kl{monomial} of $\Diff{K}{M}$ \kl{strictly divides} $M$,
-    and 
-    $T$ \kl{divides} some \kl{maximal monomial}
-    of $\Diff{K}{M}$, which has a coefficient
-    that is a multiple of $K$.
-\end{fact}
-\begin{proof}
-    Let $M \defined X_1^{k_1} \cdots X_n^{k_n}$,
-    where $k_1, \dots, k_n > 0$ and $n > 0$.
-    Let us compute
-    \begin{align*}
-        \Diff{K}{M} &= \prod_{i = 1}^n X_i^{k_i} - \prod_{i = 1}^n (X_i - K)^{k_i} \\
-                    &= \sum_{p = 1}^n \frac{K}{X_p - K} \prod_{i = 1}^n (X_i - K)^{k_i} 
-    \end{align*}
-    Therefore, 
-    the \kl{maximal monomials} of $\Diff{K}{M}$
-    are precisely
-    of the form $K \frac{\prod_{i = 1}^n X_i^{k_i}}{X_p}$ for some $1 \leq p \leq i$,
-    which \kl{strictly divides} $M$.
-    Let $T$ be a \kl{monomial} that \kl{strictly divides} $M$,
-    then, $T = \prod_{i = 1}^n X_i^{t_i}$, 
-    for all $1 \leq i \leq n$, $t_i \leq k_i$,
-    and there exists $1 \leq p \leq n$ such that $t_j < k_j$.
-    In particular, $T$ \kl{divides}
-    $K \frac{\prod_{i = 1}^n X_i^{k_i}}{X_p}$.
-\end{proof}
-
-
-\begin{lemma}
-    \label{derivation-simplifies:lemma}
-    For all $P \in \Rel[\vec{X}]$ that are non-constant,
-    for all $K \in \Nat$,
-    $\MaximalMonomials(\Diff{K}{P}) \hoarele
-    \MaximalMonomials(P)$.
-\end{lemma}
-\begin{proof}
-    Let $P \in \Rel[\vec{X}]$ and
-    $K \in \Nat$.
-    Leveraging 
-    \cref{derivation-monomials:fact,discrete-deriv-linear:fact,maxi-monomials-submodular:fact}:
-    \begin{align*}
-        \MaximalMonomials\left(\Diff{K}{P}\right)
-        &=
-        \MaximalMonomials\left(\sum_{M \in \Monomials(P)} \Diff{K}{M}\right) \\
-        &\hoareleq
-        \bigcup_{M \in \Monomials(P)} 
-        \MaximalMonomials(\Diff{K}{M}) \\
-        &\hoarele
-        \MaximalMonomials(P)
-        & \text{ because } \deg(\Diff{K}{P}) < \deg(P)
-    \end{align*}
-    Which concludes the proof.
-\end{proof}
 
 \textbf{Redo the proof}.
 \begin{proofof}[derivation-stabilises-correct:lem]

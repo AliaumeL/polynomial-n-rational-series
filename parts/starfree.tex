@@ -31,15 +31,15 @@ vectors in $\Nat^p$ for any $p \in \Nat$ by pointwise application.
     \kl{$\Rel$-polyregular function},
     where we fix the alphabet $\Sigma = \set{a_1, \dots, a_n}$.
     There exists a computable
-    $\omega \in \Nat$,
+    $\omega \in \Nat_{\geq 1}$,
     and computable 
     polynomials $\seqof{P_{t}}{t \in \ModuloTypes[\omega]^n}$
-    such that for all $w \in \Sigma^*$,
+    such that for all $x_1, \dots, x_n \geq \omega$:
     \begin{equation*}
-        f\left(a_1^{X_1} \cdots a_n ^{X_n}\right) 
-        = P_{\moduloType[\omega](X_1, \dots, X_n)}
+        f\left(a_1^{x_1} \cdots a_n ^{x_n}\right) 
+        = P_{\moduloType[\omega](x_1, \dots, x_n)}
         \left(
-            \floor{X_1/\omega}, \dots, \floor{X_n/\omega}
+            \floor{x_1/\omega}, \dots, \floor{x_n/\omega}
         \right)
         \quad .
     \end{equation*}
@@ -104,6 +104,16 @@ conjectured to characterize $\NPoly$ inside $\ZPoly$ in the general setting.
     $\MSO$), and then computing the suitable \kl{$\Nat$-rational polynomial},
     which is possible in $\NPoly$.
 \end{proof}
+
+\begin{conjecture}
+    \label{npoly-zpoly:conjecture}
+    Let $k \in \Nat$.
+    A function $f \in \ZPoly[k]$
+    belongs to $\NPoly[k]$ if and only if
+    it is \kl{$(k,\Nat)$-combinatorial}.
+    In particular,
+    $\NPoly[k] = \ZPoly[k] \cap \NPoly$.
+\end{conjecture}
 
 
 Let us now prove that the above characterizations of \kl{commutative}
@@ -236,6 +246,12 @@ result for $\ZSF$.
     \proofref{zsf-npoly-nsf:thm}
 \end{theorem}
 \begin{proof}
+    Let $f$ be a \kl{commutative} \kl{$\Nat$-polyregular function}. If $f \in \NSF \subseteq \ZSF$
+    then $f$ is \kl{ultimately polynomial} by \cite{CDTL23}.
+
+    % FIXME:
+    % - 
+
     We proceed by induction on the size of the alphabet $\card{\Sigma}$.
 
     \textbf{Base Case.} When $\Sigma$ is empty, $\Sigma^*$ contains

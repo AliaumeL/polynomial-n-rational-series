@@ -7,23 +7,21 @@
 
 \AP Before deciding $\NPoly$ inside $\ZPoly$ (which will be done in
 \cref{beyond-polynomials:sec}), let us restrict our attention to simpler
-functions, namely polynomials. A polynomial $P \in \Rat[X_1, \dots, X_n]$ is an
+functions, namely polynomials. A polynomial $P \in \Rel[X_1, \dots, X_n]$ is an
 \intro{$\Nat$-rational polynomial} if it is \kl{represented} by a
-\kl{$\Nat$-polyregular function}. It is an easy check that polynomials with
-coefficients in $\Nat$ are \kl{$\Nat$-rational polynomials}
+\kl{$\Nat$-rational series}, in which case it is also \kl{represented} by a
+\kl{$\Nat$-polyregular function}, because it has \kl{polynomial growth}
+(\cref{polyregular-polynomial-growth:lemma}). It is an easy check that
+polynomials with coefficients in $\Nat$ are \kl{$\Nat$-rational polynomials}
 (\cref{n-poly-n-poly:example}). However, \cref{negative-but-npoly:ex} provides
 a polynomial with negative coefficients that is an \kl{$\Nat$-rational
-polynomial}.
-
-
-The analogue notion of \intro{$\Rel$-rational
-polynomials} is not of particular interest, since every polynomial $P$ is
-\kl{represented} by a \kl{$\Rel$-polyregular function}. Our goal is to decide
-if a \kl{$\Rel$-rational polynomial} (so, any polynomial) is an
-\kl{$\Nat$-rational polynomial}, and if so, to compute an
-\kl{$\Nat$-polyregular function} that \kl{represents} it. 
-This particular problem was claimed to be solved in  \cite{KARH77}, 
-using a characterization restated in \cref{karh:thm}.
+polynomial}. The analogue notion of \intro{$\Rel$-rational polynomials} is not
+of particular interest, since every polynomial $P$ is \kl{represented} by a
+\kl{$\Rel$-polyregular function}. Our goal is to decide if a
+\kl{$\Rel$-rational polynomial} (so, any polynomial) is an \kl{$\Nat$-rational
+polynomial}, and if so, to compute an \kl{$\Nat$-polyregular function} that
+\kl{represents} it. This particular problem was claimed to be solved in
+\cite{KARH77}, using a characterization restated in \cref{karh:thm}.
 
 \begin{lemma}
     \label{n-poly-n-poly:example}
@@ -31,6 +29,14 @@ using a characterization restated in \cref{karh:thm}.
     is an \kl{$\Nat$-rational polynomial}.
     \proofref{n-poly-n-poly:example}
 \end{lemma}
+\begin{proof}
+    The polynomials of $\Nat[\vec{X}]$
+    are obtained from basic functions (constant in $\Nat$,
+    $X_i$ for some $1 \leq i \leq n$)
+    by products and sums. Because the basic functions are
+    \kl{represented} by \kl{star-free $\Nat$-polyregular} functions,
+    that are closed under these operations, we conclude.
+\end{proof}
 
 \begin{example}
     \label{negative-not-nrat:ex}
@@ -56,8 +62,7 @@ using a characterization restated in \cref{karh:thm}.
 
 \begin{faketheorem}[{\cite[Theorem 3.3, page 4]{KARH77}}] 
     \label{karh:thm}
-    Let $\Sigma$ be a finite alphabet
-    and $P$ be a polynomial. Then,
+    Let $P \in \Rel[\vec{X}]$ be a polynomial. Then,
     $P$ is an \kl{$\Nat$-rational polynomial}
     if and only if 
     $P \in \CoveredPoly$.
@@ -144,3 +149,7 @@ Let us now design a counterexample to \cref{karh:thm} by suitably tweaking
     However, $L = f^{-1}(\set{0})$ is a regular language
     (\cref{pre-image-regular:fact}). 
 \end{proof}
+
+We will discuss at the end of \cref{sec:proof} why the example of
+\cref{thm:counter-example} is minimal in the number of indeterminates, which
+first requires us to provide a \emph{correct} analogue of \cref{karh:thm}.

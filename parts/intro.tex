@@ -27,16 +27,17 @@ all of these models, an \emph{aperiodic} counterpart can be defined
 (respectively, $\intro*\AMealy$, $\intro*\ASequential$, $\intro*\ARational$,
 $\intro*\ARegular$, $\intro*\SF$), lifting the correspondence between
 counter-free automata, star-free regular languages and aperiodic monoids to the
-functional setting: 
-for Mealy Machines \cite{SCHU65,MNPA71},
-for sequential functions \cite{CHOF03}, 
-for rational functions \cite{FGL16,FGLM18}, for regular
-functions \cite{BOJA14,CADA15,DJR16,DGK21}, and for polyregular
+functional setting: for Mealy Machines \cite{SCHU65,MNPA71}, for sequential
+functions \cite{CHOF03}, for rational functions \cite{FGL16,FGLM18}, for
+regular functions \cite{BOJA14,CADA15,DJR16,DGK21}, and for polyregular
 functions \cite{BDK18,BOKL19}. The inclusions between these classes of
 functions are all known to be strict, and we depicted in
 \cref{computational-models:fig} the status of the \emph{membership problem}
 associated to these strict inclusions (that is, given a function $f$, decide if
-$f$ can be computed by a function of a proper subclass).
+$f$ can be computed by a function of a proper subclass). We also redirect the
+reader to the survey of Muscholl and Puppis for a more comprehensive
+introduction to the status of various membership problems between classes of
+string-to-string functions \cite{MUSC19}.
 
 
 %Note that in
@@ -167,7 +168,7 @@ larger and well-studied class of functions called (non-commutative)
 \intro{rational series} \cite{REUT80,BERE88,BERE10}. It has been noticed in
 \cite{CDTL23} that \kl{$\Nat$-polyregular functions} correspond to a natural
 subclass of \intro{$\Nat$-rational series} ($\intro*\NRat$), another model of
-computation that aims at generalising the notion of regular language to
+computation that aims at generalizing the notion of regular language to
 functions with outputs in a semiring \cite{BERE88,BERE10}. It was frequently
 rediscovered in the literature that \kl{$\Nat$-polyregular functions} are a
 subclass of \kl{rational series} \cite{SCHU62,KRRC13,CDTL23}.
@@ -188,7 +189,7 @@ because of the extra expressive power introduced by the negative outputs
 \cite{CDTL23}. Furthermore, deciding the membership of $\NRat$ inside $\ZRat$
 is an open problem (see e.g. \cite{KARH77}), that remains open even in the
 restricted case of $\NPoly$ and $\ZPoly$ \cite[Open question 5.55]{DOUE23}. It
-was conjectured that, being ``computable using $\Nat$ coefficients'' and being
+was conjectured that, being ``computable using coefficients in $\Nat$'' and being
 ``star-free'' were two orthogonal properties, and therefore that the following
 equation would hold: $\NSF = \NPoly \cap \ZSF$ \cite[Conjecture 7.61]{DOUE23}.
 This would imply the decidability of aperiodicity for single letter output
@@ -232,14 +233,6 @@ are decidable in the \kl{commutative} setting. Furthermore, we characterize
 \cite{CDTL23}. As a byproduct of our analysis, we provide a counter example to
 the characterization of polynomials computed by \kl{$\Nat$-rational series}
 given by \cite[Theorem 3.3, page 4; re-introduced as \cref{karh:thm}]{KARH77}.
-
-The approach taken in this paper avoids the use of tools from the theory of
-factorizations forests in finite monoids \cite{SIMO90}, which has been the
-traditional method used to understand (commutative output) \kl{polyregular
-functions} \cite{DOUE21,DOUE22,CDTL23}, and instead focuses on intrinsic
-description of the functions themselves, via  explicit encoding/decoding into
-polynomials (see for instance \cref{decompose-polynomial:lem}).
-
 
 \subparagraph*{Outline of the paper.} In \cref{preliminaries:sec}, we introduce
 the multiple characterizations of \kl{$\Nat$-polyregular functions} (resp.

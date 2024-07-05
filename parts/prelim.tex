@@ -58,18 +58,16 @@ function $g \colon \set{a,b}^* \to \Rel$ defined by $g(w) \defined \card[a]{w}
 \AP Because the functions of interest in this paper have output in $\Nat$ or
 $\Rel$, we will only provide the definition of \kl{polyregular functions} for
 these two output semigroups, and we refer the reader to \cite{BOKL19} for the
-general definition of \kl{polyregular functions}. As a model of computation, we
-will use the following definition of transducers, that is based on the marble
-transducers \cite{EHB99}, and follows the general pattern of transducers
-introduced in \cite{CDTL23}. Note that we only consider $\Rel$-valued (resp.
-$\Nat$-valued) functions, but could consider other commutative semigroups.
+general definition of \kl{polyregular functions}. 
+
 
 \AP In order to prove \cref{n-poly-combinatorics:lem}, we will rely on an
 equivalent definition of \kl{$\Nat$-polyregular functions} that is more
 combinatorial in nature, and is similar in shape to the \emph{finite counting
-automata} introduced by \cite{SCHU62}.
+automata} introduced by \cite{SCHU62}. Note that we only consider $\Rel$-valued (resp.
+$\Nat$-valued) functions, but could consider other commutative semigroups.
 
-\begin{lemma}[$\Rel$-polyregular functions {\cite{CDTL23}}]
+\begin{definition}[$\Rel$-polyregular functions {\cite{CDTL23}}]
     \label{nat-rel-poly:def}
     Let $M$ be a finite monoid, $\mu \colon \Sigma^* \to M$
     be a morphism, $k \in \Nat$, and 
@@ -89,7 +87,7 @@ automata} introduced by \cite{SCHU62}.
     then
     the function $f$ is \kl{star-free $\Rel$-polyregular}
     (resp. \kl{star-free $\Nat$-polyregular}).
-\end{lemma}
+\end{definition}
 
 In order to illustrate the above definition, let us provide an example of a
 \kl{$\Nat$-polyregular function} computed using a finite monoid.
@@ -118,193 +116,6 @@ In order to illustrate the above definition, let us provide an example of a
     \end{equation*}
 \end{proof}
 
-\begin{definition}
-    Let $\mathcal{H}$ be a family of functions
-    from $\Sigma^*$ to $\Rel$.
-    An \intro{$\mathcal{H}$-transducer} $\aTransd$ is
-    a tuple $(Q, q_0, \delta, \lambda, F)$ where
-         $Q$ is a finite set of states,
-         $q_0 \in Q$ is called the initial state of the transducer,
-         $\delta \colon Q \times \Sigma \to Q$
-            is called the deterministic transition function of the transducer,
-         $\lambda \colon Q \times \Sigma \to \mathcal{H}$
-            is called the correction function of the transducer,
-         and $F \colon Q \to \Rel$ is called the output function of the transducer.
-\end{definition}
-
-Based on this syntax, let us now define the semantics of a transducer, in terms
-of the function from $\Sigma^*$ to $\Rel$ that it computes. The intuition is
-that it suffices to apply the correction function $\lambda$ on every transition
-of the underlying automaton, sum the results, and add to this number the output
-associated to the final state of the computation.
-
-\begin{definition}
-    \label{transducer-sem:def}
-    Let $\aTransd \defined (Q,q_0, \delta, \lambda, F)$ be an \kl{$\mathcal{H}$-transducer}.
-    The function
-    $\aTransd \colon Q \times \Sigma^* \to \Rel$
-    is defined inductively as follows:
-        $\aTransd(q, \varepsilon) \defined F(q)$, and
-        $\aTransd(q, a u) \defined \aTransd(\delta(q,a), u)
-            + \lambda(q,a)(u)$.
-    The function \intro{computed} by a transducer $\aTransd$
-    is $w \mapsto \aTransd(q_0, w)$.
-\end{definition}
-
-\begin{example}
-    \label{simple-transd:ex}
-    Let $\mathsf{Const}$ be the set of constant functions from $\Sigma^*$ to $\Rel$,
-    and let us write $\const{n}$ for the constant function equal to $n \in \Rel$.
-    In 
-    \cref{simple-transd:fig}, we provide a graphical depiction of a
-    \kl{$\mathsf{Const}$-transducer} that \kl{computes} the function
-    $f \colon \set{a,b}^* \to \Rel$ defined by
-    $f(\varepsilon) = 1$,
-    $f(aw) = 3 \times \card{w}$,
-    and $f(bw) = 3 \times \card{w} + 1$.
-\end{example}
-
-\begin{figure}
-    \centering
-    \begin{tikzpicture}[
-        etat/.style={minimum size=2em}
-        ]
-        \node[etat,state,initial,
-            accepting by arrow,
-            accepting text={$1$},
-            accepting where=below,
-            ] (A) at (0,0) {$q_0$};
-        \node[etat,state,
-            accepting by arrow,
-            accepting text={$0$},
-            accepting where=below,
-            ] (B) at (2.5,0) {$q_1$};
-
-        \draw[->] (A) to[bend right=20] node[midway, below] {$a \mid \const{0}$} (B);
-        \draw[->] (A) to[bend left=20] node[midway, above] {$b \mid \const{1}$} (B);
-
-
-        \draw[->] (B) edge[loop right] node[midway, right]
-            {$a,b \mid \const{3}$} (B);
-    \end{tikzpicture}
-    \caption{A \kl{$\mathsf{Const}$-transducer}, where $\mathsf{Const}$ is the set of constant functions
-        from $\set{a,b}^*$ to $\Rel$,
-        with a set of states $Q \defined \set{ q_0, q_1 }$,
-        an initial state $q_0$,
-        an output function $F \colon Q \to \Rel$ such that $F(q_0) = 1$ and $F(q_1) = 0$,
-        and correction functions $\lambda(q,a) = \const{0}$, $\lambda(q,b) = \const{1}$,
-        and $\lambda(q_1,a) = \lambda(q_1,b) = \const{3}$.
-    }
-    \label{simple-transd:fig}
-\end{figure}
-
-\AP Let us recall that a \intro{counter} in an automaton is a pair $u,w$ of
-words together with an integer $n > 1$, such that $\delta(q_0, uw^n) =
-\delta(q_0, u)$ and $\delta(q_0, u w^k) \neq \delta(q_0, u)$ for all $k < n$;
-where we used the extension of $\delta \colon Q \times \Sigma \to Q$ to words
-by defining $\delta(q, \varepsilon) = q$, and $\delta(q,au) =
-\delta(\delta(q,a), u)$. An automaton is \reintro{counter-free} if it contains
-no \reintro{counters}. This notion can be lifted to
-\kl{$\mathcal{H}$-transducers} by considering counters of their underlying
-automata. 
-
-\AP The notion of \kl{$\mathcal{H}$-transducer} can be used to inductively
-define the classes of
-\intro{$\Rel $-polyregular functions}
-$\intro*\ZPoly[k]$,
-\intro{$\Nat $-polyregular functions}
-$\intro*\NPoly[k]$,
-\intro{star-free $\Rel $-polyregular functions}
-$\intro*\ZSF[k]$, and
-\intro{star-free $\Nat $-polyregular functions}
-$\intro*\NSF[k]$, 
-as follows \cite[Theorems 5.15 and 7.10]{DOUE23}: in the base
-case, $\reintro*\NPoly[-1] = \reintro*\NSF[-1]  = \reintro*\ZSF[-1] =
-\reintro*\ZPoly[-1]$ is the singleton containing the constant function equal to
-$0$; and for $k \geq 0$, $\reintro*\ZPoly[k]$ is the set of functions
-\kl{computed} by a \kl{$\reintro*\ZPoly[k-1]$-transducer}, and
-$\reintro*\NPoly[k]$ is the set of functions \kl{computed} by an
-\kl{$\reintro*\NPoly[k-1]$-transducer} \emph{with an $\Nat$-valued output
-function $F$}, and similarly for $\reintro*\NSF[k]$ and $\reintro*\ZSF[k]$,
-where the transducer is furthermore required to be \kl{counter-free}. Then,
-$\reintro*\NPoly = \bigcup_{k \in \Nat} \reintro*\NPoly[k]$, and classes
-$\reintro*\NSF$, $\reintro*\ZPoly$ and $\reintro*\ZSF$ are defined analogously.
-In the rest of the paper, we will always assume that
-\kl{$\reintro*\NPoly[k]$-transducers} and \kl{$\reintro*\NSF[k]$-transducers}
-have an $\Nat$-valued output functions, making a clean separation between
-$\NPoly$ and $\ZPoly$.
-
-\begin{example}
-    \label{non-canonical-transd:ex}
-    Let $\BadExOk \colon \set{a}^* \to \Nat$
-    be defined as
-    $\BadExOk(\varepsilon) = 1$,
-    $\BadExOk(a) = 0$,
-    and $\BadExOk(a^n) = n-1$ for all $n \geq 2$.
-    The function $\BadExOk$ is \kl{computed} by the two \kl{$\NPoly[0]$-transducers}
-    depicted in \cref{non-canonical-transd:fig}.
-    As a consequence, $f \in \NPoly[1]$.
-    Furthermore, because the automaton of 
-        \cref{non-canonical-transd:fig:counter-free}
-        has no \kl{counter},
-    and the correction function only uses functions in $\NSF[0]$,
-    $f \in \NSF[1]$.
-    \proofref{non-canonical-transd:ex}
-\end{example}
-
-
-\begin{figure}
-    \centering
-    \begin{subfigure}[b]{0.49\linewidth}
-        \begin{tikzpicture}[
-            etat/.style={minimum size=2em}
-            ]
-            \node[etat,state,initial,
-                accepting by arrow,
-                accepting text={$1$},
-                accepting where=below,
-                ] (A) at (0,0) {$\varepsilon$};
-            \node[etat,state,
-                accepting by arrow,
-                accepting text={$0$},
-                accepting where=below,
-                ] (B) at (2,0) {$a$};
-
-            \draw[->] (A) to node[midway, below] {$a \mid 0$} (B);
-
-            \draw[->] (B) to[bend right=45] node[midway, above] {$a \mid 1 - 2 \times \ind{\card{w} = 0}$} (A);
-        \end{tikzpicture}
-        \caption{This automaton has a \kl{counter}.}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\linewidth}
-        \begin{tikzpicture}[
-            etat/.style={minimum size=2em}
-            ]
-            \node[etat,state,initial,
-                accepting by arrow,
-                accepting text={$1$},
-                accepting where=below,
-                ] (A) at (0,0) {$\varepsilon$};
-            \node[etat,state,
-                accepting by arrow,
-                accepting text={$0$},
-                accepting where=below,
-                ] (B) at (2,0) {$a$};
-
-            \draw[->] (A) to node[midway, below] {$a \mid 0$} (B);
-
-            \draw[->] (B) edge[loop right] node[midway, right]
-                {$a \mid 1$} (B);
-        \end{tikzpicture}
-        \caption{This automaton is \kl{counter-free}.}
-        \label{non-canonical-transd:fig:counter-free}
-    \end{subfigure}
-    \caption{Two \kl{$\NPoly[0]$-transducers}
-    \kl{computing} the function $\BadExOk$ of \cref{non-canonical-transd:ex},
-    that maps $a^n$ to $n$ for all $n \geq 2$, $a$ to $0$, and $\varepsilon$ to $1$.
-    }
-    \label{non-canonical-transd:fig}
-\end{figure}
 
 
 \AP One of the appeals of $\NPoly$ and $\ZPoly$ are the numerous
@@ -317,6 +128,51 @@ $\card{f(w)} = \bigO\left(\card{w}^k\right)$. If such a $k$ exists, we say that
 the function $f$ has \intro{polynomial growth}. It turns out that for all $k
 \in \Nat$, $\ZPoly[k]$ (resp. $\NPoly[k]$) are precisely functions in $\ZRat$
 (resp. in $\NRat)$ that have growth rate at most $k$ \cite{CDTL23}. 
+
+\AP The notion of \kl{$\mathcal{H}$-transducer} can be used to inductively
+define the classes of \intro{$\Rel $-polyregular functions} $\intro*\ZPoly[k]$,
+\intro{$\Nat $-polyregular functions} $\intro*\NPoly[k]$, \intro{star-free
+$\Rel $-polyregular functions} $\intro*\ZSF[k]$, and \intro{star-free $\Nat
+$-polyregular functions} $\intro*\NSF[k]$, as follows \cite[Theorems 5.15 and
+7.10]{DOUE23}: in the base case, $\reintro*\NPoly[-1] = \reintro*\NSF[-1]  =
+\reintro*\ZSF[-1] = \reintro*\ZPoly[-1]$ is the singleton containing the
+constant function equal to $0$; and for $k \geq 0$, $\reintro*\ZPoly[k]$ is the
+set of functions \kl{computed} by a \kl{$\reintro*\ZPoly[k-1]$-transducer}, and
+$\reintro*\NPoly[k]$ is the set of functions \kl{computed} by an
+\kl{$\reintro*\NPoly[k-1]$-transducer} \emph{with an $\Nat$-valued output
+function $F$}, and similarly for $\reintro*\NSF[k]$ and $\reintro*\ZSF[k]$,
+where the transducer is furthermore required to be \kl{counter-free}. Then,
+$\reintro*\NPoly = \bigcup_{k \in \Nat} \reintro*\NPoly[k]$, and classes
+$\reintro*\NSF$, $\reintro*\ZPoly$ and $\reintro*\ZSF$ are defined analogously.
+In the rest of the paper, we will always assume that
+\kl{$\reintro*\NPoly[k]$-transducers} and \kl{$\reintro*\NSF[k]$-transducers}
+have an $\Nat$-valued output functions, making a clean separation between
+$\NPoly$ and $\ZPoly$. that \kl{represents} $P$.
+
+
+
+Because $f$ has \kl{polynomial
+growth}, it is in fact a \kl{$\Nat$-polyregular function} (\cite[Theorem
+5.22]{DOUE23}).
+\begin{lemma}[CITE]
+    \label{polyregular-polynomial-growth:lemma}
+    Let $f \in \ZRat$. The following are equivalent:
+    \begin{enumerate}
+        \item $f \in \ZPoly[k]$.
+        \item $f$ has polynomial growth of degree at most $k$.
+    \end{enumerate}
+    And similarly for $\NPoly$ and $\NRat$.
+\end{lemma}
+
+Let us state the crucial compositional properties of
+\kl{$\Rel$-polyregular functions} that will be used in this paper
+to construct \kl{$\Rel$-polyregular functions}.
+\begin{lemma}[CITE]
+    \label{stability-polyregular:lemma}
+    The class $\NPoly[k]$ (resp. $\ZPoly[k]$) is stable under the operations of
+    addition, multiplication, Cauchy product,
+    and ``value pinning''.
+\end{lemma}
 
 Let us briefly state that \kl{commutativity} is a decidable property of
 \kl{$\Rel$-rational series}, hence of \kl{$\Rel$-polyregular functions}.
