@@ -15,14 +15,15 @@ procedures of $\NPoly$ inside $\ZPoly$, and $\NSF$ inside $\NPoly$. Note that
 \cref{n-poly-combinatorics:lem} for \kl{commutative} functions.
 
 \AP To actually state the lemma, we will need some notations that will
-formalize the intuitive idea of counting tuples of integers modulo some
-constant. Let $\omega \in \Nat$, we define the set $\intro*\ModuloTypes[\omega]
-\defined \set{0, \dots, \omega^2} \times \set{0, \dots, \omega - 1}$ of
-\intro{types modulo $\omega$}. To a number $n \in \Nat$, we associate its
-\reintro{$\omega$-type} written $\intro*\moduloType[\omega](n)$ which is
-defined as the pair $(t, r)$ where $t = \min (n, \omega^2)$ and $r$ is the  remainder
-of the Euclidean division of $n$ by $\omega$. This notion of type is lifted to
-vectors in $\Nat^p$ for any $p \in \Nat$ by pointwise application.
+formalize the intuitive idea of identifying tuples of integers modulo some
+constant. Let $\omega \in \Nat_{\geq 1}$, we define the set
+$\intro*\ModuloTypes[\omega] \defined \set{0, \dots, \omega^2} \times \set{0,
+\dots, \omega - 1}$ of \intro{types modulo $\omega$}. To a number $n \in \Nat$,
+we associate its \reintro{$\omega$-type} written
+$\intro*\moduloType[\omega](n)$ which is defined as the pair $(t, r)$ where $t
+= \min (n, \omega^2)$ and $r$ is the  remainder of the Euclidean division of
+$n$ by $\omega$. This notion of type is lifted to vectors in $\Nat^p$ for any
+$p \in \Nat$ by pointwise application.
 
 
 \begin{lemma}
@@ -238,82 +239,45 @@ result for $\ZSF$.
     \kl{$\Nat$-polyregular function}.
     Then, the following are equivalent:
     \begin{enumerate}
-        \item $f$ is \kl{ultimately polynomial},
-        \item $f \in \ZSF$,
-        \item $f \in \NSF$.
+        \item \label{zsf-npoly-nsf:thm:up:item} $f$ is \kl{ultimately polynomial},
+        \item \label{zsf-npoly-nsf:thm:zsf:item} $f \in \ZSF$,
+        \item \label{zsf-npoly-nsf:thm:nsf:item} $f \in \NSF$.
     \end{enumerate}
     Furthermore, membership is decidable and conversions are effective.
     \proofref{zsf-npoly-nsf:thm}
 \end{theorem}
 \begin{proof}
-    Let $f$ be a \kl{commutative} \kl{$\Nat$-polyregular function}. If $f \in \NSF \subseteq \ZSF$
-    then $f$ is \kl{ultimately polynomial} by \cite{CDTL23}.
+    The implication \cref{zsf-npoly-nsf:thm:zsf:item} $\Rightarrow$
+    \cref{zsf-npoly-nsf:thm:zsf:item} is immediate since $\NSF \subseteq \ZSF$.
+    Furthermore,
+    \cref{zsf-npoly-nsf:thm:zsf:item} implies \cref{zsf-npoly-nsf:thm:up:item}
+    following previous results for \kl{star-free $\Rel$-polyregular functions}
+    \cite{CDTL23}.
 
-    % FIXME:
-    % - 
+    For the implication \cref{zsf-npoly-nsf:thm:up:item} $\Rightarrow$
+    \cref{zsf-npoly-nsf:thm:nsf:item}, let us assume that $f$ is \kl{ultimately
+    polynomial}. We prove the result by induction on the size of the alphabet
+    $\Sigma$. By definition, there exists $N_0 \in \Nat$, and $P \in
+    \Rat[\seqof{X_a}{a \in \Sigma}]$ such that: \begin{equation*} f\left(
+        \prod_{a \in \Sigma} a^{X_a} \right) = P(\seqof{X_a}{a \in \Sigma})
+        \quad \text{ when } \forall a \in \Sigma, X_a \geq N_0 \quad .
+    \end{equation*} It is clear that $P$ is \kl{represented} by a
+    \kl{$\Nat$-polyregular function}, namely, $f$ partially applied to the word
+    $\prod_{a \in \Sigma} a^{N_0}$, and therefore is in fact represented by a
+    \kl{star-free $\Nat$-polyregular function} thanks to
+    \cref{decide-rat-poly-npoly:cor}.
+    For every letter $a \in \Sigma$ and number $0 \leq n \leq N_0$, there exists, by induction hypothesis,
+    a \kl{star-free $\Nat$-polyregular function} $g_a^n$ that represents the
+    function $f_{a^n} \colon (\Sigma \setminus \set{a})^* \to \Rel$
+    that maps $u \in \Sigma \setminus \set{a}$ to $f(a^n u)$.
 
-    We proceed by induction on the size of the alphabet $\card{\Sigma}$.
-
-    \textbf{Base Case.} When $\Sigma$ is empty, $\Sigma^*$ contains
-    only the empty word $\varepsilon$, and because $f$ is a
-    \kl{$\Nat$-polyregular function}, $f(\varepsilon) \in \Nat$.
-    Note that $f$ is therefore a constant function, equal to a natural
-    number, hence belongs to $\NSF$.
-
-    
-    \textbf{Induction.}
-    Because $f$ is \kl{ultimately polynomial},
-    there exists $N_0 \in \Nat$, 
-    and $P \in \Rel[\seqof{X_a}{a \in \Sigma}]$ 
-    such that
+    Let us now define the function $g \colon \Sigma^* \to \Rel$ as follows:
     \begin{equation*}
-        f\left( \prod_{a \in \Sigma} a^{X_a} \right)
-        = 
-        P(\seqof{X_a}{a \in \Sigma})
-        \quad
-        \text{ when }
-        \forall a \in \Sigma, X_a \geq N_0
-        \quad .
+        g \colon w \mapsto \begin{cases}
+            g_{a^n} (w) & \text{ if } \card[a]{w} = n \text{ for some } a \in \Sigma \text{ and } n \leq N_0 \\
+            P(\seqof{\card[a]{w}}{a \in \Sigma}) & \text{ otherwise }
+        \end{cases}
     \end{equation*}
-    Furthermore, leveraging \cref{decompose-polynomial:lem},
-    we obtain $\omega \in \Nat$
-    and a family of polynomials 
-    $\seqof{P_{t}}{t \in \ModuloTypes[\omega]^\Sigma}$
-    that represent $f$.
-    For all $t \in \ModuloTypes[\omega]^\Sigma$
-    that have threshold greater than $\omega^2$,
-    we conclude that $P_t$ and $P$ coincide (up to translation) over an infinite grid,
-    hence we conclude that
-    if all letters appear at least $N_1 \defined \max (\omega^2, N_0)$ times,
-    then $f$ computes $P$. But this also shows that
-    $\translate{N_1}(P)$ is a \kl{$\Nat$-rational polynomial}, hence is
-    \kl{represented} by a function $f_1 \in \NSF[k]$,
-    thanks to
-    \cref{lem:correct-to-n-rat}.
-    
-    To compute $f$ on words where some letter appears fewer than $N_1$ times,
-    we partially apply $f$ to obtain a function $g$ over a restricted input
-    alphabet. Using the induction hypothesis, $g$ belongs to $\NSF[k]$, and we
-    can therefore (effectively) compute a representation of $f$ in $\NSF[k]$.
-
-
-    For the effective part of the theorem, 
-    we know from \cite[Theorem V.13]{CDTL23}, it is decidable whether
-    $f \in \ZSF[k]$ and from \cref{decidable-n-poly:thm}
-    it is decidable whether $f \in \NPoly$.
-    Furthermore, one can enumerate functions in $\NSF[k]$,
-    and check equivalence to effectively represent $f$ as a
-    \kl{star-free $\Nat$-polyregular function}.
+    We conclude that $g$ is a \kl{star-free $\Nat$-polyregular function}, and by definition
+    $f = g$.
 \end{proof}
-
-
-\textbf{TODO: prove the following conjecture to conclude on polynomials in general
-and not just Z coefficients.}
-\begin{conjecture}
-    Let $\vec{X}$ be a vector of variables, and $P \in \Rel[\vec{X}]$ be a
-    polynomial. The following properties are decidable
-    \begin{itemize}
-        \item Is $P$ \kl{represented} by a \kl{$\Rel$-polyregular function}?
-        \item Is $P$ \kl{represented} by a \kl{$\Nat$-polyregular function}?
-    \end{itemize}
-\end{conjecture}
