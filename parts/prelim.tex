@@ -69,33 +69,38 @@ $\Nat$-valued) functions, but could consider other commutative semigroups.
 
 \begin{definition}[$\Rel$-polyregular functions {\cite{CDTL23}}]
     \label{nat-rel-poly:def}
-    Let $M$ be a finite monoid, $\mu \colon \Sigma^* \to M$
-    be a morphism, $k \in \Nat$, and 
-    $\pi \colon M^k \to \Rel$ be a function.
-    The following function 
-    $\pi^\dagger \colon \Sigma^* \to \Rel$
-    is \kl{$\Rel$-polyregular}:
+    Let $k \in \Nat$. The set $\intro*\ZPoly[k]$ of polyregular
+    \intro{$\Rel$-polyregular functions} of degree at most $k$,
+    is the set of functions $f \colon \Sigma^* \to \Rel$
+    such that
+    there exists a finite monoid $M$,
+    a morphism $\mu \colon \Sigma^* \to M$,
+    and a function $\pi \colon M^{k+1} \to \Rel$
+    satisfying:
     \begin{equation*}
-        \pi^\dagger (w) \defined
-        \sum_{w = u_1 \cdots u_k} \pi(\mu(u_1), \dots, \mu(u_k))
+        f \defined
+        \sum_{w = u_1 \cdots u_{k+1}} \pi(\mu(u_1), \dots, \mu(u_{k+1}))
         \quad .
     \end{equation*}
-    When $\pi$ has co-domain $\Nat$, the function $\pi^\dagger$
-    is furthermore \kl{$\Nat$-polyregular}.
-    We call $\pi$ the \emph{production function} of $\pi^\dagger$.
+    We call $\pi$ the \emph{production function} of $f$.
+    If the function $\pi$ has codomain $\Nat$,
+    then $f$ is \intro{$\Nat$-polyregular} of degree at most $k$,
+    i.e., $f \in \intro*\NPoly[k]$.
     If the monoid $M$ is \kl(monoid){aperiodic}
     then
     the function $f$ is \kl{star-free $\Rel$-polyregular}
-    (resp. \kl{star-free $\Nat$-polyregular}).
+    ($\intro*\ZSF[k]$), resp. \kl{star-free $\Nat$-polyregular} ($\intro*\NSF[k]$).
 \end{definition}
 
-In order to illustrate the above definition, let us provide an example of a
-\kl{$\Nat$-polyregular function} computed using a finite monoid.
+\AP We complete definition \cref{nat-rel-poly:def} by defining $\intro*\NPoly =
+\bigcup_{k \in \Nat} \intro*\NPoly[k]$, and similarly for $\ZPoly$, $\NSF$, and
+$\ZSF$. In order to illustrate these definitions, let us provide an example of
+a \kl{$\Nat$-polyregular function} computed using a finite monoid.
 
 \begin{example}
     \label{size-of-word-nsf:ex}
     The map $f \colon w \mapsto \card{w} + 1$
-    belongs to $\NSF$.
+    belongs to $\NSF[1]$.
 \end{example}
 \begin{proof}
     Let us define $M \defined (\set{1}, \times)$ which is 
@@ -127,34 +132,9 @@ function $f \colon \Sigma^* \to \Rel$ is defined as the minimal $k$ such that
 $\card{f(w)} = \bigO\left(\card{w}^k\right)$. If such a $k$ exists, we say that
 the function $f$ has \intro{polynomial growth}. It turns out that for all $k
 \in \Nat$, $\ZPoly[k]$ (resp. $\NPoly[k]$) are precisely functions in $\ZRat$
-(resp. in $\NRat)$ that have growth rate at most $k$ \cite{CDTL23}. 
+(resp. in $\NRat)$ that have growth rate at most $k$.
 
-\AP The notion of \kl{$\mathcal{H}$-transducer} can be used to inductively
-define the classes of \intro{$\Rel $-polyregular functions} $\intro*\ZPoly[k]$,
-\intro{$\Nat $-polyregular functions} $\intro*\NPoly[k]$, \intro{star-free
-$\Rel $-polyregular functions} $\intro*\ZSF[k]$, and \intro{star-free $\Nat
-$-polyregular functions} $\intro*\NSF[k]$, as follows \cite[Theorems 5.15 and
-7.10]{DOUE23}: in the base case, $\reintro*\NPoly[-1] = \reintro*\NSF[-1]  =
-\reintro*\ZSF[-1] = \reintro*\ZPoly[-1]$ is the singleton containing the
-constant function equal to $0$; and for $k \geq 0$, $\reintro*\ZPoly[k]$ is the
-set of functions \kl{computed} by a \kl{$\reintro*\ZPoly[k-1]$-transducer}, and
-$\reintro*\NPoly[k]$ is the set of functions \kl{computed} by an
-\kl{$\reintro*\NPoly[k-1]$-transducer} \emph{with an $\Nat$-valued output
-function $F$}, and similarly for $\reintro*\NSF[k]$ and $\reintro*\ZSF[k]$,
-where the transducer is furthermore required to be \kl{counter-free}. Then,
-$\reintro*\NPoly = \bigcup_{k \in \Nat} \reintro*\NPoly[k]$, and classes
-$\reintro*\NSF$, $\reintro*\ZPoly$ and $\reintro*\ZSF$ are defined analogously.
-In the rest of the paper, we will always assume that
-\kl{$\reintro*\NPoly[k]$-transducers} and \kl{$\reintro*\NSF[k]$-transducers}
-have an $\Nat$-valued output functions, making a clean separation between
-$\NPoly$ and $\ZPoly$. that \kl{represents} $P$.
-
-
-
-Because $f$ has \kl{polynomial
-growth}, it is in fact a \kl{$\Nat$-polyregular function} (\cite[Theorem
-5.22]{DOUE23}).
-\begin{lemma}[CITE]
+\begin{lemma}[{\cite[Theorem 5.22]{DOUE23}}]
     \label{polyregular-polynomial-growth:lemma}
     Let $f \in \ZRat$. The following are equivalent:
     \begin{enumerate}
@@ -167,7 +147,7 @@ growth}, it is in fact a \kl{$\Nat$-polyregular function} (\cite[Theorem
 Let us state the crucial compositional properties of
 \kl{$\Rel$-polyregular functions} that will be used in this paper
 to construct \kl{$\Rel$-polyregular functions}.
-\begin{lemma}[CITE]
+\begin{lemma}[{\cite[Theorem II.20]{CDTL23}}]
     \label{stability-polyregular:lemma}
     The class $\NPoly[k]$ (resp. $\ZPoly[k]$) is stable under the operations of
     addition, multiplication, Cauchy product,
@@ -193,7 +173,7 @@ Let us briefly state that \kl{commutativity} is a decidable property of
     $f \circ c$ and $f \circ t$ are both rational series that can be
     effectively computed from $f$, and since equivalence
     of rational series is decidable 
-    \cite[\textbf{WHERE}]{BERE10}
+    \cite[Corollary 3.6]{BERE10},
     we have obtained a decision procedure.
 \end{proof}
 
