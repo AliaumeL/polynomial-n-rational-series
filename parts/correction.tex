@@ -34,81 +34,243 @@ $\CorrectPoly$. For that, notice that for $\BadPoly$ introduced in
 \cref{def:bad-polynomial}, $\BadPoly(X,Y,1) = 3X^2 + 3Y^2 - 2XY$, which has a negative
 coefficient for a \kl{maximal monomial}, namely $-2XY$. 
 
-Let us now prove that \kl{$\Nat$-rational polynomials} are in $\CorrectPoly$.
-This follows from the correct implication in the statement of \cref{karh:thm},
-but we provide a self-contained proof using a refinement of the classical
-combinatorial arguments for $\ZPoly$ \cite[Lemma 4.16]{CDTL23} and $\NPoly$
-\cite[Lemma 5.37]{DOUE23}.
+\AP Let us now prove that \kl{$\Nat$-rational polynomials} are in
+$\CorrectPoly$. This follows from the correct implication in the statement of
+\cref{karh:thm}, but we provide a self-contained proof using a refinement of
+the classical combinatorial arguments for $\ZPoly$ \cite[Lemma 4.16]{CDTL23}
+and $\NPoly$ \cite[Lemma 5.37]{DOUE23}. We believe that the formulation of such
+pumping arguments can be made clearer through some extra notations, with the
+added property of highlighting the central role of \kl{commutative} polyregular
+functions. Let us define that a function $q$ is a \intro{(noncommutative output)
+polynomial function} from $\Nat^p$ to $\Sigma^*$ whenever there exists words
+$\alpha_0, \dots, \alpha_p \in \Sigma^*$, and words $u_1, \dots, u_p \in
+\Sigma^*$, such that $q(X_1, \dots, X_p) = \alpha_0 \prod_{i = 1}^p u_i^{X_i}
+\alpha_i$. That is, $q$ is syntactically defined by a non-commutative
+polynomial function over the semi-ring $\Sigma^*$. Almost by definition,
+\kl{polynomial functions} are \kl{commutative} \kl{polyregular functions}.
+
+\AP There is still a minor detail that remains to be smoothened before proving
+our combinatorial \cref{n-poly-combinatorics:lem}, which is that some
+polyregular functions can exhibit a limited form of division. For instance, the
+function computing the sum of the lengths of the suffixes of a word $w$
+actually computes $\card{w} \times (\card{w} - 1) / 2$. This will be at odds
+with our restriction to polynomials with coefficients in $\Rel$. However, we
+argue that up to a suitable change of basis for the ring of polynomials, all
+coefficients will actually be in $\Nat$. This relatively simple trick works by
+considering as ``basic polynomials" the \intro{binomial polynomials} of the
+form $\binom{X - \ell}{k}$, where $\ell$ and $k$ are natural numbers. This is
+why we introduce the notion of \intro{natural binomial polynomial} as
+$\Nat$-linear combinations of products of \kl{binomial polynomials}.
 
 \begin{lemma}
     \label{n-poly-combinatorics:lem}
     Let $f$ be an \kl{$\Nat$-polyregular} function. 
     There exists a computable $\omega \in \Nat_{\geq 1}$
-    such that for all $p \in \Nat$,
-    for all $\alpha_0, \dots, \alpha_p \in \Sigma^*$,
-    for all $u_1, \dots, u_p \in \Sigma^*$,
-    there exists a polynomial $P \in \Rel[X_1, \dots, X_p]$
-    whose \kl{maximal monomials} are \kl{non-negative},
-    and such that for all $X_1, \dots, X_p \geq \omega$:
+    such that for all \kl{polynomial functions}
+    $q \colon \Nat^p \to \Sigma^*$,
+    there exists a computable \kl{natural binomial polynomial} $P$
+    such that:
     \begin{equation*}
-        f\left(
-            \alpha_0 \prod_{i = 1}^p u_i^{\omega X_i} \alpha_i
-        \right)
-        = P(X_1, \dots, X_p) \quad .
+        f \circ q(\omega X_1, \dots, \omega X_p)
+        =
+        P
+        \quad 
+        \text{ over } (\Nat_{\geq 1})^p
     \end{equation*}
 \end{lemma}
 \begin{proof}
-    \textbf{TODO: reprove}
-
-    We leverage the characterization of \kl{$\Nat$-polyregular functions}
-    given in \cref{nat-rel-poly:def}.
-    Let $\omega$ be an idempotent power for the finite monoid $M$,
-    and
-    $w \defined \alpha_0 \prod_{i = 1}^p (u_i^{\omega \times X_i} \alpha_i)$.
-    Let $k \in \Nat$, and $\pi \colon M^k \topartial \Nat$ be such that
-    $f = \pi^\dagger$. That is, 
+    Let us fix a finite monoid $M$, a morphism $\mu \colon \Sigma^* \to M$, and 
+    let $\omega$ be an idempotent power for the finite monoid $M$,
+    i.e., a number such that for all $x \in M$,
+    $x^{\omega+1} = x^\omega$.
+    We will prove by induction on $k \in \Nat_{\geq 1}$
+    that for all
+    $\pi \colon M^k \to \Nat$,
+    the lemma holds for the function 
+    $f = \pi^\dagger$, i.e., such that
     $f(w)$ is the sum over all factorizations of $w$
     into $k$ words $(w_1, \dots, w_k) \in \Sigma^*$
     of the value $\pi(\mu(w_1), \dots, \mu(w_k))$.
+    Since every \kl{$\Nat$-polyregular function}
+    is obtained via some choice of $M, \mu, \pi$ (\cref{nat-rel-poly:def})
+    we derive the desired result.
 
-    Let us define an equivalence relation $\equiv$ over words of
-    $\Sigma^*$ as follows: two words $v_1, v_2$ are equivalent if they are
-    equal when normalizing them with the rules $u_i^{\omega} u_i^{\omega} \to
-    u_i^{\omega}$ for all $1 \leq i \leq p$. That is, we disregard
-    repetitions of the factors $u_i^{\omega}$ in the words.
-    We lift the equivalence relation $\equiv$ to $k$-tuples of
-    words by pointwise application.
+    In all cases, we will use a \kl{polynomial function} $q \colon \Nat^p \to
+    \Sigma^*$ defined by $q(X_1, \dots, X_p) \defined \alpha_0 \prod_{i = 1}^p
+    (u_i^{\omega \times X_i} \alpha_i)$ using some words $\alpha_i$ ($0 \leq i
+    \leq p$) and $u_i$ ($1 \leq i \leq p)$ in $\Sigma^*$. That is, we will
+    implicitly multiply all variables by $\omega$ in order to make the
+    equations more readable. Note that when using an induction hypothesis, we
+    will therefore have to check that the polynomial $q$ will have this
+    specific form.
 
-    Remark that if $(v_1, \dots, v_k) \equiv (w_1, \dots, w_k)$ then their
-    production are the same, i.e., $\pi(\mu(v_1), \dots, \mu(v_k)) =
-    \pi(\mu(w_1), \dots, \mu(w_k))$. This holds because $\mu(u_i^\omega) =
-    \mu(u_i)^\omega$ is an idempotent element of the monoid $M$. In particular,
-    $f(w)$ can be computed as the sum over equivalence classes for $\equiv$, of
-    the value of $\pi$ on one representative, which belongs to $\Nat$.
+    \textbf{Base case: $k = 1$.}
+    Let us show that $f \circ q$ is
+    actually a constant (positive) function (and in particular a \kl{natural binomial polynomial}), as for
+    all $n_1, \dots, n_p \geq 1$,
+    \begin{align*}
+        f(q(n_1, \dots, n_p))
+        &\eqdef \pi\left(\mu(q(n_1, \dots, n_p))\right) \\
+        &\eqdef \pi\left(\mu(\alpha_0 \prod_{i = 1}^p u_i^{\omega n_i} \alpha_i)\right)
+        \\
+        &= \pi\left(\mu(\alpha_0) \prod_{i = 1}^p \mu(u_i)^{\omega n_i} \mu(\alpha_i)\right) 
+        & \text{ morphism }
+        \\
+        &= \pi\left(\mu(\alpha_0) \prod_{i = 1}^p \mu(u_i) \mu(\alpha_i)\right)
+        & \text{ idempotent and } n_i \geq 1
+        &= c \geq 0
+    \end{align*}
 
-    Therefore, it suffices to prove that the number of partitions of $w$ in a
-    single equivalence class for $\equiv$ is a polynomial $P(X_1, \dots, X_p)$
-    with \kl{non-negative} \kl{maximal monomials}.
+    \textbf{Induction hypothesis.}
+    The proof will essentially follow the same schema as the base case,
+    with extra care needed to properly handle the summation of polynomials
+    that arises when $k \geq 2$.
 
-    Notice that to produce all elements in a given equivalence class
-    means adding the factors $u_i^\omega$ where $1 \leq i \leq p$
-    back to the normalized version
-    of the equivalence class. For all elements in an equivalence class,
-    one has to add the same amount of $u_i^\omega$ for $1 \leq i \leq p$,
-    and therefore the number of possible choices
-    is either constant, or 
-    is a product of binomials of the form $\binom{X - l}{s}$
-    which almost has the desired shape.
+    We will use the fact that given $n_1, \dots, n_p \geq 0$,
+    there exists a bijection between
+    partitions of $q(\omega n_1, \dots, \omega n_p)$
+    into $k+1$ words, and 
+    triples composed of
+    a position  $1 \leq \ell \leq p$,
+    a ratio     $0 \leq b \leq n_\ell$,
+    a remainder $0 \leq r < \omega \times \card{u_\ell}$,
+    and a partition of
+    $u_\ell^\omega\mid_{[-r:]} u_\ell^{\omega \times (n_\ell - b)}
+    \alpha_{\ell+1} \cdots \alpha_{p-1} u_p^{n_p} \alpha_{p}$
+    into $k$ words,
+    where we have used the notation 
+    $v\mid_{[-r:]}$ to denote the word obtained from $v$ 
+    by keeping only the last $r$ letters, in a sort of Pythonic syntax.
+    That is, we look at where the first ``cut" is made.
 
-    Indeed, the binomial 
-    $\binom{X - l}{s}$ is equal to
-    $(X-l) \cdots (X-l-s+1) / s!$.
-    As a consequence,
-    $\binom{s! X - l}{s} \in \Rel[X]$,
-    and considering $\omega' \defined \omega \times s!$ (for some large enough $s$)
-    allows us to conclude.
+    Now, given $(\ell, b, r)$ respecting the inequalities 
+    mentioned above,
+    one can define the \kl{polynomial functions}
+    $s_{\ell,b,r} \colon \Nat^{\ell - 1} \to \Sigma^*$
+    and
+    $q_{\ell,b,r} \colon \Nat^{p - \ell + 1} \to \Sigma^*$
+    so that
+    $q(X_1, \dots, X_p) = s_{\ell, b, r}(X_1, \dots, X_{\ell-1}) 
+    q_{\ell, b, r}(X_{\ell}, \dots, X_p)$
+    under the assumption that $X_1 \geq b$:
+    \begin{equation*}
+        q_{\ell,b,r}(X_{1}, \dots, X_{p - \ell + 1})
+        \defined
+        u_\ell^\omega\mid_{[-r:]} u_\ell^{\omega \times (X_1 - b)}
+        \alpha_{\ell+1} \cdots \alpha_{p-1} u_p^{X_{p - \ell + 1}} \alpha_{p}
+        \quad .
+    \end{equation*}
+    Similarly, let us define 
+    $s_{\ell, b, r}(X_1, \dots, X_{\ell - 1})$
+    as 
+    $\alpha_0 u_1^{\omega X_1} \alpha_2 \dots \alpha_{\ell - 1} 
+    u_\ell^{\omega b} u_{\ell}^\omega \mid_{[1:r]}$,
+    Remark that $q_{\ell,b,r}$ has all of its indeterminates
+    multiplied by $\omega$, so that the induction hypothesis 
+    can be used.
+
+    The key remark is that $\mu(s_{\ell,b,r}(X_1, \dots, X_{\ell - 1}))$ is a
+    constant function from $\Nat^{\ell-1}$ to $M$, and that its value is also
+    constant when $b$ varies among numbers greater than $0$. This holds with
+    the exact same proof as the base case of this induction. Let us call
+    $m_{\ell,r,1}$ and $m_{\ell,r,0}$ the two elements of the monoid that are
+    obtained by $\mu(s_{\ell,b,r}(X_1, \dots, X_{\ell-1}))$ respectively when
+    $b = 0$ and when $b > 0$. Finally, let us define $\pi_{\ell,r,0} \colon M^k
+    \to \Nat$ via $\pi_{\ell,r,0}(m_2, \dots, m_{k+1}) \defined
+    \pi(m_{\ell,r,0}, m_1, \dots, m_{k+1})$ and similarly for $\pi_{\ell,r,1}
+    \colon M^k \to \Nat$.
+
+    With all of this preliminary work done, we are now ready to conclude by
+    simply unrolling the definition of 
+    a function
+    $f$ defined using a \kl{production function}
+    $\pi \colon M^{k+1} \to \Nat$.
+    In the following equations, we omit the precise
+    range for the sum over $(\ell, b, r)$ to save space.
+    Similarly, we will use 
+    $q_{\ell,r}(X_1, \dots, X_{p-\ell+1})
+    \defined q_{\ell,b,r}(X_1+b, X_2, \dots, X_{p - \ell + 1})$
+    at the end of the computation.
+    \begin{align*}
+        &f(q(n_1, \dots, n_p))\\
+        &\eqdef 
+        \sum_{v_1 \dots v_{k+1} = q(n_1, \dots, n_p)}
+        \pi(\mu(v_1), \dots, \mu(v_{k+1})) \\
+        &= \sum_{(\ell, b, r)}
+           \sum_{v_2 \dots v_{k+1} = q_{\ell,b,r}(n_\ell, \dots, n_p)}
+           \pi(\mu(s_{\ell,b,r}(n_1, \dots, n_{\ell-1})), \mu(v_2), \dots, \mu(v_{k+1}))
+        \\
+        &= 
+           \sum_{(\ell, 0, r)}
+           \sum_{v_2 \dots v_{k+1} = q_{\ell,0,r}(n_\ell, \dots, n_p)}
+           \pi(m_{\ell,r,0}, \mu(v_2), \dots, \mu(v_{k+1}))
+           \\
+        &+ 
+           \sum_{(\ell, b > 0, r)}
+           \sum_{v_2 \dots v_{k+1} = q_{\ell,b,r}(n_\ell, \dots, n_p)}
+           \pi(m_{\ell,r,1}, \mu(v_2), \dots, \mu(v_{k+1}))
+        \\
+        &= 
+           \sum_{(\ell, 0, r)}
+           \sum_{v_2 \dots v_{k+1} = q_{\ell,0,r}(n_\ell, \dots, n_p)}
+           \pi_{\ell,r,0}(\mu(v_2), \dots, \mu(v_{k+1}))
+           \\
+        &+ 
+           \sum_{(\ell, b > 0, r)}
+           \sum_{v_2 \dots v_{k+1} = q_{\ell,b,r}(n_\ell, \dots, n_p)}
+           \pi_{\ell,r,1}(\mu(v_2), \dots, \mu(v_{k+1}))
+        \\
+        &= 
+           \sum_{1 \leq \ell \leq p}
+           \sum_{0 \leq r < \omega \times \card{u_\ell}}
+           (\pi_{\ell,r,0})^\dagger (q_{\ell, 0, r}(n_\ell, \dots, n_p))
+           \\
+        &+ 
+           \sum_{1 \leq \ell \leq p}
+           \sum_{0 \leq r < \omega \times \card{u_\ell}}
+           \sum_{0 < b < n_\ell}
+           (\pi_{\ell,r,1})^{\dagger}(q_{\ell,r}(n_\ell - b, \dots, n_p))
+    \end{align*}
+    Now, using the induction hypothesis,
+    we have \kl{natural binomial polynomials} $P_{\ell,r,0}$ and $P_{\ell,r,1}$
+    satisfying 
+    \begin{equation*}
+       (\pi_{\ell,r,1})^{\dagger}(q_{\ell,r}(n_\ell - b, \dots, n_p))
+       = P_{\ell,r,1}(\omega (n_\ell - b), \dots, \omega n_p)
+       \quad 
+       \forall n_\ell - b, \dots, n_p \geq 1
+       \quad .
+   \end{equation*}
+   And similarly
+    \begin{equation*}
+        (\pi_{\ell,r,0})^{\dagger}(q_{\ell,r}(n_1, \dots, n_{\ell-1})
+        = P_{\ell,r,0}(\omega n_1, \dots, \omega n_{\ell-1})
+       \quad 
+       \forall n_1, \dots, n_{\ell - 1} \geq 1
+       \quad .
+   \end{equation*}
+
+   It is an easy and folklore fact that \kl{natural binomial polynomials} are
+   stable under the operation $\Sigma_Y \colon Q(X_1,\dots,X_n,Y) \mapsto \sum_{0
+   < b < Y} Q(X_1, \dots, X_n, b)$, and by pre-composition with 
+   a multiplication by a constant $\omega \geq 1$.
+
+   This allows us to conclude by defining 
+   \begin{equation*}
+       P(X_1, \dots, X_p) \defined
+       \sum_{1 \leq \ell \leq p} \sum_{0 \leq r < \omega \card{u_\ell}}
+       P_{l,r,0}(\omega X_{\ell}, \dots, \omega X_p) + \Sigma_Y P_{l,r,1}(\omega Y,
+       \omega X_{\ell+1}, \dots, \omega X_p)
+       \quad .
+   \end{equation*}
+   The latter being a \kl{natural binomial polynomial} satisfying
+   the desired equality.
 \end{proof}
 
+Let us highlight that the multiplicative factor $\omega$ is necessary in
+\cref{n-poly-combinatorics:lem}. Indeed, the function $f \colon \set{a}^* \to
+\Nat$ defined as $0$ when the input is of odd length and $1$ when the input is
+of even length is \kl{$\Nat$-polyregular}, but $f(a^X)$ is not a polynomial.
 
 \begin{corollary}
     \label{n-rat-correct:lem}
