@@ -85,6 +85,7 @@
     % otherwise do nothing.
     % \hyperref[#1:proof]{Proof of \cref{#1}}
     \IfRefUndefinedExpandable{#1:proof}{}{%
-        \hfill\hyperref[#1:proof]{(Proof p.\pageref{#1:proof})}
-    }
+        %\hfill\hyperref[#1:proof]{(Proof p.\pageref{#1:proof})}
+        \marginpar{\ttfamily\small\hyperref[#1:proof]{Proof p.\pageref{#1:proof}}}%
+    }%
 }

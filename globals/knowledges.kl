@@ -3,6 +3,9 @@
  | aperiodic@monoid
 
 \knowledge{notion}
+ | production function
+
+\knowledge{notion}
  | aperiodic@language
  | aperiodic language
  | star-free language
@@ -22,8 +25,10 @@
  | $\Nat $-rational polynomials
 
 \knowledge{notion}
+ | $K$-rational series
+ | $K$-weighted automata
+ | $\Nat $-weighted automaton
  | $\Rel $-rational series
-\knowledge{notion}
  | $\Nat $-rational series
 
 \knowledge{notion}
@@ -181,3 +186,19 @@
 
 \knowledge{notion}
  | aperiodic ordering
+
+
+
+\knowledge{notion}
+ | (noncommutative output) polynomial function
+ | polynomial functions
+ | polynomial function
+\knowledge{notion}
+ | binomial monomial
+ | binomial monomials
+\knowledge{notion}
+ | natural binomial polynomial
+ | natural binomial polynomials
+\knowledge{notion}
+ | integer binomial polynomials
+ | integer binomial polynomial

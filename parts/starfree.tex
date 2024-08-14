@@ -11,7 +11,7 @@ reduces $\ZPoly$ to a combination of a finite number of polynomials, arranged
 by counting modulo some numbers. This characterization will be proven in
 \cref{decompose-polynomial:lem}, and will be the key ingredient in the decision
 procedures of $\NPoly$ inside $\ZPoly$, and $\NSF$ inside $\NPoly$. Note that
-\cref{decompose-polynomial:lem} refines
+\cref{decompose-polynomial:lem} can be understood as a refinement of
 \cref{n-poly-combinatorics:lem} for \kl{commutative} functions.
 
 \AP To actually state the lemma, we will need some notations that will
@@ -34,8 +34,8 @@ $p \in \Nat$ by pointwise application.
     There exists a computable
     $\omega \in \Nat_{\geq 1}$,
     and computable 
-    polynomials $\seqof{P_{t}}{t \in \ModuloTypes[\omega]^n}$
-    such that for all $x_1, \dots, x_n \geq \omega$:
+    \kl{integer binomial polynomials} $\seqof{P_{t}}{t \in \ModuloTypes[\omega]^n}$
+    such that for all $x_1, \dots, x_n \geq 0$:
     \begin{equation*}
         f\left(a_1^{x_1} \cdots a_n ^{x_n}\right) 
         = P_{\moduloType[\omega](x_1, \dots, x_n)}
@@ -59,17 +59,16 @@ conjectured to characterize $\NPoly$ inside $\ZPoly$ in the general setting.
     \intro{$(k,\Nat)$-combinatorial} if there exists $\omega \in \Nat$,
     such that
     for all
-    $\alpha_0, \dots, \alpha_k \in \Sigma^*$,
-    for all $u_1, \dots, u_k \in \Sigma^*$,
-    there exists a polynomial $P \in \CorrectPoly$,  
-    satisfying for all $x_1, \dots, x_k \geq \omega$:
+    \kl{polynomial functions} $q \colon \Nat^k \to \Sigma^*$,
+    there exists a polynomial $P \in \CorrectPoly$,
+    satisfying:
     \begin{equation*}
-        f
-        \left(
-            \alpha_0 \prod_{i = 1}^k u_i^{\omega x_i} \alpha_i
-        \right)
+        f \circ q(\omega X_1,\dots, \omega X_k)
         = 
-        P(x_1, \dots, x_k) \quad .
+        P
+        \quad 
+        \text{ over } (\Nat_{\geq 1})^k
+        \quad .
     \end{equation*}
 \end{definition}
 
@@ -86,21 +85,51 @@ conjectured to characterize $\NPoly$ inside $\ZPoly$ in the general setting.
     and conversions effective.
 \end{theorem}
 \begin{proof}
-    Let us prove that
+    The implication
     \cref{f-npoly-combi:item}
-    implies \cref{f-combinatorial:item}. 
-    We compute the $\omega$ by applying 
-    \cref{n-poly-combinatorics:lem}, and then
-    notice that the polynomial $P$ obtained is
-    by definition a \kl{$\Nat$-rational polynomial}.
+    $\implies$ \cref{f-combinatorial:item} immediately follows
+    from 
+    \cref{n-poly-combinatorics:lem} and \cref{corrected-version:thm}.
 
     For the converse implication, we use \cref{decompose-polynomial:lem} to
-    effectively compute a polynomial representation of $f$. 
+    effectively compute a polynomial representation of $f$. That is, we obtain
+    an $\omega_1 \in \Nat$ and \kl{integer binomial polynomials}
+    $\seqof{P_{t}}{t \in \ModuloTypes[\omega_1]^k}$. Now, because $f$ is
+    \kl{$(k,\Nat)$-combinatorial}, we also have a number $\omega_2 \in \Nat$
+    such that for all \kl{polynomial functions} $q$, there exists an
+    \kl{integer binomial polynomial} $P$ such that $f \circ q(\omega_2 \vec{X})
+    = P$ over $(\Nat_{\geq 1})^k$. By considering $\omega \defined
+    \omega_1 \times \omega_2$, we can without loss of generality assume that
+    $\omega_1 = \omega_2$ in the rest of this proof.
 
-    \textbf{TODO: this is because they coincide en enough points}.
-    Using the
-    assumption, all of these polynomials are actually \kl{$\Nat$-rational
-    polynomials}. Let us now construct a new way to compute $f$, by first
+    Now, consider an \kl{$\omega$-type} $t \in \ModuloTypes[\omega]^k$. By
+    definition, this provides us with a selection function $\ind{S} \colon \set{1,
+    \dots, k} \to \set{0,1}$, and numbers $r_1, \dots, r_k$ between $0$ and
+    $\omega^2-1$ such that for all $x_1, \dots, x_k \geq 1$, the tuple $(x_1
+    \omega \ind{S}(1) + r_1, \dots, x_k \omega \ind{S}(k) + r_k)$ has type $t$.
+    In particular, for all $x_1, \dots, x_k \geq 1$, the following
+    equality holds:
+    \begin{equation*}
+        f\left(\prod_{i = 1}^k 
+            a_i^{ x_i \omega \ind{S}(i) + r_i}
+        \right)
+        =
+        P_t(\seqof{x_i}{i \in S})
+    \end{equation*}
+
+    Let us therefore consider the \kl{polynomial function} $q \colon \Nat^k \to
+    \Sigma^*$ that is simply defined as $q(X_1, \dots, X_k) \defined \prod_{i =
+    1}^k a_i^{ X_i \omega \ind{S}(i) + r_i}$. Because $f$ is
+    \kl{$(k,\Nat)$-combinatorial} (with parameter $\omega$), there exists
+    a polynomial $P \in \CorrectPoly$ such that for all $x_1, \dots, x_n
+    \geq 1$, the equality $f \circ q(\omega x_1, \dots, \omega x_k) = P(x_1,
+    \dots, x_k)$ holds. In particular, we conclude that over $(\Nat_{\geq
+    1})^{\card{S}}$ the polynomial $P_t$ and $P$ coincide. They are therefore
+    equal as multivariate polynomials, and we conclude that $P_t$ belongs to
+    $\CorrectPoly$, and in particular is an \kl{$\Nat$-rational polynomial}
+    thanks to \cref{corrected-version:thm}.
+
+    Let us now construct a new way to compute $f$, by first
     computing the \kl{$\omega$-type} of the input (which is possible in
     $\MSO$), and then computing the suitable \kl{$\Nat$-rational polynomial},
     which is possible in $\NPoly$.
@@ -128,8 +157,10 @@ functions by the means of polynomial behaviors (see
 to consider polynomials with coefficients in $\Rel$. However, there are some
 polynomials with coefficients in $\Rat$ that can be \kl{represented} by a
 \kl{$\Nat$-polyregular function}. For instance, the polynomial $P(X) \defined
-X(X+1)/2$. This is why, in the upcoming definition, we have to consider
-polynomials with coefficients in $\Rat$.
+X(X+1)/2$. Historically, the definition used polynomials with coefficients in
+$\Rat$, which is why we use such polynomials here, even though we know that all
+of those polynomials will actually be \kl{integer binomial polynomials} thanks
+to \cref{integer-binomial-polynomials:cor}.
 
 \begin{definition}[Ultimately polynomial]
     \label{ultimately-polynomial:def}
@@ -137,31 +168,28 @@ polynomials with coefficients in $\Rat$.
     A function $f \colon \Sigma^* \to \Rel$
     is \intro{ultimately polynomial}
     when there exists $N_0 \in \Nat$ such that
-    for all $n \in \Nat$
-    and for all words $\alpha_0, w_1, \alpha_1, \cdots, \alpha_{n-1}, w_n, \alpha_n
-    \in \Sigma^*$, there exists a polynomial $P \in \Rat[X_1, \dots, X_n]$
+    for all $n \in \Nat$,
+    for all \kl{polynomial function} $q \colon \Nat^n \to \Sigma^*$,
+    there exists a polynomial $P \in \Rat[X_1, \dots, X_n]$
     such that:
     \begin{equation*}
-        f\left(
-            \alpha_0 \prod_{i = 1}^{n} w_i^{x_i} \alpha_i
-        \right)
-        = 
-        P(x_1, \dots, x_n)
+        f \circ p = P
         \quad 
-        \forall x_1, \dots, x_n \geq N_0
+        \text{ over } (\Nat_{\geq N_0})^n
         \quad .
     \end{equation*}
 \end{definition}
 
 Let us recall that a language $L$ is \intro(language){aperiodic} whenever it is
 recognized by an \kl(monoid){aperiodic} finite monoid, which turns out to be
-equivalent to the following characterisation among regular languages: for all
+equivalent to the following characterization among regular languages: for all
 $u,v,w$, there exists $n \in \Nat$, $u v^n w \in L$ if and only if $u v^{n+1} w
 \in L$. As a consequence of this characterization, a language $L$ is aperiodic
 if and only if its indicator function $\ind{L}$ is \kl{ultimately polynomial}.
-This was already observed in \cite[Claim V.6]{CDTL23}, and reproven in
+This, was already observed in \cite[Claim V.6]{CDTL23}, and restated in
 \cite[Claim 7.45, Lemma 7.53]{DOUE23}. We include a self-contained proof
-hereafter for readability and didactic purposes.
+hereafter for readability and didactic purposes. The proof follows essentially
+the same scheme as the base case of \cref{n-poly-combinatorics:lem}.
 
 \begin{example}
     \label{aperidic-ultimately-polynomial:ex}
@@ -205,9 +233,10 @@ hereafter for readability and didactic purposes.
 \AP The decidability of aperiodicity for \kl{$\Rel$-polyregular functions}, that is
 the membership of $\ZSF$ inside $\ZPoly$,
 relies on the construction of a canonical object called the \emph{residual
+,
 transducer}, the latter being essentially based on differences between
 functions, crucially leveraging negative outputs \cite{CDTL23}. Although the
-proof method does not carry from $\Rel$-output functions to $\Nat$-output
+proof method does not carry from $\Rel$-output functions to $\Nat$-output,
 functions, it was conjectured that the semantic property of being
 \kl{ultimately polynomial} would also characterize $\NSF$ inside $\NPoly$, a
 conjecture that is restated hereafter.

@@ -220,22 +220,30 @@
 \begin{proofof}[decompose-polynomial:lem]
     Let us first write $f \in \ZPoly$ as a linear combination 
     $f = f_+ - f_-$ where both $f_+$ and $f_-$ are in $\NPoly$.
+    We 
+    compute $\omega_+$ (resp. $\omega_-$)
+    by
+    applying
+    \cref{n-poly-combinatorics:lem} 
+    to $f_+$ (resp. to $f_-$).
+    Finally, let $\omega \defined \ppcm(\omega_+, \omega_-)$.
 
-    We apply
-    \cref{n-poly-combinatorics:lem} to compute the $\omega$ that works for both $f_+$ and $f_-$.
     Using this $\omega$,
     for any choice of
     $r \defined (r_1, \dots, r_n) \in \set{0, \dots, \omega - 1}$,
-    there exists a polynomial $P_r \in \Rel[X_1, \dots, X_p]$
-    such that $X_1, \dots, X_p \geq \omega$:
+    there exists an \kl{integer binomial polynomial}
+    $P_r \in \Rel[X_1, \dots, X_p]$,
+    obtained as
+    the difference of the two \kl{natural binomial polynomial} $P_r^+$ and $P_r^-$
+    associated to $f_+$ and $f_-$,
+    such that $X_1, \dots, X_p \geq 1$:
     \begin{equation*}
         f\left(
         a_1^{\omega X_1 + r_1} \cdots a_n ^{\omega X_n + r_n}\right) 
         = P_r(X_1, \dots, X_p) \quad .
     \end{equation*}
-    To get the full family of polynomials needed requires
-    just to only iterate subsets of letters, and fix the other ones
-    to be below the threshold $\omega^2$.
+    We conclude by selecting different values of $r$ and
+    setting some subsets of variables to be assigned to the constant $0$.
 \end{proofof}
 
 

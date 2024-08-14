@@ -57,10 +57,12 @@ actually computes $\card{w} \times (\card{w} - 1) / 2$. This will be at odds
 with our restriction to polynomials with coefficients in $\Rel$. However, we
 argue that up to a suitable change of basis for the ring of polynomials, all
 coefficients will actually be in $\Nat$. This relatively simple trick works by
-considering as ``basic polynomials" the \intro{binomial polynomials} of the
-form $\binom{X - \ell}{k}$, where $\ell$ and $k$ are natural numbers. This is
-why we introduce the notion of \intro{natural binomial polynomial} as
-$\Nat$-linear combinations of products of \kl{binomial polynomials}.
+considering as ``basic polynomials" the \intro{binomial monomial} of the form
+$\binom{X - \ell}{k}$, where $\ell$ and $k$ are natural numbers. Beware that
+$\binom{X - \ell}{k}$ is defined to be $0$ when $X \leq \ell$, and is therefore
+a ``true polynomial" only when $X \geq \ell$. This is why we introduce the
+notion of \intro{natural binomial polynomials} as $\Nat$-linear combinations of
+products of \kl{binomial monomials}.
 
 \begin{lemma}
     \label{n-poly-combinatorics:lem}
@@ -97,8 +99,8 @@ $\Nat$-linear combinations of products of \kl{binomial polynomials}.
 
     In all cases, we will use a \kl{polynomial function} $q \colon \Nat^p \to
     \Sigma^*$ defined by $q(X_1, \dots, X_p) \defined \alpha_0 \prod_{i = 1}^p
-    (u_i^{\omega \times X_i} \alpha_i)$ using some words $\alpha_i$ ($0 \leq i
-    \leq p$) and $u_i$ ($1 \leq i \leq p)$ in $\Sigma^*$. That is, we will
+    (u_i^{\omega \times X_i} \alpha_i)$ using some words $\alpha_i$ (for $0 \leq i
+    \leq p$) and $u_i$ (for $1 \leq i \leq p)$ in $\Sigma^*$. That is, we will
     implicitly multiply all variables by $\omega$ in order to make the
     equations more readable. Note that when using an induction hypothesis, we
     will therefore have to check that the polynomial $q$ will have this
@@ -271,6 +273,8 @@ Let us highlight that the multiplicative factor $\omega$ is necessary in
 \cref{n-poly-combinatorics:lem}. Indeed, the function $f \colon \set{a}^* \to
 \Nat$ defined as $0$ when the input is of odd length and $1$ when the input is
 of even length is \kl{$\Nat$-polyregular}, but $f(a^X)$ is not a polynomial.
+Let us remark that the \kl{maximal monomials} of the polynomial $\binom{X -
+p}{k}$ have coefficient $1/k!$, and are therefore \kl{non-negative}.
 
 \begin{corollary}
     \label{n-rat-correct:lem}
@@ -286,15 +290,15 @@ of even length is \kl{$\Nat$-polyregular}, but $f(a^X)$ is not a polynomial.
     that \kl{represents} $P$. 
     Using \cref{n-poly-combinatorics:lem},
     there exists a number $\omega \in \Nat_{\geq 1}$
-    and polynomial $Q$ with \kl{non-negative}
-    \kl{maximal monomials} such that
-    for all $X_1, \dots, X_p \geq \omega$:
+    and \kl{natural binomial polynomial} $Q$
+    such that
+    for all $n_1, \dots, n_p \geq 1$:
     \begin{equation*}
         f\left(
-            \prod_{i = 1}^p a_i^{\omega X_i}
+            \prod_{i = 1}^p a_i^{\omega n_i}
         \right)
-        = Q(X_1, \dots, X_p)
-        = P(\omega X_1, \dots, \omega X_p) 
+        = Q(n_1, \dots, n_p)
+        = P(\omega n_1, \dots, \omega n_p) 
         \quad .
     \end{equation*}
     We conclude that $P(\omega X_1, \dots, \omega X_p) = Q(X_1, \dots, X_p)$
@@ -396,81 +400,25 @@ monomial $M_2 \in S_2$, such that $M_1$ \kl{divides} $M_2$. The set
 $(\Pfin(\Monomials), \hoareleq)$ remains a \kl{well-quasi-ordering}, and is in
 particular well-founded \cite[Hoare quasi-ordering]{SCSC12}.
 
-\begin{fact}
-    \label{maxi-monomials-submodular:fact}
-    Let $P, Q$ be two polynomials.
-    Then, $\MaximalMonomials(P+Q) \hoareleq \MaximalMonomials(P)
-    \cup \MaximalMonomials(Q)$.
-\end{fact}
-
-
-\begin{fact}
-    \label{translation-maximal:fact}
-    For all $P \in \Rel[\vec{X}]$, and $K \in \Nat$,
-    \begin{equation*}
-        \MaximalMonomials(P) = \MaximalMonomials(\translate{K}(P))
-        \quad .
-    \end{equation*}
-\end{fact}
-
-\textbf{TODO: fix this?}
-\begin{fact}
-    \label{derivation-monomials:fact}
-    Let $K > 0$,
-    and let $M,T$ be two \kl{monomials}, such that
-    $T$ \kl{strictly divides} $M$.
-    Then,
-    every \kl{monomial} of $\Diff{K}{M}$ \kl{strictly divides} $M$,
-    and 
-    $T$ \kl{divides} some \kl{maximal monomial}
-    of $\Diff{K}{M}$, which has a coefficient
-    that is a multiple of $K$.
-\end{fact}
-\begin{proof}
-    Let $M \defined X_1^{k_1} \cdots X_n^{k_n}$,
-    where $k_1, \dots, k_n > 0$ and $n > 0$.
-    Let us compute
-    \begin{align*}
-        \Diff{K}{M} &= \prod_{i = 1}^n X_i^{k_i} - \prod_{i = 1}^n (X_i - K)^{k_i} \\
-                    &= \sum_{p = 1}^n \frac{K}{X_p - K} \prod_{i = 1}^n (X_i - K)^{k_i} 
-    \end{align*}
-    Therefore, 
-    the \kl{maximal monomials} of $\Diff{K}{M}$
-    are precisely
-    of the form $K \frac{\prod_{i = 1}^n X_i^{k_i}}{X_p}$ for some $1 \leq p \leq i$,
-    which \kl{strictly divides} $M$.
-    Let $T$ be a \kl{monomial} that \kl{strictly divides} $M$,
-    then, $T = \prod_{i = 1}^n X_i^{t_i}$, 
-    for all $1 \leq i \leq n$, $t_i \leq k_i$,
-    and there exists $1 \leq p \leq n$ such that $t_j < k_j$.
-    In particular, $T$ \kl{divides}
-    $K \frac{\prod_{i = 1}^n X_i^{k_i}}{X_p}$.
-\end{proof}
-
 \begin{lemma}
-    \label{derivation-simplifies:lemma}
-    For all $P \in \Rel[\vec{X}]$ that are non-constant,
-    for all $K \in \Nat$,
-    $\MaximalMonomials(\Diff{K}{P}) \hoarele
-    \MaximalMonomials(P)$.
+    \label{all-positive-derivative:lem}
+    Let $P \in \Nat[\vec{X}]$ that is non-constant, and $K \in \Nat$,
+    then $\Diff{K}{P} \in \Nat[\vec{X}]$ and all of its
+    coefficients are (positive) multiples of $K$.
+    Furthermore, every monomial that strictly divides some monomial of $P$
+    appears in $\Diff{K}{P}$.
 \end{lemma}
 \begin{proof}
-    Let $P \in \Rel[\vec{X}]$ and
-    $K \in \Nat$.
-    Leveraging 
-    \cref{derivation-monomials:fact,discrete-deriv-linear:fact,maxi-monomials-submodular:fact}:
-    \begin{align*}
-        \MaximalMonomials\left(\Diff{K}{P}\right)
-        &=
-        \MaximalMonomials\left(\sum_{M \in \Monomials(P)} \Diff{K}{M}\right) \\
-        &\hoareleq
-        \bigcup_{M \in \Monomials(P)} 
-        \MaximalMonomials(\Diff{K}{M}) \\
-        &\hoarele
-        \MaximalMonomials(P)
-        & \text{ because } \deg(\Diff{K}{P}) < \deg(P)
-    \end{align*}
-    Which concludes the proof.
+    We prove the result for monomials, as it extends
+    to $\Nat$-linear combinations by linearity.
+    Let $P = \prod_{i = 1}^k X_i^{\alpha_i}$ be a monomial.
+    Notice that $\translate{K}(P) = \prod_{i = 1}^n (X_i + K)^{\alpha_i}$,
+    and using a binomial expansion
+    we list all the possible divisors of $P$,
+    all of which with coefficients that are positive integers and multiples of $K$ except the coefficient
+    of the maximal monomial (equal to $P$ itself) which is $1$.
+    As a consequence, $\translate{K}(P) - P$ is simply
+    obtained by removing this maximal monomial, which concludes the proof.
 \end{proof}
 
 \begin{lemma}
@@ -481,9 +429,36 @@ particular well-founded \cite[Hoare quasi-ordering]{SCSC12}.
     non-maximal monomials of $P$.
     There exists a computable number $K \in \Nat$,
     such that
-    $Q \defined (\Diff{K}{P_1} + \translate{K}(P_2)) \in \CorrectPoly$.
-    \proofref{derivation-stabilises-correct:lem}
+    $Q \defined (\Diff{K}{P_1} + \translate{K}(P_2)) \in \Nat[\vec{X}]$.
 \end{lemma}
+\begin{proof}
+    Let us first tackle the specific case where $P$ is a constant polynomial.
+    In this case, $P_1 = P$ and $P_2 = 0$.
+    Furthermore,
+    $\translate{K}(P_1) = P_1$ and $\Diff{K}{P_1} = 0$ for all $K \in \Nat$.
+    We conclude that $\Diff{K}{P_1} + \translate{K}(P_2) = 0$
+    for all $K \in \Nat$, hence belongs to $\Nat[\vec{X}]$. Selecting $K = 0$
+    we conclude.
+
+    Assume now that $P$ is not a constant polynomial. We will use
+    \cref{all-positive-derivative:lem} on a well-selected value of $K$. Let us
+    write $\alpha$ to be the maximal absolute value of a coefficient in $P$.
+    Let $D$ be the number of unitary monomials that divide some monomial
+    appearing in $P$. We can now define $K \defined D \times \alpha$,
+    and let
+    $Q \defined (\Diff{K}{P_1} + \translate{K}(P_2))$.
+    Remark that $\Diff{K}{P_1}$ is already in $\Nat[\vec{X}]$,
+    and the constant term of $\translate{K}(P_2)$ is also
+    in $\Nat$.
+    For any other monomial of $P_2$, by the maximality of $P_1$,
+    it strictly divides some monomial of $P_1$,
+    equals some monomial of $\Diff{K}{P_1}$. Because every monomial
+    of $\Diff{K}{P_1}$ has a coefficient that is a multiple of $K = \alpha \times D$, we can
+    match every monomial of $P_2$ to $\alpha$ copies of a unitary
+    monomial appearing in $\Diff{K}{P_1}$, and because $\alpha$ is large enough
+    we conclude that 
+    $Q \in \Nat[\vec{X}]$.
+\end{proof}
 
 \begin{lemma}
     \label{lem:correct-to-n-rat}
@@ -494,7 +469,7 @@ particular well-founded \cite[Hoare quasi-ordering]{SCSC12}.
     which is computable given $P$.
 \end{lemma}
 \begin{proof}
-    We prove the result by induction on $\MaximalMonomials(P)$. 
+    We prove the result by induction on the number of indeterminates of $P$.
     In the proof, we write $\vec{X}$ for the indeterminates appearing in $P$,
     that is, we assume without loss of generality that all indeterminates are used.
 
@@ -506,26 +481,21 @@ particular well-founded \cite[Hoare quasi-ordering]{SCSC12}.
     \textbf{Induction:} Assume that $P$ is not a constant polynomial, and let
     us write $P = P_1 + P_2$ where $P_1$ is the sum of the \kl{maximal
     monomials} of $P$. We compute a bound $K$ such that $Q \defined
-    (\Diff{K}{P_1} + \translate{K}(P_2)) \in \CorrectPoly$ using
-    \cref{derivation-stabilises-correct:lem}. Thanks to
-    \cref{derivation-simplifies:lemma}, we also know that $\MaximalMonomials(Q)
-    \hoarele \MaximalMonomials(P)$. By induction hypothesis, $Q$ is
-    \kl{represented} by a \kl{star-free $\Nat$-polyregular function} which is
-    effectively computable.
-
-    Let us now remark that $P_1 \in \Nat[\vec{X}]$, and is therefore
+    (\Diff{K}{P_1} + \translate{K}(P_2)) \in \Nat[\vec{X}]$ using
+    \cref{derivation-stabilises-correct:lem}. In particular, $Q$ is
+    \kl{represented} by a \kl{star-free $\Nat$-polyregular function} using
+    \cref{n-poly-n-poly:example}, the latter being effectively computable from
+    $Q$. Let us now remark that $P_1 \in \Nat[\vec{X}]$, and is therefore
     (effectively) \kl{represented} by a \kl{star-free $\Nat$-polyregular
-    function} (\cref{n-poly-n-poly:example}). As a consequence,
+    function} (using again \cref{n-poly-n-poly:example}). As a consequence,
     $\translate{K}(P) = P_1 + Q$ is (effectively) \kl{represented} by a
     function $f_\Delta$.
 
     For all partial valuations $\nu \colon \vec{X} \topartial \set{0, \dots,
-    K}$ fixing at least one indeterminate,  we know that
-    $\MaximalMonomials(\restr{P}{\nu}) \hoarele \MaximalMonomials{P}$. Because
-    $\restr{P}{\nu} \in \CorrectPoly$, one can use the induction hypothesis to
-    compute a \kl{star-free $\Nat$-polyregular function} $f_\nu$ that
-    \kl{represents} $\restr{P}{\nu}$. This is possible because we assumed 
-    that all indeterminates in $\vec{X}$ are used in $P$.
+    K}$ fixing at least one indeterminate, one can use the induction hypothesis
+    to compute a \kl{star-free $\Nat$-polyregular function} $f_\nu$ that
+    \kl{represents} $\restr{P}{\nu}$. This is possible because we assumed that
+    all indeterminates in $\vec{X}$ are used in $P$.
 
 
     Let us assume that the alphabet over which the (\kl{commutative}) functions
@@ -576,6 +546,7 @@ Effectiveness was the last missing piece of our main result
             $\nu \colon \vec{X} \topartial \set{0, \dots, K}$,
             $\translate{K}(\restr{P}{\nu}) \in \Nat[\vec{X}]$.
     \end{enumerate}
+    In particular, the above properties are decidable.
     \proofref{derivation-translation:lem}
 \end{lemma}
 
@@ -594,6 +565,7 @@ Effectiveness was the last missing piece of our main result
     and let $P \in \Rel[\vec{X}]$.
     The following are equivalent:
     \begin{enumerate}
+        \item \label{corrected-0:item} $P$ is a \kl{natural binomial polynomial},
         \item \label{corrected-1:item} $P \in \CorrectPoly$,
         \item \label{corrected-2:item} $P$ is \kl{represented} by a \kl{$\Nat$-rational series},
         \item \label{corrected-3:item} $P$ is \kl{represented} by a \kl{$\Nat$-polyregular function},
@@ -676,5 +648,18 @@ imply being an \kl{$\Nat$-rational polynomial}.
     maps $a^{k \alpha + r}$ to $a^{k}$, which is a \kl{polyregular function}.
     We conclude that $P$ is \kl{represented} by an \kl{$\Nat$-polyregular function}.
 \end{proof}
+
+\AP As a consequence, we can also fully characterize polynomials that can be
+computed using \kl{$\Rel$-rational series}, as they are precisely those
+computable by a difference of two \kl{$\Nat$-rational polynomials}. This drives
+us to introduce the class of \intro{integer binomial polynomials}, which are
+obtained by $\Rel$-linear combinations of \kl{binomial monomials} of the form
+$\binom{X - p}{k}$ for some $k,p \in \Nat$. 
+
+\begin{corollary}
+    \label{integer-binomial-polynomials:cor}
+    Let $P \in \Rat[\vec{X}]$. Then, $P$ is a \kl{$\Rel$-rational polynomial}
+    if and only if $P$ is a \kl{integer binomial polynomial}.
+\end{corollary}
 
 
