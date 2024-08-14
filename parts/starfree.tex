@@ -156,11 +156,12 @@ functions by the means of polynomial behaviors (see
 \cref{aperidic-ultimately-polynomial:ex}). Note that up until now, we only had
 to consider polynomials with coefficients in $\Rel$. However, there are some
 polynomials with coefficients in $\Rat$ that can be \kl{represented} by a
-\kl{$\Nat$-polyregular function}. For instance, the polynomial $P(X) \defined
-X(X+1)/2$. Historically, the definition used polynomials with coefficients in
-$\Rat$, which is why we use such polynomials here, even though we know that all
-of those polynomials will actually be \kl{integer binomial polynomials} thanks
-to \cref{integer-binomial-polynomials:cor}.
+\kl{$\Nat$-polyregular function}. Recall that the polynomial $P(X) \defined
+X(X-1)/2$ can be computed by a \kl{$\Nat$-polyregular function}. Historically,
+the definition used polynomials with coefficients in $\Rat$, which is why we
+use such polynomials here, even though we know that all of those polynomials
+will actually be \kl{integer binomial polynomials} thanks to
+\cref{integer-binomial-polynomials:cor}.
 
 \begin{definition}[Ultimately polynomial]
     \label{ultimately-polynomial:def}
@@ -298,7 +299,7 @@ result for $\ZSF$.
     For every letter $a \in \Sigma$ and number $0 \leq n \leq N_0$, there exists, by induction hypothesis,
     a \kl{star-free $\Nat$-polyregular function} $g_a^n$ that represents the
     function $f_{a^n} \colon (\Sigma \setminus \set{a})^* \to \Rel$
-    that maps $u \in \Sigma \setminus \set{a}$ to $f(a^n u)$.
+    that maps $u \in (\Sigma \setminus \set{a})^*$ to $f(a^n u)$.
 
     Let us now define the function $g \colon \Sigma^* \to \Rel$ as follows:
     \begin{equation*}

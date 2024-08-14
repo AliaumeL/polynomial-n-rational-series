@@ -21,7 +21,8 @@ of particular interest, since every polynomial $P$ is \kl{represented} by a
 \kl{$\Rel$-rational polynomial} (so, any polynomial) is an \kl{$\Nat$-rational
 polynomial}, and if so, to compute an \kl{$\Nat$-polyregular function} that
 \kl{represents} it. This particular problem was claimed to be solved in
-\cite{KARH77}, using a characterization restated in \cref{karh:thm}.
+\cite{KARH77}, using the \cref{karh:def} to characterize \kl{$\Nat$-polyregular
+functions}, as restated in \cref{karh:thm}.
 
 \begin{lemma}
     \label{n-poly-n-poly:example}
@@ -49,8 +50,8 @@ polynomial}, and if so, to compute an \kl{$\Nat$-polyregular function} that
     \proofref{negative-not-nrat:ex}
 \end{example}
 
-
 \begin{definition}[{\cite[Section 3, page 3]{KARH77}}]
+    \label{karh:def}
     Let $\vec{X}$ be a finite tuple of indeterminates.
     The class $\intro*\CoveredPoly[\vec{X}]$
     is the class of polynomials $P \in \Rel[\vec{X}]$
@@ -74,6 +75,7 @@ Before giving a counterexample to the above statement, let us first provide via
 While the example will not be in $\CoveredPoly$, it illustrates the key
 difference between \kl{non-negative} polynomials and \kl{$\Nat$-rational
 polynomials}. In order to derive this example, we will need the following
+fundamental
 result about the pre-image of regular languages by \kl{polyregular functions}.\footnote{
     In this particular case, one could have
     considered more generally \kl{$\Nat$-rational series},

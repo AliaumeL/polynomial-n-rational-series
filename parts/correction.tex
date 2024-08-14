@@ -6,7 +6,11 @@
 \AP
 The counter example provided by \cref{def:bad-polynomial} relies on the fact
 that $\CoveredPoly$ is not stable under fixing indeterminates, while
-\kl{$\Nat$-polyregular functions} are. In this section, we prove that closing
+\kl{$\Nat$-polyregular functions} are. 
+Indeed, the polynomial $\BadPoly$ introduced in
+\cref{def:bad-polynomial} satisfies $\BadPoly(X,Y,1) = 3X^2 + 3Y^2 - 2XY$, which has a negative
+coefficient for a \kl{maximal monomial}, namely $-2XY$.
+In this section, we prove that closing
 $\CoveredPoly$ under variable assignments is enough to recover from
 \cref{karh:thm}.
 We use the following notation to fix the value of some indeterminate, if
@@ -28,11 +32,9 @@ variables of the domain of $\nu$.
 \end{definition}
 
 First, let us remark that $\CorrectPoly \subseteq \CoveredPoly$, because
-polynomials in $\CorrectPoly$ are \kl{non-negative}. Let us also check that the
-counter example provided in \cref{thm:counter-example} is not in
-$\CorrectPoly$. For that, notice that for $\BadPoly$ introduced in
-\cref{def:bad-polynomial}, $\BadPoly(X,Y,1) = 3X^2 + 3Y^2 - 2XY$, which has a negative
-coefficient for a \kl{maximal monomial}, namely $-2XY$. 
+polynomials in $\CorrectPoly$ are \kl{non-negative}. We also remarked at the
+beginning of this section that our counter example provided in
+\cref{thm:counter-example} is not in $\CorrectPoly$. 
 
 \AP Let us now prove that \kl{$\Nat$-rational polynomials} are in
 $\CorrectPoly$. This follows from the correct implication in the statement of
@@ -366,7 +368,7 @@ idea that polynomials are not periodic functions (this will be made precise in
 \cref{zsf-nsf:conjecture}).
 
 As one would expect, the \kl{discrete derivatives} are linear operations on
-polynomials, that commute with \kl{translation operators}. However, the
+polynomials, and they commute with \kl{translation operators}. However, the
 \kl{translation operators} do not perfectly commute with partial applications
 $\restr{\cdot}{\nu}$.
 
@@ -520,13 +522,13 @@ particular well-founded \cite[Hoare quasi-ordering]{SCSC12}.
 \end{proof}
 
 
-While \cref{lem:correct-to-n-rat} provides effective conversion, it does not
-explicitly state that the membership is decidable to keep the proof clearer. A
-similar proof scheme can be followed to conclude that membership is decidable,
-and even show that elements in $\CorrectPoly$ are, up to suitable translations,
-polynomials in $\Nat[\vec{X}]$. Beware that partial applications are still
-needed in this characterization, as \cref{bad-poly-translate:ex} illustrates.
-Effectiveness was the last missing piece of our main result
+While \cref{lem:correct-to-n-rat} provides an effective conversion procedure,
+it does not explicitly state that the membership is decidable to keep the proof
+clearer. A similar proof scheme can be followed to conclude that membership is
+decidable, and even show that elements in $\CorrectPoly$ are, up to suitable
+translations, polynomials in $\Nat[\vec{X}]$. Beware that partial applications
+are still needed in this characterization, as \cref{bad-poly-translate:ex}
+illustrates. Effectiveness was the last missing piece of our main result
 \cref{corrected-version:thm}, which corrects and generalizes \cref{karh:thm}.
 
 \begin{lemma}
@@ -590,7 +592,7 @@ Effectiveness was the last missing piece of our main result
     procedure.
 \end{proof}
 
-For completeness, let us remark that the counter example of
+For completeness, let us remark that the counterexample of
 \cref{thm:counter-example} uses three indeterminates, and this is not a
 coincidence: in the particular case of at most two indeterminates, the classes
 $\CorrectPoly$ and $\CoveredPoly$ coincide. In particular, the examples

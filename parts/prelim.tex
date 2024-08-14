@@ -149,13 +149,24 @@ Let us state the crucial compositional properties of
 to construct \kl{$\Rel$-polyregular functions}.
 \begin{lemma}[{\cite[Theorem II.20]{CDTL23}}]
     \label{stability-polyregular:lemma}
-    The class $\NPoly[k]$ (resp. $\ZPoly[k]$) is stable under the operations of
-    addition, multiplication, Cauchy product,
-    and ``value pinning''.
+    Let $k \geq 1$ and 
+    $f,g \in \NPoly[k]$ (resp. $\ZPoly[k]$, $\NSF[k]$, $\ZSF[k]$),
+    $L$ be a \kl{star-free language} over $\Sigma^*$.
+    Then, the following 
+    are also in $\NPoly[k]$ (resp. $\ZPoly[k]$,
+    $\NSF[k]$, $\ZSF[k]$):
+    \begin{itemize}
+        \item $f + g \defined w \mapsto f(w) + g(w)$,
+        \item $f \times g \defined w \mapsto f(w) \times g(w)$,
+        \item $\ind{L} \times f$ 
+    \end{itemize}
+    Furthermore, the above constructions preserve \kl{commutativity}.
 \end{lemma}
 
 Let us briefly state that \kl{commutativity} is a decidable property of
-\kl{$\Rel$-rational series}, hence of \kl{$\Rel$-polyregular functions}.
+\kl{$\Rel$-rational series}, hence of \kl{$\Rel$-polyregular functions}. As a
+consequence, we are working inside a relatively robust and decidable class of
+\kl{$\Rel$-rational series}.
 
 \begin{lemma}
     \label{decidable-commutative-poly:lemma}
