@@ -16,43 +16,43 @@ polynomials with coefficients in $\Nat$ are \kl{$\Nat$-rational polynomials}
 (\cref{n-poly-n-poly:example}). However, \cref{negative-but-npoly:ex} provides
 a polynomial with negative coefficients that is an \kl{$\Nat$-rational
 polynomial}. The analogue notion of \intro{$\Rel$-rational polynomials} is not
-of particular interest, since every polynomial $P$ is \kl{represented} by a
-\kl{$\Rel$-polyregular function}. Our goal is to decide if a
-\kl{$\Rel$-rational polynomial} (so, any polynomial) is an \kl{$\Nat$-rational
-polynomial}, and if so, to compute an \kl{$\Nat$-polyregular function} that
-\kl{represents} it. This particular problem was claimed to be solved in
-\cite{KARH77}, using the \cref{karh:def} to characterize \kl{$\Nat$-polyregular
-functions}, as restated in \cref{karh:thm}.
+of particular interest, since every polynomial $P \in \Rel[X_1, \dots, X_n]$ is
+\kl{represented} by a \kl{$\Rel$-polyregular function}. Our goal is to decide
+if a \kl{$\Rel$-rational polynomial} (so, any polynomial) is an
+\kl{$\Nat$-rational polynomial}, and if so, to compute an
+\kl{$\Nat$-polyregular function} that \kl{represents} it. This particular
+problem was claimed to be solved in \cite{KARH77}, using the \cref{karh:def} to
+characterize \kl{$\Nat$-rational polynomials}, as restated in \cref{karh:thm}.
 
 \begin{lemma}
     \label{n-poly-n-poly:example}
+    \proofref{n-poly-n-poly:example}
     Let $P \in \Nat[\vec{X}]$. Then, $P$
     is an \kl{$\Nat$-rational polynomial}.
-    \proofref{n-poly-n-poly:example}
 \end{lemma}
 \begin{proof}
     The polynomials of $\Nat[\vec{X}]$
     are obtained from basic functions (constant in $\Nat$,
     $X_i$ for some $1 \leq i \leq n$)
-    by products and sums. Because the basic functions are
-    \kl{represented} by \kl{star-free $\Nat$-polyregular} functions,
+    by products and sums (\cref{stability-polyregular:lemma}). Because the basic functions are
+    \kl{represented} by \kl{star-free $\Nat$-polyregular} functions (see
+    \cref{size-of-word-nsf:ex}),
     that are closed under these operations, we conclude.
 \end{proof}
 
 \begin{example}
     \label{negative-not-nrat:ex}
     \label{negative-but-npoly:ex}
+    \proofref{negative-not-nrat:ex}
     The polynomials $X$, $X^2 + 3$,
     and $X^2 - 2X + 2$
     are \kl{$\Nat$-rational polynomials},
     but $- X$ is a \kl{$\Rel$-rational polynomial} that is 
     not an \kl{$\Nat$-rational polynomial}.
-    \proofref{negative-not-nrat:ex}
 \end{example}
 
 \begin{definition}[{\cite[Section 3, page 3]{KARH77}}]
     \label{karh:def}
-    Let $\vec{X}$ be a finite tuple of indeterminates.
     The class $\intro*\CoveredPoly[\vec{X}]$
     is the class of polynomials $P \in \Rel[\vec{X}]$
     that are \kl{non-negative}
@@ -103,14 +103,12 @@ result about the pre-image of regular languages by \kl{polyregular functions}.\f
 \end{example}
 
 
+\AP
 Let us now design a counterexample to \cref{karh:thm} by suitably tweaking
 \cref{non-neg-not-nrat:ex} to ensure that the polynomial not only is
 \kl{non-negative}, but also belongs to $\CoveredPoly$.
-
-\begin{definition}
-    \label{def:bad-polynomial}
-    We define $\intro*\BadPoly(X,Y,Z) \defined Z (X + Y)^2 + 2 (X - Y)^2$.
-\end{definition}
+\label{def:bad-polynomial}
+We define $\intro*\BadPoly(X,Y,Z) \defined Z (X + Y)^2 + 2 (X - Y)^2$.
 
 \begin{lemma}
     \label{thm:counter-example}

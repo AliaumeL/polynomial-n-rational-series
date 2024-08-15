@@ -12,13 +12,13 @@ $\Sigma, \Gamma$. The empty word is written $\varepsilon \in \Sigma^*$. When $w
 \in \Sigma^*$ and $a \in \Sigma$, we let $\card{w} \in \Nat$ be the length of
 $w$, and $\card[a]{w}$ be the number of occurrences of $a$ in $w$. 
 
-\AP
-We assume that the reader is familiar with the basics of automata theory, in
-particular the notions of monoid morphisms, idempotents in monoids, monadic
+\AP We assume that the reader is familiar with the basics of automata theory,
+in particular the notions of monoid morphisms, idempotents in monoids, monadic
 second-order ($\MSO$) logic and first-order ($\FO$) logic over finite words
 (see e.g. \cite{THOM97}). As aperiodicity will be a central notion of this
 paper, let us recall that a monoid $M$ is \intro(monoid){aperiodic} whenever
-for all $x \in M$, there exists $n \in \Nat$ such that $x^{n+1} = x^n$.
+for all $x \in M$, there exists $n \in \Nat$ such that $x^{n+1} = x^n$. If the
+monoid $M$ is finite, this $n$ can be uniformly chosen for all elements in $M$.
 
 \AP Let us briefly recall that one of the equivalent definitions of a
 \intro{$K$-rational series} (where $K$ is a ring), and refer to \cite{BERE10}
@@ -60,12 +60,12 @@ $\Rel$, we will only provide the definition of \kl{polyregular functions} for
 these two output semigroups, and we refer the reader to \cite{BOKL19} for the
 general definition of \kl{polyregular functions}. 
 
-
-\AP In order to prove \cref{n-poly-combinatorics:lem}, we will rely on an
-equivalent definition of \kl{$\Nat$-polyregular functions} that is more
-combinatorial in nature, and is similar in shape to the \emph{finite counting
-automata} introduced by \cite{SCHU62}. Note that we only consider $\Rel$-valued (resp.
-$\Nat$-valued) functions, but could consider other commutative semigroups.
+\AP We chose in this paper to provide a very combinatorial description of
+polyregular functions with commutative outputs because it will play nicely with
+our analysis on polynomials. This description is very similar in shape to the
+\emph{finite counting automata} introduced by \cite{SCHU62}. For the sake of
+simplicity, we only consider $\Rel$-valued (resp. $\Nat$-valued) functions, but
+could consider other commutative semigroups.
 
 \begin{definition}[$\Rel$-polyregular functions {\cite{CDTL23}}]
     \label{nat-rel-poly:def}
@@ -76,13 +76,13 @@ $\Nat$-valued) functions, but could consider other commutative semigroups.
     there exists a finite monoid $M$,
     a morphism $\mu \colon \Sigma^* \to M$,
     and a function $\pi \colon M^{k+1} \to \Rel$
-    satisfying:
+    satisfying for all $w \in \Sigma^*$:
     \begin{equation*}
-        f \defined
+        f (w) = \pi^\dagger (w) \defined
         \sum_{w = u_1 \cdots u_{k+1}} \pi(\mu(u_1), \dots, \mu(u_{k+1}))
         \quad .
     \end{equation*}
-    We call $\pi$ the \emph{production function} of $f$.
+    We call $\pi$ the \intro{production function} of $f$.
     If the function $\pi$ has codomain $\Nat$,
     then $f$ is \intro{$\Nat$-polyregular} of degree at most $k$,
     i.e., $f \in \intro*\NPoly[k]$.
@@ -92,10 +92,14 @@ $\Nat$-valued) functions, but could consider other commutative semigroups.
     ($\intro*\ZSF[k]$), resp. \kl{star-free $\Nat$-polyregular} ($\intro*\NSF[k]$).
 \end{definition}
 
-\AP We complete definition \cref{nat-rel-poly:def} by defining $\intro*\NPoly =
+\AP We complete \cref{nat-rel-poly:def} by letting $\intro*\NPoly \defined
 \bigcup_{k \in \Nat} \intro*\NPoly[k]$, and similarly for $\ZPoly$, $\NSF$, and
 $\ZSF$. In order to illustrate these definitions, let us provide an example of
-a \kl{$\Nat$-polyregular function} computed using a finite monoid.
+a \kl{$\Nat$-polyregular function} computed using a finite monoid in
+\cref{size-of-word-nsf:ex}. Let us also introduce in
+\cref{q-polynomial-n-poly:ex} a function that will appear frequently in this
+paper as an example of \emph{division} computed by a \kl{$\Nat$-polyregular
+function}.
 
 \begin{example}
     \label{size-of-word-nsf:ex}
@@ -109,24 +113,53 @@ a \kl{$\Nat$-polyregular function} computed using a finite monoid.
     $\pi \colon M^2 \to \Nat$
     that is the constant function equal to $1$.
     We check that for all $w \in \Sigma^*$:
-    \begin{equation*}
+    $
         \pi^\dagger(w)
         =
         \sum_{uv = w} 1
         =
         \card{w} + 1
         = f(w)
-        \quad . 
-        \qedhere
-    \end{equation*}
+        $.
 \end{proof}
 
+\begin{example}
+    \label{q-polynomial-n-poly:ex}
+    Let $f \colon \Sigma^* \to \Nat$ that maps a word $w$
+    to the sum of the length of its prefixes,
+    i.e., $f(w) \defined \sum_{uv = w} \card{u}$.
+    The function $f$ is an \kl{$\Nat$-polyregular function}
+    and 
+    $f(w) = \card{w}( \card{w} - 1) / 2$.
+\end{example}
+\begin{proof}
+    Let us write $M \defined (\set{0,1}, \max)$
+    which is a finite aperiodic monoid, and $\mu \colon \Sigma^* \to M$
+    that maps $\varepsilon$ to $0$ and the other words to $1$.
+    Then, let us define $\pi \colon M^3 \to \Nat$
+    via $\pi(x,y,z) = y$.
+    Remark that 
+    \begin{align*}
+        \pi^\dagger(w) 
+        &\defined
+        \sum_{xyz = w} \pi(\mu(x), \mu(y), \mu(z)) 
+        = 
+        \sum_{uz = w} \sum_{xy = u} \pi(\mu(x), \mu(y), \mu(z)) 
+        = 
+        \sum_{uz = w} \sum_{xy = u} \mu(y) \\
+        &= 
+        \sum_{uz = w} \card{u} 
+        = f(w) \quad .
+    \end{align*}
+    Finally, the fact that 
+    $\sum_{i = 0}^n i = n(n-1) / 2$ justifies the last equality.
+\end{proof}
 
 
 \AP One of the appeals of $\NPoly$ and $\ZPoly$ are the numerous
 characterizations of these classes in terms of logic, weighted automata, and
 the larger class of \kl{polyregular functions} \cite{CDTL23,DOUE23}. In this
-paper, the main focus will be the connection to weighted automata, which is
+paper, the main focus will be the connection to \kl{weighted automata}, which is
 based on the notion of \emph{growth rate}. The \intro{growth rate} of a
 function $f \colon \Sigma^* \to \Rel$ is defined as the minimal $k$ such that
 $\card{f(w)} = \bigO\left(\card{w}^k\right)$. If such a $k$ exists, we say that
@@ -139,12 +172,12 @@ the function $f$ has \intro{polynomial growth}. It turns out that for all $k
     Let $f \in \ZRat$. The following are equivalent:
     \begin{enumerate}
         \item $f \in \ZPoly[k]$.
-        \item $f$ has polynomial growth of degree at most $k$.
+        \item $f$ has \kl{polynomial growth} of degree at most $k$.
     \end{enumerate}
     And similarly for $\NPoly$ and $\NRat$.
 \end{lemma}
 
-Let us state the crucial compositional properties of
+Let us introduce some compositional properties of
 \kl{$\Rel$-polyregular functions} that will be used in this paper
 to construct \kl{$\Rel$-polyregular functions}.
 \begin{lemma}[{\cite[Theorem II.20]{CDTL23}}]
@@ -165,7 +198,7 @@ to construct \kl{$\Rel$-polyregular functions}.
 
 Let us briefly state that \kl{commutativity} is a decidable property of
 \kl{$\Rel$-rational series}, hence of \kl{$\Rel$-polyregular functions}. As a
-consequence, we are working inside a relatively robust and decidable class of
+consequence, we are working inside a relatively robust and decidable subclass of
 \kl{$\Rel$-rational series}.
 
 \begin{lemma}
@@ -188,15 +221,14 @@ consequence, we are working inside a relatively robust and decidable class of
     we have obtained a decision procedure.
 \end{proof}
 
-\subsection{Polynomials} 
-\AP All polynomials considered in this paper have
-coefficients in $\Rel$ unless explicitly stated otherwise. 
-A polynomial $P \in \Rel[X_1, \dots, X_k]$ is \intro{non-negative} when for
-all non-negative integer inputs $n_1, \dots, n_k \geq 0$, the output  $P(n_1,
-\dots, n_k)$ of the polynomial is non-negative. Beware that we do not consider
-negative values as input, as the numbers $n_i$ will ultimately count the number
-of occurrences of a letter in a word. As an example, the polynomial $(X - Y)^2$
-is \kl{non-negative}, and so is the polynomial $X^3$, but the polynomial $X^2 -
+\subsection{Polynomials} \AP All polynomials considered in this paper have
+coefficients in $\Rel$ unless explicitly stated otherwise. A polynomial $P \in
+\Rel[X_1, \dots, X_k]$ is \intro{non-negative} when for all non-negative
+integer inputs $n_1, \dots, n_k \geq 0$, the output  $P(n_1, \dots, n_k)$ of
+the polynomial is non-negative. Beware that we do not consider negative values
+as input, as the numbers $n_i$ will ultimately count the number of occurrences
+of a letter in a word. As an example, the polynomial $(X - Y)^2$ is
+\kl{non-negative}, and so is the polynomial $X^3$, but the polynomial $X^2 -
 2X$ is not.
 
 \AP Let us now give some vocabulary on polynomials with multiple indeterminates

@@ -28,6 +28,7 @@ $p \in \Nat$ by pointwise application.
 
 \begin{lemma}
     \label{decompose-polynomial:lem}
+    \proofref{decompose-polynomial:lem}
     Let $f \colon \Sigma^* \to \Rel$ be a \kl{commutative}
     \kl{$\Rel$-polyregular function},
     where we fix the alphabet $\Sigma = \set{a_1, \dots, a_n}$.
@@ -44,7 +45,6 @@ $p \in \Nat$ by pointwise application.
         \right)
         \quad .
     \end{equation*}
-    \proofref{decompose-polynomial:lem}
 \end{lemma}
 
 In the spirit of previous characterizations of subclasses of $\ZPoly$ in terms
@@ -71,6 +71,16 @@ conjectured to characterize $\NPoly$ inside $\ZPoly$ in the general setting.
         \quad .
     \end{equation*}
 \end{definition}
+\begin{conjecture}
+    \label{npoly-zpoly:conjecture}
+    Let $k \in \Nat$.
+    A function $f \in \ZPoly[k]$
+    belongs to $\NPoly[k]$ if and only if
+    it is \kl{$(k,\Nat)$-combinatorial}.
+    In particular,
+    $\NPoly[k] = \ZPoly[k] \cap \NPoly$.
+\end{conjecture}
+
 
 \begin{theorem}
     \label{decidable-n-poly:thm}
@@ -102,9 +112,9 @@ conjectured to characterize $\NPoly$ inside $\ZPoly$ in the general setting.
     \omega_1 \times \omega_2$, we can without loss of generality assume that
     $\omega_1 = \omega_2$ in the rest of this proof.
 
-    Now, consider an \kl{$\omega$-type} $t \in \ModuloTypes[\omega]^k$. By
-    definition, this provides us with a selection function $\ind{S} \colon \set{1,
-    \dots, k} \to \set{0,1}$, and numbers $r_1, \dots, r_k$ between $0$ and
+    Now, consider $t \in \ModuloTypes[\omega]^k$. By
+    definition, this provides us with a set $S \subseteq \set{1, \dots, k}$,
+    and numbers $r_1, \dots, r_k$ between $0$ and
     $\omega^2-1$ such that for all $x_1, \dots, x_k \geq 1$, the tuple $(x_1
     \omega \ind{S}(1) + r_1, \dots, x_k \omega \ind{S}(k) + r_k)$ has type $t$.
     In particular, for all $x_1, \dots, x_k \geq 1$, the following
@@ -135,16 +145,6 @@ conjectured to characterize $\NPoly$ inside $\ZPoly$ in the general setting.
     which is possible in $\NPoly$.
 \end{proof}
 
-\begin{conjecture}
-    \label{npoly-zpoly:conjecture}
-    Let $k \in \Nat$.
-    A function $f \in \ZPoly[k]$
-    belongs to $\NPoly[k]$ if and only if
-    it is \kl{$(k,\Nat)$-combinatorial}.
-    In particular,
-    $\NPoly[k] = \ZPoly[k] \cap \NPoly$.
-\end{conjecture}
-
 
 Let us now prove that the above characterizations of \kl{commutative}
 \kl{$\Nat$-polyregular functions} can be combined with the recent advances in
@@ -153,14 +153,10 @@ aperiodicity. The key ingredient of this study is the use of a semantic
 characterization of \kl{star-free $\Rel$-polyregular functions} among
 \kl{$\Rel$-rational series} that generalizes the aperiodicity of languages to
 functions by the means of polynomial behaviors (see
-\cref{aperidic-ultimately-polynomial:ex}). Note that up until now, we only had
-to consider polynomials with coefficients in $\Rel$. However, there are some
-polynomials with coefficients in $\Rat$ that can be \kl{represented} by a
-\kl{$\Nat$-polyregular function}. Recall that the polynomial $P(X) \defined
-X(X-1)/2$ can be computed by a \kl{$\Nat$-polyregular function}. Historically,
-the definition used polynomials with coefficients in $\Rat$, which is why we
-use such polynomials here, even though we know that all of those polynomials
-will actually be \kl{integer binomial polynomials} thanks to
+\cref{aperidic-ultimately-polynomial:ex}). Historically, the definition used
+polynomials with coefficients in $\Rat$, which is why we use such polynomials
+here, even though we know that all of those polynomials will actually be
+\kl{integer binomial polynomials} thanks to
 \cref{integer-binomial-polynomials:cor}.
 
 \begin{definition}[Ultimately polynomial]
@@ -206,9 +202,9 @@ the same scheme as the base case of \cref{n-poly-combinatorics:lem}.
     P(n) = \ind{L}(uv^n w)$ for all $n \geq N_0$. We have proven that $L$
     is aperiodic.
 
-    Conversely, assume that $L$ is aperiodic, let $n \in \Nat$ be a number, and
+    Conversely, assume that $L$ is \kl(language){aperiodic}, let $n \in \Nat$ be a number, and
     let $\alpha_0$, $w_1$, $\alpha_1$, $\ldots$, $\alpha_{n-1}$, $w_n$, $\alpha_n$
-    be words in $\Sigma^*$. Because $L$ is \kl(language){aperodic}, the language
+    be words in $\Sigma^*$. Because $L$ is \kl(language){aperiodic}, the language
     $L$ is recognized by an \kl(monoid){aperiodic} finite monoid $M$, via a
     morphism $\mu \colon \Sigma^* \to M$ and an accepting part $F \subseteq M$.
     Because $M$ is a \kl(monoid){aperiodic}, there exists $N_0$

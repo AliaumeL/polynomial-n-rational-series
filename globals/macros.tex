@@ -86,6 +86,6 @@
     % \hyperref[#1:proof]{Proof of \cref{#1}}
     \IfRefUndefinedExpandable{#1:proof}{}{%
         %\hfill\hyperref[#1:proof]{(Proof p.\pageref{#1:proof})}
-        \marginpar{\ttfamily\small\hyperref[#1:proof]{Proof p.\pageref{#1:proof}}}%
+        \marginpar{\vspace{0.6em}\ttfamily\small\hyperref[#1:proof]{Go to proof of \cref{#1} p.\pageref{#1:proof}}}%
     }%
 }

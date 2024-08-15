@@ -1,7 +1,8 @@
 .PHONY: clean
 
 TEX=*.tex\
-	globals/*.tex
+	globals/*.tex\
+    parts/*.tex
 BIB=globals/papers.bib
 
 pnrs.pdf: $(TEX) $(BIB)
