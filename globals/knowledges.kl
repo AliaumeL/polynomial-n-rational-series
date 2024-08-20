@@ -25,6 +25,7 @@
  | $\Nat $-rational polynomials
 
 \knowledge{notion}
+ | weighted automata
  | $K$-rational series
  | $K$-weighted automata
  | $\Nat $-weighted automaton
@@ -191,11 +192,18 @@
 
 \knowledge{notion}
  | (noncommutative output) polynomial function
+ | (noncommutative output) polynomial functions
  | polynomial functions
  | polynomial function
 \knowledge{notion}
  | binomial monomial
  | binomial monomials
+\knowledge{notion}
+ | binomial function
+ | binomial functions
+\knowledge{notion}
+ | natural binomial functions
+ | natural binomial function
 \knowledge{notion}
  | natural binomial polynomial
  | natural binomial polynomials

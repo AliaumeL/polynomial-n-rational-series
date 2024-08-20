@@ -32,23 +32,38 @@ variables of the domain of $\nu$.
 
 First, let us remark that $\CorrectPoly \subseteq \CoveredPoly$, because
 polynomials in $\CorrectPoly$ are \kl{non-negative}. We also remarked at the
-beginning of this section that our counterexample provided in
-\cref{thm:counter-example} is not in $\CorrectPoly$. 
+beginning of this section that our counterexample $\BadPoly$ provided in
+\cref{thm:counter-example} is not in $\CorrectPoly$. The rest of the
+section is mainly concerned with proving the following corrected version of
+\cref{karh:thm}.
+
+\begin{theorem}[restate=corrected-version:thm,label=corrected-version:thm]
+    Let $P \in \Rel[\vec{X}]$.
+    The following are equivalent:
+    \begin{enumerate}
+        \item \label{corrected-1:item} $P \in \CorrectPoly$,
+        \item \label{corrected-2:item} $P$ is \kl{represented} by a \kl{$\Nat$-rational series},
+        \item \label{corrected-3:item} $P$ is \kl{represented} by a \kl{$\Nat$-polyregular function},
+        \item \label{corrected-4:item} $P$ is \kl{represented} by a \kl{star-free $\Nat$-polyregular function},
+    \end{enumerate}
+    Furthermore, the properties are decidable, and conversions effective.
+\end{theorem}
 
 \AP Let us now prove that \kl{$\Nat$-rational polynomials} are in
 $\CorrectPoly$. This follows from the correct implication in the statement of
 \cref{karh:thm}, but we provide a self-contained proof using a refinement of
 the classical combinatorial arguments for $\ZPoly$ \cite[Lemma 4.16]{CDTL23}
-and $\NPoly$ \cite[Lemma 5.37]{DOUE23}. We take extra care to reprove in
-\cref{n-poly-combinatorics:lem} a finer statement that has two main goals:
-first, it formulates the traditional \emph{pumping argument} as a composition
-property using \kl{(noncommutative output) polynomial functions}, allowing us
-to use the same formalism in \cref{k-combinatorial:def} and
-\cref{ultimately-polynomial:def} and highlight the role of \kl{commutative}
-\kl{polyregular functions} in the broader study of \kl{polyregular functions};
-then we also give a precise shape of the polynomials that arise from such
-\emph{pumping arguments}, which was lacking in former similar statements where
-$\Rat[X_1, \dots, X_n]$ was used as an over approximation.
+and $\NPoly$ \cite[Lemma 5.37]{DOUE23}. We take extra care to reprove in our
+upcoming \cref{n-poly-combinatorics:lem} a finer statement that has two main
+goals: first, it formulates the traditional \emph{pumping argument} as a
+composition property using \kl{(noncommutative output) polynomial functions},
+allowing us to use the same formalism in the upcoming
+\cref{k-combinatorial:def,ultimately-polynomial:def} and highlight the role of
+\kl{commutative} \kl{polyregular functions} in the broader study of
+\kl{polyregular functions}; then we also give a precise shape of the
+polynomials that arise from such \emph{pumping arguments}, which was lacking in
+former similar statements where $\Rat[X_1, \dots, X_n]$ was used as an over
+approximation.
 
 \AP To address our first goal, let us define that a function $q$ is a
 \intro{(noncommutative output) polynomial function} from $\Nat^p$ to $\Sigma^*$
@@ -307,10 +322,10 @@ the shape: $P(X_1, \dots, X_k) = \sum_{i = 1}^n n_i \prod_{j = 1}^k \pbinom{X_j
 Let us highlight that the multiplicative factor $\omega$ is necessary in
 \cref{n-poly-combinatorics:lem}. Indeed, the function $f \colon \set{a}^* \to
 \Nat$ defined as $0$ when the input is of odd length and $1$ when the input is
-of even length is \kl{$\Nat$-polyregular}, but $f(a^X)$ is not a polynomial.
-We can trade-off this multiplicative factor for a constant term 
-addition under the extra assumption that the function 
-is \kl{star-free polyregular}, as described in the following lemma.
+of even length is \kl{$\Nat$-polyregular}, but $f(a^X)$ is not a polynomial. We
+can trade off this multiplicative factor for a constant term addition under the
+extra assumption that the function is \kl{star-free polyregular}, as described
+in the following \cref{n-sf-combinatorics:lem}.
 
 \begin{lemma}
     \label{n-sf-combinatorics:lem}
@@ -341,7 +356,9 @@ Let us also address the fact that the distinction between \kl{natural binomial
 functions} and \kl{natural binomial polynomials} vanishes when we are
 interested in polynomials. As a consequence, to a \kl{natural binomial
 function} corresponds exactly one \kl{natural binomial polynomial} that
-coincides with it on sufficiently large inputs.
+coincides with it on sufficiently large inputs (\cref{natural-binomial-polynomial:lem})
+which allows us to conclude that \kl{$\Nat$-rational polynomials} are in
+$\CorrectPoly$ (\cref{n-rat-correct:lem}).
 
 \begin{lemma}
     \label{natural-binomial-polynomial:lem}
@@ -607,19 +624,7 @@ illustrates. Effectiveness was the last missing piece of our main result
 \end{lemma}
 
 
-\begin{theorem}
-    \label{corrected-version:thm}
-    Let $P \in \Rel[\vec{X}]$.
-    The following are equivalent:
-    \begin{enumerate}
-        \item \label{corrected-1:item} $P \in \CorrectPoly$,
-        \item \label{corrected-2:item} $P$ is \kl{represented} by a \kl{$\Nat$-rational series},
-        \item \label{corrected-3:item} $P$ is \kl{represented} by a \kl{$\Nat$-polyregular function},
-        \item \label{corrected-4:item} $P$ is \kl{represented} by a \kl{star-free $\Nat$-polyregular function},
-    \end{enumerate}
-    Furthermore, the properties are decidable, and conversions effective.
-\end{theorem}
-\begin{proof}
+\begin{proofof}[corrected-version:thm]
     The implications 
     \cref{corrected-4:item} $\implies$
     \cref{corrected-3:item} $\implies$
@@ -634,8 +639,7 @@ illustrates. Effectiveness was the last missing piece of our main result
     \cref{derivation-translation:lem}
     also provides a decision
     procedure.
-
-\end{proof}
+\end{proofof}
 
 
 For completeness, let us remark that the counterexample of
@@ -676,14 +680,26 @@ Let us conclude this section by considering polynomials with coefficients in
 $\Rat$, and justify that all the combinatorial work has already happened in
 $\Rel$ and $\Nat$.
 
+\begin{lemma}
+    \label{natural-binomia-correct:lem}
+    Let $P$ be a \kl{non-negative} \kl{natural binomial polynomial},
+    and let $\alpha$ be such that $\alpha P \in \Rel[\vec{X}]$.
+    Then, $\alpha P \in \CorrectPoly$.
+\end{lemma}
+\begin{proof}
+    The only think to remark is that
+    $\restr{P}{\nu}$ remains a \kl{natural binomial polynomial}
+    for all partial valuations $\nu$, and furthermore remains positive.
+\end{proof}
+
 \begin{corollary}
     \label{decide-rat-poly-npoly:cor}
     Let $P \in \Rat[\vec{X}]$ be a polynomial with \emph{rational}
     coefficients and let $\alpha$ be the smallest number in $\Nat_{\geq 1}$
     such that $\alpha P \in \Rel[\vec{X}]$. Then, the following are equivalent:
     \begin{enumerate}
-        \item \label{rat-npoly-0:item} $P$ is a \kl{non-negative} \kl{natural binomial polynomial},
-        \item \label{rat-npoly-1:item} $P$ is a \kl{natural binomial polynomial} such that $P(0,\dots,0) \geq 0$,
+        \item \label{rat-npoly-0:item} $P$ is a \kl{natural binomial polynomial} such that $P(0,\dots,0) \geq 0$,
+        \item \label{rat-npoly-1:item} $P$ is a \kl{non-negative} \kl{natural binomial polynomial},
         \item \label{rat-npoly-2:item} $P$ is a \kl{$\Nat$-rational polynomial},
         \item \label{rat-npoly-3:item} $P$ is \kl{represented} by a \kl{star-free $\Nat$-polyregular function},
         \item \label{rat-npoly-4:item} $\alpha P \in \CorrectPoly$,
@@ -693,35 +709,33 @@ $\Rel$ and $\Nat$.
     In particular, the properties are decidable.
 \end{corollary}
 \begin{proof}
+    First, let us remark that 
+    \cref{rat-npoly-0:item} $\iff$ \cref{rat-npoly-1:item}
+    because \kl{natural binomial polynomials} are increasing.
+    Furthermore, \cref{rat-npoly-3:item} $\implies$ \cref{rat-npoly-2:item}
+    because $\NSF \subseteq \NPoly$.
 
-    Proof of \cref{rat-npoly-4:item} $\implies$ \cref{rat-npoly-3:item}.
-    If $\alpha P \in \CorrectPoly$, then  it is an \kl{$\Nat$-rational polynomial}.
-    But in particular, there exists a polyregular function $f$ that represents $\alpha P$
-    with outputs in $\set{ a }$.
-    Now, let us post-compose this function by the one that
-    maps $a^{k \alpha + r}$ to $a^{k}$, which is a \kl{polyregular function}.
-    We conclude that $P$ is \kl{represented} by an \kl{$\Nat$-polyregular function}.
+    Then, \cref{rat-npoly-4:item} $\implies$ \cref{rat-npoly-3:item}, because
+    if $\alpha P \in \CorrectPoly$, then it is an \kl{$\Nat$-rational
+    polynomial}. But in particular, there exists a polyregular function $f$
+    that represents $\alpha P$ with outputs in $\set{ a }$. Now, let us
+    post-compose this function by the one that maps $a^{k \alpha + r}$ to
+    $a^{k}$, which is a \kl{polyregular function}. We conclude that $P$ is
+    \kl{represented} by an \kl{$\Nat$-polyregular function}.
 
-    Proof of \cref{rat-npoly-1:item} $\implies$ \cref{rat-npoly-0:item}.
-    If $P$ is a \kl{natural binomial polynomial} with $P(0,\dots,0) \geq 0$,
-    then it is \kl{non-negative}.
+    We also know that \cref{rat-npoly-2:item} $\implies$
+    \cref{rat-npoly-4:item}, since if $P$ is an \kl{$\Nat$-rational
+    polynomial}, then so is $\alpha P$, and in particular $\alpha P \in
+    \CorrectPoly$ by \cref{corrected-version:thm}.
 
-    Proof of \cref{rat-npoly-0:item} $\implies$ \cref{rat-npoly-3:item}.
-    If $P$ is a \kl{non-negative} \kl{natural binomial polynomial},
-    then for large enough values, it is a \kl{natural binomial function},
-    hence computable, and for small values we can hardcode.
+    As a consequence, we have proven that \cref{rat-npoly-0:item} $\iff$
+    \cref{rat-npoly-1:item} and \cref{rat-npoly-2:item} $\iff$
+    \cref{rat-npoly-3:item} $\iff$ \cref{rat-npoly-4:item}.
 
-    Proof of \cref{rat-npoly-2:item} $\implies$ \cref{rat-npoly-4:item}.
-    If $P$ is a \kl{$\Nat$-rational polynomial}, then $\alpha P$ is one too,
-    and in particular $\alpha P$ belongs to $\CorrectPoly$.
-
-    Proof of \cref{rat-npoly-3:item} $\implies$ \cref{rat-npoly-2:item}.
-    This is because $\NSF \subseteq \NPoly$.
-
-    Proof of \cref{rat-npoly-3:item} $\implies$ \cref{rat-npoly-0:item}.
-    Because $P$ is computed by a function $f \in \NSF$,
-    one can leverage \cref{n-sf-combinatorics:lem}
-    to conclude that $P$ is actually a \kl{natural binomial polynomial}.
+    Finally, \cref{rat-npoly-1:item} $\implies$ \cref{rat-npoly-4:item} is
+    exactly \cref{natural-binomia-correct:lem}. And \cref{rat-npoly-3:item}
+    $\implies$ \cref{rat-npoly-1:item} is obtained
+    by combining \cref{n-sf-combinatorics:lem} and \cref{natural-binomial-polynomial:lem}.
 \end{proof}
 
 \AP Notice that we can also fully characterize polynomials that can be computed
@@ -738,10 +752,8 @@ $\pbinom{X - p}{k}$ for some $k,p \in \Nat$.
 \end{corollary}
 \begin{proof}
     Let $f = f_+ - f_-$ where both $f_+$ and $f_-$ are 
-    \kl{$\Nat$-polyregular functions}.
-    Let us argue that $f_+$ and $f_-$ are \kl{star-free polyregular functions},
-    because they are \kl{ultimately polynomial}. (todo later).
-    As a consequence, one can apply \cref{n-sf-combinatorics:lem}
+    \kl{star-free $\Nat$-polyregular functions}.
+    One can apply \cref{n-sf-combinatorics:lem}
     to conclude that $P$ coincides with an 
     \kl{integer binomial polynomial} over large enough inputs,
     hence that $P$ is such a polynomial.
