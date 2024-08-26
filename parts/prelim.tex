@@ -23,12 +23,14 @@ monoid $M$ is finite, this $n$ can be uniformly chosen for all elements in $M$.
 \AP Let us briefly recall that one of the equivalent definitions of a
 \intro{$K$-rational series} (where $K$ is a ring), and refer to \cite{BERE10}
 for a comprehensive introduction. The \kl{$K$-rational series} from $\Sigma^*$
-to $K$ are the functions computed by \intro{$K$-weighted automata} which are
+to $K$ are the functions computed by \kl{$K$-weighted automata} which are
 non-deterministic finite automata with transitions labelled by elements of $K$,
 and whose output on a given word is the sum over all accepting paths of the
 products of the weights along the path. For instance, the function $w \mapsto
 2^{\card{w}}$ is computed by an \kl{$\Nat$-weighted automaton} with a single
 state, and a loop labelled by $2$, and is therefore an \kl{$\Nat$-rational
+series}. We use $\intro*\NRat$ and $\intro*\ZRat$ to denote respectively
+the set of \kl{$\Nat$-rational series} and the set of \kl{$\Rel$-rational
 series}.
 
 \AP We use the notation $\commute \colon \Sigma^* \to \Nat^\Sigma$ for the map
@@ -88,12 +90,12 @@ could consider other commutative semigroups.
     i.e., $f \in \intro*\NPoly[k]$.
     If the monoid $M$ is \kl(monoid){aperiodic}
     then
-    the function $f$ is \kl{star-free $\Rel$-polyregular}
-    ($\intro*\ZSF[k]$), resp. \kl{star-free $\Nat$-polyregular} ($\intro*\NSF[k]$).
+    the function $f$ is \intro{star-free $\Rel$-polyregular}
+    ($\intro*\ZSF[k]$), resp. \intro{star-free $\Nat$-polyregular} ($\intro*\NSF[k]$).
 \end{definition}
 
-\AP We complete \cref{nat-rel-poly:def} by letting $\intro*\NPoly \defined
-\bigcup_{k \in \Nat} \intro*\NPoly[k]$, and similarly for $\ZPoly$, $\NSF$, and
+\AP We complete \cref{nat-rel-poly:def} by letting $\reintro*\NPoly \defined
+\bigcup_{k \in \Nat} \NPoly[k]$, and similarly for $\ZPoly$, $\NSF$, and
 $\ZSF$. In order to illustrate these definitions, let us provide an example of
 a \kl{$\Nat$-polyregular function} computed using a finite monoid in
 \cref{size-of-word-nsf:ex}. Let us also introduce in

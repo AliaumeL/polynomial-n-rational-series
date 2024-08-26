@@ -717,8 +717,8 @@ $\CorrectPoly$ (\cref{n-rat-correct:lem}).
     coefficients and let $\alpha$ be the smallest number in $\Nat_{\geq 1}$
     such that $\alpha P \in \Rel[\vec{X}]$. Then, the following are equivalent:
     \begin{enumerate}
-        \item \label{rat-npoly-0:item} $P$ is a \kl{natural binomial polynomial} such that $P(0,\dots,0) \geq 0$,
-        \item \label{rat-npoly-1:item} $P$ is a \kl{non-negative} \kl{natural binomial polynomial},
+        %\item \label{rat-npoly-0:item} $P$ is a \kl{natural binomial polynomial} such that $P(0,\dots,0) \geq 0$,
+        %\item \label{rat-npoly-1:item} $P$ is a \kl{non-negative} \kl{natural binomial polynomial},
         \item \label{rat-npoly-2:item} $P$ is a \kl{$\Nat$-rational polynomial},
         \item \label{rat-npoly-3:item} $P$ is \kl{represented} by a \kl{star-free $\Nat$-polyregular function},
         \item \label{rat-npoly-4:item} $\alpha P \in \CorrectPoly$,
@@ -728,13 +728,7 @@ $\CorrectPoly$ (\cref{n-rat-correct:lem}).
     In particular, the properties are decidable.
 \end{corollary}
 \begin{proof}
-    First, let us remark that 
-    \cref{rat-npoly-0:item} $\iff$ \cref{rat-npoly-1:item}
-    because \kl{natural binomial polynomials} are increasing.
-    Furthermore, \cref{rat-npoly-3:item} $\implies$ \cref{rat-npoly-2:item}
-    because $\NSF \subseteq \NPoly$.
-
-    Then, \cref{rat-npoly-4:item} $\implies$ \cref{rat-npoly-3:item}, because
+    First, \cref{rat-npoly-4:item} $\implies$ \cref{rat-npoly-3:item}, because
     if $\alpha P \in \CorrectPoly$, then it is an \kl{$\Nat$-rational
     polynomial}. But in particular, there exists a polyregular function $f$
     that represents $\alpha P$ with outputs in $\set{ a }$. Now, let us
@@ -746,15 +740,6 @@ $\CorrectPoly$ (\cref{n-rat-correct:lem}).
     \cref{rat-npoly-4:item}, since if $P$ is an \kl{$\Nat$-rational
     polynomial}, then so is $\alpha P$, and in particular $\alpha P \in
     \CorrectPoly$ by \cref{corrected-version:thm}.
-
-    As a consequence, we have proven that \cref{rat-npoly-0:item} $\iff$
-    \cref{rat-npoly-1:item} and \cref{rat-npoly-2:item} $\iff$
-    \cref{rat-npoly-3:item} $\iff$ \cref{rat-npoly-4:item}.
-
-    Finally, \cref{rat-npoly-1:item} $\implies$ \cref{rat-npoly-4:item} is
-    exactly \cref{natural-binomia-correct:lem}. And \cref{rat-npoly-3:item}
-    $\implies$ \cref{rat-npoly-1:item} is obtained
-    by combining \cref{n-sf-combinatorics:lem} and \cref{natural-binomial-polynomial:lem}.
 \end{proof}
 
 \AP Notice that we can also fully characterize polynomials that can be computed
@@ -763,6 +748,26 @@ difference of two \kl{$\Nat$-rational polynomials}. This drives us to introduce
 the class of \intro{integer binomial polynomials}, which are obtained by
 $\Rel$-linear combinations of products of \kl{binomial monomials} of the form
 $\pbinom{X - p}{k}$ for some $k,p \in \Nat$.
+
+It is a longstanding result that polynomials with $\Rel$-output are exactly
+\kl{integer binomial polynomials} \cite{POLYA1915,CACHA1996}. However, its
+generalization to $\Nat$ is not immediate. First, having non-negative
+coefficients depends on a choice of basis, and second, the non-negativity is
+not enough to ensure that the polynomial is a \kl{$\Nat$-rational polynomial}.
+
+\begin{example}
+    The polynomial $\pbinom{X - 2}{2} + 1$ is a \kl{non-negative} \kl{natural binomial polynomial}
+    but in the standard basis, it is written 
+    $\pbinom{X}{2} - \pbinom{X}{1} + 2$, which has a \kl{negative} coefficient.
+\end{example}
+
+\begin{example}
+    The polynomial
+    $Q(X,Y,Z) \defined \pbinom{X - 4}{1} \pbinom{Y}{1} \pbinom{Z}{1}
+    + 8 \pbinom{Y}{2} + 8 \pbinom{Z}{2} + 4$
+    is a \kl{non-negative} \kl{natural binomial polynomial},
+    but cannot be computed by a \kl{star-free $\Nat$-polyregular function}.
+\end{example}
 
 \begin{corollary}
     \label{integer-binomial-polynomials:cor}
