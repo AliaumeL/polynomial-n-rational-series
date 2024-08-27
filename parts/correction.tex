@@ -848,13 +848,12 @@ characterization.
 	such that $\alpha P \in \Rel[\vec{X}]$. Then, there exists a
 	computable $K \in \Nat$, such that the following are equivalent:
 	\begin{enumerate}
-		\item \label{rat-npoly-1:item}
+		\item \label{rat-npoly-1:item} $P$ is \kl{represented} by a \kl{star-free $\Nat$-polyregular function},
+		\item \label{rat-npoly-2:item}
 		      $P$ is a \kl{strongly natural binomial polynomial} \kl{in base $K$},
-		\item \label{rat-npoly-2:item} $P$ is \kl{represented} by a \kl{$\Nat$-polyregular function},
-		\item \label{rat-npoly-3:item} $P$ is \kl{represented} by a \kl{star-free $\Nat$-polyregular function},
+		\item \label{rat-npoly-3:item} $P$ is \kl{represented} by a \kl{$\Nat$-polyregular function},
 		\item \label{rat-npoly-4:item} $\alpha P \in \CorrectPoly$,
-		      and for all $\vec{x} \in \Nat^{\vec{X}}$,
-		      $P(\vec{x})$ is a multiple of $\alpha$.
+		      and $P(\Nat^k) \subseteq \Nat$.
 	\end{enumerate}
 	In particular, the properties are decidable.
 \end{corollary}
@@ -862,15 +861,35 @@ characterization.
 	First, \cref{rat-npoly-4:item} $\implies$ \cref{rat-npoly-3:item}, because
 	if $\alpha P \in \CorrectPoly$, then it is an \kl{$\Nat$-rational
 		polynomial}. But in particular, there exists a polyregular function $f$
-	that represents $\alpha P$ with outputs in $\set{ a }$. Now, let us
+	that represents $\alpha P$ with outputs in $\set{ a }$.
+	Now, let us
 	post-compose this function by the one that maps $a^{k \alpha + r}$ to
-	$a^{k}$, which is a \kl{polyregular function}. We conclude that $P$ is
+	$a^{k}$, which is a \kl{polyregular function} (but is not
+	a \kl{star-free polyregular function}). We conclude that $P$ is
 	\kl{represented} by an \kl{$\Nat$-polyregular function}.
 
-	We also know that \cref{rat-npoly-2:item} $\implies$
-	\cref{rat-npoly-4:item}, since if $P$ is an \kl{$\Nat$-rational
-		polynomial}, then so is $\alpha P$, and in particular $\alpha P \in
-		\CorrectPoly$ by \cref{corrected-version:thm}.
+	Let us now prove by induction on the number of indeterminates that
+	\cref{rat-npoly-2:item} $\implies$
+	\cref{rat-npoly-1:item}. When the input values of $P$ are all
+	greater than $K$, $P$ coincides with a \kl{natural binomial function},
+	which is \kl{represented} by a \kl{star-free $\Nat$-polyregular function}. If some
+	input value $X_i$ is set to a number $x_i \leq K$, then one can leverage
+	the fact that $\restr{P}{X_i = x_i}$ remains a \kl{strongly natural
+		binomial polynomial} \kl{in base $K$}, and we conclude by induction that
+	$\restr{P}{X_i = x_i}$ is \kl{represented} by a \kl{star-free $\Nat$-polyregular
+		function}. Combining these functions, we obtain a \kl{star-free $\Nat$-polyregular
+		function} \kl{representing} $P$.
+
+
+	Finally, \cref{rat-npoly-1:item} $\implies$
+	\cref{rat-npoly-4:item} is obtained via
+	\cref{corrected-version:thm} by
+	remarking that the
+	\kl{star-free $\Nat$-polyregular functions} have output in $\Nat$ and are
+	closed under multiplication by a constant $\alpha \in \Nat$.
+
+	To conclude, it remains to show that
+	\cref{rat-npoly-3:item} $\implies$ \cref{rat-npoly-2:item}.
 \end{proof}
 
 
