@@ -175,6 +175,6 @@
 \NewDocumentCommand{\BadExOk}{}{\mathsf{f}}
 \NewDocumentCommand{\BadExKo}{}{\mathsf{g}}
 
-\NewDocumentCommand{\pbinom}{ m m }{\binom{#1}{#2}_{\kl[\pbinom]{p}}}
+\NewDocumentCommand{\pbinom}{ m m }{\withkl{\kl[\pbinom]}{\cmdkl{(}\!\!\binom{#1}{#2}\!\!\cmdkl{)}}}
 \knowledge{\pbinom}{notion}
 
