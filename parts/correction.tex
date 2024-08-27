@@ -49,6 +49,8 @@ section is mainly concerned with proving the following corrected version of
     Furthermore, the properties are decidable, and conversions effective.
 \end{theorem}
 
+\subsubsection{From $\Nat$-polyregular functions to polynomials}
+
 \AP Let us now prove that \kl{$\Nat$-rational polynomials} are in
 $\CorrectPoly$. This follows from the correct implication in the statement of
 \cref{karh:thm}, but we provide a self-contained proof using a refinement of
@@ -85,13 +87,8 @@ binomial functions} that are obtained by considering $\Nat$-linear combinations
 of products of \kl{binomial functions}, that is, we consider functions that
 have the following shape: $f(x_1, \dots, x_k) = \sum_{i = 1}^n n_i \prod_{j =
 1}^k \binom{x_j - p_{i,j}}{k_{i,j}}$. Beware that $\binom{X - \ell}{k}$ is
-defined to be $0$ when $X \leq \ell$, and is therefore not a polynomial. For
-this reason, we also introduce its ``polynomial counterpart" $\intro*\pbinom{X
-- \ell}{k}$ defined as $(X - \ell) \cdots (X - \ell - k) / k!$, that we call a
-\intro{binomial monomial}, and introduce \intro{natural binomial polynomials}
-as $\Nat$-linear combinations of products of \kl{binomial monomials}, i.e., of
-the shape: $P(X_1, \dots, X_k) = \sum_{i = 1}^n n_i \prod_{j = 1}^k \pbinom{X_j
-- p_{i,j}}{k_{i,j}}$. 
+defined to be $0$ when $X \leq \ell$, and is therefore not a polynomial.
+
 
 \begin{lemma}
     \label{binomial-function-star-free:lem}
@@ -352,37 +349,6 @@ in the following \cref{n-sf-combinatorics:lem}.
     translate inputs by $s$, instead of multiplying them by $\omega$.
 \end{proof}
 
-Let us also address the fact that the distinction between \kl{natural binomial
-functions} and \kl{natural binomial polynomials} vanishes when we are
-interested in polynomials. As a consequence, to a \kl{natural binomial
-function} corresponds exactly one \kl{natural binomial polynomial} that
-coincides with it on sufficiently large inputs (\cref{natural-binomial-polynomial:lem})
-which allows us to conclude that \kl{$\Nat$-rational polynomials} are in
-$\CorrectPoly$ (\cref{n-rat-correct:lem}).
-
-\begin{lemma}
-    \label{natural-binomial-polynomial:lem}
-    Let $P \in \Rat[X_1, \dots, X_k]$ be a polynomial,
-    $\ell \in \Nat$, 
-    and let $f$ 
-    be a 
-    \kl{natural binomial function} such that
-    $P = f$ over $(\Nat_{\geq \ell})^n$. If
-    $f(x_1, \dots, x_k) = \sum_{i = 1}^n n_i 
-    \prod_{j = 1}^k \binom{x_j - p_{i,j}}{k_{i,j}}$,
-    then
-    $P =
-    \sum_{i = 1}^n n_i 
-    \prod_{j = 1}^k \pbinom{X_j - p_{i,j}}{k_{i,j}}$.
-\end{lemma}
-\begin{proof}
-    Let $m$ be the maximal value of all $p_{i,j}$, $k_{i,j}$, and $\ell$.
-    Over $(\Nat_{\geq 2m})^k$, $f$ coincides with
-    the desired polynomial. Now, because $f$,$P$, and the desired
-    polynomial coincide
-    over a large enough subset of $\Nat^k$,
-    this means that $P$ has the desired shape.
-\end{proof}
 
 
 
@@ -431,6 +397,9 @@ $\CorrectPoly$ (\cref{n-rat-correct:lem}).
     and
     we have proven that $P \in \CorrectPoly$.
 \end{proof}
+
+
+\subsubsection{From polynomials to $\Nat$-polyregular functions}
 
 \AP We have proven that every \kl{$\Nat$-rational polynomial} is in
 $\CorrectPoly$, and the rest of this section is devoted to proving the converse
@@ -676,9 +645,59 @@ imply being an \kl{$\Nat$-rational polynomial}.
     we fix the two indeterminates, leading to a constant polynomial.
 \end{proof}
 
+\subsubsection{From $\Rel$ to $\Rat$ and $\Real$}
+
 Let us conclude this section by considering polynomials with coefficients in
 $\Rat$, and justify that all the combinatorial work has already happened in
 $\Rel$ and $\Nat$.
+
+For
+this reason, we also introduce its ``polynomial counterpart" $\intro*\pbinom{X
+- \ell}{k}$ defined as $(X - \ell) \cdots (X - \ell - k) / k!$, that we call a
+\intro{binomial monomial}, and introduce \intro{natural binomial polynomials}
+as $\Nat$-linear combinations of products of \kl{binomial monomials}, i.e., of
+the shape: $P(X_1, \dots, X_k) = \sum_{i = 1}^n n_i \prod_{j = 1}^k \pbinom{X_j
+- p_{i,j}}{k_{i,j}}$. 
+Let us also address the fact that the distinction between \kl{natural binomial
+functions} and \kl{natural binomial polynomials} vanishes when we are
+interested in polynomials. As a consequence, to a \kl{natural binomial
+function} corresponds exactly one \kl{natural binomial polynomial} that
+coincides with it on sufficiently large inputs (\cref{natural-binomial-polynomial:lem})
+which allows us to conclude that \kl{$\Nat$-rational polynomials} are in
+$\CorrectPoly$ (\cref{n-rat-correct:lem}).
+
+\begin{lemma}
+    \label{natural-binomial-polynomial:lem}
+    Let $P \in \Rat[X_1, \dots, X_k]$ be a polynomial,
+    $\ell \in \Nat$, 
+    and let $f$ 
+    be a 
+    \kl{natural binomial function} such that
+    $P = f$ over $(\Nat_{\geq \ell})^n$. If
+    $f(x_1, \dots, x_k) = \sum_{i = 1}^n n_i 
+    \prod_{j = 1}^k \binom{x_j - p_{i,j}}{k_{i,j}}$,
+    then
+    $P =
+    \sum_{i = 1}^n n_i 
+    \prod_{j = 1}^k \pbinom{X_j - p_{i,j}}{k_{i,j}}$.
+\end{lemma}
+\begin{proof}
+    Let $m$ be the maximal value of all $p_{i,j}$, $k_{i,j}$, and $\ell$.
+    Over $(\Nat_{\geq 2m})^k$, $f$ coincides with
+    the desired polynomial. Now, because $f$,$P$, and the desired
+    polynomial coincide
+    over a large enough subset of $\Nat^k$,
+    this means that $P$ has the desired shape.
+\end{proof}
+
+\begin{conjecture}
+    Let $P \in \Real[\vec{X}]$. Then $P \in \CorrectPoly$ if and only if $P$ 
+    there exists $K$ such that
+    $\restr{P}{\nu}$ is a \kl{natural binomial polynomial} \kl{in base $K$}
+    for all partial valuations $\nu \colon \vec{X} \topartial \set{0, \dots, K}$.
+    That is, for all $\nu$, there exists $\alpha_i \geq 0$ and $d_{i,j} \geq 0$ such that
+    $\restr{P}{\nu} = \sum_i \alpha_i \prod_j \pbinom{X_j - K}{d_{i,j}}$.
+\end{conjecture}
 
 \begin{lemma}
     \label{natural-binomia-correct:lem}
@@ -747,8 +766,12 @@ $\pbinom{X - p}{k}$ for some $k,p \in \Nat$.
 
 \begin{corollary}
     \label{integer-binomial-polynomials:cor}
-    Let $P \in \Rat[\vec{X}]$. Then, $P$ is a \kl{$\Rel$-rational polynomial}
-    if and only if $P$ is an \kl{integer binomial polynomial}.
+    Let $P \in \Real[\vec{X}]$. Then, the following propreties are equivalent:
+    \begin{enumerate}
+        \item \label{int-bin-0:item} $P$ is an \kl{integer binomial polynomial},
+        \item \label{int-bin-1:item} $P$ \kl{represented} by a \kl{star-free $\Nat$-polyregular function},
+        \item \label{int-bin-2:item} $P(\Rel^k) \subseteq \Rel$.
+    \end{enumerate}
 \end{corollary}
 \begin{proof}
     Let $f = f_+ - f_-$ where both $f_+$ and $f_-$ are 
