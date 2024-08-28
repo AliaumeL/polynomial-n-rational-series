@@ -336,7 +336,7 @@ in the following \cref{n-sf-combinatorics:lem}.
 		=
 		F
 		\quad
-		\text{ over } (\Nat_{\geq 1})^p
+		\text{ over } (\Nat)^p
 		\quad .
 	\end{equation*}
 \end{lemma}
@@ -644,21 +644,25 @@ imply being an \kl{$\Nat$-rational polynomial}.
 
 \subsubsection{From $\Rel$ to $\Rat$}
 
-\AP Let us conclude this section by considering polynomials with
-coefficients in $\Rat$, and justify that all the combinatorial work has
-already happened in $\Rel$ and $\Nat$. A first observation is that from
-\cref{n-poly-combinatorics:lem,n-sf-combinatorics:lem}, we know that the
-functions that can be computed by \kl{star-free $\Nat$-polyregular
-	functions} are going to be suitable combinations of \kl{natural binomial
-	functions}. This motivates the following definition of the ``polynomial
-counterpart" of a binomial coefficient, $\intro*\pbinom{X - \ell}{k}$
-defined as $(X - \ell) \cdots (X - \ell - k) / k!$, that we call a
-\intro{binomial monomial}, and introduce \intro{natural binomial
-	polynomials} as $\Nat$-linear combinations of products of \kl{binomial
-	monomials}, i.e., of the shape: $P(X_1, \dots, X_k) = \sum_{i = 1}^n n_i
-	\prod_{j = 1}^k \pbinom{X_j - p_{i,j}}{k_{i,j}}$. Similarly, we introduce
-the class of \intro{integer binomial polynomials}, which are obtained by
-$\Rel$-linear combinations of products of \kl{binomial monomials}.
+\AP Let us conclude this section by considering polynomials with coefficients
+in $\Rat$, and justify that all the combinatorial work has already happened in
+$\Rel$ and $\Nat$. A first observation is that from
+\cref{n-poly-combinatorics:lem,n-sf-combinatorics:lem},
+we know that the functions that can be computed by \kl{star-free
+$\Nat$-polyregular functions} are going to be suitable combinations of
+\kl{natural binomial functions}. This motivates the following definition of the
+``polynomial counterpart" of a binomial coefficient, given two numbers $\ell,k \in \Nat$,
+$\intro*\pbinom{X -
+\ell}{k}$ defined as $(X - \ell) \cdots (X - \ell - k) / k!$,\footnote{
+    In particular, $\pbinom{X - \ell}{k}$ is defined to be $1$ when $k = 0$, 
+    and $X - \ell$ when $k = 1$.
+} that we call a
+\intro{binomial monomial}, and introduce \intro{natural binomial polynomials}
+as $\Nat$-linear combinations of products of \kl{binomial monomials}, i.e., of
+the shape: $P(X_1, \dots, X_k) = \sum_{i = 1}^n n_i \prod_{j = 1}^k \pbinom{X_j
+- p_{i,j}}{k_{i,j}}$. Similarly, we introduce the class of \intro{integer
+binomial polynomials}, which are obtained by $\Rel$-linear combinations of
+products of \kl{binomial monomials}.
 
 \AP
 These definitions are motivated by the classical result of Pólya that
@@ -672,16 +676,18 @@ prove in \cref{integer-binomial-polynomial:lem}.
 	\label{integer-binomial-polynomial:lem}
 	Let $P \in \Rat[X_1, \dots, X_k]$ be a polynomial.
 	Then, $P$ is an \kl{integer binomial polynomial} if and only if
-	$P(\Rel^k) \subseteq \Rel$.
+	$P(\Rel^k) \subseteq \Rel$, if and only if $P(\Nat^k) \subseteq \Rel$.
 \end{lemma}
 \begin{proof}
-	Let us first notice that $\pbinom{X}{k}$ is \kl{integer valued}
+	Let us first notice that $\pbinom{X}{k}$ is \kl{integer-valued}
 	when $k \in \Nat$. One way to notice this is that when $X \geq 0$,
 	$\pbinom{X}{k} = \binom{X}{k}$ is the number of ways to choose $k$ elements among $X$,
 	which is an integer. When
 	$X < 0$, then $\pbinom{X}{k} = (-1)^k \pbinom{k - X + 1}{k} = (-1)^k \binom{k - X + 1}{k}$
-	is also an integer. Because \kl{integer-valued} polynomials are closed under products
-	and $\Rel$-linear combination, we conclude that all \kl{integer binomial polynomials} are
+	is also an integer. Because \kl{integer-valued} polynomials are closed under products,
+	$\Rel$-linear combination, and 
+    shifting of domain by an integer,
+    we conclude that all \kl{integer binomial polynomials} are
 	\kl{integer-valued}.
 
 	For the converse direction, we follow the original proof of Pólya \cite{POLYA1915,CACHA1996}.
@@ -758,6 +764,8 @@ prove in \cref{integer-binomial-polynomial:lem}.
 	so are $\Delta_{\alpha} P$, for all multi-indexes $\alpha$, and we conclude
 	that $\Delta_{\alpha}P (0,\dots,0) \in \Rel$ for all $\alpha$.
 	Combined with \cref{discrete-taylor:eq}, we conclude that $P$ is an \kl{integer binomial polynomial}.
+    Remark that $\Delta_{\alpha} P (0, \dots, 0)$ only ever involves evaluation of $P$ on 
+    $\Nat^k$, justifying the weakening of the hypothesis.
 \end{proof}
 
 As an immediate corollary, we completely characterize the class of
@@ -831,65 +839,104 @@ witnessed by \cref{natural-binomial-polynomial-positive-bad:ex}.
 \end{example}
 
 
-\AP We say that a \kl{natural binomial polynomial} is \intro{in base $K$} if
-all its \kl{binomial monomials} are of the form $\pbinom{X - K}{d}$ for some $d
-	\in \Nat$. To address the issues raised by the previous examples, we introduce
-the notion of \intro{strongly natural binomial polynomials} \kl{in base $K$},
-as the polynomials $P \in \Rat[X]$ such that for all partial valuation $\nu
-	\colon \topartial \set{0, \dots, K}$, $\restr{P}{\nu}$ is a \kl{natural
-	binomial polynomial} \kl{in base $K$}. This leads to the following
-characterization.
+\AP To address the issues raised by the previous examples, we introduce the
+notion of \intro{strongly natural binomial polynomials}, as the polynomials $P
+\in \Rat[X]$ such that for all partial valuation $\nu \colon \topartial \Nat$,
+$\restr{P}{\nu}$ is a \kl{natural binomial polynomial}. This leads to the
+following characterization.
 
-
-\begin{corollary}
+\begin{theorem}
 	\label{decide-rat-poly-npoly:cor}
 	Let $P \in \Rat[\vec{X}]$ be a polynomial with \emph{rational}
 	coefficients and let $\alpha$ be the smallest number in $\Nat_{\geq 1}$
-	such that $\alpha P \in \Rel[\vec{X}]$. Then, there exists a
-	computable $K \in \Nat$, such that the following are equivalent:
+	such that $\alpha P \in \Rel[\vec{X}]$. Then, 
+    the following are equivalent:
 	\begin{enumerate}
-		\item \label{rat-npoly-1:item} $P$ is \kl{represented} by a \kl{star-free $\Nat$-polyregular function},
-		\item \label{rat-npoly-2:item}
-		      $P$ is a \kl{strongly natural binomial polynomial} \kl{in base $K$},
-		\item \label{rat-npoly-3:item} $P$ is \kl{represented} by a \kl{$\Nat$-polyregular function},
-		\item \label{rat-npoly-4:item} $\alpha P \in \CorrectPoly$,
-		      and $P(\Nat^k) \subseteq \Nat$.
+		\item \label{rat-npoly-1:item} $P$ is \kl{represented} by a \kl{$\Nat$-polyregular function},
+		\item \label{rat-npoly-2:item} $P$ is \kl{represented} by a \kl{star-free $\Nat$-polyregular function},
+		\item \label{rat-npoly-3:item}
+		      $P$ is a \kl{strongly natural binomial polynomial},
+        \item \label{rat-npoly-4:item} $\alpha P \in \CorrectPoly$ 
+            and $P$ is \kl{integer-valued}.
 	\end{enumerate}
 	In particular, the properties are decidable.
-\end{corollary}
+\end{theorem}
 \begin{proof}
-	First, \cref{rat-npoly-4:item} $\implies$ \cref{rat-npoly-3:item}, because
-	if $\alpha P \in \CorrectPoly$, then it is an \kl{$\Nat$-rational
-		polynomial}. But in particular, there exists a polyregular function $f$
-	that represents $\alpha P$ with outputs in $\set{ a }$.
-	Now, let us
-	post-compose this function by the one that maps $a^{k \alpha + r}$ to
-	$a^{k}$, which is a \kl{polyregular function} (but is not
-	a \kl{star-free polyregular function}). We conclude that $P$ is
-	\kl{represented} by an \kl{$\Nat$-polyregular function}.
 
-	Let us now prove by induction on the number of indeterminates that
-	\cref{rat-npoly-2:item} $\implies$
-	\cref{rat-npoly-1:item}. When the input values of $P$ are all
-	greater than $K$, $P$ coincides with a \kl{natural binomial function},
-	which is \kl{represented} by a \kl{star-free $\Nat$-polyregular function}. If some
-	input value $X_i$ is set to a number $x_i \leq K$, then one can leverage
-	the fact that $\restr{P}{X_i = x_i}$ remains a \kl{strongly natural
-		binomial polynomial} \kl{in base $K$}, and we conclude by induction that
-	$\restr{P}{X_i = x_i}$ is \kl{represented} by a \kl{star-free $\Nat$-polyregular
-		function}. Combining these functions, we obtain a \kl{star-free $\Nat$-polyregular
-		function} \kl{representing} $P$.
+    For the implication \cref{rat-npoly-1:item} $\implies$
+    \cref{rat-npoly-4:item}, we obtain $\alpha P \in \CorrectPoly$ via
+    \cref{corrected-version:thm} by remarking that the \kl{star-free
+    $\Nat$-polyregular functions} have output in $\Nat$ and are closed under
+    multiplication by a constant $\alpha \in \Nat$. The fact that $P$ is
+    \kl{integer-valued} follows from
+    \cref{integer-binomial-polynomials:cor} and the fact that
+    $\NSF \subseteq \ZPoly$.
 
+    Then, \cref{rat-npoly-4:item} $\implies$
+    \cref{rat-npoly-3:item}, because if $\alpha P \in \CorrectPoly$,
+    it is represented by a \kl{star-free $\Nat$-polyregular function} $f$ by
+    \cref{corrected-version:thm}. Let us now use \cref{n-sf-combinatorics:lem}
+    to obtain a number $s \geq 1$ (that only depends on $P$) such
+    that for all \kl{polynomial function} $q \colon \Nat^k \to \Sigma^*$, $g
+    \circ q(X_1 + s, \dots, X_k + s)$ is a \kl{natural binomial function} $F$
+    over $\Nat^k$. Let us write the
+    \kl{natural binomial function} $F$ as follows $F(X_1, \dots, X_k) =
+    \sum_{\card{\alpha} \leq d_2} e_{\alpha} \prod_{i = 1}^k \binom{X -
+    p_{\alpha,i}}{\alpha(i)}$, with $e_{\alpha} \in \Nat$ for all
+    $\card{\alpha} \leq d_2$.
+    Now, because of the equality 
+    $\binom{X - p - 1}{k} + \binom{X - p - 1}{k - 1} = \binom{X - p}{k}$,
+    we conclude that we can find a $K \in \Nat$ and coefficients
+    $f_{\alpha} \in \Nat$ such that 
+    $F(X_1, \dots, X_k) =
+    \sum_{\card{\alpha} \leq d_2} f_{\alpha} \prod_{i = 1}^k \binom{X_i - K}{\alpha(i)}$.
+    Now, remark that $P$ is an \kl{integer-valued} polynomial of
+    degree $d$, and therefore one can write $P = \sum_{\card{\alpha} \leq d}
+    c_{\alpha} \prod_{i = 1}^k \pbinom{X_i - K}{\alpha(i)}$ with $c_{\alpha}
+    \in \Rel$ for all $\card{\alpha} \leq d$
+    (\cref{integer-binomial-polynomial:lem}). 
+    As a consequence,
+    $\lambda P = \sum_{\card{\alpha} \leq d} \lambda c_{\alpha} \prod_{i = 1}^k \pbinom{X_i - K - s}{\alpha(i)}$,
+    and 
+    by identifying coefficients in the previous two expressions, we obtain
+    $c_{\alpha} = \lambda f_{\alpha}$ for all $\card{\alpha} \leq d$.
+    Finally,
+    $\lambda P(x_1 + s, \dots, x_k + s) = F(x_1, \dots, x_k)$ for all $\vec{x} \in \Nat^k$,
+    and therefore
+    $\lambda P (X_1 + s, \dots, X_k + s) =
+    \sum_{\card{\alpha} \leq d_2} f_{\alpha} \prod_{i = 1}^k \pbinom{X_i - K}{\alpha(i)}$.
+    In particular,
+    we get
+    \begin{equation*}
+        \sum_{\card{\alpha} \leq d} \lambda c_{\alpha} \prod_{i = 1}^k \pbinom{X_i - K}{\alpha(i)} =
+        \sum_{\card{\alpha} \leq d_2} f_{\alpha} \prod_{i = 1}^k \pbinom{X_i - K}{\alpha(i)}
+    \end{equation*}
+    And we conclude by term identification
+    by term identification
+    that $d = d_2$, and for all $\card{\alpha} \leq d$, $\lambda c_{\alpha} = f_{\alpha}$.
+    As a consequence, $c_{\alpha} \in \Nat$ for all $\card{\alpha} \leq d$,
+    and $P$
+    is a \kl{natural binomial polynomial}.
+    Remark that this reasoning remains true whenever we partially apply $P$ to some values
+    in $\Nat$, as it amounts to 
+    partially applying the function $f$. We have proven that 
+    $P$ is a \kl{strongly natural binomial polynomial}.
 
-	Finally, \cref{rat-npoly-1:item} $\implies$
-	\cref{rat-npoly-4:item} is obtained via
-	\cref{corrected-version:thm} by
-	remarking that the
-	\kl{star-free $\Nat$-polyregular functions} have output in $\Nat$ and are
-	closed under multiplication by a constant $\alpha \in \Nat$.
+    Let us now prove by induction on the number of indeterminates that
+    \cref{rat-npoly-3:item} $\implies$
+    \cref{rat-npoly-2:item}. Note that by construction, there exists a
+    number $K \in \Nat$ such that when the input values of $P$ are all greater
+    than $K$, $P$ coincides with a \kl{natural binomial function}, which is
+    itself \kl{represented} by a \kl{star-free $\Nat$-polyregular function}. If
+    some input value $X_i$ is set to a number $x_i \leq K$, then one can
+    leverage the fact that $\restr{P}{X_i = x_i}$ remains a \kl{strongly
+    natural binomial polynomial} to conclude by induction that $\restr{P}{X_i =
+    x_i}$ is \kl{represented} by a \kl{star-free $\Nat$-polyregular function}.
+    Combining these, we obtain a \kl{star-free $\Nat$-polyregular function}
+    \kl{representing} $P$.
 
-	To conclude, it remains to show that
-	\cref{rat-npoly-3:item} $\implies$ \cref{rat-npoly-2:item}.
+    Finally, the implication  \cref{rat-npoly-2:item} $\implies$ \cref{rat-npoly-1:item} is
+    immediate as $\NSF \subseteq \NPoly$.
 \end{proof}
 
 

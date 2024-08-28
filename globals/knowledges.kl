@@ -75,6 +75,7 @@
 \knowledge{notion}
  | polynomial growth
 \knowledge{notion}
+ | representing
  | represented
  | represents
 \knowledge{notion}
@@ -210,3 +211,10 @@
 \knowledge{notion}
  | integer binomial polynomials
  | integer binomial polynomial
+\knowledge{notion}
+ | strongly natural binomial polynomials
+ | strongly natural binomial polynomial
+
+\knowledge{notion}
+ | integer-valued
+ | integer-valued polynomials
