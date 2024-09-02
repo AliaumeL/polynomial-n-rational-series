@@ -5,16 +5,45 @@
 \label{star-free:sec}
 
 In this section, we leverage the decidability results of \cref{polynomials:sec}
-to decide $\NPoly$ inside $\ZPoly$ and $\NSF$ inside $\NPoly$, both under the
-extra assumption of \kl{commutativity}. The hypothesis of \kl{commutativity}
-reduces $\ZPoly$ to a combination of a finite number of polynomials, arranged
-by counting modulo some numbers. This characterization will be proven in
-\cref{decompose-polynomial:lem}, and will be the key ingredient in the decision
-procedures of $\NPoly$ inside $\ZPoly$, and $\NSF$ inside $\NPoly$. Note that
-\cref{decompose-polynomial:lem} can be understood as a refinement of
-\cref{n-poly-combinatorics:lem} for \kl{commutative} functions.
+to decide membership in $\NPoly$
+inside $\ZPoly$ and membership in $\NSF$ inside $\NPoly$, both under the extra
+assumption of \kl{commutativity}. 
 
-\AP To actually state the lemma, we will need some notations that will
+\subsection{Deciding $\NPoly$ inside $\ZPoly$}
+
+To characterize $\NPoly$ inside $\ZPoly$ we introduce the notion of
+\kl{$(k,\Nat)$-combinatorial} function
+\cref{k-combinatorial:def}, following the spirit of previous
+characterizations of subclasses of $\ZPoly$ in terms of \emph{polynomial
+pumping arguments} \cite{DOUE21,DOUE22,CDTL23}.
+
+\begin{definition}
+    \label{k-combinatorial:def}
+    Let $k \in \Nat$, and $f \colon \Sigma^* \to \Rel$
+    be a \kl{$\Rel$-polyregular function}. The function $f$ is 
+    \intro{$(k,\Nat)$-combinatorial} if there exists $\omega \in \Nat$,
+    such that
+    for all
+    \kl{polynomial functions} $q \colon \Nat^k \to \Sigma^*$,
+    there exists a \kl{strongly natural binomial polynomial} $P$
+    satisfying:
+    \begin{equation*}
+        f \circ q(\omega X_1,\dots, \omega X_k)
+        = 
+        P
+        \quad 
+        \text{ over } (\Nat_{\geq 1})^k
+        \quad .
+    \end{equation*}
+\end{definition}
+
+\AP
+\Cref{k-combinatorial:def} is meaningful under the hypothesis of
+\kl{commutativity}, because the latter reduces $\ZPoly$ to a combination of a
+finite number of polynomials, arranged by counting modulo some numbers. This
+characterization is stated in \cref{decompose-polynomial:lem}, and will
+be the key ingredient in the decision procedures of $\NPoly$ inside $\ZPoly$.
+To actually state the lemma, we will need some notations that will
 formalize the intuitive idea of identifying tuples of integers modulo some
 constant. Let $\omega \in \Nat_{\geq 1}$, we define the set
 $\intro*\ModuloTypes[\omega] \defined \set{0, \dots, \omega^2} \times \set{0,
@@ -47,46 +76,13 @@ $p \in \Nat$ by pointwise application.
     \end{equation*}
 \end{lemma}
 
-In the spirit of previous characterizations of subclasses of $\ZPoly$ in terms
-of \emph{polynomial pumping arguments} \cite{DOUE21,DOUE22,CDTL23}, we will
-provide a semantic property in the form of \cref{k-combinatorial:def}, that is
-conjectured to characterize $\NPoly$ inside $\ZPoly$ in the general setting.
 
-\begin{definition}
-    \label{k-combinatorial:def}
-    Let $k \in \Nat$, and $f \colon \Sigma^* \to \Rel$
-    be a \kl{$\Rel$-polyregular function}. The function $f$ is 
-    \intro{$(k,\Nat)$-combinatorial} if there exists $\omega \in \Nat$,
-    such that
-    for all
-    \kl{polynomial functions} $q \colon \Nat^k \to \Sigma^*$,
-    there exists a polynomial $P \in \CorrectPoly$,
-    satisfying:
-    \begin{equation*}
-        f \circ q(\omega X_1,\dots, \omega X_k)
-        = 
-        P
-        \quad 
-        \text{ over } (\Nat_{\geq 1})^k
-        \quad .
-    \end{equation*}
-\end{definition}
-\begin{conjecture}
-    \label{npoly-zpoly:conjecture}
-    Let $k \in \Nat$.
-    A function $f \in \ZPoly[k]$
-    belongs to $\NPoly[k]$ if and only if
-    it is \kl{$(k,\Nat)$-combinatorial}.
-    In particular,
-    $\NPoly[k] = \ZPoly[k] \cap \NPoly$.
-\end{conjecture}
 
 
 \begin{theorem}
     \label{decidable-n-poly:thm}
-    Let $k \in \Nat$, and 
-    let $f \in \ZPoly[k]$ be a \kl{commutative} \kl{$\Rel$-polyregular function}.
-    The following are equivalent:
+    Let $k \in \Nat$, and $f \in \ZPoly[k]$ be \kl{commutative}.
+    Then, the following are equivalent:
     \begin{enumerate}
         \item \label{f-combinatorial:item} $f$ is \kl{$(k,\Nat)$-combinatorial},
         \item \label{f-npoly-combi:item} $f \in \NPoly[k]$,
@@ -99,15 +95,14 @@ conjectured to characterize $\NPoly$ inside $\ZPoly$ in the general setting.
     \cref{f-npoly-combi:item}
     $\implies$ \cref{f-combinatorial:item} immediately follows
     from 
-    \cref{n-poly-combinatorics:lem} and \cref{corrected-version:thm}.
-
-    For the converse implication, we use \cref{decompose-polynomial:lem} to
+    \cref{n-poly-combinatorics:lem} and \cref{decide-rat-poly-npoly:cor}.
+    For the converse implication, we use \cref{decompose-polynomial:lem} 
     effectively compute a polynomial representation of $f$. That is, we obtain
     an $\omega_1 \in \Nat$ and \kl{integer binomial polynomials}
     $\seqof{P_{t}}{t \in \ModuloTypes[\omega_1]^k}$. Now, because $f$ is
     \kl{$(k,\Nat)$-combinatorial}, we also have a number $\omega_2 \in \Nat$
-    such that for all \kl{polynomial functions} $q$, there exists an
-    \kl{integer binomial polynomial} $P$ such that $f \circ q(\omega_2 \vec{X})
+    such that for all \kl{polynomial functions} $q$, there exists a
+    \kl{strongly natural binomial polynomial} $P$ such that $f \circ q(\omega_2 \vec{X})
     = P$ over $(\Nat_{\geq 1})^k$. By considering $\omega \defined
     \omega_1 \times \omega_2$, we can without loss of generality assume that
     $\omega_1 = \omega_2$ in the rest of this proof.
@@ -130,21 +125,23 @@ conjectured to characterize $\NPoly$ inside $\ZPoly$ in the general setting.
     Let us therefore consider the \kl{polynomial function} $q \colon \Nat^k \to
     \Sigma^*$ that is simply defined as $q(X_1, \dots, X_k) \defined \prod_{i =
     1}^k a_i^{ X_i \omega \ind{S}(i) + r_i}$. Because $f$ is
-    \kl{$(k,\Nat)$-combinatorial} (with parameter $\omega$), there exists
-    a polynomial $P \in \CorrectPoly$ such that for all $x_1, \dots, x_n
-    \geq 1$, the equality $f \circ q(\omega x_1, \dots, \omega x_k) = P(x_1,
-    \dots, x_k)$ holds. In particular, we conclude that over $(\Nat_{\geq
-    1})^{\card{S}}$ the polynomial $P_t$ and $P$ coincide. They are therefore
-    equal as multivariate polynomials, and we conclude that $P_t$ belongs to
-    $\CorrectPoly$, and in particular is an \kl{$\Nat$-rational polynomial}
-    thanks to \cref{corrected-version:thm}.
+    \kl{$(k,\Nat)$-combinatorial} (with parameter $\omega$), there exists a
+    \kl{strongly natural binomial polynomial} $P$ such that for all $x_1,
+    \dots, x_n \geq 1$, the equality $f \circ q(\omega x_1, \dots, \omega x_k)
+    = P(x_1, \dots, x_k)$ holds. In particular, we conclude that over
+    $(\Nat_{\geq 1})^{\card{S}}$ the polynomial $P_t$ and $P$ coincide. They
+    are therefore equal as multivariate polynomials, and we conclude that $P_t$
+    is a \kl{strongly natural binomial polynomial} \kl{$\Nat$-rational
+    polynomial}.
 
     Let us now construct a new way to compute $f$, by first
     computing the \kl{$\omega$-type} of the input (which is possible in
-    $\MSO$), and then computing the suitable \kl{$\Nat$-rational polynomial},
-    which is possible in $\NPoly$.
+    $\MSO$), and then computing the suitable \kl{strongly natural binomial polynomials}
+    which is possible in $\NPoly$
+    thanks to \cref{decide-rat-poly-npoly:cor}.
 \end{proof}
 
+\subsection{Deciding $\NSF$ inside $\NPoly$}
 
 Let us now prove that the above characterizations of \kl{commutative}
 \kl{$\Nat$-polyregular functions} can be combined with the recent advances in
@@ -185,8 +182,7 @@ $u,v,w$, there exists $n \in \Nat$, $u v^n w \in L$ if and only if $u v^{n+1} w
 if and only if its indicator function $\ind{L}$ is \kl{ultimately polynomial}.
 This, was already observed in \cite[Claim V.6]{CDTL23}, and restated in
 \cite[Claim 7.45, Lemma 7.53]{DOUE23}. We include a self-contained proof
-hereafter for readability and didactic purposes. The proof follows essentially
-the same scheme as the base case of \cref{n-poly-combinatorics:lem}.
+hereafter for readability and didactic purposes. 
 
 \begin{example}
     \label{aperidic-ultimately-polynomial:ex}
@@ -234,8 +230,7 @@ transducer}, the latter being essentially based on differences between
 functions, crucially leveraging negative outputs \cite{CDTL23}. Although the
 proof method does not carry from $\Rel$-output functions to $\Nat$-output,
 functions, it was conjectured that the semantic property of being
-\kl{ultimately polynomial} would also characterize $\NSF$ inside $\NPoly$, a
-conjecture that is restated hereafter.
+\kl{ultimately polynomial} would also characterize $\NSF$ inside $\NPoly$ (\cref{zsf-nsf:conjecture}).
 
 \begin{conjecture}[{\cite[Conjecture 7.61]{DOUE23}}]
     \label{zsf-nsf:conjecture}
@@ -272,7 +267,7 @@ result for $\ZSF$.
     \proofref{zsf-npoly-nsf:thm}
 \end{theorem}
 \begin{proof}
-    The implication \cref{zsf-npoly-nsf:thm:zsf:item} $\Rightarrow$
+    The implication \cref{zsf-npoly-nsf:thm:nsf:item} $\Rightarrow$
     \cref{zsf-npoly-nsf:thm:zsf:item} is immediate since $\NSF \subseteq \ZSF$.
     Furthermore,
     \cref{zsf-npoly-nsf:thm:zsf:item} implies \cref{zsf-npoly-nsf:thm:up:item}

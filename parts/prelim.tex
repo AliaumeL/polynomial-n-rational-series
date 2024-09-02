@@ -54,6 +54,35 @@ function $P(X,Y) = X \times Y$ is \kl{represented} by the \kl{commutative}
 function $g \colon \set{a,b}^* \to \Rel$ defined by $g(w) \defined \card[a]{w}
 \times \card[b]{w}$.
 
+\subsection{Polynomials} \AP All polynomials considered in this paper have
+coefficients in $\Rel$ unless explicitly stated otherwise. A polynomial $P \in
+\Rel[X_1, \dots, X_k]$ is \intro{non-negative} when for all non-negative
+integer inputs $n_1, \dots, n_k \geq 0$, the output  $P(n_1, \dots, n_k)$ of
+the polynomial is non-negative. Beware that we do not consider negative values
+as input, as the numbers $n_i$ will ultimately count the number of occurrences
+of a letter in a word. As an example, the polynomial $(X - Y)^2$ is
+\kl{non-negative}, and so is the polynomial $X^3$, but the polynomial $X^2 -
+2X$ is not.
+
+\AP Let us now give some vocabulary on polynomials with multiple indeterminates
+over $\Rel$. A \intro{monomial} is a product of indeterminates and integers.
+For instance, $XY$ is a \kl{monomial}, $3 X$ is a \kl{monomial}, $-Y$ is a
+\kl{monomial}, but $X + Y$ and $2X^2 + XY$ are not. We write $\intro*\Monomials[X_1,
+\dots, X_n]$ for the set of \kl{monomials} over these indeterminates.
+Every polynomial $P \in \Rel[X_1, \dots, X_n]$ decomposes uniquely
+into a sum of \kl{monomials}.
+
+\AP A \kl{monomial} $S$ \intro{divides} a \kl{monomial} $T$, when $S$ divides
+$T$ seen as polynomials in $\Rat$. For instance, $2X$ \kl{divides} $XY$, $-YZ$
+\kl{divides} $X^2 Y Z^3$, and $Y$ does not \kl{divide} $X$. In the
+decomposition of $P \in \Rel[X_1, \dots, X_k]$, a \kl{monomial} is a
+\intro{maximal monomial} if it is a maximal element for the \kl{divisibility
+ordering} of \kl{monomials}. In the polynomial $P(X,Y) \defined X^2 - 2XY + Y^2
++ X + Y$, the set of \reintro{maximal monomials}, written
+$\intro*\MaximalMonomials(P)$, is $\set{X^2,  -2 XY,  Y^2}$.  In the polynomial
+$P(X,Y) \defined (X - Y)^2$, the \kl{non-negative} \kl{monomials} are $X^2$ and
+$Y^2$.
+
 \subsection{Polyregular Functions}
 \label{polyregular:sec}
 
@@ -157,13 +186,6 @@ function}.
     $\sum_{i = 0}^n i = n(n-1) / 2$ justifies the last equality.
 \end{proof}
 
-\AP In full generality, \cref{size-of-word-nsf:ex,q-polynomial-n-poly:ex} can be generalized to demonstrate that functions
-of the following functions can be \kl{represented} by a \kl{commutative}
-\kl{star-free $\Nat$-polyregular function}: $x \mapsto \binom{x - p}{k}$ for $p
-\in \Nat$ and $k \in \Nat$, where $\binom{n}{k}$ is the binomial coefficient,
-that is the number of ways to choose $k$ elements among $n$ elements. 
-
-
 \AP One of the appeals of $\NPoly$ and $\ZPoly$ are the numerous
 characterizations of these classes in terms of logic, weighted automata, and
 the larger class of \kl{polyregular functions} \cite{CDTL23,DOUE23}. In this
@@ -196,11 +218,9 @@ to construct \kl{$\Rel$-polyregular functions}.
     Then, the following 
     are also in $\NPoly[k]$ (resp. $\ZPoly[k]$,
     $\NSF[k]$, $\ZSF[k]$):
-    \begin{itemize}
-        \item $f + g \defined w \mapsto f(w) + g(w)$,
-        \item $f \times g \defined w \mapsto f(w) \times g(w)$,
-        \item $\ind{L} \times f$ 
-    \end{itemize}
+    $f + g \defined w \mapsto f(w) + g(w)$,
+    $f \times g \defined w \mapsto f(w) \times g(w)$,
+    $\ind{L} \times f$.
     Furthermore, the above constructions preserve \kl{commutativity}.
 \end{lemma}
 
@@ -221,39 +241,11 @@ consequence, we are working inside a relatively robust and decidable subclass of
     the cycle $c \defined (n,1, \dots, n-1)$ and the transposition $t \defined (1, 2)$.
     As a consequence, a function $f$ is commutative if and only if
     $f \circ c = f = f \circ t$.
-    When $f$ is a rational series,
-    $f \circ c$ and $f \circ t$ are both rational series that can be
+    When $f$ is a \kl{rational series},
+    $f \circ c$ and $f \circ t$ are both \kl{rational series} that can be
     effectively computed from $f$, and since equivalence
     of rational series is decidable 
     \cite[Corollary 3.6]{BERE10},
     we have obtained a decision procedure.
 \end{proof}
 
-\subsection{Polynomials} \AP All polynomials considered in this paper have
-coefficients in $\Rel$ unless explicitly stated otherwise. A polynomial $P \in
-\Rel[X_1, \dots, X_k]$ is \intro{non-negative} when for all non-negative
-integer inputs $n_1, \dots, n_k \geq 0$, the output  $P(n_1, \dots, n_k)$ of
-the polynomial is non-negative. Beware that we do not consider negative values
-as input, as the numbers $n_i$ will ultimately count the number of occurrences
-of a letter in a word. As an example, the polynomial $(X - Y)^2$ is
-\kl{non-negative}, and so is the polynomial $X^3$, but the polynomial $X^2 -
-2X$ is not.
-
-\AP Let us now give some vocabulary on polynomials with multiple indeterminates
-over $\Rel$. A \intro{monomial} is a product of indeterminates and integers.
-For instance, $XY$ is a \kl{monomial}, $3 X$ is a \kl{monomial}, $-Y$ is a
-\kl{monomial}, but $X + Y$ and $2X^2 + XY$ are not. We write $\intro*\Monomials[X_1,
-\dots, X_n]$ for the set of \kl{monomials} over these indeterminates.
-Every polynomial $P \in \Rel[X_1, \dots, X_n]$ decomposes uniquely
-into a sum of \kl{monomials}.
-
-\AP A \kl{monomial} $S$ \intro{divides} a \kl{monomial} $T$, when $S$ divides
-$T$ seen as polynomials in $\Rat$. For instance, $2X$ \kl{divides} $XY$, $-YZ$
-\kl{divides} $X^2 Y Z^3$, and $Y$ does not \kl{divide} $X$. In the
-decomposition of $P \in \Rel[X_1, \dots, X_k]$, a \kl{monomial} is a
-\intro{maximal monomial} if it is a maximal element for the \kl{divisibility
-ordering} of \kl{monomials}. In the polynomial $P(X,Y) \defined X^2 - 2XY + Y^2
-+ X + Y$, the set of \reintro{maximal monomials}, written
-$\intro*\MaximalMonomials(P)$, is $\set{X^2,  -2 XY,  Y^2}$.  In the polynomial
-$P(X,Y) \defined (X - Y)^2$, the \kl{non-negative} \kl{monomials} are $X^2$ and
-$Y^2$.

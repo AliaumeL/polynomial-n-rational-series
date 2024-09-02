@@ -2,27 +2,28 @@
 %! lang = en-US
 \section{$\Nat$-rational Polynomials}
 \label{polynomials:sec}
-%\subsection{The counterexample}
-\label{sec:c-example}
 
-\AP Before deciding $\NPoly$ inside $\ZPoly$ (which will be done in
-\cref{beyond-polynomials:sec}), let us restrict our attention to simpler
-functions, namely polynomials. A polynomial $P \in \Rel[X_1, \dots, X_n]$ is an
+\AP In this section, we will completely characterize which polynomials in
+$\Rat[\vec{X}]$ that are \kl{represented} by \kl{$\Nat$-polyregular functions}
+(resp. \kl{$\Rel$-polyregular functions}). To that end, we start by
+characterizing these classes for polynomials in $\Rel[\vec{X}]$.
+We say that a polynomial $P \in \Rel[X_1, \dots, X_n]$ is an
 \intro{$\Nat$-rational polynomial} if it is \kl{represented} by a
 \kl{$\Nat$-rational series}, in which case it is also \kl{represented} by a
 \kl{$\Nat$-polyregular function}, because it has \kl{polynomial growth}
-(\cref{polyregular-polynomial-growth:lemma}). It is an easy check that
+(\cref{polyregular-polynomial-growth:lemma}).
+The analogue notion of \intro{$\Rel$-rational polynomials} is not
+of particular interest, since every polynomial $P \in \Rel[X_1, \dots, X_n]$ is
+\kl{represented} by a \kl{$\Rel$-polyregular function}. 
+It is an easy check that
 polynomials with coefficients in $\Nat$ are \kl{$\Nat$-rational polynomials}
 (\cref{n-poly-n-poly:example}). However, \cref{negative-but-npoly:ex} provides
 a polynomial with negative coefficients that is an \kl{$\Nat$-rational
-polynomial}. The analogue notion of \intro{$\Rel$-rational polynomials} is not
-of particular interest, since every polynomial $P \in \Rel[X_1, \dots, X_n]$ is
-\kl{represented} by a \kl{$\Rel$-polyregular function}. Our goal is to decide
-if a \kl{$\Rel$-rational polynomial} (so, any polynomial) is an
-\kl{$\Nat$-rational polynomial}, and if so, to compute an
-\kl{$\Nat$-polyregular function} that \kl{represents} it. This particular
-problem was claimed to be solved in \cite{KARH77}, using the \cref{karh:def} to
-characterize \kl{$\Nat$-rational polynomials}, as restated in \cref{karh:thm}.
+polynomial}. 
+The problem of characterizing \kl{$\Nat$-rational polynomials} was claimed to
+be solved in \cite{KARH77}, using the \cref{karh:def}
+to  characterize
+\kl{$\Nat$-rational polynomials}, as restated in \cref{karh:thm}.
 
 \begin{lemma}
     \label{n-poly-n-poly:example}
@@ -41,7 +42,6 @@ characterize \kl{$\Nat$-rational polynomials}, as restated in \cref{karh:thm}.
 \end{proof}
 
 \begin{example}
-    \label{negative-not-nrat:ex}
     \label{negative-but-npoly:ex}
     \proofref{negative-not-nrat:ex}
     The polynomials $X$, $X^2 + 3$,
@@ -50,6 +50,8 @@ characterize \kl{$\Nat$-rational polynomials}, as restated in \cref{karh:thm}.
     but $- X$ is a \kl{$\Rel$-rational polynomial} that is 
     not an \kl{$\Nat$-rational polynomial}.
 \end{example}
+
+
 
 \begin{definition}[{\cite[Section 3, page 3]{KARH77}}]
     \label{karh:def}
@@ -149,7 +151,3 @@ We define $\intro*\BadPoly(X,Y,Z) \defined Z (X + Y)^2 + 2 (X - Y)^2$.
     However, $L = f^{-1}(\set{0})$ is a regular language
     (\cref{pre-image-regular:fact}). 
 \end{proof}
-
-We will discuss at the end of \cref{sec:proof} why the example of
-\cref{thm:counter-example} is minimal in the number of indeterminates, which
-first requires us to provide a \emph{correct} analogue of \cref{karh:thm}.

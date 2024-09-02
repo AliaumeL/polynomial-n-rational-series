@@ -30,8 +30,6 @@
 
 
 
-
-
 \begin{proofof}[derivation-translation:lem]
 
     We will first prove the equivalence between \cref{d-t-transl:item} and
@@ -118,23 +116,24 @@
     applying
     \cref{n-poly-combinatorics:lem} 
     to $f_+$ (resp. to $f_-$).
-    Finally, let $\omega \defined \ppcm(\omega_+, \omega_-)$.
+    Finally, let $\omega$ be the least common multiple
+    of $\omega_+$ and $\omega_-$, i.e. $\omega \defined \ppcm(\omega_+, \omega_-)$.
 
     Using this $\omega$,
     for any choice of
     $r \defined (r_1, \dots, r_n) \in \set{0, \dots, \omega - 1}$,
     there exists two \kl{natural binomial functions} $F_r^+$ and $F_r^-$
     associated to $f_+$ and $f_-$,
-    such that $X_1, \dots, X_p \geq 1$:
+    such that $x_1, \dots, x_p \geq 1$:
     \begin{equation*}
         f\left(
-        a_1^{\omega X_1 + r_1} \cdots a_n ^{\omega X_n + r_n}\right) 
-        = F_r^+(X_1, \dots, X_p) - F_r^-(X_1, \dots, X_p) \quad .
+        a_1^{\omega x_1 + r_1} \cdots a_n ^{\omega x_n + r_n}\right) 
+        = F_r^+(x_1, \dots, x_p) - F_r^-(x_1, \dots, x_p) \quad .
     \end{equation*}
     Now, for large enough values of $x_1, \dots, x_p$,
     this means that 
     $f\left(
-        a_1^{\omega X_1 + r_1} \cdots a_n ^{\omega X_n + r_n}\right)$
+        a_1^{\omega x_1 + r_1} \cdots a_n ^{\omega x_n + r_n}\right)$
     coincides with an \kl{integer binomial polynomial},
     and we can therefore conclude selecting different values of $r$ and
     setting some subsets of variables to be assigned to the constant $0$.

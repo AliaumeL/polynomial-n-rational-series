@@ -1,6 +1,6 @@
 .PHONY: clean
 
-TEX=*.tex\
+TEX=pnrs.tex\
 	globals/*.tex\
     parts/*.tex
 BIB=globals/papers.bib

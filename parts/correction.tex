@@ -1,25 +1,28 @@
 %! TeX program = xelatex
 %! lang = en-US
-\subsection{The Corrected Theorem}
-\label{sec:proof}
 
-\AP
-The counterexample provided by \cref{def:bad-polynomial} relies on the fact
-that $\CoveredPoly$ is not stable under fixing indeterminates, while
-\kl{$\Nat$-polyregular functions} are.
-Indeed, the polynomial $\BadPoly$ introduced in
-\cref{def:bad-polynomial} satisfies $\BadPoly(X,Y,1) = 3X^2 + 3Y^2 - 2XY$, which has a negative
-coefficient for a \kl{maximal monomial}, namely $-2XY$.
-In this section, we prove that closing
-$\CoveredPoly$ under variable assignments is enough to recover from
-\cref{karh:thm}.
-We use the following notation to fix the value of some indeterminate, if
-$P(X,Y)$ is a polynomial in $\Rel[X,Y]$, then $\intro*\restr{P(X,Y)}{X = 1}$ is
-the polynomial $P(1,Y) \in \Rel[Y]$. More generally, if $\nu$ is a partial
-function from $\vec{X}$ to $\Nat$, written $\nu \colon \vec{X} \topartial
-	\Nat$, the restriction $\restr{P(\vec{X})}{\nu}$ is the polynomial with
-indeterminates $\vec{Y} \defined \vec{X} - \dom(\nu)$ obtained by fixing the
-variables of the domain of $\nu$.
+\AP We will discuss at the end of \cref{sec:poly-to-n-poly}
+why the
+example of \cref{thm:counter-example} is minimal in the number of
+indeterminates, which first requires us to provide a \emph{correct} analogue of
+\cref{karh:thm}. The
+counterexample provided by \cref{def:bad-polynomial}
+relies on the fact that
+$\CoveredPoly$ is not stable under fixing indeterminates, while
+\kl{$\Nat$-rational polynomials} are. Indeed, the polynomial $\BadPoly$
+introduced in \cref{def:bad-polynomial}
+satisfies $\BadPoly(X,Y,1) = 3X^2 +
+3Y^2 - 2XY$, which has a negative coefficient for a \kl{maximal monomial},
+namely $-2XY$. In this section, we prove that closing $\CoveredPoly$ under
+variable assignments is enough to recover from
+\cref{karh:thm}. We
+use the following notation to fix the value of some indeterminate, if $P(X,Y)$
+is a polynomial in $\Rel[X,Y]$, then $\intro*\restr{P(X,Y)}{X = 1}$ is the
+polynomial $P(1,Y) \in \Rel[Y]$. More generally, if $\nu$ is a partial function
+from $\vec{X}$ to $\Nat$, written $\nu \colon \vec{X} \topartial \Nat$, the
+restriction $\restr{P(\vec{X})}{\nu}$ is the polynomial with indeterminates
+$\vec{Y} \defined \vec{X} - \dom(\nu)$ obtained by fixing the variables of the
+domain of $\nu$.
 
 
 \begin{definition}
@@ -49,23 +52,59 @@ section is mainly concerned with proving the following corrected version of
 	Furthermore, the properties are decidable, and conversions effective.
 \end{theorem}
 
-\subsubsection{From $\Nat$-polyregular functions to polynomials}
+Let us briefly remark that \cref{corrected-version:thm} is surprising given the
+fact that is not possible to decide whether a polynomial $P \in \Rel[\vec{X}]$
+is \kl{non-negative} (\cref{undecidable-non-negative:lem}), by
+reduction to the undecidability of Hilbert's Tenth Problem
+\cite{HILB1902,MATI1970}.
 
-\AP Let us now prove that \kl{$\Nat$-rational polynomials} are in
-$\CorrectPoly$. This follows from the correct implication in the statement of
-\cref{karh:thm}, but we provide a self-contained proof using a refinement of
-the classical combinatorial arguments for $\ZPoly$ \cite[Lemma 4.16]{CDTL23}
-and $\NPoly$ \cite[Lemma 5.37]{DOUE23}. We take extra care to reprove in our
-upcoming \cref{n-poly-combinatorics:lem} a finer statement that has two main
-goals: first, it formulates the traditional \emph{pumping argument} as a
-composition property using \kl{(noncommutative output) polynomial functions},
-allowing us to use the same formalism in the upcoming
-\cref{k-combinatorial:def,ultimately-polynomial:def} and highlight the role of
-\kl{commutative} \kl{polyregular functions} in the broader study of
-\kl{polyregular functions}; then we also give a precise shape of the
-polynomials that arise from such \emph{pumping arguments}, which was lacking in
-former similar statements where $\Rat[X_1, \dots, X_n]$ was used as an over
-approximation.
+\begin{lemma}
+    \label{undecidable-non-negative:lem}
+    Let $P \in \Rel[\vec{X}]$ be a polynomial. Then, checking whether $P$ is
+    \kl{non-negative} is undecidable.
+\end{lemma}
+\begin{proof}
+    Recall that by the undecidability of the Hilbert's Tenth Problem \cite[Problem 10 page 22]{HILB1902}, it is
+    undecidable whether a given polynomial $P \in \Rel[\vec{X}]$ has a solution in
+    $\Rel^n$ \cite{MATI1970,DAVIS1973}.
+    The result follows by observing that
+    checking whether a polynomial $P \in \Rel[\vec{X}]$ has no solutions in $\Rel^n$ if and only 
+    if $P^2 - 1$ is \kl{non-negative}. 
+\end{proof}
+
+The proof of \cref{corrected-version:thm} is divided into two parts. First, we
+provide in \cref{sec:n-poly-to-poly}
+a fine
+combinatorial understanding of what functions can be computed by functions in
+$\NPoly$ and $\ZPoly$. This will allow us to prove that \kl{$\Nat$-polyregular
+functions} are in $\CorrectPoly$ (\cref{n-rat-correct:lem}).
+Then, in \cref{sec:poly-to-n-poly}
+we will
+show how to compute polynomials in $\CorrectPoly$ using $\NPoly$
+(\cref{lem:correct-to-n-rat}).
+With this in hand, we will next generalize these results
+to polynomials in $\Rat[\vec{X}]$ in \cref{sec:rel-to-rat}.
+
+
+\subsection{From $\Nat$-polyregular functions to polynomials}
+\label{sec:n-poly-to-poly}
+
+\AP Let us prove that \kl{$\Nat$-rational polynomials} are in $\CorrectPoly$.
+This fact follows from the correct implication in the statement of
+\cref{karh:thm}, but
+we provide a self-contained proof using a refinement of the classical
+combinatorial \emph{pumping arguments} for $\ZPoly$ \cite[Lemma 4.16]{CDTL23} and
+$\NPoly$ \cite[Lemma 5.37]{DOUE23}. We take extra care to reprove in our
+upcoming \cref{n-poly-combinatorics:lem} a strong statement that has
+two main goals. Our first goal is to highlight the role of \kl{commutative}
+\kl{polyregular functions} in the broader study of \kl{polyregular functions},
+which is done by reformulating the traditional pumping argument as a
+composition property involving said functions, which will be reused in the
+upcoming \cref{k-combinatorial:def,ultimately-polynomial:def}
+in
+\cref{beyond-polynomials:sec}. Our second goal
+is to give a precise shape of the functions that arise from such \emph{pumping
+arguments}, which was lacking in former similar statements.
 
 \AP To address our first goal, let us define that a function $q$ is a
 \intro{(noncommutative output) polynomial function} from $\Nat^p$ to $\Sigma^*$
@@ -76,18 +115,19 @@ non-commutative monomial over the monoid $\Sigma^*$. Almost by
 definition, \kl{polynomial functions} are \kl{commutative} \kl{polyregular
 	functions}.
 
-\AP Remark that our second goal is at odds with our restriction to polynomials
-with coefficients in $\Rel$, because of the polynomial $X(X-1)/2$
-(\cref{q-polynomial-n-poly:ex}). However, we argue that up to a suitable change
-of basis for the ring of polynomials, all coefficients will actually be in
-$\Nat$. This relatively simple trick works by considering as ``basic
-polynomials" the \intro{binomial function} of the form $\binom{X - \ell}{k}$,
-where $\ell$ and $k$ are natural numbers. We extend this to \intro{natural
-	binomial functions} that are obtained by considering $\Nat$-linear combinations
-of products of \kl{binomial functions}, that is, we consider functions that
-have the following shape: $f(x_1, \dots, x_k) = \sum_{i = 1}^n n_i \prod_{j =
-		1}^k \binom{x_j - p_{i,j}}{k_{i,j}}$. Beware that $\binom{X - \ell}{k}$ is
-defined to be $0$ when $X \leq \ell$, and is therefore not a polynomial.
+\AP Our second goal is achieved by understanding that \kl{$\Nat$-polyregular
+functions} essentially compute binomial coefficients, as illustrated by the
+polynomial $X(X-1)/2 = \binom{X}{2}$.
+of \cref{q-polynomial-n-poly:ex}. A \intro{binomial function} is a
+function of the form $\binom{X - \ell}{k}$, where $\ell$ and $k$ are natural
+numbers. We extend this to \intro{natural binomial functions} that are obtained
+by considering $\Nat$-linear combinations of products of \kl{binomial
+functions}, that is, we consider functions that have the following shape:
+$f(x_1, \dots, x_k) = \sum_{i = 1}^n n_i \prod_{j = 1}^k \binom{x_j -
+p_{i,j}}{k_{i,j}}$. Beware that $\binom{X - \ell}{k}$ is defined to be $0$ when
+$X \leq \ell$, and is therefore not a polynomial. Let us immediately
+prove that \kl{binomial functions}  can be \kl{represented} in $\NSF$,
+generalizing \cref{q-polynomial-n-poly:ex}.
 
 
 \begin{lemma}
@@ -107,7 +147,6 @@ defined to be $0$ when $X \leq \ell$, and is therefore not a polynomial.
 	$\binom{x}{s} = \sum_{u_1 \cdots u_{s+1} = a^x} 1$,
 	which is clearly expressible as a \kl{star-free polyregular function}.
 \end{proof}
-
 
 \begin{lemma}
 	\label{n-poly-combinatorics:lem}
@@ -336,7 +375,7 @@ in the following \cref{n-sf-combinatorics:lem}.
 		=
 		F
 		\quad
-		\text{ over } (\Nat)^p
+		\text{ over } \Nat^p
 		\quad .
 	\end{equation*}
 \end{lemma}
@@ -348,9 +387,10 @@ in the following \cref{n-sf-combinatorics:lem}.
 	translate inputs by $s$, instead of multiplying them by $\omega$.
 \end{proof}
 
-
-
-
+Because \kl{natural binomial functions} behave as polynomials with
+\kl{non-negative} \kl{maximal monomials} on large enough inputs, we can
+conclude from \cref{n-poly-combinatorics:lem}
+that \kl{$\Nat$-rational polynomials} are in $\CorrectPoly$.
 
 \begin{corollary}
 	\label{n-rat-correct:lem}
@@ -396,15 +436,17 @@ in the following \cref{n-sf-combinatorics:lem}.
 \end{proof}
 
 
-\subsubsection{From polynomials to $\Nat$-polyregular functions}
+\subsection{From polynomials to $\Nat$-polyregular functions}
+\label{sec:poly-to-n-poly}
 
 \AP We have proven that every \kl{$\Nat$-rational polynomial} is in
 $\CorrectPoly$, and the rest of this section is devoted to proving the converse
-implication. The core of the upcoming \cref{lem:correct-to-n-rat} leverages a
-notion of \intro{discrete derivative} which is built by translating the domain
-of the polynomial. To that end, let us write $\intro*\translate{K}$ for the
-\intro{translation function} that maps a polynomial $P \in \Rel[X_1, \dots,
-		X_n]$ to the polynomial $P(X_1 + K, \dots, X_n + K)$.
+implication. The core of the upcoming \cref{lem:correct-to-n-rat}
+leverages a notion of \intro{discrete derivative} which is built by
+translating the domain of the polynomial. To that end, let us write
+$\intro*\translate{K}$ for the \intro{translation function} that maps a
+polynomial $P \in \Rel[X_1, \dots, X_n]$ to the polynomial $P(X_1 + K, \dots,
+X_n + K)$.
 
 \begin{definition}
 	\label{discrete-derivative:def}
@@ -642,21 +684,20 @@ imply being an \kl{$\Nat$-rational polynomial}.
 	we fix the two indeterminates, leading to a constant polynomial.
 \end{proof}
 
-\subsubsection{From $\Rel$ to $\Rat$}
+\subsection{From $\Rel$ to $\Rat$}
+\label{sec:rel-to-rat}
 
-\AP Let us conclude this section by considering polynomials with coefficients
-in $\Rat$, and justify that all the combinatorial work has already happened in
-$\Rel$ and $\Nat$. A first observation is that from
-\cref{n-poly-combinatorics:lem,n-sf-combinatorics:lem},
-we know that the functions that can be computed by \kl{star-free
+\AP Let us complete our analysis of polynomials \kl{represented} by $\NPoly$ or
+$\ZPoly$ by considering polynomials with coefficients in $\Rat$, and justify
+that all the combinatorial work has already happened in $\Rel$ and $\Nat$. A
+first observation is that from \cref{n-sf-combinatorics:lem}, we
+know that the polynomials that can be computed by \kl{star-free
 $\Nat$-polyregular functions} are going to be suitable combinations of
 \kl{natural binomial functions}. This motivates the following definition of the
-``polynomial counterpart" of a binomial coefficient, given two numbers $\ell,k \in \Nat$,
-$\intro*\pbinom{X -
-\ell}{k}$ defined as $(X - \ell) \cdots (X - \ell - k) / k!$,\footnote{
-    In particular, $\pbinom{X - \ell}{k}$ is defined to be $1$ when $k = 0$, 
-    and $X - \ell$ when $k = 1$.
-} that we call a
+``polynomial counterpart" of a binomial coefficient, given two numbers $\ell,k
+\in \Nat$, $\intro*\pbinom{X - \ell}{k}$ defined as $(X - \ell) \cdots (X -
+\ell - k) / k!$,\footnote{ In particular, $\pbinom{X - \ell}{k}$ is defined to
+be $1$ when $k = 0$, and $X - \ell$ when $k = 1$. } that we call a
 \intro{binomial monomial}, and introduce \intro{natural binomial polynomials}
 as $\Nat$-linear combinations of products of \kl{binomial monomials}, i.e., of
 the shape: $P(X_1, \dots, X_k) = \sum_{i = 1}^n n_i \prod_{j = 1}^k \pbinom{X_j
@@ -768,11 +809,11 @@ prove in \cref{integer-binomial-polynomial:lem}.
     $\Nat^k$, justifying the weakening of the hypothesis.
 \end{proof}
 
-As an immediate corollary, we completely characterize the class of
-polynomials with rational coefficients that can be computed by
-\kl{star-free $\Nat$-polyregular functions}.
+As an immediate corollary,  we completely characterize the class of polynomials
+in $\Rat[\vec{X}]$ that are \kl{represented} by $\ZPoly$ as the \kl{integer
+binomial polynomials}.
 
-\begin{corollary}
+\begin{theorem}
 	\label{integer-binomial-polynomials:cor}
 	Let $P \in \Rat[\vec{X}]$, and let $\alpha$ be the minimal number in $\Nat$ such that
 	$\alpha P \in \Rel[\vec{X}]$. Then, the following properties are equivalent:
@@ -780,10 +821,10 @@ polynomials with rational coefficients that can be computed by
 		\item \label{int-bin-0:item} $P$ is an \kl{integer binomial polynomial},
 		\item \label{int-bin-1:item} $P$ \kl{represented} by a \kl{star-free $\Rel$-polyregular function},
 		\item \label{int-bin-2:item} $P$ \kl{represented} by a \kl{$\Rel$-polyregular function},
-		\item \label{int-bin-3:item} $P(\Rel^k) \subseteq \Rel$.
+        \item \label{int-bin-3:item} $P$ is \kl{integer-valued}.
 	\end{enumerate}
 	These properties are furthermore decidable.
-\end{corollary}
+\end{theorem}
 \begin{proof}
 	Let us first note that implications \cref{int-bin-1:item}
 	$\implies$ \cref{int-bin-2:item} $\implies$ \cref{int-bin-3:item} are obvious.
@@ -799,23 +840,18 @@ polynomials with rational coefficients that can be computed by
 \end{proof}
 
 
-Obtaining an analogue of \cref{integer-binomial-polynomials:cor}
-for \kl{$\Nat$-polyregular functions} is more challenging. The
-naïve approach would be to consider some variation around \kl{natural binomial
-	polynomials}. A first observation is that the class of products of the form
-$\prod_{i = 1}^n \pbinom{X_i - p_i}{k_i}$ is a generating family for
-$\Rat[\vec{X}]$ but is not linearly independent. As a consequence, there may be
-several ways to write a given polynomial, and as illustrated by
-\cref{natural-binomial-polynomial-basis:ex}, some of them will
-exhibit negative coefficients.\footnote{This was not a problem for \kl{integer
-		binomial polynomials}, for which the change of basis mapped coefficients in
-	$\Rel$ to coefficients $\Rel$.} Furthermore, there are some \kl{natural
-	binomial polynomials} that take negative values on positive inputs, as
-illustrated by \cref{natural-binomial-polynomial-negative:ex}.
-Finally, restricting our attention to \kl{non-negative} \kl{natural binomial
-	polynomials} suffers from the same kind of issues as
-\cref{karh:thm},
-witnessed by \cref{natural-binomial-polynomial-positive-bad:ex}.
+\AP Obtaining an analogue of \cref{integer-binomial-polynomials:cor}
+for \kl{$\Nat$-polyregular functions} requires a bit more work,
+as polynomials in $\Rat[\vec{X}]$ that are \kl{represented} by $\NPoly$ are not
+exactly \kl{natural binomial polynomials}
+(\cref{natural-binomial-polynomial-negative:ex,natural-binomial-polynomial-basis:ex,natural-binomial-polynomial-positive-bad:ex}).
+To address the issues raised by these examples, we introduce the notion of
+\intro{strongly natural binomial polynomials}, as the polynomials $P \in
+\Rat[X]$ such that for all partial valuation $\nu \colon \topartial \Nat$,
+$\restr{P}{\nu}$ is a \kl{natural binomial polynomial}, which 
+characterizes the class of polynomials that are \kl{represented} by $\NPoly$
+(\cref{decide-rat-poly-npoly:cor}).
+
 
 \begin{example}
 	\label{natural-binomial-polynomial-negative:ex}
@@ -839,11 +875,6 @@ witnessed by \cref{natural-binomial-polynomial-positive-bad:ex}.
 \end{example}
 
 
-\AP To address the issues raised by the previous examples, we introduce the
-notion of \intro{strongly natural binomial polynomials}, as the polynomials $P
-\in \Rat[X]$ such that for all partial valuation $\nu \colon \topartial \Nat$,
-$\restr{P}{\nu}$ is a \kl{natural binomial polynomial}. This leads to the
-following characterization.
 
 \begin{theorem}
 	\label{decide-rat-poly-npoly:cor}
@@ -939,4 +970,9 @@ following characterization.
     immediate as $\NSF \subseteq \NPoly$.
 \end{proof}
 
+Let us remark that \cref{decide-rat-poly-npoly:cor} shows that the
+class of polynomials \kl{represented} by $\NPoly$ is the same as the class of
+polynomials \kl{represented} by $\NSF$, which is a non-trivial statement that
+will be reused in the study of more general \kl{commutative} functions in
+$\ZPoly$.
 
