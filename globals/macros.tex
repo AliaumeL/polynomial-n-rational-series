@@ -67,6 +67,12 @@
 % \end{proof}
 \NewDocumentEnvironment{proofof}{o}{%
     \IfValueTF{#1}{%
+        % checks if \#1 is a defined command in which case
+        % we call it
+        \def\insideRestate{1}
+        \ifcsname #1\endcsname
+            \csname #1\endcsname*
+        \fi
         \begin{proof}[Proof of \cref{#1} on page \pageref{#1}]
         \phantomsection\label{#1:proof}
     }{%
@@ -81,6 +87,9 @@
 
 % Refers to the proof of a result
 \NewDocumentCommand{\proofref}{m}{%
+    \ifdefined\insideRestate%
+        \marginpar{\vspace{0.6em}\ttfamily\small\hyperref[#1]{Go to \cref{#1} p.\pageref{#1:proof}}}%
+    \else%
     % if appendices are present, then refer to the appendix
     % otherwise do nothing.
     % \hyperref[#1:proof]{Proof of \cref{#1}}
@@ -88,4 +97,5 @@
         %\hfill\hyperref[#1:proof]{(Proof p.\pageref{#1:proof})}
         \marginpar{\vspace{0.6em}\ttfamily\small\hyperref[#1:proof]{Go to proof of \cref{#1} p.\pageref{#1:proof}}}%
     }%
+    \fi%
 }

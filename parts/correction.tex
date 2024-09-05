@@ -54,36 +54,28 @@ section is mainly concerned with proving the following corrected version of
 
 Let us briefly remark that \cref{corrected-version:thm} is surprising given the
 fact that is not possible to decide whether a polynomial $P \in \Rel[\vec{X}]$
-is \kl{non-negative} (\cref{undecidable-non-negative:lem}), by
-reduction to the undecidability of Hilbert's Tenth Problem
-\cite{HILB1902,MATI1970}.
+is \kl{non-negative} (\cref{undecidable-non-negative:lem}), by reduction to the
+undecidability of Hilbert's Tenth Problem \cite{HILB1902,MATI1970}. That is,
+$\CorrectPoly$ is a decidable class that interpolates between the undecidable
+class of non-negative polynomials and strictly generalize polynomials in
+$\Nat[\vec{X}]$.
 
-\begin{lemma}
+\begin{remark}
     \label{undecidable-non-negative:lem}
-    Let $P \in \Rel[\vec{X}]$ be a polynomial. Then, checking whether $P$ is
-    \kl{non-negative} is undecidable.
-\end{lemma}
-\begin{proof}
-    Recall that by the undecidability of the Hilbert's Tenth Problem \cite[Problem 10 page 22]{HILB1902}, it is
-    undecidable whether a given polynomial $P \in \Rel[\vec{X}]$ has a solution in
-    $\Rel^n$ \cite{MATI1970,DAVIS1973}.
-    The result follows by observing that
-    checking whether a polynomial $P \in \Rel[\vec{X}]$ has no solutions in $\Rel^n$ if and only 
-    if $P^2 - 1$ is \kl{non-negative}. 
-\end{proof}
+    \proofref{undecidable-non-negative:lem}
+    Checking whether a polynomial
+    $P \in \Rel[\vec{X}]$ is \kl{non-negative} is undecidable.
+\end{remark}
+
 
 The proof of \cref{corrected-version:thm} is divided into two parts. First, we
-provide in \cref{sec:n-poly-to-poly}
-a fine
-combinatorial understanding of what functions can be computed by functions in
-$\NPoly$ and $\ZPoly$. This will allow us to prove that \kl{$\Nat$-polyregular
-functions} are in $\CorrectPoly$ (\cref{n-rat-correct:lem}).
-Then, in \cref{sec:poly-to-n-poly}
-we will
-show how to compute polynomials in $\CorrectPoly$ using $\NPoly$
-(\cref{lem:correct-to-n-rat}).
-With this in hand, we will next generalize these results
-to polynomials in $\Rat[\vec{X}]$ in \cref{sec:rel-to-rat}.
+provide in \cref{sec:n-poly-to-poly} a fine combinatorial understanding of what
+functions can be computed in $\NPoly$ and $\ZPoly$. This allows us to prove
+that \kl{$\Nat$-polyregular functions} are in $\CorrectPoly$
+(\cref{n-rat-correct:lem}). Then, in \cref{sec:poly-to-n-poly} we will show how
+to compute polynomials in $\CorrectPoly$ using $\NPoly$
+(\cref{lem:correct-to-n-rat}). With this in hand, we will next generalize these
+results to polynomials in $\Rat[\vec{X}]$ in \cref{sec:rel-to-rat}.
 
 
 \subsection{From $\Nat$-polyregular functions to polynomials}
@@ -117,7 +109,7 @@ definition, \kl{polynomial functions} are \kl{commutative} \kl{polyregular
 
 \AP Our second goal is achieved by understanding that \kl{$\Nat$-polyregular
 functions} essentially compute binomial coefficients, as illustrated by the
-polynomial $X(X-1)/2 = \binom{X}{2}$.
+polynomial $X(X-1)/2 = \binom{X}{2}$
 of \cref{q-polynomial-n-poly:ex}. A \intro{binomial function} is a
 function of the form $\binom{X - \ell}{k}$, where $\ell$ and $k$ are natural
 numbers. We extend this to \intro{natural binomial functions} that are obtained
@@ -148,8 +140,8 @@ generalizing \cref{q-polynomial-n-poly:ex}.
 	which is clearly expressible as a \kl{star-free polyregular function}.
 \end{proof}
 
-\begin{lemma}
-	\label{n-poly-combinatorics:lem}
+\begin{lemma}[restate=n-poly-combinatorics:lem,label=n-poly-combinatorics:lem]
+    \proofref{n-poly-combinatorics:lem}
 	Let $f$ be an \kl{$\Nat$-polyregular} function.
 	There exists a computable $\omega \in \Nat_{\geq 1}$
 	such that for all \kl{polynomial functions}
@@ -165,194 +157,6 @@ generalizing \cref{q-polynomial-n-poly:ex}.
 		\quad .
 	\end{equation*}
 \end{lemma}
-\begin{proof}
-	Let us fix a finite monoid $M$, a morphism $\mu \colon \Sigma^* \to M$, and
-	let $\omega$ be an idempotent power for the finite monoid $M$,
-	i.e., a number such that for all $x \in M$,
-	$(x^{\omega})^2 = x^{\omega}$.
-	We will prove by induction on $k \in \Nat_{\geq 1}$
-	that for all
-	$\pi \colon M^k \to \Nat$,
-	the lemma holds with $s = 0$ for the function
-	$f = \pi^\dagger$, i.e., such that
-	$f(w)$ is the sum over all factorizations of $w$
-	into $k$ words $(w_1, \dots, w_k) \in \Sigma^*$
-	of the value $\pi(\mu(w_1), \dots, \mu(w_k))$.
-	Since every \kl{$\Nat$-polyregular function}
-	is obtained via some choice of $M, \mu, \pi$ (\cref{nat-rel-poly:def})
-	we derive the desired result.
-
-	In all cases, we will use a \kl{polynomial function} $q \colon \Nat^p \to
-		\Sigma^*$ defined by $q(X_1, \dots, X_p) \defined \alpha_0 \prod_{i = 1}^p
-		(u_i^{\omega \times X_i} \alpha_i)$ using some words $\alpha_i$ (for $0 \leq i
-		\leq p$) and $u_i$ (for $1 \leq i \leq p)$ in $\Sigma^*$. That is, we will
-	implicitly multiply all variables by $\omega$ in order to make the
-	equations more readable. Note that when using an induction hypothesis, we
-	will therefore have to check that the polynomial $q$ will have this
-	specific form.
-
-	\textbf{Base case: $k = 1$.}
-	Let us show that $f \circ q$ is
-	actually a constant (positive) function (and in particular a \kl{natural binomial function}), as for
-	all $n_1, \dots, n_p \geq 1$,
-	\begin{align*}
-		f(q(n_1, \dots, n_p))
-		 & \eqdef \pi\left(\mu(q(n_1, \dots, n_p))\right)                                      \\
-		 & \eqdef \pi\left(\mu(\alpha_0 \prod_{i = 1}^p u_i^{\omega n_i} \alpha_i)\right)
-		\\
-		 & = \pi\left(\mu(\alpha_0) \prod_{i = 1}^p \mu(u_i)^{\omega n_i} \mu(\alpha_i)\right)
-		 & \text{ morphism }
-		\\
-		 & = \pi\left(\mu(\alpha_0) \prod_{i = 1}^p \mu(u_i) \mu(\alpha_i)\right)
-		 & \text{ idempotent and } n_i \geq 1                                                  \\
-		 & = c \geq 0
-	\end{align*}
-
-	\textbf{Induction hypothesis.}
-	The proof will essentially follow the same schema as the base case,
-	with extra care needed to properly handle the summation of polynomials
-	that arises when $k \geq 2$.
-
-	We will use the fact that given $n_1, \dots, n_p \geq 0$,
-	there exists a bijection between
-	partitions of $q(\omega n_1, \dots, \omega n_p)$
-	into $k+1$ words, and
-	triples composed of
-	a position  $1 \leq \ell \leq p$,
-	a ratio     $0 \leq b \leq n_\ell$,
-	a remainder $0 \leq r < \omega \times \card{u_\ell}$,
-	and a partition of
-	$)u_\ell^\omega)_{[-r:]} u_\ell^{\omega \times (n_\ell - b)}
-		\alpha_{\ell+1} \cdots \alpha_{p-1} u_p^{n_p} \alpha_{p}$
-	into $k$ words,
-	where we have used the notation
-	$(v)_{[-r:]}$ to denote the word obtained from $v$
-	by keeping only the last $r$ letters, in a sort of Pythonic syntax.
-	That is, we look at where the first ``cut" is made.
-
-	Now, given $(\ell, b, r)$ respecting the inequalities
-	mentioned above,
-	one can define the \kl{polynomial functions}
-	$s_{\ell,r,b} \colon \Nat^{\ell - 1} \to \Sigma^*$
-	and
-	$q_{\ell,r} \colon \Nat^{p - \ell + 1} \to \Sigma^*$
-	so that
-	$q(X_1, \dots, X_p) = s_{\ell,r,b}(X_1, \dots, X_{\ell-1})
-		q_{\ell, r}(X_{\ell} - b, \dots, X_p)$
-	under the assumption that $X_\ell \geq b$:
-	\begin{equation*}
-		q_{\ell,r}(X_{1}, \dots, X_{p - \ell + 1})
-		\defined
-		u_\ell^\omega\mid_{[-r:]} u_\ell^{\omega \times X_1}
-		\alpha_{\ell+1} \cdots \alpha_{p-1} u_p^{X_{p - \ell + 1}} \alpha_{p}
-		\quad .
-	\end{equation*}
-	Similarly, let us define
-	$s_{\ell, r, b}(X_1, \dots, X_{\ell - 1})$
-	as
-	$\alpha_0 u_1^{\omega X_1} \alpha_2 \dots \alpha_{\ell - 1}
-		u_\ell^{\omega b} (u_{\ell}^\omega)_{[1:r]}$,
-	Remark that $q_{\ell,r}$ has all of its indeterminates
-	multiplied by $\omega$, so that the induction hypothesis
-	can be used.
-
-	The key remark is that $\mu(s_{\ell,r,b}(X_1, \dots, X_{\ell - 1}))$ is a
-	constant function from $\Nat^{\ell-1}$ to $M$, and that its value
-	only depends on whether $b = 0$ or $b > 0$.
-	This holds with
-	the exact same proof as the base case of this induction. Let us call
-	$m_{\ell,r,1}$ and $m_{\ell,r,0}$ the two elements of the monoid that are
-	obtained by $\mu(s_{\ell,r,b}(X_1, \dots, X_{\ell-1}))$ respectively when
-	$b = 0$ and when $b > 0$. Finally, let us define $\pi_{\ell,r,0} \colon M^k
-		\to \Nat$ via $\pi_{\ell,r,0}(m_2, \dots, m_{k+1}) \defined
-		\pi(m_{\ell,r,0}, m_1, \dots, m_{k+1})$.
-
-	With all of this preliminary work done, we are now ready to conclude by
-	simply unrolling the definition of
-	a function
-	$f$ defined using a \kl{production function}
-	$\pi \colon M^{k+1} \to \Nat$.
-	In the following equations, we omit the precise
-	range for the sum over $(\ell, r, b)$ to save space.
-	Similarly, we will use
-	$q_{\ell,r}(X_1, \dots, X_{p-\ell+1})
-		\defined q_{\ell,r}(X_1+b, X_2, \dots, X_{p - \ell + 1})$
-	at the end of the computation.
-	\begin{align*}
-		 & f(q(n_1, \dots, n_p))           \\
-		 & \eqdef
-		\sum_{v_1 \dots v_{k+1} = q(n_1, \dots, n_p)}
-		\pi(\mu(v_1), \dots, \mu(v_{k+1})) \\
-		 & = \sum_{(\ell, b, r)}
-		\sum_{v_2 \dots v_{k+1} = q_{\ell,r}(n_\ell - b, \dots, n_p)}
-		\pi(\mu(s_{\ell,r,b}(n_1, \dots, n_{\ell-1})), \mu(v_2), \dots, \mu(v_{k+1}))
-		\\
-		 & =
-		\sum_{(\ell, 0, r)}
-		\sum_{v_2 \dots v_{k+1} = q_{\ell,b,0}(n_\ell - b, \dots, n_p)}
-		\pi(m_{\ell,r,0}, \mu(v_2), \dots, \mu(v_{k+1}))
-		\\
-		 & +
-		\sum_{(\ell, b > 0, r)}
-		\sum_{v_2 \dots v_{k+1} = q_{\ell,r}(n_\ell - b, \dots, n_p)}
-		\pi(m_{\ell,r,1}, \mu(v_2), \dots, \mu(v_{k+1}))
-		\\
-		 & =
-		\sum_{(\ell, 0, r)}
-		\sum_{v_2 \dots v_{k+1} = q_{\ell,b,0}(n_\ell - b, \dots, n_p)}
-		\pi_{\ell,r,0}(\mu(v_2), \dots, \mu(v_{k+1}))
-		\\
-		 & +
-		\sum_{(\ell, b > 0, r)}
-		\sum_{v_2 \dots v_{k+1} = q_{\ell,r}(n_\ell-b, \dots, n_p)}
-		\pi_{\ell,r,1}(\mu(v_2), \dots, \mu(v_{k+1}))
-		\\
-		 & =
-		\sum_{1 \leq \ell \leq p}
-		\sum_{0 \leq r < \omega \times \card{u_\ell}}
-		(\pi_{\ell,r,0})^\dagger (q_{\ell, 0, r}(n_\ell-b, \dots, n_p))
-		\\
-		 & +
-		\sum_{1 \leq \ell \leq p}
-		\sum_{0 \leq r < \omega \times \card{u_\ell}}
-		\sum_{0 < b < n_\ell}
-		(\pi_{\ell,r,1})^{\dagger}(q_{\ell,r}(n_\ell - b, \dots, n_p))
-	\end{align*}
-	Now, using the induction hypothesis,
-	we have \kl{natural binomial functions} $F_{\ell,r,0}$ and $F_{\ell,r,1}$
-	satisfying
-	\begin{equation*}
-		(\pi_{\ell,r,1})^{\dagger}(q_{\ell,r}(n_\ell - b, \dots, n_p))
-		= F_{\ell,r,1}(\omega (n_\ell - b), \dots, \omega n_p)
-		\quad
-		\forall n_\ell - b, \dots, n_p \geq 1
-		\quad .
-	\end{equation*}
-	And similarly
-	\begin{equation*}
-		(\pi_{\ell,r,0})^{\dagger}(q_{\ell,r}(n_1, \dots, n_{\ell-1})
-		= F_{\ell,r,0}(\omega n_1, \dots, \omega n_{\ell-1})
-		\quad
-		\forall n_1, \dots, n_{\ell - 1} \geq 1
-		\quad .
-	\end{equation*}
-
-	It is a well-known equality that for all $s,n \in \Nat$,
-	$\sum_{0 < i < n} \binom{s}{i} = \binom{s+1}{n}$.
-	As a consequence, \kl{natural binomial functions} are
-	stable under the following summation operation:
-	$\Sigma_Y \colon Q(x_1,\dots,x_n,y) \mapsto \sum_{0 < b < y} Q(x_1, \dots, x_n, b)$.
-	This allows us to conclude by defining:
-	\begin{equation*}
-		F(x_1, \dots, x_p) \defined
-		\sum_{1 \leq \ell \leq p} \sum_{0 \leq r < \omega \card{u_\ell}}
-		F_{l,r,0}(x_{\ell}, \dots, \omega x_p) + \Sigma_Y F_{l,r,1}(Y,
-		x_{\ell+1}, \dots, x_p)
-		\quad .
-	\end{equation*}
-	The latter being a \kl{natural binomial function} satisfying
-	the desired equality.
-\end{proof}
 
 Let us highlight that the multiplicative factor $\omega$ is necessary in
 \cref{n-poly-combinatorics:lem}. Indeed, the function $f \colon \set{a}^* \to
@@ -362,8 +166,8 @@ can trade off this multiplicative factor for a constant term addition under the
 extra assumption that the function is \kl{star-free polyregular}, as described
 in the following \cref{n-sf-combinatorics:lem}.
 
-\begin{lemma}
-	\label{n-sf-combinatorics:lem}
+\begin{lemma}[restate=n-sf-combinatorics:lem,label=n-sf-combinatorics:lem]
+    \proofref{n-sf-combinatorics:lem}
 	Let $f$ be a \kl{star-free $\Nat$-polyregular} function.
 	There exists a computable $s \in \Nat_{\geq 1}$
 	such that for all \kl{polynomial functions}
@@ -379,13 +183,6 @@ in the following \cref{n-sf-combinatorics:lem}.
 		\quad .
 	\end{equation*}
 \end{lemma}
-\begin{proof}[Proof Sketch]
-	We redo the proof of \cref{n-poly-combinatorics:lem}, with the extra
-	assumption that the monoid $M$ is \kl(monoid){aperiodic}, hence that there
-	exists $s \in \Nat$ such that $x^{s+1} = x^s$ for all $x \in M$. As a
-	consequence, we can define $\omega = 1$, and
-	translate inputs by $s$, instead of multiplying them by $\omega$.
-\end{proof}
 
 Because \kl{natural binomial functions} behave as polynomials with
 \kl{non-negative} \kl{maximal monomials} on large enough inputs, we can
@@ -713,101 +510,12 @@ that $P(\Rel) \subseteq \Rel$) as \kl{integer binomial polynomials}
 that this result straightforwardly extends to multiple indeterminates as we
 prove in \cref{integer-binomial-polynomial:lem}.
 
-\begin{lemma}
-	\label{integer-binomial-polynomial:lem}
+\begin{lemma}[restate=integer-binomial-polynomial:lem,label=integer-binomial-polynomial:lem]
+	\proofref{integer-binomial-polynomial:lem}
 	Let $P \in \Rat[X_1, \dots, X_k]$ be a polynomial.
 	Then, $P$ is an \kl{integer binomial polynomial} if and only if
 	$P(\Rel^k) \subseteq \Rel$, if and only if $P(\Nat^k) \subseteq \Rel$.
 \end{lemma}
-\begin{proof}
-	Let us first notice that $\pbinom{X}{k}$ is \kl{integer-valued}
-	when $k \in \Nat$. One way to notice this is that when $X \geq 0$,
-	$\pbinom{X}{k} = \binom{X}{k}$ is the number of ways to choose $k$ elements among $X$,
-	which is an integer. When
-	$X < 0$, then $\pbinom{X}{k} = (-1)^k \pbinom{k - X + 1}{k} = (-1)^k \binom{k - X + 1}{k}$
-	is also an integer. Because \kl{integer-valued} polynomials are closed under products,
-	$\Rel$-linear combination, and 
-    shifting of domain by an integer,
-    we conclude that all \kl{integer binomial polynomials} are
-	\kl{integer-valued}.
-
-	For the converse direction, we follow the original proof of Pólya \cite{POLYA1915,CACHA1996}.
-	The only difference is that we leverage differential operators on multiple indeterminates.
-	To that end, let us consider the operator $\Delta_i$ that maps
-	a polynomial $P$ to the polynomial $\Delta_i(P) \defined P(X_1, \dots, X_i + 1, \dots, X_k) - P$.
-	That is, the discrete partial derivative with respect to the $i$-th indeterminate.
-	Let us notice that $\Delta_i \pbinom{X_i}{\alpha} = \pbinom{X_i}{\alpha - 1}$ when $\alpha > 0$,
-	indeed:
-	\begin{align*}
-		\Delta_i \pbinom{X_i}{\alpha} & = \pbinom{X_i + 1}{\alpha} - \pbinom{X_i}{\alpha}                                                         \\
-		                              & = \frac{(X_i + 1) \cdots (X_i + 1 - \alpha + 1)}{\alpha!} - \frac{X_i \cdots (X_i - \alpha + 1)}{\alpha!} \\
-		                              & = \frac{X_i \cdots (X_i - \alpha + 2)}{\alpha!} \alpha                                                    \\
-		                              & = \pbinom{X_i}{\alpha - 1}
-		\quad .
-	\end{align*}
-	Furthermore, when $\alpha = 0$, $\Delta_i \pbinom{X_i}{0} = 0$.
-
-	Let us now remark that a simple expansion proves $\Delta_i \Delta_j P = \Delta_j \Delta_i P$ for all
-	$1 \leq i,j \leq k$.
-	This justifies the soundness of the notation
-	$\Delta_\alpha$ where $\alpha \colon \set{1, \dots, k} \to \Nat$ is a
-	multi-index, where $\Delta_{\alpha} \defined \Delta_1^{\alpha_1} \cdots
-		\Delta_k^{\alpha_k}$.
-	Let us write $\card{\alpha} \defined \sum_{i = 1}^k \alpha_i$ for the
-	size of a multi-index.
-	We claim that for all $P \in \Rat[X_1, \dots, X_k]$ of degree at most $d$,
-	the following \emph{discrete Taylor expansion} holds:
-	\begin{equation}
-		\label{discrete-taylor:eq}
-		P =
-		\sum_{\card{\alpha} \leq d}
-		\Delta_{\alpha} P (0, \dots, 0)
-		\times
-		\prod_{i = 1}^k \pbinom{X_i}{\alpha_i}
-		\quad .
-	\end{equation}
-
-	To obtain \cref{discrete-taylor:eq}, we proceed by induction on the degree $d$.
-	When $d = 0$, the result is holds because $P = P(0, \dots, 0)$.
-	Assume that the result holds for all polynomials of degree at most $d$.
-	Let $P$ of degree at most $d+1$.
-	Then, there exists coefficients $\seqof{c_{\alpha}}{\card{\alpha} \leq d+1}$
-	in $\Rat$
-	such that
-	\begin{equation*}
-		P = \sum_{\card{\alpha} \leq d+1} c_{\alpha} \prod_{i = 1}^k \pbinom{X_i}{\alpha_i}
-		\quad .
-	\end{equation*}
-	This is because the monomials of the form $\prod_{i = 1}^k \pbinom{X_i}{\alpha_i}$
-	form a basis of $\Rat[X_1, \dots, X_k]$.
-	In particular, when applying one partial derivative, one can leverage the induction hypothesis to obtain:
-	\begin{align*}
-		\Delta_1 P & = \sum_{\card{\alpha} \leq d+1} c_{\alpha} \Delta_1 \prod_{i = 1}^k \pbinom{X_i}{\alpha_i}
-		=
-		\sum_{\card{\alpha} \leq d+1 \wedge \alpha_1 > 0} c_{\alpha}  \pbinom{X_1}{\alpha_1 - 1} \prod_{i = 2}^k \pbinom{X_i}{\alpha_i}
-		\\
-		           & = \sum_{\card{\beta} \leq d} \Delta_{\beta}(\Delta_1 P)(0,\dots,0) \times \pbinom{X_1}{\beta_1} \prod_{i = 2}^k \pbinom{X_i}{\beta_i}
-		\quad .
-	\end{align*}
-
-	Using again the fact that the monomials form a basis, we conclude by
-	identification that for all $\card{\alpha} \leq d+1$ such that $\alpha_1 >
-		0$, we have $c_{\alpha} = \Delta_{\alpha}P (0,\dots,0)$. We can repeat the
-	same process with $\Delta_i$ for $1 \leq i \leq k$ to obtain that
-	$c_{\alpha} = \Delta_{\alpha} P (0,\dots, 0)$ for all $\alpha$ such that $1
-		\leq \card{\alpha} \leq d+1$. Now, for the specific case of $\card{\alpha}
-		= 0$, which is the constant term of $P$, we simply conclude that
-	$P(0,\dots,0) = c_{\alpha}$, and notice that $\Delta_{\alpha} P = P$ in
-	this case.
-
-	Let us now conclude by noticing that if $P$ is \kl{integer-valued},
-	then so is $\Delta_i P$ for all $1 \leq i \leq k$. As a consequence,
-	so are $\Delta_{\alpha} P$, for all multi-indexes $\alpha$, and we conclude
-	that $\Delta_{\alpha}P (0,\dots,0) \in \Rel$ for all $\alpha$.
-	Combined with \cref{discrete-taylor:eq}, we conclude that $P$ is an \kl{integer binomial polynomial}.
-    Remark that $\Delta_{\alpha} P (0, \dots, 0)$ only ever involves evaluation of $P$ on 
-    $\Nat^k$, justifying the weakening of the hypothesis.
-\end{proof}
 
 As an immediate corollary,  we completely characterize the class of polynomials
 in $\Rat[\vec{X}]$ that are \kl{represented} by $\ZPoly$ as the \kl{integer
@@ -840,33 +548,19 @@ binomial polynomials}.
 \end{proof}
 
 
-\AP Obtaining an analogue of \cref{integer-binomial-polynomials:cor}
-for \kl{$\Nat$-polyregular functions} requires a bit more work,
-as polynomials in $\Rat[\vec{X}]$ that are \kl{represented} by $\NPoly$ are not
-exactly \kl{natural binomial polynomials}
-(\cref{natural-binomial-polynomial-negative:ex,natural-binomial-polynomial-basis:ex,natural-binomial-polynomial-positive-bad:ex}).
-To address the issues raised by these examples, we introduce the notion of
-\intro{strongly natural binomial polynomials}, as the polynomials $P \in
-\Rat[X]$ such that for all partial valuation $\nu \colon \topartial \Nat$,
-$\restr{P}{\nu}$ is a \kl{natural binomial polynomial}, which 
-characterizes the class of polynomials that are \kl{represented} by $\NPoly$
-(\cref{decide-rat-poly-npoly:cor}).
+\AP Obtaining an analogue of \cref{integer-binomial-polynomials:cor} for
+\kl{$\Nat$-polyregular functions} requires a bit more work, as polynomials in
+$\Rat[\vec{X}]$ that are \kl{represented} by $\NPoly$ are not exactly
+\kl{natural binomial polynomials},
+(\cref{natural-binomial-polynomial-positive-bad:ex}). To address the issues
+raised by the former example, we introduce the notion of \intro{strongly
+natural binomial polynomials}, as the polynomials $P \in \Rat[X]$ such that for
+all partial valuation $\nu \colon \topartial \Nat$, $\restr{P}{\nu}$ is a
+\kl{natural binomial polynomial}, which characterizes the class of polynomials
+that are \kl{represented} by $\NPoly$ (\cref{decide-rat-poly-npoly:cor}).
 
-
-\begin{example}
-	\label{natural-binomial-polynomial-negative:ex}
-	The polynomial $\pbinom{X - 2}{2}$ takes negative values for $X = 0$.
-\end{example}
-
-\begin{example}
-	\label{natural-binomial-polynomial-basis:ex}
-	The polynomial $\pbinom{X - 2}{2} + 1$ is a \kl{non-negative} \kl{natural binomial polynomial}
-	but in the standard basis, it is written
-	$\pbinom{X}{2} - \pbinom{X}{1} + 2$, which has a negative coefficient.
-\end{example}
-
-\begin{example}
-	\label{natural-binomial-polynomial-positive-bad:ex}
+\begin{example}[restate=natural-binomial-polynomial-positive-bad:ex,label=natural-binomial-polynomial-positive-bad:ex]
+	\proofref{natural-binomial-polynomial-positive-bad:ex}
 	The polynomial
 	$Q(X,Y,Z) \defined \pbinom{X - 4}{1} \pbinom{Y}{1} \pbinom{Z}{1}
 		+ 8 \pbinom{Y}{2} + 8 \pbinom{Z}{2} + 4$
@@ -893,7 +587,6 @@ characterizes the class of polynomials that are \kl{represented} by $\NPoly$
 	In particular, the properties are decidable.
 \end{theorem}
 \begin{proof}
-
     For the implication \cref{rat-npoly-1:item} $\implies$
     \cref{rat-npoly-4:item}, we obtain $\alpha P \in \CorrectPoly$ via
     \cref{corrected-version:thm} by remarking that the \kl{star-free
