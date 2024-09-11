@@ -141,6 +141,23 @@ $p \in \Nat$ by pointwise application.
     thanks to \cref{decide-rat-poly-npoly:cor}.
 \end{proof}
 
+It was already known that \kl{$\Rel$-polyregular functions} with unary input
+that are non-negative are \kl{$\Nat$-polyregular} \cite[Proposition 2.1 p
+137]{BERE10}. Let us derive this fact from our \cref{decidable-n-poly:thm}.
+
+\begin{corollary}
+    Let $f \colon \set{a}^* \to \Rel$ be a non-negative \kl{$\Rel$-polyregular function},
+    then $f \in \NPoly$.
+\end{corollary}
+\begin{proof}
+    Since $f$ has unary input, it is \kl{commutative}. Furthermore,
+    $f$ is \kl{$(1,\Nat)$-combinatorial} because for all $q \colon \Nat \to
+    \set{a}$ and all $\omega \geq 1$, $f(q(\omega X))$ is non-negative.
+    When it is a polynomial function, it therefore belongs to $\CorrectPoly$,
+    hence is a \kl{strongly natural binomial polynomial}.
+    We conclude using \cref{decidable-n-poly:thm}.
+\end{proof}
+
 \subsection{Deciding $\NSF$ inside $\NPoly$}
 
 Let us now prove that the above characterizations of \kl{commutative}
