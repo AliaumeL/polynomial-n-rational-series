@@ -16,6 +16,8 @@
 \knowledge{notion}
  | commutative
  | commutativity
+
+
 \knowledge{notion}
  | $\Rel $-rational polynomial
  | $\Rel $-rational polynomials
@@ -25,9 +27,11 @@
  | $\Nat $-rational polynomials
 
 \knowledge{notion}
+ | (noncommutative) $\mathbb {S}$-rational series
  | weighted automata
  | $K$-rational series
  | $K$-weighted automata
+ | $\mathbb {S}$-weighted automata
  | $\Nat $-weighted automaton
  | $\Rel $-rational series
  | $\Nat $-rational series
@@ -83,6 +87,7 @@
  | ultimate polynomiality
 \knowledge{notion}
  | $(k,\Nat )$-combinatorial
+ | $(1,\Nat )$-combinatorial
  | combinatorial
 
 \knowledge{notion}
@@ -196,6 +201,7 @@
  | (noncommutative output) polynomial functions
  | polynomial functions
  | polynomial function
+ | Polynomial functions
 \knowledge{notion}
  | binomial monomial
  | binomial monomials

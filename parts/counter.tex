@@ -4,50 +4,30 @@
 \label{polynomials:sec}
 
 \AP In this section, we will completely characterize which polynomials in
-$\Rat[\vec{X}]$ that are \kl{represented} by \kl{$\Nat$-polyregular functions}
-(resp. \kl{$\Rel$-polyregular functions}). To that end, we start by
-characterizing these classes for polynomials in $\Rel[\vec{X}]$.
-We say that a polynomial $P \in \Rel[X_1, \dots, X_n]$ is an
-\intro{$\Nat$-rational polynomial} if it is \kl{represented} by a
-\kl{$\Nat$-rational series}, in which case it is also \kl{represented} by a
-\kl{$\Nat$-polyregular function}, because it has \kl{polynomial growth}
-(\cref{polyregular-polynomial-growth:lemma}).
-The analogue notion of \intro{$\Rel$-rational polynomials} is not
-of particular interest, since every polynomial $P \in \Rel[X_1, \dots, X_n]$ is
-\kl{represented} by a \kl{$\Rel$-polyregular function}. 
-It is an easy check that
+$\Rat[\vec{X}]$ that are \kl{represented} by \kl{$\Nat$-rational series} (resp.
+\kl{$\Rel$-rational series}). To that end, we start by characterizing these
+classes for polynomials in $\Rel[\vec{X}]$. We say that a polynomial $P \in
+\Rel[X_1, \dots, X_n]$ is an \intro{$\Nat$-rational polynomial} if it is
+\kl{represented} by a \kl{$\Nat$-rational series}. It is an easy check that
 polynomials with coefficients in $\Nat$ are \kl{$\Nat$-rational polynomials}
 (\cref{n-poly-n-poly:example}). However, \cref{negative-but-npoly:ex} provides
 a polynomial with negative coefficients that is an \kl{$\Nat$-rational
-polynomial}. 
-The problem of characterizing \kl{$\Nat$-rational polynomials} was claimed to
-be solved in \cite{KARH77}, using the \cref{karh:def}
-to  characterize
-\kl{$\Nat$-rational polynomials}, as restated in \cref{karh:thm}.
+polynomial}. The problem of characterizing \kl{$\Nat$-rational polynomials} was
+claimed to be solved in \cite{KARH77}, using the \cref{karh:def} to
+characterize \kl{$\Nat$-rational polynomials}, as restated in \cref{karh:thm}.
 
-\begin{lemma}
-    \label{n-poly-n-poly:example}
+\begin{lemma}[restate=n-poly-n-poly:example,label=n-poly-n-poly:example]
     \proofref{n-poly-n-poly:example}
     Let $P \in \Nat[\vec{X}]$. Then, $P$
     is an \kl{$\Nat$-rational polynomial}.
 \end{lemma}
-\begin{proof}
-    The polynomials of $\Nat[\vec{X}]$
-    are obtained from basic functions (constant in $\Nat$,
-    $X_i$ for some $1 \leq i \leq n$)
-    by products and sums (\cref{stability-polyregular:lemma}). Because the basic functions are
-    \kl{represented} by \kl{star-free $\Nat$-polyregular} functions (see
-    \cref{size-of-word-nsf:ex}),
-    that are closed under these operations, we conclude.
-\end{proof}
 
-\begin{example}
-    \label{negative-but-npoly:ex}
+\begin{example}[restate=negative-but-npoly:ex,label=negative-but-npoly:ex]
     \proofref{negative-but-npoly:ex}
     The polynomials $X$, $X^2 + 3$,
     and $X^2 - 2X + 2$
     are \kl{$\Nat$-rational polynomials},
-    but $- X$ is a \kl{$\Rel$-rational polynomial} that is 
+    but $- X$ is 
     not an \kl{$\Nat$-rational polynomial}.
 \end{example}
 
@@ -116,8 +96,7 @@ We define $\intro*\BadPoly(X,Y,Z) \defined Z (X + Y)^2 + 2 (X - Y)^2$.
     \label{thm:counter-example}
     The polynomial $\BadPoly$ belongs to $\CoveredPoly$,
     but is not an \kl{$\Nat$-rational polynomial}.
-    As a corollary, 
-    the result stated in \cite[Theorem 3.3]{KARH77}, restated
+    As a corollary, \cite[Theorem 3.3]{KARH77}, restated
     in \cref{karh:thm}, is false
     when allowing at least $3$ indeterminates.
 \end{lemma}
@@ -136,12 +115,10 @@ We define $\intro*\BadPoly(X,Y,Z) \defined Z (X + Y)^2 + 2 (X - Y)^2$.
     \kl{$\Nat$-polyregular function} $f \colon \Sigma^* \to \Nat$
     such that for all $w \in \Sigma^*$,
     $\BadPoly(\card[a]{w}, \card[b]{w}, \card[c]{w}) = f(w)$.
-
     Remark that for all $x,y,z \geq 0$, $\BadPoly(x,y,z) = 0$
     if and only if $z(x+y)^2 = -2 (x-y)^2$. Hence,
     $\BadPoly(x,y,z)=0$ if and only if $z = 0$ and $x = Y$, or 
     $z \neq 0$, and $x = y = 0$.
-
     Now, let us consider the language $L \defined \setof{w}{ f(w) = 0}$. By the
     above computation, we conclude that $L = \setof{ w \in \set{a,b}^* }{
     \card[a]{w} = \card[b]{w} } \cup \set{ c }^*$.

@@ -12,6 +12,7 @@
 
 \begin{document}
 \begin{tikzpicture}[
+    xscale=1.5,
     cls/.style={minimum width=2cm, minimum height=1cm},
     axis/.style={
         ->,
@@ -70,11 +71,20 @@
     \draw[decidable] (NP) to (P);
     \draw[decidable] (NSF) to (SF);
 
-    \draw[inclusion] (NP) to (ZP);
-    \draw[inclusion] (NSF) to (ZSF);
-    \draw[inclusion] (NR) to (ZR);
-    \draw[inclusion] (SF) to (P);
-    \draw[inclusion] (NSF) to (NP);
+    \draw[inclusion] (NP) to 
+        node[midway,right] {\cite[Open question 5.55]{DOUE23}}
+    (ZP);
+    \draw[inclusion] (NSF) to 
+        (ZSF);
+    \draw[inclusion] (NR) to 
+        node[midway,right] {\cref{n-in-z-rat:problem}}
+        (ZR);
+    \draw[inclusion] (SF) to 
+        node[midway,below] {\cref{sf-polyregular:problem}}
+        (P);
+    \draw[inclusion] (NSF) to 
+        node[midway,below] {\cite[Conjecture 7.61]{DOUE23}}
+    (NP);
 
 \end{tikzpicture}
 \end{document}

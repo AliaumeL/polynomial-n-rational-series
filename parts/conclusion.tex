@@ -14,9 +14,8 @@ $X$. Let us formally restate this for two earlier results in the case of
 \kl{$\Rel$-polyregular functions}
 in \cref{pre-compose-growth-commut:lemma,pre-compose-sf-commut:lemma}.
 
-\begin{lemma}
+\begin{lemma}[restate=pre-compose-growth-commut:lemma,label=pre-compose-growth-commut:lemma]
     \proofref{pre-compose-growth-commut:lemma}
-    \label{pre-compose-growth-commut:lemma}
     Let $f \in \ZRat$, and $k \in \Nat$. Then,
     $f \in \ZPoly[k]$ if and only if 
     for every \kl{commutative} \kl{star-free polyregular function} $h$
@@ -26,9 +25,8 @@ in \cref{pre-compose-growth-commut:lemma,pre-compose-sf-commut:lemma}.
 
 
 
-\begin{lemma}
+\begin{lemma}[restate=pre-compose-sf-commut:lemma,label=pre-compose-sf-commut:lemma]
     \proofref{pre-compose-sf-commut:lemma}
-    \label{pre-compose-sf-commut:lemma}
     Let $f \in \ZPoly$. Then, $f \in \ZSF$,
     if and only if for every \kl{commutative} \kl{star-free polyregular function} $h$,
             $(f \circ h) \in \ZSF$.
@@ -36,11 +34,11 @@ in \cref{pre-compose-growth-commut:lemma,pre-compose-sf-commut:lemma}.
 
 Remark that if \cref{pre-compose-sf-commut:lemma} were to hold for
 \kl{$\Nat$-polyregular functions}, then the decidability of $\NPoly$ inside
-$\ZPoly$ would follow immediately, and $\NSF$ inside $\NPoly$ would also
-immediately follow. On the one hand, one can guess a candidate function and
-check for equivalence, on the other hand, one can guess a \kl{commutative}
-\kl{star-free polyregular function} and check membership (which is decidable
-thanks to this paper). This is restated in our concluding conjecture.
+$\ZPoly$, and the decidability of $\NSF$ inside $\NPoly$ would immediately
+follow. On the one hand, one can guess a candidate function and check for
+equivalence, on the other hand, one can guess a \kl{commutative} \kl{star-free
+polyregular function} and check membership (which is decidable thanks to this
+paper). This is restated in our concluding conjecture.
 
 \begin{conjecture}
     \label{npoly-zpoly:conjecture}
@@ -48,6 +46,4 @@ thanks to this paper). This is restated in our concluding conjecture.
     A function $f \in \ZPoly[k]$
     belongs to $\NPoly[k]$ if and only if
     it is \kl{$(k,\Nat)$-combinatorial}.
-    In particular,
-    $\NPoly[k] = \ZPoly[k] \cap \NPoly$.
 \end{conjecture}

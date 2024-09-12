@@ -4,6 +4,15 @@
 \section{Proofs of section \ref{polynomials:sec}}
 
 
+\begin{proofof}[n-poly-n-poly:example]
+    The polynomials of $\Nat[\vec{X}]$
+    are obtained from basic functions (constant in $\Nat$,
+    $X_i$ for some $1 \leq i \leq n$)
+    by products and sums (\cref{stability-polyregular:lemma}). Because the basic functions are
+    \kl{represented} by \kl{star-free $\Nat$-polyregular} functions (see
+    \cref{size-of-word-nsf:ex}),
+    that are closed under these operations, we conclude.
+\end{proofof}
 
 \begin{proofof}[negative-but-npoly:ex]
     The function $w \mapsto |w|$ is a \kl{$\Nat$-polyregular function}.
@@ -94,7 +103,7 @@
 	a ratio     $0 \leq b \leq n_\ell$,
 	a remainder $0 \leq r < \omega \times \card{u_\ell}$,
 	and a partition of
-	$)u_\ell^\omega)_{[-r:]} u_\ell^{\omega \times (n_\ell - b)}
+	$(u_\ell^\omega)_{[-r:]} u_\ell^{\omega \times (n_\ell - b)}
 		\alpha_{\ell+1} \cdots \alpha_{p-1} u_p^{n_p} \alpha_{p}$
 	into $k$ words,
 	where we have used the notation
@@ -105,36 +114,37 @@
 	Now, given $(\ell, b, r)$ respecting the inequalities
 	mentioned above,
 	one can define the \kl{polynomial functions}
-	$s_{\ell,r,b} \colon \Nat^{\ell - 1} \to \Sigma^*$
+	$\CutPref{\ell,r,b} \colon \Nat^{\ell - 1} \to \Sigma^*$
 	and
-	$q_{\ell,r} \colon \Nat^{p - \ell + 1} \to \Sigma^*$
+	$\CutSuff{\ell,r} \colon \Nat^{p - \ell + 1} \to \Sigma^*$
 	so that
-	$q(X_1, \dots, X_p) = s_{\ell,r,b}(X_1, \dots, X_{\ell-1})
+	$q(X_1, \dots, X_p) = \CutPref{\ell,r,b}(X_1, \dots, X_{\ell-1})
 		q_{\ell, r}(X_{\ell} - b, \dots, X_p)$
 	under the assumption that $X_\ell \geq b$:
-	\begin{equation*}
-		q_{\ell,r}(X_{1}, \dots, X_{p - \ell + 1})
-		\defined
-		u_\ell^\omega\mid_{[-r:]} u_\ell^{\omega \times X_1}
+	\begin{align*}
+        \CutPref{\ell,r,b}(X_1, \dots, X_{\ell - 1})
+        &\defined
+        \alpha_0 u_1^{\omega X_1} \alpha_2 \dots \alpha_{\ell - 1}
+        u_\ell^{\omega b} (u_{\ell}^\omega)_{[1:r]}
+        \quad .
+        \\
+		\CutSuff{\ell,r}(X_{1}, \dots, X_{p - \ell + 1})
+        &\defined
+        (u_\ell^\omega)_{[-r:]} u_\ell^{\omega X_1}
 		\alpha_{\ell+1} \cdots \alpha_{p-1} u_p^{X_{p - \ell + 1}} \alpha_{p}
 		\quad .
-	\end{equation*}
-	Similarly, let us define
-	$s_{\ell, r, b}(X_1, \dots, X_{\ell - 1})$
-	as
-	$\alpha_0 u_1^{\omega X_1} \alpha_2 \dots \alpha_{\ell - 1}
-		u_\ell^{\omega b} (u_{\ell}^\omega)_{[1:r]}$,
-	Remark that $q_{\ell,r}$ has all of its indeterminates
+	\end{align*}
+	Remark that $\CutSuff{\ell,r}$ has all of its indeterminates
 	multiplied by $\omega$, so that the induction hypothesis
 	can be used.
 
-	The key remark is that $\mu(s_{\ell,r,b}(X_1, \dots, X_{\ell - 1}))$ is a
+	The key remark is that $\mu(\CutPref{\ell,r,b}(X_1, \dots, X_{\ell - 1}))$ is a
 	constant function from $\Nat^{\ell-1}$ to $M$, and that its value
 	only depends on whether $b = 0$ or $b > 0$.
 	This holds with
 	the exact same proof as the base case of this induction. Let us call
 	$m_{\ell,r,1}$ and $m_{\ell,r,0}$ the two elements of the monoid that are
-	obtained by $\mu(s_{\ell,r,b}(X_1, \dots, X_{\ell-1}))$ respectively when
+	obtained by $\mu(\CutPref{\ell,r,b}(X_1, \dots, X_{\ell-1}))$ respectively when
 	$b = 0$ and when $b > 0$. Finally, let us define $\pi_{\ell,r,0} \colon M^k
 		\to \Nat$ via $\pi_{\ell,r,0}(m_2, \dots, m_{k+1}) \defined
 		\pi(m_{\ell,r,0}, m_1, \dots, m_{k+1})$.
@@ -146,55 +156,51 @@
 	$\pi \colon M^{k+1} \to \Nat$.
 	In the following equations, we omit the precise
 	range for the sum over $(\ell, r, b)$ to save space.
-	Similarly, we will use
-	$q_{\ell,r}(X_1, \dots, X_{p-\ell+1})
-		\defined q_{\ell,r}(X_1+b, X_2, \dots, X_{p - \ell + 1})$
-	at the end of the computation.
 	\begin{align*}
 		 & f(q(n_1, \dots, n_p))           \\
 		 & \eqdef
 		\sum_{v_1 \dots v_{k+1} = q(n_1, \dots, n_p)}
 		\pi(\mu(v_1), \dots, \mu(v_{k+1})) \\
 		 & = \sum_{(\ell, b, r)}
-		\sum_{v_2 \dots v_{k+1} = q_{\ell,r}(n_\ell - b, \dots, n_p)}
-		\pi(\mu(s_{\ell,r,b}(n_1, \dots, n_{\ell-1})), \mu(v_2), \dots, \mu(v_{k+1}))
+		\sum_{v_2 \dots v_{k+1} = \CutSuff{\ell,r}(n_\ell - b, \dots, n_p)}
+		\pi(\mu(\CutPref{\ell,r,b}(n_1, \dots, n_{\ell-1})), \mu(v_2), \dots, \mu(v_{k+1}))
 		\\
 		 & =
 		\sum_{(\ell, 0, r)}
-		\sum_{v_2 \dots v_{k+1} = q_{\ell,b,0}(n_\ell - b, \dots, n_p)}
+		\sum_{v_2 \dots v_{k+1} = \CutSuff{\ell,b,0}(n_\ell - b, \dots, n_p)}
 		\pi(m_{\ell,r,0}, \mu(v_2), \dots, \mu(v_{k+1}))
 		\\
 		 & +
 		\sum_{(\ell, b > 0, r)}
-		\sum_{v_2 \dots v_{k+1} = q_{\ell,r}(n_\ell - b, \dots, n_p)}
+		\sum_{v_2 \dots v_{k+1} = \CutSuff{\ell,r}(n_\ell - b, \dots, n_p)}
 		\pi(m_{\ell,r,1}, \mu(v_2), \dots, \mu(v_{k+1}))
 		\\
 		 & =
 		\sum_{(\ell, 0, r)}
-		\sum_{v_2 \dots v_{k+1} = q_{\ell,b,0}(n_\ell - b, \dots, n_p)}
+		\sum_{v_2 \dots v_{k+1} = \CutSuff{\ell,b,0}(n_\ell - b, \dots, n_p)}
 		\pi_{\ell,r,0}(\mu(v_2), \dots, \mu(v_{k+1}))
 		\\
 		 & +
 		\sum_{(\ell, b > 0, r)}
-		\sum_{v_2 \dots v_{k+1} = q_{\ell,r}(n_\ell-b, \dots, n_p)}
+		\sum_{v_2 \dots v_{k+1} = \CutSuff{\ell,r}(n_\ell-b, \dots, n_p)}
 		\pi_{\ell,r,1}(\mu(v_2), \dots, \mu(v_{k+1}))
 		\\
 		 & =
 		\sum_{1 \leq \ell \leq p}
 		\sum_{0 \leq r < \omega \times \card{u_\ell}}
-		(\pi_{\ell,r,0})^\dagger (q_{\ell, 0, r}(n_\ell-b, \dots, n_p))
+		(\pi_{\ell,r,0})^\dagger (\CutSuff{\ell, 0, r}(n_\ell-b, \dots, n_p))
 		\\
 		 & +
 		\sum_{1 \leq \ell \leq p}
 		\sum_{0 \leq r < \omega \times \card{u_\ell}}
 		\sum_{0 < b < n_\ell}
-		(\pi_{\ell,r,1})^{\dagger}(q_{\ell,r}(n_\ell - b, \dots, n_p))
+		(\pi_{\ell,r,1})^{\dagger}(\CutSuff{\ell,r}(n_\ell - b, \dots, n_p))
 	\end{align*}
 	Now, using the induction hypothesis,
 	we have \kl{natural binomial functions} $F_{\ell,r,0}$ and $F_{\ell,r,1}$
 	satisfying
 	\begin{equation*}
-		(\pi_{\ell,r,1})^{\dagger}(q_{\ell,r}(n_\ell - b, \dots, n_p))
+		(\pi_{\ell,r,1})^{\dagger}(\CutSuff{\ell,r}(n_\ell - b, \dots, n_p))
 		= F_{\ell,r,1}(\omega (n_\ell - b), \dots, \omega n_p)
 		\quad
 		\forall n_\ell - b, \dots, n_p \geq 1
@@ -202,7 +208,7 @@
 	\end{equation*}
 	And similarly
 	\begin{equation*}
-		(\pi_{\ell,r,0})^{\dagger}(q_{\ell,r}(n_1, \dots, n_{\ell-1})
+		(\pi_{\ell,r,0})^{\dagger}(\CutSuff{\ell,r}(n_1, \dots, n_{\ell-1})
 		= F_{\ell,r,0}(\omega n_1, \dots, \omega n_{\ell-1})
 		\quad
 		\forall n_1, \dots, n_{\ell - 1} \geq 1
@@ -398,51 +404,57 @@
     $\Nat^k$, justifying the weakening of the hypothesis.
 \end{proofof}
 
-\begin{proofof}[natural-binomial-polynomial-positive-bad:ex]
-    $Q$ belongs to $\Rel[\vec{X}]$, but not to $\CorrectPoly$ because
-    $Q(0,Y,Z)$ has a negative maximal monomial,
-    hence it cannot be \kl{represented} by a \kl{star-free $\Nat$-polyregular function}
-    thanks to \cref{corrected-version:thm}.
-\end{proofof}
 
-\section{Proofs of section \ref{beyond-polynomials:sec}}
-
-\begin{proofof}[decompose-polynomial:lem]
-    Let us first write $f \in \ZPoly$ as a linear combination 
-    $f = f_+ - f_-$ where both $f_+$ and $f_-$ are in $\NPoly$.
-    We 
-    compute $\omega_+$ (resp. $\omega_-$)
-    by
-    applying
-    \cref{n-poly-combinatorics:lem} 
-    to $f_+$ (resp. to $f_-$).
-    Finally, let $\omega$ be the least common multiple
-    of $\omega_+$ and $\omega_-$, i.e. $\omega \defined \ppcm(\omega_+, \omega_-)$.
-
-    Using this $\omega$,
-    for any choice of
-    $r \defined (r_1, \dots, r_n) \in \set{0, \dots, \omega - 1}$,
-    there exists two \kl{natural binomial functions} $F_r^+$ and $F_r^-$
-    associated to $f_+$ and $f_-$,
-    such that $x_1, \dots, x_p \geq 1$:
+\begin{proofof}[polyrec-integer-strong:lem]
+    Because $n P \in \CorrectPoly$,
+    it is represented by a \kl{star-free $\Nat$-polyregular function} $f$ thanks to
+    \cref{corrected-version:thm}. Let us now use \cref{n-sf-combinatorics:lem}
+    to obtain a number $s \geq 1$ (that only depends on $P$) such
+    that for all \kl{polynomial function} $q \colon \Nat^k \to \Sigma^*$, $g
+    \circ q(X_1 + s, \dots, X_k + s)$ is a \kl{natural binomial function} $F$
+    over $\Nat^k$. Let us write the
+    \kl{natural binomial function} $F$ as follows $F(X_1, \dots, X_k) =
+    \sum_{\card{\alpha} \leq d_2} e_{\alpha} \prod_{i = 1}^k \binom{X -
+    p_{\alpha,i}}{\alpha(i)}$, with $e_{\alpha} \in \Nat$ for all
+    $\card{\alpha} \leq d_2$.
+    Now, because of the equality 
+    $\binom{X - p - 1}{k} + \binom{X - p - 1}{k - 1} = \binom{X - p}{k}$,
+    we conclude that we can find a $K \in \Nat$ and coefficients
+    $f_{\alpha} \in \Nat$ such that 
+    $F(X_1, \dots, X_k) =
+    \sum_{\card{\alpha} \leq d_2} f_{\alpha} \prod_{i = 1}^k \binom{X_i - K}{\alpha(i)}$.
+    Now, remark that $P$ is an \kl{integer-valued} polynomial of
+    degree $d$, and therefore one can write $P = \sum_{\card{\alpha} \leq d}
+    c_{\alpha} \prod_{i = 1}^k \pbinom{X_i - K}{\alpha(i)}$ with $c_{\alpha}
+    \in \Rel$ for all $\card{\alpha} \leq d$
+    (\cref{integer-binomial-polynomial:lem}). 
+    As a consequence,
+    $\lambda P = \sum_{\card{\alpha} \leq d} \lambda c_{\alpha} \prod_{i = 1}^k \pbinom{X_i - K - s}{\alpha(i)}$,
+    and 
+    by identifying coefficients in the previous two expressions, we obtain
+    $c_{\alpha} = \lambda f_{\alpha}$ for all $\card{\alpha} \leq d$.
+    Finally,
+    $\lambda P(x_1 + s, \dots, x_k + s) = F(x_1, \dots, x_k)$ for all $\vec{x} \in \Nat^k$,
+    and therefore
+    $\lambda P (X_1 + s, \dots, X_k + s) =
+    \sum_{\card{\alpha} \leq d_2} f_{\alpha} \prod_{i = 1}^k \pbinom{X_i - K}{\alpha(i)}$.
+    In particular,
+    we get
     \begin{equation*}
-        f\left(
-        a_1^{\omega x_1 + r_1} \cdots a_n ^{\omega x_n + r_n}\right) 
-        = F_r^+(x_1, \dots, x_p) - F_r^-(x_1, \dots, x_p) \quad .
+        \sum_{\card{\alpha} \leq d} \lambda c_{\alpha} \prod_{i = 1}^k \pbinom{X_i - K}{\alpha(i)} =
+        \sum_{\card{\alpha} \leq d_2} f_{\alpha} \prod_{i = 1}^k \pbinom{X_i - K}{\alpha(i)}
     \end{equation*}
-    Now, for large enough values of $x_1, \dots, x_p$,
-    this means that 
-    $f\left(
-        a_1^{\omega x_1 + r_1} \cdots a_n ^{\omega x_n + r_n}\right)$
-    coincides with an \kl{integer binomial polynomial},
-    and we can therefore conclude selecting different values of $r$ and
-    setting some subsets of variables to be assigned to the constant $0$.
+    And we conclude by term identification
+    by term identification
+    that $d = d_2$, and for all $\card{\alpha} \leq d$, $\lambda c_{\alpha} = f_{\alpha}$.
+    As a consequence, $c_{\alpha} \in \Nat$ for all $\card{\alpha} \leq d$,
+    and $P$
+    is a \kl{natural binomial polynomial}.
+    Remark that this reasoning remains true whenever we partially apply $P$ to some values
+    in $\Nat$, as it amounts to 
+    partially applying the function $f$. We have proven that 
+    $P$ is a \kl{strongly natural binomial polynomial}.
 \end{proofof}
-
-
-
-
-
 
 \section{Proofs of section \ref{sec:ccl}}
 

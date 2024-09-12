@@ -3,9 +3,7 @@
 \section{Preliminaries}
 \label{preliminaries:sec}
 
-\AP In the rest of this paper, we use the symbol $\Rel$ to denote the set of
-integers, $\Rat$ to denote the set of rational numbers, and $\Nat$ to denote
-the set of non-negative integers. The capital letters $\Sigma,\Gamma$ denote
+\AP The capital letters $\Sigma,\Gamma$ denote
 fixed alphabets, i.e. finite set of letters, and $\Sigma^*, \Gamma^*$ (resp.
 $\Sigma^+, \Gamma^+$) are the set of words (resp. non-empty words) over
 $\Sigma, \Gamma$. The empty word is written $\varepsilon \in \Sigma^*$. When $w
@@ -20,18 +18,6 @@ paper, let us recall that a monoid $M$ is \intro(monoid){aperiodic} whenever
 for all $x \in M$, there exists $n \in \Nat$ such that $x^{n+1} = x^n$. If the
 monoid $M$ is finite, this $n$ can be uniformly chosen for all elements in $M$.
 
-\AP Let us briefly recall that one of the equivalent definitions of a
-\intro{$K$-rational series} (where $K$ is a ring), and refer to \cite{BERE10}
-for a comprehensive introduction. The \kl{$K$-rational series} from $\Sigma^*$
-to $K$ are the functions computed by \kl{$K$-weighted automata} which are
-non-deterministic finite automata with transitions labelled by elements of $K$,
-and whose output on a given word is the sum over all accepting paths of the
-products of the weights along the path. For instance, the function $w \mapsto
-2^{\card{w}}$ is computed by an \kl{$\Nat$-weighted automaton} with a single
-state, and a loop labelled by $2$, and is therefore an \kl{$\Nat$-rational
-series}. We use $\intro*\NRat$ and $\intro*\ZRat$ to denote respectively
-the set of \kl{$\Nat$-rational series} and the set of \kl{$\Rel$-rational
-series}.
 
 \AP We use the notation $\commute \colon \Sigma^* \to \Nat^\Sigma$ for the map
 that counts occurrences of every letter in the input word (that is, computes
@@ -90,8 +76,7 @@ $Y^2$.
 $\Rel$, we will only provide the definition of \kl{polyregular functions} for
 these two output semigroups, and we refer the reader to \cite{BOKL19} for the
 general definition of \kl{polyregular functions}. 
-
-\AP We chose in this paper to provide a very combinatorial description of
+We chose in this paper to provide a very combinatorial description of
 polyregular functions with commutative outputs because it will play nicely with
 our analysis on polynomials. This description is very similar in shape to the
 \emph{finite counting automata} introduced by \cite{SCHU62}. For the sake of

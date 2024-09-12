@@ -29,7 +29,8 @@
 % Common theorem styles
 %\theoremstyle{plain}
 %\newtheorem{theorem}{Theorem}[section]
-\newtheorem{faketheorem}[theorem]{Untrue Theorem}
+\newtheorem{faketheorem}[theorem]{Flawed Theorem}
+\newtheorem{problem}[theorem]{Problem}
 %\newtheorem{lemma}[theorem]{Lemma}
 %\newtheorem{proposition}[theorem]{Proposition}
 %\newtheorem{corollary}[theorem]{Corollary}
@@ -57,6 +58,16 @@
   \expandafter\mathrm\expandafter{\the\cytoks}%
 }
 \makeatother
+
+\NewDocumentCommand{\rightmarginnote}{m}{%
+    \checkoddpage%
+    \ifoddpage%
+        \marginpar{#1}%
+    \else%
+        \reversemarginpar%
+        \marginpar{#1}%
+    \fi
+}
 
 % Create a proof environment for results in appendix,
 % that take a label of a theorem in the main text, and
@@ -88,14 +99,14 @@
 % Refers to the proof of a result
 \NewDocumentCommand{\proofref}{m}{%
     \ifdefined\insideRestate%
-        \marginpar{\vspace{0.6em}\ttfamily\small\hyperref[#1]{Go to \cref{#1} p.\pageref{#1:proof}}}%
+        \rightmarginnote{\vspace{0.6em}\ttfamily\small\hyperref[#1]{Go to \cref{#1} p.\pageref{#1:proof}}}%
     \else%
     % if appendices are present, then refer to the appendix
     % otherwise do nothing.
     % \hyperref[#1:proof]{Proof of \cref{#1}}
     \IfRefUndefinedExpandable{#1:proof}{}{%
         %\hfill\hyperref[#1:proof]{(Proof p.\pageref{#1:proof})}
-        \marginpar{\vspace{0.6em}\ttfamily\small\hyperref[#1:proof]{Go to proof of \cref{#1} p.\pageref{#1:proof}}}%
+        \rightmarginnote{\vspace{0.6em}\ttfamily\small\hyperref[#1:proof]{Go to proof of \cref{#1} p.\pageref{#1:proof}}}%
     }%
     \fi%
 }
