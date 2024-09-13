@@ -44,6 +44,17 @@
     The result follows by observing that
     checking whether a polynomial $P \in \Rel[\vec{X}]$ has no solutions in $\Rel^n$ if and only 
     if $P^2 - 1$ is \kl{non-negative}. 
+
+    Let us prove that checking whether $P \in \CoveredPoly$ is undecidable. Let
+    $P \in \Rel[\vec{X}]$ be a polynomial, and let us write $P = P_+ - P_-$
+    where both $P_+$ and $P_-$ belong to $\Nat[\vec{X}]$. Let $Z$ be a fresh
+    indeterminate. We define $Q \defined P_+ (Z - 1) P_-$. By construction, $Q$
+    has \kl{non-negative} \kl{maximal monomials}. Furthermore, $Q$ itself is
+    \kl{non-negative} if and only if $\restr{Q}{Z = 0} = P$ is \kl{non-negative},
+    since for every $n > 0$, $\restr{Q}{Z = n} \in \Nat[\vec{X}]$ is
+    \kl{non-negative}. We conclude that 
+    $P$ is \kl{non-negative} if and only if $Q$ is \kl{non-negative},
+    if and only if $Q \in \CoveredPoly$.
 \end{proofof}
 
 \begin{proofof}[n-poly-combinatorics:lem]

@@ -48,16 +48,19 @@ section is mainly concerned with proving the following corrected version of
 
 Let us briefly remark that \cref{corrected-version:thm} is surprising given the
 fact that is not possible to decide whether a polynomial $P \in \Rel[\vec{X}]$
-is \kl{non-negative} (\cref{undecidable-non-negative:lem}), by reduction to the
-undecidability of Hilbert's Tenth Problem \cite{HILB1902,MATI1970}. That is,
-$\CorrectPoly$ is a decidable class that interpolates between the undecidable
-class of non-negative polynomials and strictly generalize polynomials in
-$\Nat[\vec{X}]$.
+is \kl{non-negative} or if a polynomial $P$ belongs to $\CoveredPoly$
+(\cref{undecidable-non-negative:lem}), by reduction to the undecidability of
+Hilbert's Tenth Problem \cite{HILB1902,MATI1970}. That is, $\CorrectPoly$ is a
+decidable class that strictly contains $\Nat[\vec{X}]$, and is contained in the
+undecidable classes $\CoveredPoly$ and the class of \kl{non-negative}
+polynomials.
 
 \begin{remark}[restate=undecidable-non-negative:lem,label=undecidable-non-negative:lem]
     \proofref{undecidable-non-negative:lem}
     Checking whether a polynomial
     $P \in \Rel[\vec{X}]$ is \kl{non-negative} is undecidable.
+    Similarly, checking whether a polynomial $P \in \Rel[\vec{X}]$
+    belongs to $\CoveredPoly$ is undecidable.
 \end{remark}
 
 
@@ -473,6 +476,11 @@ imply being an \kl{$\Nat$-rational polynomial}.
 	we fix the two indeterminates, leading to a constant polynomial.
 \end{proof}
 
+We conclude from \cref{lem:correct-covered-2} that $\CoveredPoly[X,Y]$ is a
+decidable class of polynomials, hence that Hilbert's Tenth Problem is
+decidable for polynomials in two indeterminates with non-negative maximal
+monomials.
+
 \subsection{From $\Rel$ to $\Rat$}
 \label{sec:rel-to-rat}
 
@@ -632,4 +640,3 @@ class of polynomials \kl{represented} by $\NPoly$ is the same as the class of
 polynomials \kl{represented} by $\NSF$, which is a non-trivial statement that
 will be reused in the study of more general \kl{commutative} functions in
 $\ZPoly$.
-
