@@ -46,7 +46,7 @@ section is mainly concerned with proving the following corrected version of
 	Furthermore, the properties are decidable, and conversions effective.
 \end{theorem}
 
-Let us briefly remark that \cref{corrected-version:thm} is surprising given the
+\Cref{corrected-version:thm} is surprising given the
 fact that is not possible to decide whether a polynomial $P \in \Rel[\vec{X}]$
 is \kl{non-negative} or if a polynomial $P$ belongs to $\CoveredPoly$
 (\cref{undecidable-non-negative:lem}), by reduction to the undecidability of
@@ -70,7 +70,7 @@ functions can be computed in $\NPoly$ and $\ZPoly$. This allows us to prove
 that \kl{$\Nat$-polyregular functions} are in $\CorrectPoly$
 (\cref{n-rat-correct:lem}). Then, in \cref{sec:poly-to-n-poly} we will show how
 to compute polynomials in $\CorrectPoly$ using $\NPoly$
-(\cref{lem:correct-to-n-rat}). Then, we will next generalize
+(\cref{lem:correct-to-n-rat}). Finally, we will next generalize
 \cref{corrected-version:thm} to polynomials in $\Rat[\vec{X}]$ in
 \cref{sec:rel-to-rat}.
 
@@ -90,7 +90,7 @@ two main goals. Our first goal is to highlight the role of \kl{commutative}
 which is done by reformulating the traditional pumping argument as a
 composition property involving said functions, which will be reused in the
 upcoming \cref{k-combinatorial:def,ultimately-polynomial:def}
-in
+of
 \cref{beyond-polynomials:sec}. Our second goal
 is to give a precise shape of the functions that arise from such \emph{pumping
 arguments}, which was lacking in former similar statements.
@@ -136,6 +136,9 @@ generalizing \cref{q-polynomial-n-poly:ex}.
 	which is clearly expressible as a \kl{star-free polyregular function}.
 \end{proof}
 
+Conversely, when suitably pumping a \kl{$\Nat$-polyregular function}, one
+always obtains \kl{natural binomial functions}.
+
 \begin{lemma}[restate=n-poly-combinatorics:lem,label=n-poly-combinatorics:lem]
     \proofref{n-poly-combinatorics:lem}
 	Let $f$ be an \kl{$\Nat$-polyregular} function.
@@ -154,7 +157,7 @@ generalizing \cref{q-polynomial-n-poly:ex}.
 	\end{equation*}
 \end{lemma}
 
-Let us highlight that the multiplicative factor $\omega$ is necessary in
+The multiplicative factor $\omega$ is necessary in
 \cref{n-poly-combinatorics:lem}. Indeed, the function $f \colon \set{a}^* \to
 \Nat$ defined as $0$ when the input is of odd length and $1$ when the input is
 of even length is \kl{$\Nat$-polyregular}, but $f(a^X)$ is not a polynomial. We
@@ -307,7 +310,6 @@ X_n]$ to the polynomial $P(X_1 + K, \dots, X_n + K)$.
 	We conclude that $\Diff{K}{P_1} + \translate{K}(P_2) = 0$
 	for all $K \in \Nat$, hence belongs to $\Nat[\vec{X}]$. Selecting $K = 0$
 	we conclude.
-
 	Assume now that $P$ is not a constant polynomial. We will use
 	\cref{all-positive-derivative:lem} on a well-selected value of $K$. Let us
 	write $\alpha$ to be the maximal absolute value of a coefficient in $P$.
@@ -324,7 +326,6 @@ X_n]$ to the polynomial $P(X_1 + K, \dots, X_n + K)$.
 	of $\Diff{K}{P_1}$ has a coefficient that is a multiple of $K = \alpha \times D$, we can
 	compensate every monomial of $P_2$ by a monomial of $\Diff{K}{P_1}$.
 	Therefore,
-	we conclude that
 	$Q \in \Nat[\vec{X}]$.
 \end{proof}
 
@@ -348,8 +349,8 @@ X_n]$ to the polynomial $P(X_1 + K, \dots, X_n + K)$.
 	\textbf{Induction:} Assume that $P$ is not a constant polynomial, and let
 	us write $P = P_1 + P_2$ where $P_1$ is the sum of the \kl{maximal
 		monomials} of $P$. We compute a bound $K$ such that $Q \defined
-		(\Diff{K}{P_1} + \translate{K}(P_2)) \in \Nat[\vec{X}]$ using
-	\cref{derivation-stabilises-correct:lem}. In particular, $Q$ is
+		(\Diff{K}{P_1} + \translate{K}(P_2)) \in \Nat[\vec{X}]$ 
+        (\cref{derivation-stabilises-correct:lem}). In particular, $Q$ is
 	\kl{represented} by a \kl{star-free $\Nat$-polyregular function} using
 	\cref{n-poly-n-poly:example}, the latter being effectively computable from
 	$Q$. Let us now remark that $P_1 \in \Nat[\vec{X}]$, and is therefore
@@ -476,18 +477,13 @@ imply being an \kl{$\Nat$-rational polynomial}.
 	we fix the two indeterminates, leading to a constant polynomial.
 \end{proof}
 
-We conclude from \cref{lem:correct-covered-2} that $\CoveredPoly[X,Y]$ is a
-decidable class of polynomials, hence that Hilbert's Tenth Problem is
-decidable for polynomials in two indeterminates with non-negative maximal
-monomials.
-
 \subsection{From $\Rel$ to $\Rat$}
 \label{sec:rel-to-rat}
 
 \AP Let us complete our analysis of polynomials \kl{represented} by $\NRat$
 or $\ZRat$ by considering polynomials with coefficients in $\Rat$, and
 justify that all the combinatorial work has already happened in $\Rel$ and
-$\Nat$. A first observation is that from \cref{n-sf-combinatorics:lem}, we know
+$\Nat$. From \cref{n-sf-combinatorics:lem}, we know
 that the polynomials that can be computed by \kl{star-free $\Nat$-polyregular
 functions} are going to coincide (on large enough inputs) with \kl{natural binomial
 functions}. For that reason, we introduce the following ``polynomial
@@ -567,7 +563,7 @@ that are \kl{represented} by $\NPoly$ (\cref{decide-rat-poly-npoly:cor}).
 	The polynomial
 	$Q(X,Y,Z) \defined \pbinom{X - 4}{1} \pbinom{Y}{1} \pbinom{Z}{1}
 		+ 8 \pbinom{Y}{2} + 8 \pbinom{Z}{2} + 4$
-	is a \kl{non-negative} \kl{natural binomial polynomial},
+    is a \kl{non-negative} \kl{natural binomial polynomial} in $\Rel[X,Y,Z]$,
 	but cannot be computed by a \kl{star-free $\Nat$-polyregular function}.
     Indeed, 
     $Q(0,Y,Z)$ has a negative maximal monomial, hence $Q \not \in \CorrectPoly$,

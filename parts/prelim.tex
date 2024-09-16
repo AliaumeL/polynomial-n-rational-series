@@ -40,8 +40,7 @@ function $P(X,Y) = X \times Y$ is \kl{represented} by the \kl{commutative}
 function $g \colon \set{a,b}^* \to \Rel$ defined by $g(w) \defined \card[a]{w}
 \times \card[b]{w}$.
 
-\subsection{Polynomials} \AP All polynomials considered in this paper have
-coefficients in $\Rel$ unless explicitly stated otherwise. A polynomial $P \in
+\subsection{Polynomials} \AP A polynomial $P \in
 \Rel[X_1, \dots, X_k]$ is \intro{non-negative} when for all non-negative
 integer inputs $n_1, \dots, n_k \geq 0$, the output  $P(n_1, \dots, n_k)$ of
 the polynomial is non-negative. Beware that we do not consider negative values
@@ -50,15 +49,13 @@ of a letter in a word. As an example, the polynomial $(X - Y)^2$ is
 \kl{non-negative}, and so is the polynomial $X^3$, but the polynomial $X^2 -
 2X$ is not.
 
-\AP Let us now give some vocabulary on polynomials with multiple indeterminates
-over $\Rel$. A \intro{monomial} is a product of indeterminates and integers.
+\AP A \intro{monomial} is a product of indeterminates and integers.
 For instance, $XY$ is a \kl{monomial}, $3 X$ is a \kl{monomial}, $-Y$ is a
 \kl{monomial}, but $X + Y$ and $2X^2 + XY$ are not. We write $\intro*\Monomials[X_1,
 \dots, X_n]$ for the set of \kl{monomials} over these indeterminates.
 Every polynomial $P \in \Rel[X_1, \dots, X_n]$ decomposes uniquely
 into a sum of \kl{monomials}.
-
-\AP A \kl{monomial} $S$ \intro{divides} a \kl{monomial} $T$, when $S$ divides
+A \kl{monomial} $S$ \intro{divides} a \kl{monomial} $T$, when $S$ divides
 $T$ seen as polynomials in $\Rat$. For instance, $2X$ \kl{divides} $XY$, $-YZ$
 \kl{divides} $X^2 Y Z^3$, and $Y$ does not \kl{divide} $X$. In the
 decomposition of $P \in \Rel[X_1, \dots, X_k]$, a \kl{monomial} is a
@@ -79,9 +76,7 @@ general definition of \kl{polyregular functions}.
 We chose in this paper to provide a very combinatorial description of
 polyregular functions with commutative outputs because it will play nicely with
 our analysis on polynomials. This description is very similar in shape to the
-\emph{finite counting automata} introduced by \cite{SCHU62}. For the sake of
-simplicity, we only consider $\Rel$-valued (resp. $\Nat$-valued) functions, but
-could consider other commutative semigroups.
+\emph{finite counting automata} introduced by \cite{SCHU62}. 
 
 \begin{definition}[$\Rel$-polyregular functions {\cite{CDTL23}}]
     \label{nat-rel-poly:def}
@@ -113,9 +108,8 @@ could consider other commutative semigroups.
 $\ZSF$. In order to illustrate these definitions, let us provide an example of
 a \kl{$\Nat$-polyregular function} computed using a finite monoid in
 \cref{size-of-word-nsf:ex}. Let us also introduce in
-\cref{q-polynomial-n-poly:ex} a function that will appear frequently in this
-paper as an example of \emph{division} computed by a \kl{$\Nat$-polyregular
-function}.
+\cref{q-polynomial-n-poly:ex} a function that serves as an example of
+\emph{division} computed by a \kl{$\Nat$-polyregular function}.
 
 \begin{example}
     \label{size-of-word-nsf:ex}
