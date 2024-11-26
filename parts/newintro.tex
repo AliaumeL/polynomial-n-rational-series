@@ -1,0 +1,128 @@
+%! TeX program = xelatex
+%! lang = en-US
+% MAIN MATTER
+\section{Introduction}
+\label{introduction:sec}
+
+\AP Given a semiring $\mathbb{S}$, and a finite alphabet $\Sigma$, the class of
+\kl{(noncommutative) $\mathbb{S}$-rational series} is defined as functions from
+$\Sigma^*$ to $\mathbb{S}$ that are computed by \kl{$\mathbb{S}$-weighted
+automata} \cite{BERE10}. This computational model is a generalization of the
+classical notion of non-deterministic finite automata to the weighted setting,
+where transitions are labeled with elements of $\mathbb{S}$. The semantics of
+\kl{$\mathbb{S}$-weighted automata} on a given word $w$ is defined by the sum
+over all accepting runs reading $w$, of the product of the weights of the
+transitions taken along this run. In this paper, we are interested in the case
+where $\mathbb{S}$ equals $\Nat$ or $\Rel$, hence, in $\Nat$-rational series
+($\intro*\NRat$) and $\Rel$-rational series ($\intro*\ZRat$). It is clear that
+$\NRat$ is a proper subclass of $\ZRat$, and a longstanding open problem is to
+provide an algorithm that decides whether a given $\ZRat$ is in $\NRat$
+\cite{KARH77}. 
+
+\begin{problem}
+    \label{n-in-z-rat:problem}
+    Input: A $\ZRat$ $f$. Output: Is $f$ in $\NRat$?
+\end{problem}
+
+\Cref{n-in-z-rat:problem} recently received attention in the context of
+\kl{polyregular functions}, a computational model that aims to
+generalize the theory of regular languages to the setting of string-to-string
+functions \cite{BOJA18}. In the case of regular languages, \emph{star-free
+languages} form a robust subclass of regular languages described equivalently
+in terms of first order logic \cite{MNPA71}, counter-free automata
+\cite{MNPA71}, or aperiodic monoids \cite{SCHU65}. Analogously, there exists a
+\emph{star-free} fragment of \kl{polyregular functions} called \kl{star-free
+polyregular functions} \cite{BOJA18}. One open question in this area is to
+decide whether a given \kl{polyregular function} is \kl{star-free}.
+
+\begin{problem}
+    \label{sf-polyregular:problem}
+    Input: A \kl{polyregular function} $f$. Output: Is $f$ \kl{star-free}?
+\end{problem}
+
+\AP In order to approach decision problems on \kl{polyregular functions},
+restricting the output alphabet to a single letter has proven to be a fruitful
+method \cite{DOUE21,DOUE22}. Because words over a unary alphabet are
+canonically identified with natural numbers, unary output \kl{polyregular
+functions} are often called \kl{$\Nat$-polyregular functions} ($\NPoly$), and
+their \emph{star-free} counterpart \kl{star-free $\Nat$-polyregular functions}
+($\NSF$). Coincidentally, \kl{polyregular functions} with unary output form
+subclass of \kl{$\Nat$-rational series}, namely the classf of
+\kl{$\Nat$-rational series} of \emph{polynomial growth}, i.e. the output of the
+function is bounded by a polynomial in the size of the input. In \cite{CDTL23},
+the authors introduced the class of \kl{$\Rel$-polyregular functions}
+($\ZPoly$) as a subclass of \kl{$\Rel$-rational series} that generalizes
+\kl{$\Nat$-polyregular functions} by allowing negative outputs, and showed that
+membership in the \emph{star-free} subclass $\ZSF$ inside $\ZPoly$ is decidable
+\cite[Theorem V.8]{CDTL23}. Although this could not be immediately leveraged to
+decide $\NSF$ inside $\NPoly$, it was conjectured that $\NPoly \cap \ZSF =
+\NSF$ \cite[Conjecture 7.61]{DOUE23}. It was believed that understanding the
+membership problem of $\NPoly$ inside $\ZPoly$, that is, a restricted version
+of \cref{n-in-z-rat:problem}, would be a key step towards proving $\NPoly \cap
+\ZSF = \NSF$, which itself would give hope in designing an algorithm for
+\cref{sf-polyregular:problem}. We illustrate in
+\cref{previously-known-inclusions:fig} the known inclusions and related open
+problems between the discussed classes of functions.
+
+\begin{figure}
+    \centering
+    \includestandalone[height=5cm]{tikz/class-inclusions}
+    \caption{
+        Decidability and inclusions of classes of functions,
+        arranged along two axes. The first one is the complexity
+        of the output alphabet ($\Rel$, $\Nat$, $\Sigma$). The second
+        one is the allowed computational power
+        (\kl{star-free polyregular functions}, \kl{polyregular functions}, 
+        \kl{rational series}).
+        Arrows denote strict inclusions,
+        and effectiveness (both in terms of decidability and of effective
+        representation) is represented by thick double arrows. Inclusions that are
+        suspected to be effective are represented using a dashed arrow together with a
+        question mark.
+    }
+    \label{previously-known-inclusions:fig}
+\end{figure}
+
+
+\subparagraph*{Contributions.} We prove that $\NSF = \NPoly \cap \ZSF$
+\cite[Conjecture 7.61]{DOUE23} and design an algorithm that decides whether a
+function in $\ZPoly$ is in $\NPoly$ \cite[Open question 5.55]{DOUE23}, both
+under the extra assumption of \emph{commutativity}, that is, assuming that the
+function is invariant under the permutation of its input. As a consequence, the
+upper left square of \cref{previously-known-inclusions:fig} has all of its
+arrows decidable and with effective conversion procedures under this extra
+assumption. Because \kl{$\Rel$-rational series} with \emph{polynomial growth}
+are exactly \kl{$\Rel$-polyregular functions} \cite{CDTL23}, this can be seen
+as decision procedure for \cref{n-in-z-rat:problem} under the extra assumption
+of \emph{commutativity} and \emph{polynomial growth}. Similarly, our results
+provide an algorithm for \cref{sf-polyregular:problem} under the extra
+assumption of \emph{commutativity} and \emph{unary output alphabet}.
+
+As an intermediate step, we provide a complete and decidable characterization
+of polynomials in $\Rat[\vec{X}]$ that can be computed using $\NRat$ (resp.
+$\ZRat)$. These characterizations uncover a fatal flaw in the proof of a former
+characterization of such polynomials \cite[Theorem 3.3, page 4]{KARH77}.
+Furthermore, these characterizations provide effective descriptions of
+polynomials that can be expressed in $\ZRat$ as those obtained using integer
+combinations of products of \emph{binomial coefficients} (called \kl{integer
+binomial polynomials}, defined page \kpageref{integer binomial polynomial}) and
+similarly for $\NRat$ by introducing the notion of \kl{strongly natural
+binomial polynomials} (defined page \kpageref{strongly natural binomial
+polynomial}), which we believe has its own interest. Finally, these
+characterizations demonstrate that polynomials expressible by $\ZRat$ (resp.
+$\NRat$) are exactly those expressible by $\ZSF$ (resp. $\NSF$), that is,
+polynomials are inherently \emph{star free} functions.
+
+\subparagraph*{Outline of the paper.} In \cref{preliminaries:sec}, we provide a
+combinatorial definition of \kl{$\Nat$-polyregular functions} (resp.
+\kl{$\Rel$-polyregular functions}), show that one can decide if a function $f
+\in \ZPoly$ is \kl{commutative} (\cref{decidable-commutative-poly:lemma}). In
+\cref{polynomials:sec}, we provide a counterexample to the flawed result of
+\cite[Theorem 3.3, page 4]{KARH77} (\cref{thm:counter-example}), and correct it
+by providing effective characterizations of polynomials computed by $\ZRat$
+(\cref{integer-binomial-polynomials:cor}) and $\NRat$
+(\cref{decide-rat-poly-npoly:cor}). Finally, in \cref{beyond-polynomials:sec},
+answer positively to \cite[Open question 5.55]{DOUE23}
+(\cref{decidable-n-poly:thm}) and to \cite[Conjecture 7.61]{DOUE23}
+(\cref{zsf-npoly-nsf:thm}), both under the extra assumption of
+\emph{commutativity}.
