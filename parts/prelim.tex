@@ -12,7 +12,7 @@ $w$, and $\card[a]{w}$ be the number of occurrences of $a$ in $w$.
 
 \AP We assume that the reader is familiar with the basics of automata theory,
 in particular the notions of monoid morphisms, idempotents in monoids, monadic
-second-order ($\MSO$) logic and first-order ($\FO$) logic over finite words
+second-order ($\intro*\MSO$) logic and first-order ($\intro*\FO$) logic over finite words
 (see e.g. \cite{THOM97}). As aperiodicity will be a central notion of this
 paper, let us recall that a monoid $M$ is \intro(monoid){aperiodic} whenever
 for all $x \in M$, there exists $n \in \Nat$ such that $x^{n+1} = x^n$. If the
@@ -68,13 +68,14 @@ In the polynomial $P(X,Y) \defined (X - Y)^2$, the \kl{non-negative}
 \label{polyregular:sec}
 
 \AP Because the functions of interest in this paper have output in $\Nat$ or
-$\Rel$, we will only provide the definition of \kl{polyregular functions} for
-these two output semigroups, and we refer the reader to \cite{BOKL19} for the
-general definition of \kl{polyregular functions}. 
-We chose in this paper to provide a combinatorial description of
-polyregular functions with commutative outputs because it will play nicely with
-our analysis on polynomials. This description is very similar in shape to the
-\emph{finite counting automata} introduced by \cite{SCHU62}. 
+$\Rel$, we will only provide the definition of \intro{polyregular functions}
+for these two output semigroups, and we refer the reader to \cite{BOKL19} for
+the general definition of \kl{polyregular functions} and their aperiodic
+counterpart, the \intro{star-free polyregular functions}. We chose in this
+paper to provide a combinatorial description of polyregular functions with
+commutative outputs because it will play nicely with our analysis on
+polynomials. This description is very similar in shape to the \emph{finite
+counting automata} introduced by \cite{SCHU62}. 
 
 \begin{definition}[$\Rel$-polyregular functions {\cite{CDTL23}}]
     \label{nat-rel-poly:def}

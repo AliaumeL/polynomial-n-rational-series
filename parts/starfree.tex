@@ -24,7 +24,7 @@ pumping arguments} \cite{DOUE21,DOUE22,CDTL23}.
     \intro{$(k,\Nat)$-combinatorial} if there exists $\omega \in \Nat$,
     such that
     for all
-    \kl{polynomial functions} $q \colon \Nat^k \to \Sigma^*$,
+    \kl{pumping patterns} $q \colon \Nat^k \to \Sigma^*$,
     there exists a \kl{strongly natural binomial polynomial} $P$
     satisfying:
     \begin{equation*}
@@ -129,7 +129,7 @@ $p \in \Nat$ by pointwise application.
     an $\omega_1 \in \Nat$ and \kl{integer binomial polynomials}
     $\seqof{P_{t}}{t \in \ModuloTypes[\omega_1]^k}$. Now, because $f$ is
     \kl{$(k,\Nat)$-combinatorial}, we also have a number $\omega_2 \in \Nat$
-    such that for all \kl{polynomial functions} $q$, there exists a
+    such that for all \kl{pumping patterns} $q$, there exists a
     \kl{strongly natural binomial polynomial} $P$ such that $f \circ q(\omega_2 \vec{X})
     = P$ over $(\Nat_{\geq 1})^k$. By considering $\omega \defined
     \omega_1 \times \omega_2$, we can without loss of generality assume that
@@ -150,7 +150,7 @@ $p \in \Nat$ by pointwise application.
         P_t(\seqof{x_i}{i \in S})
     \end{equation*}
 
-    Let us therefore consider the \kl{polynomial function} $q \colon \Nat^k \to
+    Let us therefore consider the \kl{pumping pattern} $q \colon \Nat^k \to
     \Sigma^*$ that is simply defined as $q(X_1, \dots, X_k) \defined \prod_{i =
     1}^k a_i^{ X_i \omega \ind{S}(i) + r_i}$. Because $f$ is
     \kl{$(k,\Nat)$-combinatorial} (with parameter $\omega$), there exists a
@@ -203,7 +203,7 @@ aperiodicity for languages to functions.
     is \intro{ultimately polynomial}
     when there exists $N_0 \in \Nat$ such that
     for all $n \in \Nat$,
-    for all \kl{polynomial function} $q \colon \Nat^n \to \Sigma^*$,
+    for all \kl{pumping pattern} $q \colon \Nat^n \to \Sigma^*$,
     there exists a polynomial $P \in \Rat[X_1, \dots, X_n]$
     such that:
     \begin{equation*}

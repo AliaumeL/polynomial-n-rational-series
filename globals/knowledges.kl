@@ -35,13 +35,12 @@
  | $\Nat $-weighted automaton
  | $\Rel $-rational series
  | $\Nat $-rational series
+ | rational series 
 
 \knowledge{notion}
  | regular function
  | regular functions
 
-\knowledge{notion}
- | rational series 
 
 \knowledge{notion}
  | polyregular function
@@ -103,7 +102,7 @@
  | divided
  | strictly divides
  | divide
- | divisibility ordering
+ | divisibility preordering
 
 \knowledge{notion}
  | non-negative
@@ -197,17 +196,15 @@
 
 
 \knowledge{notion}
- | (noncommutative output) polynomial function
- | (noncommutative output) polynomial functions
- | polynomial functions
- | polynomial function
- | Polynomial functions
+ | pumping pattern
+ | pumping patterns
+ | Pumping patterns
 \knowledge{notion}
  | binomial monomial
  | binomial monomials
 \knowledge{notion}
- | binomial function
- | binomial functions
+ | simple binomial function
+ | simple binomial functions
 \knowledge{notion}
  | natural binomial functions
  | natural binomial function
