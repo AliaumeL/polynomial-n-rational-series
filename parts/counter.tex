@@ -4,7 +4,7 @@
 \label{polynomials:sec}
 
 \AP In this section, we will completely characterize which polynomials in
-$\Rat[\vec{X}]$ that are \kl{represented} by \kl{$\Nat$-rational series} (resp.
+$\Rat[\vec{X}]$ are \kl{represented} by \kl{$\Nat$-rational series} (resp.
 \kl{$\Rel$-rational series}). To that end, we start by characterizing these
 classes for polynomials in $\Rel[\vec{X}]$. We say that a polynomial $P \in
 \Rel[X_1, \dots, X_n]$ is an \intro{$\Nat$-rational polynomial} if it is
@@ -51,8 +51,8 @@ characterize \kl{$\Nat$-rational polynomials}, as restated in \cref{karh:thm}.
     $P \in \CoveredPoly$.
 \end{faketheorem}
 
-Before giving a counterexample to the above statement, let us first provide via
-\cref{non-neg-not-nrat:ex} simple proof that there exists some
+Before giving a counterexample to the above statement, let us first exhibit in
+\cref{non-neg-not-nrat:ex} some
 \kl{non-negative} polynomial that is not an \kl{$\Nat$-rational polynomial}.
 While the example will not be in $\CoveredPoly$, it illustrates the key
 difference between \kl{non-negative} polynomials and \kl{$\Nat$-rational
@@ -77,12 +77,19 @@ in fact \kl{represented} by a \kl{$\Nat$-polyregular function} thanks to
     Then $P$ is \kl{non-negative}, but is
     not an \kl{$\Nat$-rational polynomial}.
     Indeed, assume by contradiction that
-    $f \in \NPoly$ \kl{represents} $f$ over the alphabet $\Sigma \defined \set{a,b}$.
+    $f \in \NPoly$ \kl{represents} $P$ over the alphabet $\Sigma \defined \set{a,b}$.
     Then, $f^{-1}(\set{0})$ is a regular language
     (\cref{pre-image-regular:fact}),
     but $f^{-1}(\set{0}) = \setof{ w \in \Sigma }{ \card[a]{w} = \card[b]{w} }$
     is not.
 \end{example}
+
+Please note that the same argument cannot be leveraged for proving that $P$ is
+not a \kl{$\Rel$-rational polynomial}: \cref{pre-image-regular:fact}
+only holds for
+\emph{string-to-string} functions, and is applied to the specific case where
+the output alphabet is $\set{1}$, i.e., where the output of the function
+belongs to $\set{1}^*$ which is isomorphic to $\Nat$.
 
 
 \AP
@@ -117,12 +124,12 @@ We define $\intro*\BadPoly(X,Y,Z) \defined Z (X + Y)^2 + 2 (X - Y)^2$.
     $\BadPoly(\card[a]{w}, \card[b]{w}, \card[c]{w}) = f(w)$.
     Remark that for all $x,y,z \geq 0$, $\BadPoly(x,y,z) = 0$
     if and only if $z(x+y)^2 = -2 (x-y)^2$. Hence,
-    $\BadPoly(x,y,z)=0$ if and only if $z = 0$ and $x = Y$, or 
+    $\BadPoly(x,y,z)=0$ if and only if $z = 0$ and $x = y$, or 
     $z \neq 0$, and $x = y = 0$.
     Now, let us consider the language $L \defined \setof{w}{ f(w) = 0}$. By the
     above computation, we conclude that $L = \setof{ w \in \set{a,b}^* }{
     \card[a]{w} = \card[b]{w} } \cup \set{ c }^*$.
-    Because $L \cap \set{a,b}^*$ not a regular language,
+    Because $L \cap \set{a,b}^*$ is not a regular language,
     we
     conclude that $L$ is not a regular language.
     However, $L = f^{-1}(\set{0})$ is a regular language

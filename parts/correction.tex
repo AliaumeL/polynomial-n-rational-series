@@ -47,7 +47,7 @@ section is mainly concerned with proving the following corrected version of
 \end{theorem}
 
 \Cref{corrected-version:thm} is surprising given the
-fact that is not possible to decide whether a polynomial $P \in \Rel[\vec{X}]$
+fact that it is not possible to decide whether a polynomial $P \in \Rel[\vec{X}]$
 is \kl{non-negative} or if a polynomial $P$ belongs to $\CoveredPoly$
 (\cref{undecidable-non-negative:lem}), by reduction to the undecidability of
 Hilbert's Tenth Problem \cite{HILB1902,MATI1970}. That is, $\CorrectPoly$ is a
@@ -96,7 +96,7 @@ is to give a precise shape of the functions that arise from such \emph{pumping
 arguments}, which was lacking in former similar statements.
 
 \AP To address our first goal, let us define that a function $q$ is a
-\intro{(noncommutative output) polynomial function} from $\Nat^p$ to $\Sigma^*$
+\intro{pumping pattern} from $\Nat^p$ to $\Sigma^*$
 whenever there exists words $\alpha_0, \dots, \alpha_p \in \Sigma^*$, and words
 $u_1, \dots, u_p \in \Sigma^*$, such that $q(X_1, \dots, X_p) = \alpha_0
 \prod_{i = 1}^p u_i^{X_i} \alpha_i$. That is, $q$ is syntactically defined by a
@@ -106,15 +106,15 @@ are \kl{commutative} \kl{polyregular functions}.
 \AP Our second goal is achieved by understanding that \kl{$\Nat$-polyregular
 functions} essentially compute binomial coefficients, as illustrated by the
 polynomial $X(X-1)/2 = \binom{X}{2}$
-of \cref{q-polynomial-n-poly:ex}. A \intro{binomial function} is a
+of \cref{q-polynomial-n-poly:ex}. A \intro{simple binomial function} is a
 function of the form $\binom{X - \ell}{k}$, where $\ell$ and $k$ are natural
 numbers. We extend this to \intro{natural binomial functions} that are obtained
-by considering $\Nat$-linear combinations of products of \kl{binomial
+by considering $\Nat$-linear combinations of products of \kl{simple binomial
 functions}, that is, we consider functions that have the following shape:
 $f(x_1, \dots, x_k) = \sum_{i = 1}^n n_i \prod_{j = 1}^k \binom{x_j -
 p_{i,j}}{k_{i,j}}$. Beware that $\binom{X - \ell}{k}$ is defined to be $0$ when
 $X \leq \ell$, and is therefore not a polynomial. Let us immediately
-prove that \kl{binomial functions}  can be \kl{represented} in $\NSF$,
+prove that \kl{simple binomial functions}  can be \kl{represented} in $\NSF$,
 generalizing \cref{q-polynomial-n-poly:ex}.
 
 
@@ -131,9 +131,18 @@ generalizing \cref{q-polynomial-n-poly:ex}.
 	by a function $f_{r,s} \in \NSF$.
 	Let us prove it when $r = 0$, since the other functions
 	can be obtained by translating $f_{r,s}$.
-	Remark that
-	$\binom{x}{s} = \sum_{u_1 \cdots u_{s+1} = a^x} 1$,
-	which is clearly expressible as a \kl{star-free polyregular function}.
+    By definition, $\binom{x}{s} = \card{P_{x,s}}$,
+    where $P_{x,s} \defined \setof{ (x_1, \dots, x_s) \in \Nat^s }{ 1 \leq x_1 < \cdots < x_s \leq x }$.
+    Let us proceed as in \cref{q-polynomial-n-poly:ex} and define 
+    $D_{w,s} \defined \setof{ (u_1, \dots, u_s, u_{s+1}) \in (\Sigma^+)^s \times \Sigma^* }{ w = u_1 u_2 \cdots u_s u_{s+1} }$.
+    It is clear that $D_{a^x,s}$ is in bijection with $P_{x,s}$ for all $x \in \Nat$
+    using the map $(x_1, \dots, x_s) \mapsto (a^{x_1}, \dots, a^{x_s})$.
+    Now, using the monoid $M \defined (\set{0,1}, \max)$
+    and the morphism $\mu(\varepsilon) \defined 0$ and $\mu(a) \defined 1$,
+    one can compute $\card{D_{w,s}}$ 
+    as $\pi^\dagger (w)$ where $\pi \colon M^{s+1} \to \Nat$ is defined by
+    $\pi(m_1, \dots, m_s, m_{s+1}) \defined m_1 \times \cdots \times m_s$.
+    We conclude that $f_{0,s} \in \NSF[s]$ is a \kl{star-free polyregular function}.
 \end{proof}
 
 Conversely, when suitably pumping a \kl{$\Nat$-polyregular function}, one
@@ -143,7 +152,7 @@ always obtains \kl{natural binomial functions}.
     \proofref{n-poly-combinatorics:lem}
 	Let $f$ be an \kl{$\Nat$-polyregular} function.
 	There exists a computable $\omega \in \Nat_{\geq 1}$
-	such that for all \kl{polynomial functions}
+	such that for all \kl{pumping patterns}
 	$q \colon \Nat^p \to \Sigma^*$,
 	there exists a computable \kl{natural binomial function} $F$
 	such that:
@@ -172,7 +181,7 @@ ingredient of our main \cref{zsf-npoly-nsf:thm}.
     \proofref{n-sf-combinatorics:lem}
 	Let $f$ be a \kl{star-free $\Nat$-polyregular} function.
 	There exists a computable $s \in \Nat_{\geq 1}$
-	such that for all \kl{polynomial functions}
+	such that for all \kl{pumping patterns}
 	$q \colon \Nat^p \to \Sigma^*$,
 	there exists a computable \kl{natural binomial function} $F$
 	such that:
@@ -218,7 +227,7 @@ that \kl{$\Nat$-rational polynomials} are in $\CorrectPoly$.
 		\quad .
 	\end{equation*}
     For large enough values of $X$, the \kl{binomial function}
-	$\binom{X - p}{k}$ coincides with a polynomial whose dominant coefficient
+	$\binom{X - p}{k}$ coincides with a polynomial whose leading coefficient
 	is $1/k!$ which is \kl{non-negative}.
 	We conclude that
 	the \kl{maximal monomials} of
@@ -229,7 +238,9 @@ that \kl{$\Nat$-rational polynomials} are in $\CorrectPoly$.
 	For every partial valuation $\nu \colon \vec{X} \topartial \Nat$,
 	the polynomial $\restr{P}{\nu}$ continues to be represented
 	by a \kl{$\Nat$-polyregular function}, namely
-	$f$ partially applied to a word $u$ and using a restricted input alphabet. As a consequence,
+	$f_u \colon w \mapsto f(uw)$ 
+    where $w$ belongs to a restricted alphabet.
+    As a consequence,
 	the \kl{maximal monomials} of
 	$\restr{P}{\nu}$ are also \kl{non-negative},
 	and
@@ -305,8 +316,7 @@ X_n]$ to the polynomial $P(X_1 + K, \dots, X_n + K)$.
 \begin{proof}
 	Let us first tackle the specific case where $P$ is a constant polynomial.
 	In this case, $P_1 = P$ and $P_2 = 0$.
-	Furthermore,
-	$\translate{K}(P_1) = P_1$ and $\Diff{K}{P_1} = 0$ for all $K \in \Nat$.
+	Furthermore, $\Diff{K}{P_1} = 0$ for all $K \in \Nat$.
 	We conclude that $\Diff{K}{P_1} + \translate{K}(P_2) = 0$
 	for all $K \in \Nat$, hence belongs to $\Nat[\vec{X}]$. Selecting $K = 0$
 	we conclude.
@@ -318,11 +328,11 @@ X_n]$ to the polynomial $P(X_1 + K, \dots, X_n + K)$.
 	and let
 	$Q \defined (\Diff{K}{P_1} + \translate{K}(P_2))$.
 	Remark that $\Diff{K}{P_1}$ is already in $\Nat[\vec{X}]$,
-	and the constant term of $\translate{K}(P_2)$ is also
+	and the constant coefficient of $\translate{K}(P_2)$ is also
 	in $\Nat$.
 	For any other monomial of $P_2$, by the maximality of $P_1$,
 	it strictly divides some monomial of $P_1$, and
-	equals some monomial of $\Diff{K}{P_1}$. Because every monomial
+	equals some monomial of $\Diff{K}{P_1}$ up to a multiplication by a factor in $\Rat$. Because every monomial
 	of $\Diff{K}{P_1}$ has a coefficient that is a multiple of $K = \alpha \times D$, we can
 	compensate every monomial of $P_2$ by a monomial of $\Diff{K}{P_1}$.
 	Therefore,
@@ -469,7 +479,7 @@ imply being an \kl{$\Nat$-rational polynomial}.
 	variables, we can assume without loss of generality that we
 	fix $X = k$ for some $k \in \Nat$.
 	Then $P(k,Y)$ is a \kl{non-negative} \emph{univariate} polynomial,
-	and therefore must have a positive leading coefficient
+	and therefore must either have a positive leading coefficient
 	(which is the unique \kl{maximal monomial} in this case)
 	or be constant equal to 0. In both cases, the \kl{maximal monomials}
 	have positive coefficient.
@@ -500,9 +510,9 @@ products of \kl{binomial monomials}.
 
 \AP
 These definitions are justified by the classical result of Pólya that
-characterizes polynomials $P$ in $\Rat[X]$ that \intro{integer-valued} (i.e., are such
+characterizes polynomials $P$ in $\Rat[X]$ that are \intro{integer-valued} (i.e., are such
 that $P(\Rel) \subseteq \Rel$) as \kl{integer binomial polynomials}
-\cite{POLYA1915,CACHA1996}, which are often called \emph{Newton Polynomials}. Note
+\cite{POLYA1915,CACHA1996}. Note
 that this result straightforwardly extends to multiple indeterminates as we
 prove in \cref{integer-binomial-polynomial:lem}.
 
@@ -519,8 +529,7 @@ binomial polynomials}.
 
 \begin{theorem}
 	\label{integer-binomial-polynomials:cor}
-	Let $P \in \Rat[\vec{X}]$, and let $\alpha$ be the minimal number in $\Nat$ such that
-	$\alpha P \in \Rel[\vec{X}]$. Then, the following properties are equivalent:
+	Let $P \in \Rat[\vec{X}]$. Then, the following properties are equivalent:
 	\begin{enumerate}
         \item \label{int-bin-3:item} $P$ is \kl{integer-valued},
         \item \label{int-bin-2s:item} $P$ is \kl{represented} by a \kl{$\Rel$-rational series},
@@ -576,7 +585,7 @@ that are \kl{represented} by $\NPoly$ (\cref{decide-rat-poly-npoly:cor}).
     \proofref{polyrec-integer-strong:lem}
     Let $P \in \Rat[\vec{X}]$ be an \kl{integer-valued} polynomial, 
     and $n \in \Nat_{\geq 1}$ be
-    such that $n P \in \Rel[\vec{X}] \cap \CorrectPoly$.
+    such that $n P \in \CorrectPoly$.
     Then, $P$ is a \kl{strongly natural binomial polynomial}.
 \end{lemma}
 
@@ -605,8 +614,7 @@ that are \kl{represented} by $\NPoly$ (\cref{decide-rat-poly-npoly:cor}).
     As a consequence, \cref{rat-npoly-0:item} $\iff$ \cref{rat-npoly-1:item}.
     For the implication \cref{rat-npoly-1:item} $\implies$
     \cref{rat-npoly-4:item}, we obtain $\alpha P \in \CorrectPoly$ via
-    \cref{corrected-version:thm} by remarking that the \kl{star-free
-    $\Nat$-polyregular functions} have output in $\Nat$ and are closed under
+    \cref{corrected-version:thm} by remarking that \kl{$\Nat$-polyregular functions} have output in $\Nat$ and are closed under
     multiplication by a constant $\alpha \in \Nat$. The fact that $P$ is
     \kl{integer-valued} follows from
     \cref{integer-binomial-polynomials:cor} and the fact that

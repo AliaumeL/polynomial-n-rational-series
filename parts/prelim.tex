@@ -28,43 +28,41 @@ permutations $\sigma$ of $\set{1, \dots, \card{w}}$, $f(\sigma(u)) = f(u)$.
 Equivalently, it is \reintro{commutative} whenever there exists a map $g \colon
 \Nat^\Sigma \to X$ such that $g \circ \commute = f$.
 
-\AP Let $n \in \Nat$, and let $\Sigma$ be a finite alphabet. Given a function
-$\eta \colon \set{1, \dots, n} \to \Sigma$, we define the $\eta^\dagger \colon
-\Nat^n \to \Sigma^*$ as $\eta^\dagger(\vec{x}) \defined \eta(1)^{x_1} \dots
-\eta(n)^{x_n}$. A function $f \colon \Nat^n \to X$ is \intro{represented} by a
+\AP Let $k \in \Nat$, and let $\Sigma$ be a finite alphabet. Given a function
+$\eta \colon \set{1, \dots, k} \to \Sigma$, we define the $\eta^\dagger \colon
+\Nat^k \to \Sigma^*$ as $\eta^\dagger(\vec{x}) \defined \eta(1)^{x_1} \dots
+\eta(k)^{x_k}$. A function $f \colon \Nat^k \to X$ is \intro{represented} by a
 \kl{commutative} function $g \colon \Sigma^* \to X$ if there exists a map $\eta
-\colon \set{1, \dots, n} \to \Sigma$ such that $g \circ \eta^\dagger = f$. This
+\colon \set{1, \dots, k} \to \Sigma$ such that $g \circ \eta^\dagger = f$. This
 notion will be useful to formally state that a polynomial ``is'' a
 \kl{commutative} \kl{polyregular function}. For instance, the polynomial
 function $P(X,Y) = X \times Y$ is \kl{represented} by the \kl{commutative}
 function $g \colon \set{a,b}^* \to \Rel$ defined by $g(w) \defined \card[a]{w}
 \times \card[b]{w}$.
 
-\subsection{Polynomials} \AP A polynomial $P \in
-\Rel[X_1, \dots, X_k]$ is \intro{non-negative} when for all non-negative
-integer inputs $n_1, \dots, n_k \geq 0$, the output  $P(n_1, \dots, n_k)$ of
-the polynomial is non-negative. Beware that we do not consider negative values
-as input, as the numbers $n_i$ will ultimately count the number of occurrences
-of a letter in a word. As an example, the polynomial $(X - Y)^2$ is
-\kl{non-negative}, and so is the polynomial $X^3$, but the polynomial $X^2 -
+\subsection{Polynomials} \AP A polynomial $P \in \Rel[X_1, \dots, X_k]$ is
+\intro{non-negative} when for all non-negative integer inputs $n_1, \dots, n_k
+\geq 0$, the output  $P(n_1, \dots, n_k)$ of the polynomial is non-negative. In
+the case of at most three indeterminates, we use variables $X,Y,Z$ instead of
+$X_1, X_2, X_3$ to lighten the notation. Beware that we do not consider
+negative values as input, as the numbers $n_i$ will ultimately count the number
+of occurrences of a letter in a word. As an example, the polynomial $(X - Y)^2$
+is \kl{non-negative}, and so is the polynomial $X^3$, but the polynomial $X^2 -
 2X$ is not.
 
-\AP A \intro{monomial} is a product of indeterminates and integers.
-For instance, $XY$ is a \kl{monomial}, $3 X$ is a \kl{monomial}, $-Y$ is a
-\kl{monomial}, but $X + Y$ and $2X^2 + XY$ are not. We write $\intro*\Monomials[X_1,
-\dots, X_n]$ for the set of \kl{monomials} over these indeterminates.
-Every polynomial $P \in \Rel[X_1, \dots, X_n]$ decomposes uniquely
-into a sum of \kl{monomials}.
-A \kl{monomial} $S$ \intro{divides} a \kl{monomial} $T$, when $S$ divides
-$T$ seen as polynomials in $\Rat$. For instance, $2X$ \kl{divides} $XY$, $-YZ$
+\AP A \intro{monomial} is a product of indeterminates and integers. For
+instance, $XY$ is a \kl{monomial}, $3 X$ is a \kl{monomial}, $-Y$ is a
+\kl{monomial}, but $X + Y$ and $2X^2 + XY$ are not. Every polynomial $P \in
+\Rel[X_1, \dots, X_n]$ decomposes uniquely into a sum of \kl{monomials}. A
+\kl{monomial} $S$ \intro{divides} a \kl{monomial} $T$, when $S$ divides $T$
+seen as polynomials in $\Rat$. For instance, $2X$ \kl{divides} $XY$, $-YZ$
 \kl{divides} $X^2 Y Z^3$, and $Y$ does not \kl{divide} $X$. In the
 decomposition of $P \in \Rel[X_1, \dots, X_k]$, a \kl{monomial} is a
 \intro{maximal monomial} if it is a maximal element for the \kl{divisibility
-ordering} of \kl{monomials}. In the polynomial $P(X,Y) \defined X^2 - 2XY + Y^2
-+ X + Y$, the set of \reintro{maximal monomials}, written
-$\intro*\MaximalMonomials(P)$, is $\set{X^2,  -2 XY,  Y^2}$.  In the polynomial
-$P(X,Y) \defined (X - Y)^2$, the \kl{non-negative} \kl{monomials} are $X^2$ and
-$Y^2$.
+preordering} of \kl{monomials}. In the polynomial $P(X,Y) \defined X^2 - 2XY + Y^2
++ X + Y$, the set of \reintro{maximal monomials} is $\set{X^2,  -2 XY,  Y^2}$.
+In the polynomial $P(X,Y) \defined (X - Y)^2$, the \kl{non-negative}
+\kl{monomials} are $X^2$ and $Y^2$.
 
 \subsection{Polyregular Functions}
 \label{polyregular:sec}
@@ -73,40 +71,40 @@ $Y^2$.
 $\Rel$, we will only provide the definition of \kl{polyregular functions} for
 these two output semigroups, and we refer the reader to \cite{BOKL19} for the
 general definition of \kl{polyregular functions}. 
-We chose in this paper to provide a very combinatorial description of
+We chose in this paper to provide a combinatorial description of
 polyregular functions with commutative outputs because it will play nicely with
 our analysis on polynomials. This description is very similar in shape to the
 \emph{finite counting automata} introduced by \cite{SCHU62}. 
 
 \begin{definition}[$\Rel$-polyregular functions {\cite{CDTL23}}]
     \label{nat-rel-poly:def}
-    Let $k \in \Nat$. The set $\intro*\ZPoly[k]$ of polyregular
-    \intro{$\Rel$-polyregular functions} of degree at most $k$,
+    Let $d \in \Nat$. The set $\intro*\ZPoly[d]$ of polyregular
+    \intro{$\Rel$-polyregular functions} of degree at most $d$,
     is the set of functions $f \colon \Sigma^* \to \Rel$
     such that
     there exists a finite monoid $M$,
     a morphism $\mu \colon \Sigma^* \to M$,
-    and a function $\pi \colon M^{k+1} \to \Rel$
+    and a function $\pi \colon M^{d+1} \to \Rel$
     satisfying for all $w \in \Sigma^*$:
     \begin{equation*}
         f (w) = \pi^\dagger (w) \defined
-        \sum_{w = u_1 \cdots u_{k+1}} \pi(\mu(u_1), \dots, \mu(u_{k+1}))
+        \sum_{w = u_1 \cdots u_{d+1}} \pi(\mu(u_1), \dots, \mu(u_{d+1}))
         \quad .
     \end{equation*}
     We call $\pi$ the \intro{production function} of $f$.
     If the function $\pi$ has codomain $\Nat$,
-    then $f$ is \intro{$\Nat$-polyregular} of degree at most $k$,
-    i.e., $f \in \intro*\NPoly[k]$.
+    then $f$ is \intro{$\Nat$-polyregular} of degree at most $d$,
+    i.e., $f \in \intro*\NPoly[d]$.
     If the monoid $M$ is \kl(monoid){aperiodic}
     then
     the function $f$ is \intro{star-free $\Rel$-polyregular}
-    ($\intro*\ZSF[k]$), resp. \intro{star-free $\Nat$-polyregular} ($\intro*\NSF[k]$).
+    ($\intro*\ZSF[d]$), resp. \intro{star-free $\Nat$-polyregular} ($\intro*\NSF[d]$).
 \end{definition}
 
 \AP We complete \cref{nat-rel-poly:def} by letting $\reintro*\NPoly \defined
-\bigcup_{k \in \Nat} \NPoly[k]$, and similarly for $\ZPoly$, $\NSF$, and
+\bigcup_{d \in \Nat} \NPoly[d]$, and similarly for $\ZPoly$, $\NSF$, and
 $\ZSF$. In order to illustrate these definitions, let us provide an example of
-a \kl{$\Nat$-polyregular function} computed using a finite monoid in
+an \kl{$\Nat$-polyregular function} computed using a finite monoid in
 \cref{size-of-word-nsf:ex}. Let us also introduce in
 \cref{q-polynomial-n-poly:ex} a function that serves as an example of
 \emph{division} computed by a \kl{$\Nat$-polyregular function}.
@@ -136,33 +134,35 @@ a \kl{$\Nat$-polyregular function} computed using a finite monoid in
 \begin{example}
     \label{q-polynomial-n-poly:ex}
     Let $f \colon \Sigma^* \to \Nat$ that maps a word $w$
-    to the sum of the length of its prefixes,
-    i.e., $f(w) \defined \sum_{uv = w} \card{u}$.
-    The function $f$ is an \kl{$\Nat$-polyregular function}
-    and 
-    $f(w) = \card{w}( \card{w} - 1) / 2$.
+    to the number of distinct pairs of positions in $w$,
+    i.e., $f(w) = \binom{\card{w}}{2} = \card{w}(\card{w} - 1) / 2$.
+    Then, $f \in \NSF[2]$.
 \end{example}
 \begin{proof}
+    Let us remark that the set $P_w$ of distinct pairs of positions
+    $i < j$ in a word $w$ is in bijection with the set $D_w$ of
+    decompositons of the form $w = xyz$,
+    where $x$ and $y$ are non-empty, 
+    via the map $(i,j) \mapsto (w_{1,i}, w_{i+1,j}, w_{j+1,\card{w}})$.
     Let us write $M \defined (\set{0,1}, \max)$
     which is a finite aperiodic monoid, and $\mu \colon \Sigma^* \to M$
-    that maps $\varepsilon$ to $0$ and the other words to $1$.
+    that maps the empty word $\varepsilon$ to $0$ and the other words to $1$.
     Then, let us define $\pi \colon M^3 \to \Nat$
-    via $\pi(x,y,z) = y$.
-    Remark that 
+    via $\pi(x,y,z) = x \times y$.
+    We conclude because:
     \begin{align*}
         \pi^\dagger(w) 
         &\defined
         \sum_{xyz = w} \pi(\mu(x), \mu(y), \mu(z)) 
         = 
-        \sum_{uz = w} \sum_{xy = u} \pi(\mu(x), \mu(y), \mu(z)) 
+        \sum_{xyz = w \wedge x \neq \varepsilon \wedge y \neq \varepsilon} 1
         = 
-        \sum_{uz = w} \sum_{xy = u} \mu(y) \\
-        &= 
-        \sum_{uz = w} \card{u} 
+        \card{D_w}
+        =
+        \card{P_w}
         = f(w) \quad .
+        \qedhere
     \end{align*}
-    Finally, the fact that 
-    $\sum_{i = 0}^n i = n(n-1) / 2$ justifies the last equality.
 \end{proof}
 
 \AP One of the appeals of $\NPoly$ and $\ZPoly$ are the numerous
@@ -170,18 +170,18 @@ characterizations of these classes in terms of logic, weighted automata, and
 the larger class of \kl{polyregular functions} \cite{CDTL23,DOUE23}. In this
 paper, the main focus will be the connection to \kl{weighted automata}, which is
 based on the notion of \emph{growth rate}. The \intro{growth rate} of a
-function $f \colon \Sigma^* \to \Rel$ is defined as the minimal $k$ such that
-$\card{f(w)} = \bigO\left(\card{w}^k\right)$. If such a $k$ exists, we say that
+function $f \colon \Sigma^* \to \Rel$ is defined as the minimal $d$ such that
+$\card{f(w)} = \bigO\left(\card{w}^d\right)$. If such a $d$ exists, we say that
 the function $f$ has \intro{polynomial growth}. It turns out that for all $k
-\in \Nat$, $\ZPoly[k]$ (resp. $\NPoly[k]$) are precisely functions in $\ZRat$
-(resp. in $\NRat)$ that have growth rate at most $k$.
+\in \Nat$, $\ZPoly[d]$ (resp. $\NPoly[d]$) are precisely functions in $\ZRat$
+(resp. in $\NRat)$ that have growth rate at most $d$.
 
 \begin{lemma}[{\cite[Theorem 5.22]{DOUE23}}]
     \label{polyregular-polynomial-growth:lemma}
     Let $f \in \ZRat$. The following are equivalent:
     \begin{enumerate}
-        \item $f \in \ZPoly[k]$.
-        \item $f$ has \kl{polynomial growth} of degree at most $k$.
+        \item $f \in \ZPoly[d]$.
+        \item $f$ has \kl{polynomial growth} of degree at most $d$.
     \end{enumerate}
     And similarly for $\NPoly$ and $\NRat$.
 \end{lemma}
@@ -191,12 +191,15 @@ Let us introduce some compositional properties of
 to construct \kl{$\Rel$-polyregular functions}.
 \begin{lemma}[{\cite[Theorem II.20]{CDTL23}}]
     \label{stability-polyregular:lemma}
-    Let $k \geq 1$ and 
-    $f,g \in \NPoly[k]$ (resp. $\ZPoly[k]$, $\NSF[k]$, $\ZSF[k]$),
-    $L$ be a \kl{star-free language} over $\Sigma^*$.
+    Let $d \geq 1$,
+    $f,g \in \NPoly[d]$ (resp. $\ZPoly[d]$, $\NSF[d]$, $\ZSF[d]$),
+    $L$ be a \kl{star-free language} over $\Sigma^*$,
+    and $h \colon \Sigma^* \to \Gamma^*$ be a \kl{polyregular function}
+    (resp. a \kl{star-free polyregular function}).
     Then, the following 
-    are also in $\NPoly[k]$ (resp. $\ZPoly[k]$,
-    $\NSF[k]$, $\ZSF[k]$):
+    are also in $\NPoly[d]$ (resp. $\ZPoly[d]$,
+    $\NSF[d]$, $\ZSF[d]$):
+    $f \circ h$,
     $f + g \defined w \mapsto f(w) + g(w)$,
     $f \times g \defined w \mapsto f(w) \times g(w)$,
     $\ind{L} \times f$.
@@ -222,7 +225,7 @@ consequence, we are working inside a relatively robust and decidable subclass of
     $f \circ c = f = f \circ t$.
     When $f$ is a \kl{rational series},
     $f \circ c$ and $f \circ t$ are both \kl{rational series} that can be
-    effectively computed from $f$, and since equivalence
+    effectively computed from $f$ \textbf{TODO cite}, and since equivalence
     of rational series is decidable 
     \cite[Corollary 3.6]{BERE10},
     we have obtained a decision procedure.
