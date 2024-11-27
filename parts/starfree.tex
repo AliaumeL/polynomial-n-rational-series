@@ -8,9 +8,6 @@ In this section, we leverage the decidability results of \cref{polynomials:sec}
 to decide membership in $\NPoly$
 inside $\ZPoly$ and membership in $\NSF$ inside $\NPoly$, both under the extra
 assumption of \kl{commutativity}. 
-
-%\subsection{Deciding $\NPoly$ inside $\ZPoly$}
-
 To characterize $\NPoly$ inside $\ZPoly$ we introduce the notion of
 \kl{$(k,\Nat)$-combinatorial} function
 (\cref{k-combinatorial:def}), following the spirit of previous
@@ -37,74 +34,40 @@ pumping arguments} \cite{DOUE21,DOUE22,CDTL23}.
     \end{equation*}
 \end{definition}
 
-\AP
-\Cref{k-combinatorial:def} is meaningful under the hypothesis of
-\kl{commutativity}, because the latter reduces $\ZPoly$ to a combination of a
-finite number of polynomials, arranged by counting modulo some numbers. This
-characterization is stated in \cref{decompose-polynomial:lem}, and will
-be the key ingredient in the decision procedures of $\NPoly$ inside $\ZPoly$.
-To actually state the lemma, we will need some notations that will
-formalize the intuitive idea of identifying tuples of integers modulo some
-constant. Let $\omega \in \Nat_{\geq 1}$, we define the set
-$\intro*\ModuloTypes[\omega] \defined \set{0, \dots, \omega^2} \times \set{0,
-\dots, \omega - 1}$ of \intro{types modulo $\omega$}. To a number $n \in \Nat$,
-we associate its \reintro{$\omega$-type} written
-$\intro*\moduloType[\omega](n)$ which is defined as the pair $(t, r)$ where $t
-= \min (n, \omega^2)$ and $r$ is the  remainder of the Euclidean division of
-$n$ by $\omega$. This notion of type is lifted to vectors in $\Nat^p$ for any
-$p \in \Nat$ by pointwise application.
-
+\AP Given a number $\omega \in \Nat$, let us write
+$\intro*\ModuloTypes[\omega]^k$ for the collection of pairs $(S, \vec{r})$
+where $S \subseteq \set{1, \dots, k}$ and $r \in \set{0, \dots, \omega - 1}^k$.
+To a tuple $\vec{x} \in \Nat^k$, one can associate its \intro{$\omega$-type}
+$\intro*\moduloType[\omega](\vec{x})$ which is the pair $(S, \vec{r})$ where $S
+= \set{i \in \set{1, \dots, k} \mid x_i \geq \omega}$ and $\vec{r} = (x_i \mod
+\omega)_{i \in \set{1, \dots, k}}$.
 
 \begin{lemma}
     \label{decompose-polynomial:lem}
     Let $f \colon \Sigma^* \to \Rel$ be a \kl{commutative}
     \kl{$\Rel$-polyregular function},
-    where we fix the alphabet $\Sigma = \set{a_1, \dots, a_n}$.
+    where we fix the alphabet $\Sigma = \set{a_1, \dots, a_k}$.
     There exists a computable
     $\omega \in \Nat_{\geq 1}$,
     and computable 
-    \kl{integer binomial polynomials} $\seqof{P_{t}}{t \in \ModuloTypes[\omega]^n}$
-    such that for all $x_1, \dots, x_n \geq 0$:
+    \kl{integer binomial polynomials} 
+    $P_{(S,\vec{r})} \in \Rel[\seqof{X_i}{i \in S}]$ for $(S,\vec{r}) \in \ModuloTypes[\omega]^k$,
+    such that for all $\vec{x} \in \Nat^k$,
     \begin{equation*}
-        f\left(a_1^{x_1} \cdots a_n ^{x_n}\right) 
-        = P_{\moduloType[\omega](x_1, \dots, x_n)}
-        \left(
-            \floor{x_1/\omega}, \dots, \floor{x_n/\omega}
+        f\left(
+            \prod_{i = 1}^k a_i^{x_i}
         \right)
+        = P_{(S, \vec{r})}
+        \left(
+            \seqof{\floor{x_i / \omega}}{i \in S}
+        \right)
+        \text{ where } (S, \vec{r}) = \moduloType[\omega](\vec{x})
         \quad .
     \end{equation*}
 \end{lemma}
 \begin{proof}
-    Let us first write $f \in \ZPoly$ as a linear combination 
-    $f = f_+ - f_-$ where both $f_+$ and $f_-$ are in $\NPoly$.
-    We 
-    compute $\omega_+$ (resp. $\omega_-$)
-    by
-    applying
-    \cref{n-poly-combinatorics:lem} 
-    to $f_+$ (resp. to $f_-$).
-    Finally, let $\omega$ be the least common multiple
-    of $\omega_+$ and $\omega_-$, i.e. $\omega \defined \ppcm(\omega_+, \omega_-)$.
-    Using this $\omega$,
-    for any choice of
-    $r \defined (r_1, \dots, r_n) \in \set{0, \dots, \omega - 1}$,
-    there exists two \kl{natural binomial functions} $F_r^+$ and $F_r^-$
-    associated to $f_+$ and $f_-$,
-    such that $x_1, \dots, x_p \geq 1$:
-    \begin{equation*}
-        f\left(
-        a_1^{\omega x_1 + r_1} \cdots a_n ^{\omega x_n + r_n}\right) 
-        = F_r^+(x_1, \dots, x_p) - F_r^-(x_1, \dots, x_p) \quad .
-    \end{equation*}
-    Now, for large enough values of $x_1, \dots, x_p$,
-    this means that 
-    $f\left(
-        a_1^{\omega x_1 + r_1} \cdots a_n ^{\omega x_n + r_n}\right)$
-    coincides with an \kl{integer binomial polynomial},
-    and we can therefore conclude selecting different values of $r$ and
-    setting some subsets of variables to be assigned to the constant $0$.
+    \textbf{TODO}. 
 \end{proof}
-
 
 
 \begin{theorem}
@@ -125,48 +88,65 @@ $p \in \Nat$ by pointwise application.
     from 
     \cref{n-poly-combinatorics:lem} and \cref{decide-rat-poly-npoly:cor}.
     For the converse implication, we use \cref{decompose-polynomial:lem} 
-    effectively compute a polynomial representation of $f$. That is, we obtain
-    an $\omega_1 \in \Nat$ and \kl{integer binomial polynomials}
-    $\seqof{P_{t}}{t \in \ModuloTypes[\omega_1]^k}$. Now, because $f$ is
-    \kl{$(k,\Nat)$-combinatorial}, we also have a number $\omega_2 \in \Nat$
-    such that for all \kl{pumping patterns} $q$, there exists a
-    \kl{strongly natural binomial polynomial} $P$ such that $f \circ q(\omega_2 \vec{X})
-    = P$ over $(\Nat_{\geq 1})^k$. By considering $\omega \defined
-    \omega_1 \times \omega_2$, we can without loss of generality assume that
-    $\omega_1 = \omega_2$ in the rest of this proof.
+    effectively compute an $\omega \in \Nat$ and \kl{integer binomial polynomials}
+    $\seqof{P_{t}}{t \in \ModuloTypes[\omega]^k}$. 
 
-    Now, consider $t \in \ModuloTypes[\omega]^k$. By
-    definition, this provides us with a set $S \subseteq \set{1, \dots, k}$,
-    and numbers $r_1, \dots, r_k$ between $0$ and
-    $\omega^2-1$ such that for all $x_1, \dots, x_k \geq 1$, the tuple $(x_1
-    \omega \ind{S}(1) + r_1, \dots, x_k \omega \ind{S}(k) + r_k)$ has type $t$.
-    In particular, for all $x_1, \dots, x_k \geq 1$, the following
+    Now, consider $(S, \vec{r}) \in \ModuloTypes[\omega]^k$. 
+    Notice that for all vectors $\vec{x} \in (\Nat_{\geq 1})^k$, 
+    the vector $(x_1 \omega \ind{S}(1) + r_1, \dots, x_k \omega \ind{S}(k) + r_k)$ has
+    \kl{$\omega$-type} $(S, \vec{r})$.
+    In particular, the following
     equality holds:
     \begin{equation*}
         f\left(\prod_{i = 1}^k 
             a_i^{ x_i \omega \ind{S}(i) + r_i}
         \right)
         =
-        P_t(\seqof{x_i}{i \in S})
+        P_{(S, \vec{r})}(\seqof{x_i}{i \in S})
+        \quad  \forall \vec{x} \in (\Nat_{\geq 1})^k
+        \quad .
     \end{equation*}
 
     Let us therefore consider the \kl{pumping pattern} $q \colon \Nat^k \to
     \Sigma^*$ that is simply defined as $q(X_1, \dots, X_k) \defined \prod_{i =
-    1}^k a_i^{ X_i \omega \ind{S}(i) + r_i}$. Because $f$ is
-    \kl{$(k,\Nat)$-combinatorial} (with parameter $\omega$), there exists a
-    \kl{strongly natural binomial polynomial} $P$ such that for all $x_1,
-    \dots, x_n \geq 1$, the equality $f \circ q(\omega x_1, \dots, \omega x_k)
-    = P(x_1, \dots, x_k)$ holds. In particular, we conclude that over
-    $(\Nat_{\geq 1})^{\card{S}}$ the polynomial $P_t$ and $P$ coincide. They
-    are therefore equal as multivariate polynomials, and we conclude that $P_t$
-    is a \kl{strongly natural binomial polynomial} \kl{$\Nat$-rational
-    polynomial}.
+    1}^k a_i^{ X_i \omega \ind{S}(i) + r_i}$. 
+    Because $f$ is \kl{$(k,\Nat)$-combinatorial}, there exists an $\omega_2 \in
+    \Nat$ and a \kl{strongly natural binomial polynomial} $P \in \Rel[X_1,
+    \dots, X_k]$ such that $f \circ q = P$ over $(\omega_2 \Nat_{\geq 1})^k$.
+    In particular, the following
+    equality holds:
+    \begin{equation*}
+        P_{(S, \vec{r})}(\seqof{\omega_2 x_i}{i \in S})
+        = 
+        P(\omega_2 x_1, \dots, \omega_2 x_k)
+        \quad  \forall \vec{x} \in (\Nat_{\geq 1})^k
+        \quad .
+    \end{equation*}
+    Because $\omega_2 \neq 0$, we conclude that $P_{(S, \vec{r})} = P$
+    and that both are polynomials over $\Rel[\seqof{X_i}{i \in S}]$,
+    and furthermore that $P_{(S, \vec{r})}$
+    is a \kl{strongly natural binomial polynomial}. 
 
-    Let us now construct a new way to compute $f$, by first
-    computing the \kl{$\omega$-type} of the input (which is possible in
-    $\MSO$), and then computing the suitable \kl{strongly natural binomial polynomials}
+    To conclude, one can compute $f$ by first
+    computing the \kl{$\omega$-type} of the input which is possible using a \kl{polyregular function},
+    and then computing the suitable \kl{strongly natural binomial polynomials}
     which is possible in $\NPoly$
-    thanks to \cref{decide-rat-poly-npoly:cor}.
+    thanks to \cref{decide-rat-poly-npoly:cor}. The resulting composition 
+    belongs to $\NPoly$ thanks to
+    \cref{stability-polyregular:lemma}.
+
+    Let us now argue that the properties are decidable. Indeed, consider a
+    function $f \in \ZPoly[k]$. Again, using
+    \cref{decompose-polynomial:lem}, we can effectively compute the
+    $\omega \in \Nat$ and the \kl{integer binomial polynomials}
+    $\seqof{P_{t}}{t \in \ModuloTypes[\omega]^k}$. If all of those polynomials
+    are \kl{strongly natural binomial polynomials} (which is 
+    decidable by \cref{decide-rat-poly-npoly:cor}),
+    then $f \in \NPoly[k]$ as
+    argued above. Conversely, if $f \in \NPoly[k]$, then $f$ is
+    \kl{$(k,\Nat)$-combinatorial} by \cref{n-poly-combinatorics:lem}, and we
+    argued that this implies that $P_{(S, \vec{r})}$ is a \kl{strongly natural
+    binomial polynomial} for all $(S, \vec{r}) \in \ModuloTypes[\omega]^k$.
 \end{proof}
 
 It was already known that \kl{$\Rel$-polyregular functions} with unary input
