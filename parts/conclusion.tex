@@ -5,22 +5,23 @@
 
 
 Let us end on a more general discussion regarding the status of commutative
-input functions in the study of unary output polyregular functions. Throughout
-the paper, we have tried to highlight that results on polyregular functions
-often have the following form: a polyregular function $f \colon \Sigma^* \to
-\Gamma^*$ satisfies property $X$ if and only if for all \kl{commutative}
-\kl{star-free polyregular function} $g \colon \Delta^* \to \Sigma^*$, $f \circ
-g$ satisfies $X$. Let us formally restate this for two earlier results in the
-case of \kl{$\Rel$-polyregular functions} in
-\cref{pre-compose-growth-commut:lemma,pre-compose-sf-commut:lemma}.
+input functions in the study of unary output polyregular functions. A
+\emph{quantitative pumping argument} for polyregular function $f \colon
+\Sigma^* \to \Rel$ states that $f$ has property $X$ if and only if for all
+\kl{pumping pattern} $q \colon \Nat^k \to \Sigma^*$, $f \circ q$ has property
+$X$. Let us formalize such a statement for \kl{growth rate} and
+\kl(polyregular){aperiodicity} respectively in \cref{pre-compose-growth-commut:lemma,pre-compose-sf-commut:lemma}. Note that we generalized \kl{pumping
+patterns} to \kl{commutative} \kl{star-free polyregular functions} to simplify
+the statements.
+
 
 \begin{lemma}[restate=pre-compose-growth-commut:lemma,label=pre-compose-growth-commut:lemma]
     \proofref{pre-compose-growth-commut:lemma}
-    Let $f \in \ZRat$, and $k \in \Nat$. Then,
-    $f \in \ZPoly[k]$ if and only if 
+    Let $f \in \ZRat$, and $d \in \Nat$. Then,
+    $f \in \ZPoly[d]$ if and only if 
     for every \kl{commutative} \kl{star-free polyregular function} $h$
             of \kl{growth rate} $l \in \Nat$,
-            $(f \circ h) \in \ZPoly[k\times l]$.
+            $(f \circ h) \in \ZPoly[d \times l]$.
 \end{lemma}
 
 
@@ -42,8 +43,7 @@ paper). This is restated in our concluding conjecture.
 
 \begin{conjecture}
     \label{npoly-zpoly:conjecture}
-    Let $k \in \Nat$.
-    A function $f \in \ZPoly[k]$
-    belongs to $\NPoly[k]$ if and only if
-    it is \kl{$(k,\Nat)$-combinatorial}.
+    Let $f \in \ZPoly$. Then, $f \in \NPoly$ if and only if for every
+    \kl{commutative} \kl{star-free polyregular function} $h$,
+    $(f \circ h) \in \NPoly$.
 \end{conjecture}

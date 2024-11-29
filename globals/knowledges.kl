@@ -53,6 +53,8 @@
  | star-free polyregular function
  | aperiodic polyregular function
  | star-free
+ | aperiodic@polyregular
+ | aperiodicity@polyregular
 
 \knowledge{notion}
  | $\Rel $-polyregular
