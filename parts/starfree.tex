@@ -34,16 +34,18 @@ pumping arguments} \cite{DOUE21,DOUE22,CDTL23}.
     \end{equation*}
 \end{definition}
 
-\AP Given a number $\omega \in \Nat$, let us write
-$\intro*\ModuloTypes[\omega]^k$ for the collection of pairs $(S, \vec{r})$
-where $S \subseteq \set{1, \dots, k}$ and $r \in \set{0, \dots, \omega - 1}^k$.
-To a tuple $\vec{x} \in \Nat^k$, one can associate its \intro{$\omega$-type}
-$\intro*\moduloType[\omega](\vec{x})$ which is the pair $(S, \vec{r})$ where $S
-= \set{i \in \set{1, \dots, k} \mid x_i \geq \omega}$ and $\vec{r} = (x_i \mod
-\omega)_{i \in \set{1, \dots, k}}$.
+\AP Let us now introduce a decomposition of \kl{commutative}
+\kl{$\Rel$-polyregular functions} into \kl{integer binomial polynomials}. Given
+a number $\omega \in \Nat$, let us write $\intro*\ModuloTypes[\omega]^k$ for
+the collection of pairs $(S, \vec{r})$ where $S \subseteq \set{1, \dots, k}$
+and $r \in \set{0, \dots, \omega - 1}^k$. To a tuple $\vec{x} \in \Nat^k$, one
+can associate its \intro{$\omega$-type}, written
+$\intro*\moduloType[\omega](\vec{x})$, which is the pair $(S, \vec{r})$ where
+$S = \set{i \in \set{1, \dots, k} \mid x_i \geq \omega}$ and $\vec{r} = (x_i
+\mod \omega)_{i \in \set{1, \dots, k}}$.
 
-\begin{lemma}
-    \label{decompose-polynomial:lem}
+\begin{lemma}[restate=decompose-polynomial:lem,label=decompose-polynomial:lem]
+    \proofref{decompose-polynomial:lem}
     Let $f \colon \Sigma^* \to \Rel$ be a \kl{commutative}
     \kl{$\Rel$-polyregular function},
     where we fix the alphabet $\Sigma = \set{a_1, \dots, a_k}$.
@@ -51,7 +53,7 @@ $\intro*\moduloType[\omega](\vec{x})$ which is the pair $(S, \vec{r})$ where $S
     $\omega \in \Nat_{\geq 1}$,
     and computable 
     \kl{integer binomial polynomials} 
-    $P_{(S,\vec{r})} \in \Rel[\seqof{X_i}{i \in S}]$ for $(S,\vec{r}) \in \ModuloTypes[\omega]^k$,
+    $P_{(S,\vec{r})} \in \Rat[\seqof{X_i}{i \in S}]$ for $(S,\vec{r}) \in \ModuloTypes[\omega]^k$,
     such that for all $\vec{x} \in \Nat^k$,
     \begin{equation*}
         f\left(
@@ -65,9 +67,6 @@ $\intro*\moduloType[\omega](\vec{x})$ which is the pair $(S, \vec{r})$ where $S
         \quad .
     \end{equation*}
 \end{lemma}
-\begin{proof}
-    \textbf{TODO}. 
-\end{proof}
 
 
 \begin{theorem}
@@ -83,15 +82,43 @@ $\intro*\moduloType[\omega](\vec{x})$ which is the pair $(S, \vec{r})$ where $S
     and conversions effective.
 \end{theorem}
 \begin{proof}
-    The implication
-    \cref{f-npoly-combi:item}
-    $\implies$ \cref{f-combinatorial:item} immediately follows
-    from 
-    \cref{n-poly-combinatorics:lem} and \cref{decide-rat-poly-npoly:cor}.
-    For the converse implication, we use \cref{decompose-polynomial:lem} 
-    effectively compute an $\omega \in \Nat$ and \kl{integer binomial polynomials}
-    $\seqof{P_{t}}{t \in \ModuloTypes[\omega]^k}$. 
+    Let $f \in \ZPoly[d]$ be \kl{commutative} over an alphabet of size $k$.
+    We apply \cref{decompose-polynomial:lem} to compute an $\omega \in \Nat$ and
+    \kl{integer binomial polynomials} $\seqof{P_{(S,\vec{r})}}{(S,\vec{r}) \in
+    \ModuloTypes[\omega]^k}$ such that for all $\vec{x} \in \Nat^k$,
+    $f\left(\prod_{i = 1}^k a_i^{x_i}\right) = P_{(S, \vec{r})}(\seqof{\floor{x_i / \omega}}{i \in S})$,
+    where $(S, \vec{r}) = \moduloType[\omega](\vec{x})$.
+    We are first going to prove that $f \in \NPoly[d]$ if and only if $P_{(S,
+    \vec{r})}$ is a \kl{strongly natural binomial polynomial} for all $(S,
+    \vec{r}) \in \ModuloTypes[\omega]^k$. This will also provide decidability
+    of \cref{f-npoly-combi:item}, since one can decide whether a
+    polynomial is \kl{strongly natural binomial polynomial} using
+    \cref{decide-rat-poly-npoly:cor}.
 
+    Assume that $f \in \NPoly$, then by definition, the polynomials $P_{(S,
+    \vec{r})}$ are \kl{represented} by an \kl{$\Nat$-polyregular function},
+    hence are \kl{strongly natural binomial polynomials}
+    (\cref{decide-rat-poly-npoly:cor}). Conversely, if
+    $P_{(S, \vec{r})}$ is a \kl{strongly natural binomial polynomial} for all
+    $(S, \vec{r}) \in \ModuloTypes[\omega]^k$, then $f \in \NPoly$ because one
+    can compute the \kl{$\omega$-type} of the input using a \kl{polyregular
+    function}, and then compute the suitable \kl{strongly natural binomial
+    polynomial} $P_{(S, \vec{r})}$ which is possible in $\NPoly$ thanks to
+    \cref{decide-rat-poly-npoly:cor}. The resulting composition
+    belongs to $\NPoly$ thanks to
+    \cref{stability-polyregular:lemma},
+    and we conclude that $f \in \NPoly[d]$ because it has \kl{growth rate} at
+    most $d$
+    (\cref{polyregular-polynomial-growth:lemma}).
+
+    Note that the same proof scheme can be used to conclude that
+    \cref{f-npoly-combi:item} implies
+    \cref{f-combinatorial:item}. For the converse implication, we are
+    going to introduce $\omega_2$ associated to the fact that $f$ is
+    \kl{$(k,\Nat)$-combinatorial}. Because polynomials \kl{represented} by
+    \kl{$\Nat$-polyregular functions} and \kl{integer binomial polynomials} are
+    both closed under multiplication by a constant factor, we can assume that
+    $\omega = \omega_2$ in the decomposition of $f$.
     Now, consider $(S, \vec{r}) \in \ModuloTypes[\omega]^k$. 
     Notice that for all vectors $\vec{x} \in (\Nat_{\geq 1})^k$, 
     the vector $(x_1 \omega \ind{S}(1) + r_1, \dots, x_k \omega \ind{S}(k) + r_k)$ has
@@ -110,45 +137,17 @@ $\intro*\moduloType[\omega](\vec{x})$ which is the pair $(S, \vec{r})$ where $S
 
     Let us therefore consider the \kl{pumping pattern} $q \colon \Nat^k \to
     \Sigma^*$ that is simply defined as $q(X_1, \dots, X_k) \defined \prod_{i =
-    1}^k a_i^{ X_i \omega \ind{S}(i) + r_i}$. 
-    Because $f$ is \kl{$(k,\Nat)$-combinatorial}, there exists an $\omega_2 \in
-    \Nat$ and a \kl{strongly natural binomial polynomial} $P \in \Rel[X_1,
-    \dots, X_k]$ such that $f \circ q = P$ over $(\omega_2 \Nat_{\geq 1})^k$.
-    In particular, the following
-    equality holds:
-    \begin{equation*}
-        P_{(S, \vec{r})}(\seqof{\omega_2 x_i}{i \in S})
-        = 
-        P(\omega_2 x_1, \dots, \omega_2 x_k)
-        \quad  \forall \vec{x} \in (\Nat_{\geq 1})^k
-        \quad .
-    \end{equation*}
-    Because $\omega_2 \neq 0$, we conclude that $P_{(S, \vec{r})} = P$
-    and that both are polynomials over $\Rel[\seqof{X_i}{i \in S}]$,
-    and furthermore that $P_{(S, \vec{r})}$
-    is a \kl{strongly natural binomial polynomial}. 
-
-    To conclude that $f \in \NPoly$, one can compute $f$ by first computing
-    the \kl{$\omega$-type} of the input which is possible using a
-    \kl{polyregular function}, and then computing
-    the suitable \kl{strongly natural binomial polynomials} which is possible
-    in $\NPoly$ thanks to \cref{decide-rat-poly-npoly:cor}. The
-    resulting composition belongs to $\NPoly$ thanks to
-    \cref{stability-polyregular:lemma},
-    and we conclude that $f \in \NPoly[d]$ because
-    it has \kl{growth rate} at most $d$
-    (\cref{polyregular-polynomial-growth:lemma}).
-
-    Let us remark that we actually proved that the function $f \in \ZPoly[d]$
-    belongs to $\NPoly[d]$
-    if and only if its corresponding polynomials
-    $P_{(S, \vec{r})}$ are \kl{strongly natural binomial polynomials} for all
-    $(S, \vec{r}) \in \ModuloTypes[\omega]^k$. Because 
-    \cref{decompose-polynomial:lem} is effective, this $\omega \in \Nat$ and polynomials
-    $P_{(S, \vec{r})}$ can be computed from $f$, 
-    and one can decide 
-    whether a polynomial is \kl{strongly natural binomial polynomial} using
-    \cref{decide-rat-poly-npoly:cor}. Hence, one can decide whether
+    1}^k a_i^{ X_i \ind{S}(i) + r_i}$. 
+    Because $f$ is \kl{$(k,\Nat)$-combinatorial} with parameter $\omega$,
+    there exists a \kl{strongly natural binomial polynomial} $P \in \Rat[X_1,
+    \dots, X_k]$ such that $f \circ q (\omega X_1, \dots, \omega X_k) = P (X_1, \dots, X_k)$ 
+    over $(\Nat_{\geq 1})^k$.
+    This proves that
+    $P_{(S, \vec{r})}(\seqof{X_i}{i \in S})$
+    equals
+    $P(X_1, \dots, X_k)$ as polynomials,  hence,
+    that $P_{(S, \vec{r})}$ is a \kl{strongly natural binomial polynomial}
+    for all $(S, \vec{r}) \in \ModuloTypes[\omega]^k$. We have proven that
     $f \in \NPoly[d]$.
 \end{proof}
 
@@ -286,13 +285,13 @@ indicator function $\ind{L}$ is \kl{ultimately polynomial}. We can now answer
     function $f_{a^n} \colon (\Sigma \setminus \set{a})^* \to \Rel$
     that maps $w \in (\Sigma \setminus \set{a})^*$ to $f(a^n w)$.
 
-    Let us now define the function $g \colon \Sigma^* \to \Rel$ as follows:
+    Let us conclude by computing $f$ 
+    using the following \kl{star-free $\Nat$-polyregular function} $g \colon \Sigma^* \to \Rel$:
     \begin{equation*}
         g \colon w \mapsto \begin{cases}
             g_{a^n} (w) & \text{ if } \card[a]{w} = n \text{ for some } a \in \Sigma \text{ and } n \leq N_0 \\
             \translate{N_0}(P)(\seqof{\card[a]{w} - N_0}{a \in \Sigma}) & \text{ otherwise }
         \end{cases}
+        \qedhere
     \end{equation*}
-    We conclude that $g$ is a \kl{star-free $\Nat$-polyregular function}, and by definition
-    $f = g$.
 \end{proof}

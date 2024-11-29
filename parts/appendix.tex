@@ -39,16 +39,16 @@
 
 \begin{proofof}[undecidable-non-negative:lem]
     Recall that by the undecidability of the Hilbert's Tenth Problem \cite[Problem 10 page 22]{HILB1902}, it is
-    undecidable whether a given polynomial $P \in \Rel[\vec{X}]$ has a solution in
-    $\Rel^n$ \cite{MATI1970,DAVIS1973}.
+    undecidable whether a given polynomial $P \in \Rel[X_1, \dots, X_k]$ has a solution in
+    $\Rel^k$ \cite{MATI1970,DAVIS1973}.
     The result follows by observing that
-    checking whether a polynomial $P \in \Rel[\vec{X}]$ has no solutions in $\Rel^n$ if and only 
+    checking whether a polynomial $P \in \Rel[\vec{X}]$ has no solutions in $\Rel^k$ if and only 
     if $P^2 - 1$ is \kl{non-negative}. 
 
     Let us prove that checking whether $P \in \CoveredPoly$ is undecidable. Let
     $P \in \Rel[\vec{X}]$ be a polynomial, and let us write $P = P_+ - P_-$
     where both $P_+$ and $P_-$ belong to $\Nat[\vec{X}]$. Let $Z$ be a fresh
-    indeterminate. We define $Q \defined P_+ (Z - 1) P_-$. By construction, $Q$
+    indeterminate. We define $Q \defined P_+ + (Z - 1) P_-$. By construction, $Q$
     has \kl{non-negative} \kl{maximal monomials}. Furthermore, $Q$ itself is
     \kl{non-negative} if and only if $\restr{Q}{Z = 0} = P$ is \kl{non-negative},
     since for every $n > 0$, $\restr{Q}{Z = n} \in \Nat[\vec{X}]$ is
@@ -65,7 +65,7 @@
 	We will prove by induction on $k \in \Nat_{\geq 1}$
 	that for all
 	$\pi \colon M^k \to \Nat$,
-	the lemma holds with $s = 0$ for the function
+	the lemma holds for the function
 	$f = \pi^\dagger$, i.e., such that
 	$f(w)$ is the sum over all factorizations of $w$
 	into $k$ words $(w_1, \dots, w_k) \in \Sigma^*$
@@ -74,7 +74,7 @@
 	is obtained via some choice of $M, \mu, \pi$ (\cref{nat-rel-poly:def})
 	we derive the desired result.
 
-	In all cases, we will use a \kl{polynomial function} $q \colon \Nat^p \to
+	In all cases, we will use a \kl{pumping pattern} $q \colon \Nat^p \to
 		\Sigma^*$ defined by $q(X_1, \dots, X_p) \defined \alpha_0 \prod_{i = 1}^p
 		(u_i^{\omega \times X_i} \alpha_i)$ using some words $\alpha_i$ (for $0 \leq i
 		\leq p$) and $u_i$ (for $1 \leq i \leq p)$ in $\Sigma^*$. That is, we will
@@ -124,7 +124,7 @@
 
 	Now, given $(\ell, b, r)$ respecting the inequalities
 	mentioned above,
-	one can define the \kl{polynomial functions}
+	one can define the \kl{pumping patterns}
 	$\CutPref{\ell,r,b} \colon \Nat^{\ell - 1} \to \Sigma^*$
 	and
 	$\CutSuff{\ell,r} \colon \Nat^{p - \ell + 1} \to \Sigma^*$
@@ -421,50 +421,151 @@
     it is represented by a \kl{star-free $\Nat$-polyregular function} $f$ thanks to
     \cref{corrected-version:thm}. Let us now use \cref{n-sf-combinatorics:lem}
     to obtain a number $s \geq 1$ (that only depends on $P$) such
-    that for all \kl{polynomial function} $q \colon \Nat^k \to \Sigma^*$, $g
-    \circ q(X_1 + s, \dots, X_k + s)$ is a \kl{natural binomial function} $F$
-    over $\Nat^k$. Let us write the
-    \kl{natural binomial function} $F$ as follows $F(X_1, \dots, X_k) =
-    \sum_{\card{\alpha} \leq d_2} e_{\alpha} \prod_{i = 1}^k \binom{X -
-    p_{\alpha,i}}{\alpha(i)}$, with $e_{\alpha} \in \Nat$ for all
-    $\card{\alpha} \leq d_2$.
-    Now, because of the equality 
-    $\binom{X - p - 1}{k} + \binom{X - p - 1}{k - 1} = \binom{X - p}{k}$,
-    we conclude that we can find a $K \in \Nat$ and coefficients
-    $f_{\alpha} \in \Nat$ such that 
-    $F(X_1, \dots, X_k) =
-    \sum_{\card{\alpha} \leq d_2} f_{\alpha} \prod_{i = 1}^k \binom{X_i - K}{\alpha(i)}$.
-    Now, remark that $P$ is an \kl{integer-valued} polynomial of
-    degree $d$, and therefore one can write $P = \sum_{\card{\alpha} \leq d}
-    c_{\alpha} \prod_{i = 1}^k \pbinom{X_i - K}{\alpha(i)}$ with $c_{\alpha}
-    \in \Rel$ for all $\card{\alpha} \leq d$
-    (\cref{integer-binomial-polynomial:lem}). 
-    As a consequence,
-    $\lambda P = \sum_{\card{\alpha} \leq d} \lambda c_{\alpha} \prod_{i = 1}^k \pbinom{X_i - K - s}{\alpha(i)}$,
-    and 
-    by identifying coefficients in the previous two expressions, we obtain
-    $c_{\alpha} = \lambda f_{\alpha}$ for all $\card{\alpha} \leq d$.
-    Finally,
-    $\lambda P(x_1 + s, \dots, x_k + s) = F(x_1, \dots, x_k)$ for all $\vec{x} \in \Nat^k$,
-    and therefore
-    $\lambda P (X_1 + s, \dots, X_k + s) =
-    \sum_{\card{\alpha} \leq d_2} f_{\alpha} \prod_{i = 1}^k \pbinom{X_i - K}{\alpha(i)}$.
-    In particular,
-    we get
+    that for all \kl{pumping patterns} $q \colon \Nat^p \to \Sigma^*$, $f
+    \circ q(X_1 + s, \dots, X_p + s)$ is a \kl{natural binomial function} $F$
+    over $\Nat^p$. We will use this $s$ with $p = k$, where
+    $k = \card{\vec{X}}$ is the number of indeterminates of $P$,
+    and $q(X_1, \dots, X_k) \defined \prod_{i = 1}^k a_i^{X_i}$,
+    assuming the alphabet $\Sigma$ is $\set{a_1, \dots, a_k}$.
+    In particular, $F(x_1, \dots, x_k) = f \circ q (x_1, \dots, x_k) = nP(x_1, \dots, x_k)$
+    for all $\vec{x} \in (\Nat_{\geq s})^k$.
+    Let us write the
+    \kl{natural binomial function} $F$ as follows:
     \begin{equation*}
-        \sum_{\card{\alpha} \leq d} \lambda c_{\alpha} \prod_{i = 1}^k \pbinom{X_i - K}{\alpha(i)} =
-        \sum_{\card{\alpha} \leq d_2} f_{\alpha} \prod_{i = 1}^k \pbinom{X_i - K}{\alpha(i)}
+        F(X_1, \dots, X_k) =
+        \sum_{\card{\alpha} \leq d} e_{\alpha} \prod_{i = 1}^k \binom{X -
+        p_{\alpha,i}}{\alpha(i)} \quad
+        \text{where } \forall 
+        \card{\alpha} \leq d,
+        e_{\alpha} \in \Nat
+        \quad .
     \end{equation*}
-    And we conclude by term identification
-    by term identification
-    that $d = d_2$, and for all $\card{\alpha} \leq d$, $\lambda c_{\alpha} = f_{\alpha}$.
-    As a consequence, $c_{\alpha} \in \Nat$ for all $\card{\alpha} \leq d$,
-    and $P$
-    is a \kl{natural binomial polynomial}.
-    Remark that this reasoning remains true whenever we partially apply $P$ to some values
-    in $\Nat$, as it amounts to 
-    partially applying the function $f$. We have proven that 
-    $P$ is a \kl{strongly natural binomial polynomial}.
+
+    Because of the equality $\binom{X - p - 1}{k} + \binom{X - p - 1}{k -
+    1} = \binom{X - p}{k}$, we conclude that we can find a $K \in \Nat$ and
+    coefficients $f_{\alpha} \in \Nat$ such that $F(X_1, \dots, X_k) =
+    \sum_{\card{\alpha} \leq d} f_{\alpha} \prod_{i = 1}^k \binom{X_i -
+    K}{\alpha(i)}$, i.e., we can assume that $p_{\alpha,i} = K$ for all
+    $\card{\alpha} \leq d$.
+    Let us remark that $P$ is an \kl{integer-valued} polynomial of
+    degree $d$, and therefore one can use
+    \cref{integer-binomial-polynomial:lem} to rewrite it in the following form:
+    \begin{equation*}
+        P(X_1, \dots, X_k) = \sum_{\card{\alpha} \leq d}
+        c_{\alpha} \prod_{i = 1}^k \pbinom{X_i - K}{\alpha(i)}
+        \quad \text{where } \forall \card{\alpha} \leq d, 
+        c_{\alpha}
+        \in \Rel \quad .
+    \end{equation*}
+
+    Because $F(x_1, \dots, x_k) = P(x_1, \dots, x_k)$ for all
+    $\vec{x} \in (\Nat_{\geq s})^k$, one can write
+    \begin{equation*}
+        n \left(\sum_{\card{\alpha} \leq d} c_{\alpha} \prod_{i = 1}^k \pbinom{x_i - K}{\alpha(i)} \right)
+        = 
+        \sum_{\card{\alpha} \leq d} f_{\alpha} \prod_{i = 1}^k \binom{x_i - K}{\alpha(i)}
+        \quad 
+        \forall \vec{x} \in (\Nat_{\geq s})^k
+    \end{equation*}
+
+    Because this equality holds over $(\Nat_{\geq s})^k$, we conclude that the
+    underlying polynomials are equal in $\Rel[\vec{X}]$, and therefore that:
+    \begin{equation*}
+        \sum_{\card{\alpha} \leq d} n c_{\alpha} \prod_{i = 1}^k \pbinom{X_i - K}{\alpha(i)}
+        = 
+        \sum_{\card{\alpha} \leq d} f_{\alpha} \prod_{i = 1}^k \pbinom{X_i - K}{\alpha(i)}
+    \end{equation*}
+
+    Identifying the coefficients of the two polynomials (which is possible
+    because the products of binomial coefficients translated by $K$ form a
+    basis of $\Rel[\vec{X}]$), we conclude that for all $\card{\alpha} \leq d$,
+    $n c_{\alpha} = f_{\alpha}$. In particular,
+    for all $\card{\alpha} \leq d$, $c_{\alpha} \in \Nat$,
+    hence $P$ is a \kl{natural binomial polynomial}.
+
+    Remark that this reasoning remains true whenever we partially apply $P$ to
+    some values in $\Nat$, since partial applications of $nP$ continue to be in
+    $\CorrectPoly$ by definition, and remain \kl{integer-valued}. We have
+    proven that $P$ is a \kl{strongly natural binomial polynomial}.
+\end{proofof}
+
+\section{Proofs of section  \ref{beyond-polynomials:sec}}
+
+\begin{proofof}[decompose-polynomial:lem]
+    Let us first remark that one only needs to consider the case where $f$ is a
+    function in $\NPoly$, because every function $f \in \ZPoly$ can be decomposed
+    as $f = f_+ - f_-$ where $f_+$ and $f_-$ 
+    are \kl{$\Nat$-polyregular functions}, and because \kl{integer binomial
+    polynomials} are closed under subtraction.
+    Now, let us prove this result by induction on the number of letters in the alphabet.
+    When the alphabet is empty, the result is trivial because $f$ can only be applied to $\varepsilon$,
+    hence can be represented using a constant polynomial.
+
+    Assume that the result holds for all functions with an alphabet of size at
+    most $k-1$. We first apply \cref{n-poly-combinatorics:lem} to obtain a number
+    $\omega$ such that for all \kl{pumping patterns} $q \colon \Nat^\ell \to
+    \Sigma^*$, there exists a (computable) \kl{natural binomial function} $F_q$
+    such that $f \circ q (\omega X_1, \dots, \omega X_\ell) = F_q$ over
+    $(\Nat_{\geq 1})^\ell$.
+    Given a tuple $\vec{r} \in \set{0, \dots, \omega - 1}^k$, and a 
+    set $S \subseteq \set{1, \dots, k}$,
+    let us define
+    the \kl{pumping pattern} $q_{(S,\vec{r})} \colon \Nat^{\card{S}} \to \Sigma^*$ as
+    $q_{(S, \vec{r})}(\seqof{X_i}{i \in S}) \defined \prod_{i = 1}^k a_i^{r_i} \cdot \prod_{i \in S} a_i^{X_i}$.
+    Let us write $F_{(S,\vec{r})} \colon \Nat^{\card{S}} \to \Nat$ 
+    for the associated
+    \kl{natural binomial function} satisfying:
+    \begin{equation*}
+        f \left(
+            \prod_{i = 1}^k a_i^{r_i}
+            \cdot
+            \prod_{i \in S} a_i^{\omega x_i}
+        \right)
+        = 
+        F_{(S,\vec{r})}(\seqof{x_i}{i \in S})
+        \quad 
+        \forall \vec{x} \in (\Nat_{\geq 1})^{S}
+        \quad .
+    \end{equation*}
+
+    Such a function $F_{(S,\vec{r})}$ coincides with a \kl{natural binomial
+    polynomial} $P_{(S,\vec{r})} \in \Rat[\seqof{X_i}{i \in S}]$ on large
+    enough inputs. Let us write $N_0 \geq 1$ be a number such that
+    $F_{(S,\vec{r})}(\seqof{x_i}{i \in S}) = P_{(S,\vec{r})}(\seqof{x_i}{i \in
+    S})$ for all $(S, \vec{r}) \in \ModuloTypes[\omega]^k$, for all $\vec{x}
+    \in (\Nat_{\geq N_0})^{S}$. This $N_0$ is computable because one can
+    collect upper bounds from the syntax of the \kl{natural binomial functions}
+    $F_{(S,\vec{r})}$.
+    We conclude that:
+    \begin{equation*}
+        f\left(
+            \prod_{i = 1}^k a_i^{x_i}
+        \right)
+        = 
+        P_{(S, \vec{r})}(\seqof{\floor{x_i / \omega}}{i \in S})
+        \quad 
+        \text{ where } (S, \vec{r}) = \moduloType[\omega](\vec{x})
+        \text{ and }
+        \vec{x} \in (\Nat_{\geq N_0 \omega})^k
+        \quad .
+    \end{equation*}
+
+    This provides a representation for $f$ on large enough inputs, and we can
+    apply the induction hypothesis on the functions $f_{a^n} \colon (\Sigma
+    \setminus \set{a})^* \to \Nat$ in $\NPoly$ defined by $f_{a^n} (w) \defined
+    f(a^n \cdot w)$, for every $a \in \Sigma$ and $n \leq N_0\omega$. Remark
+    that \kl{integer binomial polynomials} are closed multiplying the input by
+    a constant, hence that we can always move from a decomposition using
+    $\omega$ to a decomposition using a multiple of $\omega$.
+    Let us then consider as our new $\omega'$ the least common multiple of
+    $\omega$, $N_0$, and all the $\omega_{a^n}$'s obtained for each $f_{a^n}$.
+
+    We can now, given an entry $\vec{x} \in \Nat^k$ with
+    $\moduloType[\omega'](x) = (S, \vec{r})$ recognize if a some letter
+    $a$ appears less than $N_0 \omega$ times in the input, and apply the
+    corresponding polynomials from the induction hypothesis if it is the case.
+    Whenever all letters appear at least $N_0 \omega$ times, we can apply the
+    polynomial $P_{(S,\vec{r})}$.
 \end{proofof}
 
 \section{Proofs of section \ref{sec:ccl}}

@@ -226,7 +226,13 @@ consequence, we are working inside a relatively robust and decidable subclass of
     $f \circ c = f = f \circ t$.
     When $f$ is a \kl{rational series},
     $f \circ c$ and $f \circ t$ are both \kl{rational series} that can be
-    effectively computed from $f$ \textbf{TODO cite}, and since equivalence
+    effectively computed from $f$,\footnote{
+        This can be done by guessing the second (resp. last) letter of the input word, 
+        remembering the first letter in a state, and 
+        then running the original automaton for $f$ on the modified input, checking at the second position 
+        (resp. the end of the word)
+        if the guess was correct.
+    } and since equivalence
     of rational series is decidable 
     \cite[Corollary 3.6]{BERE10},
     we have obtained a decision procedure.
