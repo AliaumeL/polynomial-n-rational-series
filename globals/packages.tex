@@ -2,7 +2,9 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{fontspec}
+\ifxetex
+    \usepackage{fontspec}
+\fi
 
 
 % Macro making packages
@@ -31,7 +33,7 @@
 % References and knowledge management
 %\usepackage{hyperref}
 \usepackage[capitalise,noabbrev,nameinlink]{cleveref}
-\usepackage[composition,hyperref,xcolor,cleveref]{knowledge}
+\usepackage[electronic,hyperref,xcolor,cleveref]{knowledge}
 \knowledgeconfigure{notion}
 
 % BIBTEX / BIBLATEX

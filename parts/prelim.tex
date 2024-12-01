@@ -59,10 +59,10 @@ seen as polynomials in $\Rat$. For instance, $2X$ \kl{divides} $XY$, $-YZ$
 \kl{divides} $X^2 Y Z^3$, and $Y$ does not \kl{divide} $X$. In the
 decomposition of $P \in \Rel[X_1, \dots, X_k]$, a \kl{monomial} is a
 \intro{maximal monomial} if it is a maximal element for the \kl{divisibility
-preordering} of \kl{monomials}. In the polynomial $P(X,Y) \defined X^2 - 2XY + Y^2
-+ X + Y$, the set of \reintro{maximal monomials} is $\set{X^2,  -2 XY,  Y^2}$.
-In the polynomial $P(X,Y) \defined (X - Y)^2$, the \kl{non-negative}
-\kl{monomials} are $X^2$ and $Y^2$.
+preordering} of \kl{monomials}. In the polynomial $P(X,Y) \defined X^2 - 2XY +
+Y^2 + X + Y$, the set of \reintro{maximal monomials} is $\set{X^2,  -2 XY,
+Y^2}$. For instance, the \kl{non-negative} \kl{monomials} of $P(X,Y) \defined
+(X - Y)^2$ are $X^2$ and $Y^2$.
 
 \subsection{Polyregular Functions}
 \label{polyregular:sec}
@@ -134,7 +134,7 @@ an \kl{$\Nat$-polyregular function} computed using a finite monoid in
 
 \begin{example}
     \label{q-polynomial-n-poly:ex}
-    Let $f \colon \Sigma^* \to \Nat$ that maps a word $w$
+    Let $f \colon \Sigma^* \to \Nat$ be the function that maps a word $w$
     to the number of distinct pairs of positions in $w$,
     i.e., $f(w) = \binom{\card{w}}{2} = \card{w}(\card{w} - 1) / 2$.
     Then, $f \in \NSF[2]$.
@@ -142,7 +142,7 @@ an \kl{$\Nat$-polyregular function} computed using a finite monoid in
 \begin{proof}
     Let us remark that the set $P_w$ of distinct pairs of positions
     $i < j$ in a word $w$ is in bijection with the set $D_w$ of
-    decompositons of the form $w = xyz$,
+    decompositions of the form $w = xyz$,
     where $x$ and $y$ are non-empty, 
     via the map $(i,j) \mapsto (w_{1,i}, w_{i+1,j}, w_{j+1,\card{w}})$.
     Let us write $M \defined (\set{0,1}, \max)$
