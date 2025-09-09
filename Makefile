@@ -14,6 +14,26 @@ pnrs.pdf: $(TEX) $(BIB)
 globals/papers.bib: transducer-bib/*.bib
 	cat transducer-bib/*.bib > globals/papers.bib
 
+camera-ready.tex: pnrs.pdf
+	latexpand -o camera-ready.tex \
+			  --empty-comments \
+			  pnrs.tex
+
+camera-ready.tar.gz: camera-ready.tex
+	mkdir -p camera-ready/tikz
+	cp camera-ready.tex camera-ready/
+	cp short.bib camera-ready/
+	cp ./lipics-v2021.cls camera-ready/
+	cp ./tikz/class-inclusions.tex camera-ready/tikz/
+	cp ./orcid.pdf camera-ready/
+	cp ./orcid.pdf camera-ready/orcid
+	cp ./cc-by.pdf camera-ready/
+	cp ./lipics-logo-bw.pdf camera-ready/
+	cp ./LICENSE camera-ready/
+	# Create an archive in tar.gz format
+	tar -czf camera-ready.tar.gz camera-ready/*
+
+
 # Create an arxiv file by inlining everything
 arxiv.tex: pnrs.pdf
 	latexpand -o arxiv.tex \
