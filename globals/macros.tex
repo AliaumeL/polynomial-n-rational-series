@@ -1,51 +1,3 @@
-%% CUSTOM MACROS, META MACROS, AND CONFIG %%
-
-% knowledge management
-% TODO: put an if paper mode.
-%\knowledgestyle{intro notion}{color={A5}, emphasize}
-%\knowledgestyle{notion}{color={A4}}
-%\knowledgeconfigure{anchor point color={A2},
-%                    anchor point shape=corner}
-%\knowledgestyle{intro unknown}{color={D3}, emphasize}
-%\knowledgestyle{intro unknown cont}{color={C3}, emphasize}
-%\knowledgestyle{kl unknown}{color={D2}}
-%\knowledgestyle{kl unknown cont}{color={C2}}
-
-\hypersetup{
-    %colorlinks=true,
-    anchorcolor=A2,
-    citecolor=A4,
-    linkcolor=A4,
-    urlcolor=A3,
-    filecolor=A3,
-    runcolor=D2,
-    menucolor=D2,
-}
-
-\NewDocumentCommand{\klscope}{ o m }{
-    \withkl{\kl[#1]}{#2}
-}
-
-% Common theorem styles
-%\theoremstyle{plain}
-%\newtheorem{theorem}{Theorem}[section]
-\newtheorem{faketheorem}[theorem]{Flawed Theorem}
-\newtheorem{problem}[theorem]{Problem}
-%\newtheorem{lemma}[theorem]{Lemma}
-%\newtheorem{proposition}[theorem]{Proposition}
-%\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{fact}[theorem]{Fact}
-%\theoremstyle{definition}
-%\newtheorem{definition}[theorem]{Definition}
-%\newtheorem{example}[theorem]{Example}
-%\theoremstyle{remark}
-%\newtheorem{remark}[theorem]{Remark}
-%\newtheorem{exercise}[theorem]{Exercise}
-%\newtheorem{claim}[theorem]{Claim}
-%\newtheorem{tool}[theorem]{Tool}
-%\newtheorem{conjecture}[theorem]{Conjecture}
-
-
 % Upgreek letters
 \makeatletter
 \newcommand\mathgr[1]{\tokcycle
@@ -110,3 +62,10 @@
     }%
     \fi%
 }
+
+% new theorem 
+\newtheorem{faketheorem}[theorem]{Flawed Theorem}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{fact}[theorem]{Fact}
+
+\usepackage{lowco2}

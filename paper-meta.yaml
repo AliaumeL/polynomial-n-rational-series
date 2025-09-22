@@ -1,0 +1,56 @@
+title: "Commutative $\\Nat$-rational Series of Polynomial Growth"
+short-title: Polyregular $\Nat$-rational series
+repository: "https://github.com/AliaumeL/polynomial-n-rational-series"
+relatedversion:
+  - kind: conference
+    name: STACS'25
+    url: https://doi.org/10.4230/LIPIcs.STACS.2025.67
+    cite: lopez:LIPIcs.STACS.2025.67
+author:
+  - name: Aliaume Lopez
+    initials: A. Lopez
+    email: ad.lopez@uw.edu.pl
+    affiliation:
+      name: University of Warsaw
+      country: Poland
+      city: Warsaw
+    funding: |
+      Aliaume Lopez was supported by the Polish National Science Centre (NCN) grant "Polynomial finite state computation" (2022/46/A/ST6/00072).
+    orcid: "0000-0002-4205-327X"
+abstract: |
+  This paper studies which functions computed by $\Rel$-weighted automata can be
+  realised by $\Nat$-weighted automata, under two extra assumptions:
+  commutativity (the order of letters in the input does not matter) and
+  polynomial growth (the output of the function is bounded by a polynomial in the
+  size of the input). We
+  leverage this effective characterization to decide whether a function computed
+  by a commutative $\Nat$-weighted automaton of polynomial growth is star-free, a
+  notion borrowed from the theory of regular languages that has been the subject
+  of many investigations in the context of string-to-string functions
+classification:
+  acm_12:
+  - id: "10003752.10003766.10003773.10003775"
+    desc: "Quantitative automata"
+  - id: "10003752.10003766"
+    desc: "Formal languages and automata theory"
+  - id: "10002950.10003714.10003715.10003720"
+    desc: "Computations on polynomials"
+  - id: "10003752.10003766.10003773.10003774"
+    desc: "Transducers"
+  msc_10:
+  - id: "11T06"
+    desc: "Polynomials"
+  - id: "68Q45"
+    desc: "Formal languages and automata"
+  - id: "68Q70"
+    desc: "Algebraic theory of languages and automata"
+  acm_98:
+  - id: "F.4.3"
+    desc: "Formal Languages"
+  - id: "F.4"
+    desc: "MATHEMATICAL LOGIC AND FORMAL LANGUAGES"
+keywords:
+  - Rational series
+  - Weighted automata
+  - Polyregular function
+  - Commutative function
