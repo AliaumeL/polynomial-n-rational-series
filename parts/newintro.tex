@@ -1,33 +1,103 @@
 %! TeX program = xelatex
 %! lang = en-US
 % MAIN MATTER
-\section{Introduction}
-\label{introduction:sec}
+\section{Introduction}\label{introduction:sec}
 
-\AP Given a semiring $\mathbb{S}$, and a finite alphabet $\Sigma$, the class of
-\intro{(noncommutative) $\mathbb{S}$-rational series} is defined as functions from
-$\Sigma^*$ to $\mathbb{S}$ that are computed by \kl{$\mathbb{S}$-weighted
-automata} \cite{BERE10}. This computational model is a generalization of the
-classical notion of non-deterministic finite automata to the weighted setting,
-where transitions are labeled with elements of $\mathbb{S}$. The semantics of
-\kl{$\mathbb{S}$-weighted automata} on a given word $w$ is defined by the sum
-over all accepting runs reading $w$, of the product of the weights of the
-transitions taken along this run. In this paper, we are interested in the case
-where $\mathbb{S}$ equals $\Nat$ or $\Rel$, hence, in $\Nat$-rational series
-($\intro*\NRat$) and $\Rel$-rational series ($\intro*\ZRat$). It is clear that
-$\NRat$ is a proper subclass of $\ZRat$, and a longstanding open problem is to
-provide an algorithm that decides whether a given $\ZRat$ is in $\NRat$
-\cite{KARH77}. 
+\AP\ Given a semiring $\mathbb{S}$, and a finite alphabet $\Sigma$, the class
+of \intro{(noncommutative) $\mathbb{S}$-rational series} is defined as
+functions from $\Sigma^*$ to $\mathbb{S}$ that are computed by
+\kl{$\mathbb{S}$-weighted automata}~\cite{BERE10}. This computational model is
+a generalization of the classical notion of non-deterministic finite automata
+to the weighted setting, where transitions are labeled with elements of
+$\mathbb{S}$. The semantics of \kl{$\mathbb{S}$-weighted automata} on a given
+word $w$ is defined by the sum over all accepting runs reading $w$, of the
+product of the weights of the transitions taken along this run. When the
+semiring $\mathbb{S}$ is the Boolean semiring $\mathbb{B}$, one recovers the
+classical class of regular languages via non-deterministic finite automata.
 
-\begin{problem}
-    \label{n-in-z-rat:problem}
+\begin{example}\label{ab-ba-power-two:ex}
+  The function $f \colon \set{a,b}^* \to \Nat$ that maps a word $w$ to
+  $2^{|w|_a - |w|_b} + 2^{|w|_b - |w|_a}$ is a
+  $\Rat$-rational series.
+  It can be computed by the following $\Rat$-weighted automaton.
+  \begin{center}
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
+      % initial state q_0 edge from above it
+      \node[state,initial above
+      ] (q_0)   {$q_0$};
+      \node[state,accepting] (q_1) [right=of q_0] {$q_1$};
+      \node[state,accepting] (q_2) [left=of q_0] {$q_2$};
+      \path[->]
+        (q_0) edge [bend left] node {$a \mid 2$} (q_1)
+              edge [bend left] node {$a \mid 0.5$} (q_2)
+              edge [bend right] node [swap] {$b \mid 2$} (q_2)
+              edge [bend right] node [swap] {$b \mid 0.5$} (q_1)
+        (q_1) edge [loop above] node {$a \mid 2$} ()
+              edge [loop below] node {$b \mid 0.5$} (q_0)
+        (q_2) edge [loop above]  node {$b \mid 2$} ()
+              edge [loop below] node {$a \mid 0.5$} ()
+              ;
+        \node[draw=none] (outq1) [right=1cm of q_1] {$1$};
+        \node[draw=none] (outq2) [left=1cm of q_2] {$1$};
+        \node[draw=none] (outq0) [below=1cm of q_0] {$1$};
+        \path[->]
+          (q_1) edge [] (outq1)
+          (q_2) edge [] (outq2)
+          (q_0) edge [] (outq0)
+          ;
+    \end{tikzpicture}
+  \end{center}
+\end{example}
+
+
+\AP\ When the semiring $\mathbb{S}$ is a commutative field, for instance in the
+case of the rational numbers $\Rat$, the class of \kl{$\mathbb{S}$-rational
+series} is well understood, and enjoys many decidability properties by virtue
+of its correspondence with \emph{linear representations}~\cite{BERE10}.
+From this correspondence, one can for instance decide whether two
+$\Rat$-rational series are equal, or prove that a 
+$\Real$-rational series that has values in $\Rat$ is in fact a 
+$\Rat$-rational series.
+However, the situation is much less clear when $\mathbb{S}$ is merely a
+commutative ring or worse, a commutative semiring: the corresponding theories
+of \emph{modules} or \emph{semimodules} are much more involved than the one for
+vector spaces, and many questions are open. For instance, the function $f$ from
+\cref{ab-ba-power-two:ex} cannot be computed by a $\Nat$-weighted automaton,
+even though it is a $\Rat$-rational series that only takes natural values. Even
+more, we can prove that $f$ cannot be computed by any $\Rel$-weighted
+automaton.
+
+
+In this paper, we are interested in the case where $\mathbb{S}$ equals $\Nat$
+(semiring) or $\Rel$ (ring), hence, in $\Nat$-rational series ($\intro*\NRat$)
+and $\Rel$-rational series ($\intro*\ZRat$). It is clear that $\NRat$ is a
+proper subclass of $\ZRat$, and a longstanding open problem is to provide an
+algorithm that decides whether a given $\ZRat$ is in $\NRat$~\cite{KARH77}. 
+
+\begin{problem}\label{n-in-z-rat:problem}
     Input: A $\ZRat$ $f$. Output: Is $f$ in $\NRat$?
 \end{problem}
+
+A similar open problem has been studied in the context of rational weighted
+automata, where it amounts to deciding whether a given $\Rat$-weighted
+automaton is equivalent to a $\Rat_+$-weighted automaton. Let us briefly
+explain why this problem is equivalent to \cref{n-in-z-rat:problem}. First,
+given a $\Rat$-weighted automaton $A$, one can construct a $\Rel$-weighted
+automaton $A'$ by multiplying all weights by the least common multiple of the
+denominators of the weights of $A$. Semantically, $A'(w) = c^{|w|} A(w)$ for
+some constant $c \in \Nat$. If $A'$ is equivalent to an $\Nat$-weighted
+automaton $B$, then $A$ is $c^{-|w|} B(w)$, hence equivalent to a
+$\Rat_+$-weighted automaton. For the converse implication, if $A$ is a
+$\Rat$-weighted automaton equivalent to a $\Rat_+$-weighted automaton, then
+$A'$ is also equivalent to some $\Rat_+$-weighted automaton $B'$, but all the
+outputs of $B'$ are natural numbers, and because $\Rat_+$ is a Fatou extension
+of $\Nat$,\footnote{rework this} one concludes that $B'$ is equivalent to an
+$\Nat$-weighted automaton $B''$~\cite{BERE10}.
 
 \Cref{n-in-z-rat:problem} recently received attention in the context of
 \kl{polyregular functions} ($\intro*\Poly$), a computational model that aims to
 generalize the theory of regular languages to the setting of string-to-string
-functions \cite{BOJA18}. In the case of regular languages, \emph{star-free
+functions~\cite{BOJA18}. In the case of regular languages, \emph{star-free
 languages} form a robust subclass of regular languages described equivalently
 in terms of first order logic \cite{MNPA71}, counter-free automata
 \cite{MNPA71}, or aperiodic monoids \cite{SCHU65}. Analogously, there exists a
@@ -42,14 +112,16 @@ decide whether a given \kl{polyregular function} is \kl{star-free}.
 
 \AP In order to approach decision problems on \kl{polyregular functions},
 restricting the output alphabet to a single letter has proven to be a fruitful
-method \cite{DOUE21,DOUE22}. Because words over a unary alphabet are
+method~\cite{DOUE21,DOUE22}. Because words over a unary alphabet are
 canonically identified with natural numbers, unary output \kl{polyregular
 functions} are often called \kl{$\Nat$-polyregular functions} ($\NPoly$), and
 their \emph{star-free} counterpart \kl{star-free $\Nat$-polyregular functions}
 ($\NSF$). Coincidentally, \kl{polyregular functions} with unary output forms a
 subclass of \kl{$\Nat$-rational series}, namely the class of
 \kl{$\Nat$-rational series} of \emph{polynomial growth}, i.e. the output of the
-function is bounded by a polynomial in the size of the input. In \cite{CDTL23},
+function is bounded by a polynomial in the size of the input 
+\cite{SCHU62}.
+In \cite{CDTL23},
 the authors introduced the class of \kl{$\Rel$-polyregular functions}
 ($\ZPoly$) as a subclass of \kl{$\Rel$-rational series} that generalizes
 \kl{$\Nat$-polyregular functions} by allowing negative outputs, and showed that
@@ -105,17 +177,23 @@ of polynomials in $\Rat[\vec{X}]$ that can be computed using $\NRat$ (resp.
 $\ZRat)$. These characterizations uncover a fatal flaw in the proof of a former
 characterization of such polynomials \cite[Theorem 3.3, page 4]{KARH77}. We
 also prove that this previous results holds for polynomials with at most two
-indeterminates (\cref{lem:correct-covered-2}), which may explain why
-it was not detected earlier. Furthermore, these characterizations provide
-effective descriptions of polynomials that can be expressed in $\ZRat$ as those
-obtained using integer combinations of products of \emph{binomial coefficients}
-(called \kl{integer binomial polynomials}, defined page \kpageref{integer
-binomial polynomial}) and similarly for $\NRat$ by introducing the notion of
+indeterminates (\cref{lem:correct-covered-2}), which may explain why it was not
+detected earlier. Furthermore, these characterizations provide effective
+descriptions of polynomials that can be expressed in $\ZRat$ as those obtained
+using integer combinations of products of \emph{binomial coefficients} (called
+\kl{integer binomial polynomials}, defined page \kpageref{integer binomial
+polynomial}) and similarly for $\NRat$ by introducing the notion of
 \kl{strongly natural binomial polynomials} (defined page \kpageref{strongly
-natural binomial polynomial}), which we believe has its own interest. Finally,
+natural binomial polynomial}), which we believe has its own interest. In turn,
 these characterizations demonstrate that polynomials expressible by $\ZRat$
 (resp. $\NRat$) are exactly those expressible by $\ZSF$ (resp. $\NSF$), that
 is, polynomials are inherently \emph{star free} functions.
+
+
+Finally, we show that non-commutative polyregular functions in $\NPoly$ (resp.
+$\NSF$) have a canonical representation in terms of their \emph{residuals}, and
+propose a definition of star-free $\Rel$-rational series and $\Nat$-rational
+series, that we believe is of independent interest.
 
 \subparagraph*{Outline of the paper.} In \cref{preliminaries:sec}, we provide a
 combinatorial definition of \kl{$\Nat$-polyregular functions} (resp.

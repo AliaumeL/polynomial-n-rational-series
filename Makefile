@@ -7,12 +7,10 @@ TEX=pnrs.tex\
     parts/*.tex
 
 
-pnrs.tex: paper.md paper-meta.yaml ~/Documents/papers/pandoc-papers/plain/article.tex ~/Documents/papers/pandoc-papers/filters/git-meta.lua
+pnrs.tex: paper.md paper-meta.yaml
 	pandoc -t latex \
-		--template ~/Documents/papers/pandoc-papers/plain/article.tex \
-		--metadata-file paper-meta.yaml \
-		--lua-filter ~/Documents/papers/pandoc-papers/filters/git-meta.lua \
 		--output pnrs.tex \
+		--defaults arxiv-plain \
 		paper.md
 
 pnrs.pdf: $(TEX) 

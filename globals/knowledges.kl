@@ -181,10 +181,6 @@
  | $\reintro *\NPoly [k]$-transducers
  | $\reintro *\NSF [k]$-transducers
 
-
-
-
-
 \knowledge{notion}
  | types modulo $\omega $
  | $\omega $-type
