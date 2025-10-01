@@ -7,6 +7,8 @@ libraries:
     - globals/mathdefs.tex
     - globals/knowledges.kl
     - globals/macros.tex
+appendix:
+    - parts/appendix.tex
 ---
 
 \lowcotwo\ This is a low-co2 research paper: \lowcotwourl[\lowcotwoversion].
