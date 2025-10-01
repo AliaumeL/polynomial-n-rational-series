@@ -3,6 +3,21 @@
 % MAIN MATTER
 \section{Introduction}\label{introduction:sec}
 
+
+\begin{quote} Unary output polyregular functions enjoy a rich algebraic
+  structure as a subclass of what is more well-known as ($\Nat$)
+  \emph{(noncommutative) rational series}, that is functions from $\Sigma^*$ to
+  $\Nat$ computed by $\Nat$-weigthed automata \cite{BERE88,BERE10}. In this
+  setting, \emph{polyregular functions} are exactly \emph{rational series} with
+  polynomial size outputs \cite[Theorem]{DOUE23}, a model that was already
+  investigated in the 1960's by \cite{SCHU62}. Following a more database
+  oriented approach, one can understand unary output polyregular functions as a
+  form of counting $\mathsf{MSO}$ queries \cite{KRRC13}, that is, $\Nat$-linear
+  combinations of functions that count the number of valuations of a given
+  $\mathsf{MSO}$ formula in a word, which is similar in spirit to \texttt{SELECT
+COUNT(*) FROM word WHERE ...} queries in SQL.
+\end{quote}
+
 \AP\ Given a semiring $\mathbb{S}$, and a finite alphabet $\Sigma$, the class
 of \intro{(noncommutative) $\mathbb{S}$-rational series} is defined as
 functions from $\Sigma^*$ to $\mathbb{S}$ that are computed by
@@ -14,86 +29,36 @@ word $w$ is defined by the sum over all accepting runs reading $w$, of the
 product of the weights of the transitions taken along this run. When the
 semiring $\mathbb{S}$ is the Boolean semiring $\mathbb{B}$, one recovers the
 classical class of regular languages via non-deterministic finite automata.
+When the semiring $\mathbb{S}$ is a commutative field, for instance in the case
+of the rational numbers $\Rat$, the class of \kl{$\mathbb{S}$-rational series}
+is well understood, and enjoys many decidability properties by virtue of its
+correspondence with \emph{linear representations}~\cite{BERE10}. However, the
+situation is much less clear when $\mathbb{S}$ is merely a commutative ring or
+worse, a commutative semiring: the corresponding theories of \emph{modules} or
+\emph{semimodules} are much more involved than the one for vector spaces, and
+many questions are left open. 
 
-\begin{example}\label{ab-ba-power-two:ex}
-  The function $f \colon \set{a,b}^* \to \Nat$ that maps a word $w$ to
-  $2^{|w|_a - |w|_b} + 2^{|w|_b - |w|_a}$ is a
-  $\Rat$-rational series.
-  It can be computed by the following $\Rat$-weighted automaton.
-  \begin{center}
-    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
-      % initial state q_0 edge from above it
-      \node[state,initial above
-      ] (q_0)   {$q_0$};
-      \node[state,accepting] (q_1) [right=of q_0] {$q_1$};
-      \node[state,accepting] (q_2) [left=of q_0] {$q_2$};
-      \path[->]
-        (q_0) edge [bend left] node {$a \mid 2$} (q_1)
-              edge [bend left] node {$a \mid 0.5$} (q_2)
-              edge [bend right] node [swap] {$b \mid 2$} (q_2)
-              edge [bend right] node [swap] {$b \mid 0.5$} (q_1)
-        (q_1) edge [loop above] node {$a \mid 2$} ()
-              edge [loop below] node {$b \mid 0.5$} (q_0)
-        (q_2) edge [loop above]  node {$b \mid 2$} ()
-              edge [loop below] node {$a \mid 0.5$} ()
-              ;
-        \node[draw=none] (outq1) [right=1cm of q_1] {$1$};
-        \node[draw=none] (outq2) [left=1cm of q_2] {$1$};
-        \node[draw=none] (outq0) [below=1cm of q_0] {$1$};
-        \path[->]
-          (q_1) edge [] (outq1)
-          (q_2) edge [] (outq2)
-          (q_0) edge [] (outq0)
-          ;
-    \end{tikzpicture}
-  \end{center}
-\end{example}
-
-
-\AP\ When the semiring $\mathbb{S}$ is a commutative field, for instance in the
-case of the rational numbers $\Rat$, the class of \kl{$\mathbb{S}$-rational
-series} is well understood, and enjoys many decidability properties by virtue
-of its correspondence with \emph{linear representations}~\cite{BERE10}.
-From this correspondence, one can for instance decide whether two
-$\Rat$-rational series are equal, or prove that a 
-$\Real$-rational series that has values in $\Rat$ is in fact a 
-$\Rat$-rational series.
-However, the situation is much less clear when $\mathbb{S}$ is merely a
-commutative ring or worse, a commutative semiring: the corresponding theories
-of \emph{modules} or \emph{semimodules} are much more involved than the one for
-vector spaces, and many questions are open. For instance, the function $f$ from
-\cref{ab-ba-power-two:ex} cannot be computed by a $\Nat$-weighted automaton,
-even though it is a $\Rat$-rational series that only takes natural values. Even
-more, we can prove that $f$ cannot be computed by any $\Rel$-weighted
-automaton.
-
-
-In this paper, we are interested in the case where $\mathbb{S}$ equals $\Nat$
-(semiring) or $\Rel$ (ring), hence, in $\Nat$-rational series ($\intro*\NRat$)
-and $\Rel$-rational series ($\intro*\ZRat$). It is clear that $\NRat$ is a
-proper subclass of $\ZRat$, and a longstanding open problem is to provide an
-algorithm that decides whether a given $\ZRat$ is in $\NRat$~\cite{KARH77}. 
+\AP\ One such question is the characterization of $\mathbb{S}$-rational series
+among $\mathbb{T}$-rational series, when $\mathbb{S}$ is a subsemiring of
+$\mathbb{T}$. In the case of fields, e.g. $\Rat \subseteq \Real$, it is known
+that a $\Real$-rational series that takes values in $\Rat$ is in fact a
+$\Rat$-rational series~\cite{BERE10}. One says that $\Real$ is a \intro{Fatou
+extension} of $\Rat$, and in general, any field is a Fatou extension of its
+subfields~\cite{BERE10}. 
+In this paper, we will focus on three specific semirings $\mathbb{S}$, and we
+will be talking about $\Nat$-rational series ($\intro*\NRat$), $\Rel$-rational
+series ($\intro*\ZRat$), and $\Rat$-rational series ($\intro*\RatRat$). It is
+clear that $\NRat \subsetneq \ZRat \subsetneq \RatRat$, and it is also known
+that $\Rat$ is a \kl{Fatou extension} of $\Rel$~\cite{BERE10}. On the other
+hand, $\ZRat$ is not a Fatou extension of $\NRat$~\cite{KARH77}, and a
+longstanding open problem is to provide an algorithm that decides whether a
+given $\ZRat$ is in $\NRat$~\cite{KARH77}. 
 
 \begin{problem}\label{n-in-z-rat:problem}
     Input: A $\ZRat$ $f$. Output: Is $f$ in $\NRat$?
 \end{problem}
 
-A similar open problem has been studied in the context of rational weighted
-automata, where it amounts to deciding whether a given $\Rat$-weighted
-automaton is equivalent to a $\Rat_+$-weighted automaton. Let us briefly
-explain why this problem is equivalent to \cref{n-in-z-rat:problem}. First,
-given a $\Rat$-weighted automaton $A$, one can construct a $\Rel$-weighted
-automaton $A'$ by multiplying all weights by the least common multiple of the
-denominators of the weights of $A$. Semantically, $A'(w) = c^{|w|} A(w)$ for
-some constant $c \in \Nat$. If $A'$ is equivalent to an $\Nat$-weighted
-automaton $B$, then $A$ is $c^{-|w|} B(w)$, hence equivalent to a
-$\Rat_+$-weighted automaton. For the converse implication, if $A$ is a
-$\Rat$-weighted automaton equivalent to a $\Rat_+$-weighted automaton, then
-$A'$ is also equivalent to some $\Rat_+$-weighted automaton $B'$, but all the
-outputs of $B'$ are natural numbers, and because $\Rat_+$ is a Fatou extension
-of $\Nat$,\footnote{rework this} one concludes that $B'$ is equivalent to an
-$\Nat$-weighted automaton $B''$~\cite{BERE10}.
-
+\AP\
 \Cref{n-in-z-rat:problem} recently received attention in the context of
 \kl{polyregular functions} ($\intro*\Poly$), a computational model that aims to
 generalize the theory of regular languages to the setting of string-to-string
@@ -156,19 +121,192 @@ problems between the discussed classes of functions.
 \end{figure}
 
 
+\subparagraph*{Related problems.} \AP\ Let us complete the picture by
+mentioning that the analogue of \cref{n-in-z-rat:problem} for for $\Rat$ and
+$\Rel$ is decidable because $\Rat$ is a \kl{Fatou extension} of
+$\Rel$~\cite{BERE10}: on the one hand, one can guess a word $w$ such that $f(w)
+\notin \Rel$ to disprove membership in $\ZRat$, and on the other hand, one can
+a guess a $\ZRat$ representation of $f$ and check equality to prove membership
+in $\ZRat$. Furthermore, it is known that $\Rat_+$ (non-negative rational
+numbers) is a \kl{Fatou extension} of $\Nat$~\cite{BERE10}, hence $\ZRat \cap
+\mathbb{Q}_+\mathsf{Series} = \NRat$. These two results allow us to relate
+\cref{n-in-z-rat:problem} to another open problem in the area of weighted
+automata, namely, deciding whether a given $\Rat$-rational series is in fact a
+$\Rat_+$-rational series, which is of importance in the area of probabilistic
+automata \textbf{Todo cite}. In the following \cref{q-qplus-iff-z-nat:remark},
+we prove that this problem is essentially the same as
+\cref{n-in-z-rat:problem}. However, the reduction does not preserve
+\kl{polynomial growth}, hence it does not fit our context of \kl{polyregular
+functions}.
+
+\begin{remark}
+  \label{q-qplus-iff-z-nat:remark}
+  \Cref{n-in-z-rat:problem} is interreducible with 
+  the problem of deciding whether a given $\Rat$-rational series is in
+  $\Rat_+$-rational series. 
+\end{remark}
+\begin{proof}
+  On the one hand, given $f \in \ZRat$, one can 
+  ask whether $f$ is a $\Rat_+$-rational series. If the answer is yes, 
+  then $f$ is in fact in $\NRat$ because $\ZRat \cap \Rat_+ = \NRat$. If the 
+  answer is no, then in particular $f$ is not in $\NRat$.
+
+  On the other hand, given $f \in \RatRat$, one can compute 
+  a number $\alpha \in \Nat$ such that 
+  $f' \defined w \mapsto \alpha^{|w|} f(w)$ is in $\ZRat$: 
+  it is obtained by multiplying all the weights of a $\Rat$-weighted
+  automaton computing $f$ by $\alpha$, and $\alpha$ can be chosen as the
+  least common multiple of the denominators of the weights of this automaton.
+  Now, if $f'$ is in $\NRat$, then $f$ is in $\Rat_+$ because one can simply 
+  divide all the weights of a $\NRat$-weighted automaton computing $f'$ by
+  $\alpha$. Conversely, if $f$ is a $\Rat_+$-rational series, then 
+  $f'$ is also a $\Rat_+$-rational series, but $f'$ is in $\ZRat$, hence
+  $f'$ is in $\NRat$.
+\end{proof}
+
+Finally, on the side of \kl{polyregular functions}, it is known that for
+subclasses of \kl{polyregular functions}, one can decide whether they are
+\kl{star-free}. 
+
+\todo[inline]{Redo the paragraph that was on the original version.}
+
+\AP There have been recurrent attempts to generalize the notions of regularity
+from languages to functions, leading to classes of various expressiveness, such
+as\footnote{This list is far from exhaustive.} Mealy Machines ($\intro*\Mealy$)
+\cite{MEAL55}, sequential functions ($\intro*\Sequential$) \cite{SCHU77},
+rational functions ($\intro*\Rational$) \cite{EILE74}, \intro{regular functions}
+($\intro*\Regular$) \cite{ENMA02}, and \intro{polyregular functions} ($\intro*\Poly$)
+\cite{BOKL19}. For all of these models, an \emph{aperiodic} counterpart can be
+defined (respectively, $\intro*\AMealy$, $\intro*\ASequential$,
+$\intro*\ARational$, $\intro*\ARegular$, $\intro*\SF$), lifting the
+correspondence between counter-free automata, star-free languages and aperiodic
+monoids to the functional setting
+\cite{FKT14,BOJA14,CADA15,DJR16,BDK18,BOKL19,DGK21}. The inclusions between
+these classes of functions are all known to be strict, and we depicted in
+\cref{computational-models:fig} the status of the \emph{membership problem}
+associated to these strict inclusions (that is, given a function $f$, decide if
+$f$ can be computed by a function of a proper subclass). Note that in
+\cref{computational-models:fig}, if $\mathsf{B}$ is a proper subclass of
+$\mathsf{C}$, then the \emph{aperiodic} variant of $\mathsf{B}$ is precisely
+the intersection of $\mathsf{B}$ with the \emph{aperiodic} variant of the
+larger class $\mathsf{C}$ \cref{aperiodic-intersection:remark}. As an example, to conclude that a function can be
+computed by an \emph{aperiodic sequential function} ($\ASequential$) it is
+enough to prove that it is sequential ($\Sequential$), and computed by an
+\intro{aperiodic polyregular function} ($\SF$).
+
+\begin{remark}
+    \label{aperiodic-intersection:remark}
+    For all classes of functions $\mathsf{A}$, $\mathsf{B}$ appearing in 
+    \cref{computational-models:fig},
+    if $\mathsf{B}$ is a proper subclass of $\mathsf{C}$, then $\mathsf{Aperiodic B} =
+    \mathsf{B} \cap \mathsf{Aperiodic C}$.
+\end{remark}
+\begin{proof}
+  \todo[inline]{Do the proof}.
+\end{proof}
+
+\AP To approach the \emph{aperiodicity} membership problems the traditional
+approach has been to develop so-called canonical objects, akin to the minimal
+automaton or the syntactic monoid of regular languages, over which aperiodicity
+is equivalent to a simple syntactic criterion (e.g. having no counters). This
+is the proof scheme that has been implemented for sequential functions
+\cite{CHOF03}, and more recently for rational functions \cite{FGL16,FGLM18}.
+Unfortunately, such a canonical object remains to be defined for regular and
+polyregular functions.
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}[
+        xscale=1.2,
+        decidable/.style={
+            ->, thick, color=black
+        },
+        unknown/.style={
+            ->, dashed, color=gray
+        }
+        ]
+        % Create nodes for the classes and their aperiodic variants
+        % Mealy / sequential / rational / regular / polyregular
+        \node (mealy)  at (0, 2) {$\Mealy$};
+        \node (seq)    at (2, 2) {$\Sequential$};
+        \node (rat)    at (4, 2) {$\Rational$};
+        \node (reg)    at (6, 2) {$\Regular$};
+        \node (poly)   at (8, 2) {$\Poly$};
+        % Aperiodic variants
+        \node (amealy) at (0,0) {$\AMealy$};
+        \node (aseq)   at (2,0) {$\ASequential$};
+        \node (arat)   at (4,0) {$\ARational$};
+        \node (areg)   at (6,0) {$\ARegular$};
+        \node (apoly)  at (8,0) {$\SF$};
+        % Arrows
+        % The decidability is known for inclusions
+        % mealy -> sequential -> rational -> regular -> polyregular
+        % similarly for the aperiodic variants
+        \draw[decidable] (mealy) --
+            node[midway, above] {folklore}
+            (seq);
+        \draw[decidable] (seq)   -- 
+            node[midway, above] {\cite{CHOF03}}
+            (rat);
+        \draw[decidable] (rat)   -- 
+            node[midway, above] {\cite{FGRS13,BGMP15}}
+            (reg);
+        \draw[decidable] (reg)   -- 
+            node[midway, above] {\cite{BOKL19}}
+            (poly);
+        \draw[decidable] (amealy) --
+            (aseq);
+        \draw[decidable] (aseq) --
+            (arat);
+        \draw[decidable] (arat) --
+            (areg);
+        \draw[decidable] (areg) --
+            (apoly);
+        % Decidability of the aperidoic variants are known
+        % for mealy, sequential, rational but not for regular nor polyregular.
+        % we draw the arrows
+        \draw[decidable] (amealy) --
+            node[midway, left] {\cite{SCHU65,MNPA71}}
+            (mealy);
+        \draw[decidable] (aseq) -- 
+            node[midway, left] {\cite{CHOF03}}
+            (seq);
+        \draw[decidable] (arat) -- 
+            node[midway, left] {\cite{FGL16,FGLM18}}
+            (rat);
+        \draw[unknown] (areg) --
+            node[midway, left] {$\simeq$\cite{BOJA14}}
+            (reg);
+        \draw[unknown] (apoly) --
+            node[midway, left] {?}
+            (poly);
+    \end{tikzpicture}
+    \caption{
+        In this picture, arrows denote strict inclusions. Plain
+        arrows signify that the corresponding membership problem is decidable,
+        while dashed arrows signify that the corresponding membership problem
+        is conjectured to be decidable. In the case of \kl{regular functions}
+        ($\Regular$),
+        the decidability has only been obtained under a different notion
+        of equivalence of functions \cite{BOJA14}.
+    }
+    \label{computational-models:fig}
+\end{figure}
+
+
+
 \subparagraph*{Contributions.} In this paper, we work under the extra
 assumption of \emph{commutativity}, that is, assuming that the function is
-invariant under the permutation of its input. In this setting, we 
-prove that $\NPoly \cap \ZSF = \NSF$
-\cite[Conjecture 7.61]{DOUE23} and design an algorithm that decides whether a
-function in $\ZPoly$ is in $\NPoly$ \cite[Open question 5.55]{DOUE23}.
-As a consequence, the
-upper left square of \cref{previously-known-inclusions:fig} has all of its
-arrows decidable and with effective conversion procedures under this extra
-assumption. Because \kl{$\Rel$-rational series} with \emph{polynomial growth}
-are exactly \kl{$\Rel$-polyregular functions} \cite{CDTL23}, this can be seen
-as decision procedure for \cref{n-in-z-rat:problem} under the extra assumption
-of \emph{commutativity} and \emph{polynomial growth}. Similarly, our results
+invariant under the permutation of its input. In this setting, we prove that
+$\NPoly \cap \ZSF = \NSF$ \cite[Conjecture 7.61]{DOUE23} and design an
+algorithm that decides whether a function in $\ZPoly$ is in $\NPoly$ \cite[Open
+question 5.55]{DOUE23}. As a consequence, the upper left square of
+\cref{previously-known-inclusions:fig} has all of its arrows decidable and with
+effective conversion procedures under this extra assumption. Because
+\kl{$\Rel$-rational series} with \emph{polynomial growth} are exactly
+\kl{$\Rel$-polyregular functions} \cite{CDTL23}, this can be seen as decision
+procedure for \cref{n-in-z-rat:problem} under the extra assumption of
+\emph{commutativity} and \emph{polynomial growth}. Similarly, our results
 provide an algorithm for \cref{sf-polyregular:problem} under the extra
 assumption of \emph{commutativity} and \emph{unary output alphabet}.
 
@@ -189,11 +327,12 @@ these characterizations demonstrate that polynomials expressible by $\ZRat$
 (resp. $\NRat$) are exactly those expressible by $\ZSF$ (resp. $\NSF$), that
 is, polynomials are inherently \emph{star free} functions.
 
-
 Finally, we show that non-commutative polyregular functions in $\NPoly$ (resp.
 $\NSF$) have a canonical representation in terms of their \emph{residuals}, and
 propose a definition of star-free $\Rel$-rational series and $\Nat$-rational
-series, that we believe is of independent interest.
+series, that we believe is of independent interest. While aperiodicity is not
+clearly visible on the canonical representations we propose, they form a first
+step towards a better understanding of general functions in $\NPoly$.
 
 \subparagraph*{Outline of the paper.} In \cref{preliminaries:sec}, we provide a
 combinatorial definition of \kl{$\Nat$-polyregular functions} (resp.
@@ -208,3 +347,6 @@ we answer positively to \cite[Open question 5.55]{DOUE23}
 (\cref{decidable-n-poly:thm}) and to \cite[Conjecture 7.61]{DOUE23}
 (\cref{zsf-npoly-nsf:thm}), both under the extra assumption of
 \emph{commutativity}.
+
+
+\tableofcontents

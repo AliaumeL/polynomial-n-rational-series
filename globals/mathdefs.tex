@@ -17,14 +17,16 @@
 \newcommand{\Nat}{\mathbb{N}}
 \newcommand{\Rel}{\mathbb{Z}}
 \newcommand{\Rat}{\mathbb{Q}}
+\newcommand{\PRat}{\mathbb{Q}_{+}}
 \newcommand{\Real}{\mathbb{R}}
+\newcommand{\Complex}{\mathbb{C}}
 
 \newcommand{\Pfin}{\mathcal{P}_{\mathsf{fin}}}
 
-\newcommand{\MSO}{\mathsf{\kl[\MSO]{MSO}}}
+\newcommand{\MSO}{\ensuremath{\mathsf{\kl[\MSO]{MSO}}}}
 \knowledge{\MSO}{notion}
 
-\newcommand{\FO}{\mathsf{\kl[\FO]{FO}}}
+\newcommand{\FO}{\ensuremath{\mathsf{\kl[\FO]{FO}}}}
 \knowledge{\FO}{notion}
 
 
@@ -97,6 +99,8 @@
 \NewDocumentCommand{\ZSF}{O{}}{\kl[\ZSF]{\mathbb{Z}\mathsf{SF}_{#1}}}
 \NewDocumentCommand{\ZRat}{}{\kl[\ZRat]{\mathbb{Z}\mathsf{Series}}}
 \NewDocumentCommand{\NRat}{}{\kl[\NRat]{\mathbb{N}\mathsf{Series}}}
+\NewDocumentCommand{\RatRat}{}{\kl[\RatRat]{\mathbb{Q}\mathsf{Series}}}
+\NewDocumentCommand{\PRatRat}{}{\kl[\PRatRat]{\mathbb{Q}_+\mathsf{Series}}}
 \NewDocumentCommand{\ZCommut}{}{\kl[\ZCommut]{\mathsf{Commut}}}
 
 \knowledge{\Poly}{notion}
@@ -107,6 +111,8 @@
 \knowledge{\ZSF}{notion}
 \knowledge{\ZRat}{notion}
 \knowledge{\NRat}{notion}
+\knowledge{\RatRat}{notion}
+\knowledge{\PRatRat}{notion}
 \knowledge{\ZCommut}{notion}
 
 \NewDocumentCommand{\commute}{O{\cdot}}{\{\!\{ #1 \}\!\}}
@@ -181,3 +187,16 @@
 
 \NewDocumentCommand{\CutPref}{ m }{\text{pref}_{#1}}
 \NewDocumentCommand{\CutSuff}{ m }{\text{suff}_{#1}}
+
+
+
+\NewDocumentCommand{\Deriv}{ m m m }{\mathop{\withkl{\kl[\Deriv]}{\cmdkl{\Delta}_{#3}^{#2}\mathopen{\cmdkl{[}}#1\mathclose{\cmdkl{]}}}}}
+\knowledge{\Deriv}{notion}
+
+\NewDocumentCommand{\counting}{ m }{\mathop{\withkl{\kl[\counting]}{\cmdkl{\text{nbr}[}#1\cmdkl{]}}}}
+\knowledge{\counting}{notion}
+
+
+\NewDocumentCommand{\resequiv}{ m m }{\mathrel{\kl[\resequiv]{\equiv_{{#1},{#2}}}}}
+\knowledge{\resequiv}{notion}
+

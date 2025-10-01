@@ -18,4 +18,5 @@ of air travel.
 \input{parts/counter.tex}
 \input{parts/correction.tex}
 \input{parts/starfree.tex}
+\input{parts/transducers.tex}
 \input{parts/conclusion.tex}
