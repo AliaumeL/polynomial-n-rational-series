@@ -312,6 +312,22 @@ enough to prove that it is sequential ($\Sequential$), and computed by an
 
 \end{proof}
 
+\todo[inline]{We are redoing the proof of \cite{RESCH95} !! They also do the
+sequential setting}
+
+
+If $f \in \ARegular$, then the following holds,
+\begin{equation}
+  \label{eq:aperiodic-regular-pumping}
+  \exists N_0 \in \Nat,
+  \exists K \in \Nat,
+  \forall u,v,w \in \Sigma^*,
+  \exists \seqof{x_i}{i \leq K}, \seqof{y_i}{i \leq K}, \seqof{z_i}{i \leq K} \in \Sigma^*,
+  \forall n \in \Nat,
+  f(u v^{N_0 + n} w) = 
+  \prod_{i = 0}^{K} x_i y_i^n z_i
+  \quad .
+\end{equation}
 
 \begin{lemma}
   \label{sequential-aperiodic-characterization:lemma}
@@ -358,11 +374,23 @@ enough to prove that it is sequential ($\Sequential$), and computed by an
   $f_{q'}(w)$ and $f_q(w)$ are both suffixes of $g(X \times (N + 1) + 1)$. We
   conclude that $f_{q'}(w) = \xi f_q(w)$ for some $\xi \in \Gamma^*$.
 
-  We have proven that for every $w$, there exists a $\xi$ such that $f_{q'}(w)
-  = \xi f_q(w)$. All the $\xi$'s have the same size equal to $|z_2| - |\beta|$. 
-  Assume towards a contradiction that there are two words $w_1, w_2$ such that
-  $f_{q'}(w_1) = \xi_1 f_q(w_1)$ and $f_{q'}(w_2) = \xi_2 f_q(w_2)$ with
-  $\xi_1 \neq \xi_2$. Then
+  We have proven that for every $w$, there exists a $\xi_w$ of size $|z_2| -
+  |\beta|$ such that $f_{q'}(w) = \xi_w f_q(w)$. Let us now prove that $\xi_w$
+  does not depend on $w$, which will prove that all words $f_{q'}(w)$ have the
+  same prefix $\xi$, because the state $q'$ corresponds to a unique residual
+  function, $\xi = \varepsilon$, hence, $f_{q'} = f_q$, and by minimality of
+  the transducer, $q' = q$.
+
+  To that end, 
+  let us rewrite once again
+  \begin{equation}
+    g(X \times (N + 1)) = z_1 z_2^X z_3 = \alpha \left( \prod_{i = 1}^{X(N+1)} (\delta \xi_i) \right) f_q(w)
+  \end{equation}
+  Because all the $\xi_i$ are of the same size, and $|z_2| (N+1) = |\beta|$, we conclude
+  that $\prod_{i = 1}^{N+1} (\delta \xi_i)$
+
+
+
 
 \end{proof}
 
