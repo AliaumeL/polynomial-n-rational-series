@@ -139,7 +139,7 @@ Although these results on $\ZRat$ could not be immediately leveraged to decide
 $\NSF$ inside $\NPoly$, it was conjectured that $\NPoly \cap \ZSF =
 \NSF$~\cite[Conjecture 7.61]{DOUE23}: intuitively, the extra computing power
 granted by negative outputs is \emph{orthogonal} to the extra computing power
-granted by periodic behaviours. It was believed that understanding the
+granted by periodic behaviors. It was believed that understanding the
 membership problem of $\NPoly$ inside $\ZPoly$, that is, a restricted version
 of \cref{n-in-z-rat:problem}, would be a key step towards proving $\NPoly \cap
 \ZSF = \NSF$, which itself would give hope in designing an algorithm for
@@ -166,18 +166,60 @@ problems between the discussed classes of functions.
     \label{previously-known-inclusions:fig}
 \end{figure}
 
+\subsection{Contributions.}
+\label{contributions:sec}
+
+In this paper, we work under the extra
+assumption of \emph{commutativity}, that is, assuming that the function is
+invariant under the permutation of its input. In this setting, we prove that
+$\NPoly \cap \ZSF = \NSF$ \cite[Conjecture 7.61]{DOUE23} and design an
+algorithm that decides whether a function in $\ZPoly$ is in $\NPoly$ \cite[Open
+question 5.55]{DOUE23}. As a consequence, the upper left square of
+\cref{previously-known-inclusions:fig} has all of its arrows decidable and with
+effective conversion procedures under this extra assumption. Because
+\kl{$\Rel$-rational series} with \emph{polynomial growth} are exactly
+\kl{$\Rel$-polyregular functions} \cite{CDTL23}, this can be seen as decision
+procedure for \cref{n-in-z-rat:problem} under the extra assumption of
+\emph{commutativity} and \emph{polynomial growth}. Similarly, our results
+provide an algorithm for \cref{sf-polyregular:problem} under the extra
+assumption of \emph{commutativity} and \emph{unary output alphabet}.
+
+As an intermediate step, we provide a complete and decidable characterization
+of polynomials in $\Rat[\vec{X}]$ that can be computed using $\NRat$ (resp.
+$\ZRat)$. These characterizations uncover a fatal flaw in the proof of a former
+characterization of such polynomials \cite[Theorem 3.3, page 4]{KARH77}. We
+also prove that this previous results holds for polynomials with at most two
+indeterminates (\cref{lem:correct-covered-2}), which may explain why it was not
+detected earlier. Furthermore, these characterizations provide effective
+descriptions of polynomials that can be expressed in $\ZRat$ as those obtained
+using integer combinations of products of \emph{binomial coefficients} (called
+\kl{integer binomial polynomials}, defined page \kpageref{integer binomial
+polynomial}) and similarly for $\NRat$ by introducing the notion of
+\kl{strongly natural binomial polynomials} (defined page \kpageref{strongly
+natural binomial polynomial}), which we believe has its own interest. In turn,
+these characterizations demonstrate that polynomials expressible by $\ZRat$
+(resp. $\NRat$) are exactly those expressible by $\ZSF$ (resp. $\NSF$), that
+is, polynomials are inherently \emph{star free} functions.
+
+Finally, we show that non-commutative polyregular functions in $\NPoly$ (resp.
+$\NSF$) have a canonical representation in terms of their \emph{residuals}, and
+propose a definition of star-free $\Rel$-rational series and $\Nat$-rational
+series, that we believe is of independent interest. While aperiodicity is not
+clearly visible on the canonical representations we propose, they form a first
+step towards a better understanding of general functions in $\NPoly$.
+
+
 \subsection{Related problems}
 \label{related-problems:sec}
 
 Let us now give more details on
 \cref{n-in-z-rat:problem,sf-polyregular:problem}, and relate them to other
 subjects of interest in the literature of polyregular functions and rational
-series.
+series. This will also allow us to clarify the scope of our contributions.
 
-\paragraph*{Fatou extensions and rational series.}
-\AP\ Let us complete the picture by
-mentioning that the analogue of \cref{n-in-z-rat:problem} for for $\Rat$ and
-$\Rel$ is decidable precisely because $\Rat$ is a \kl{Fatou extension} of
+\paragraph*{Fatou extensions and rational series.} \AP\ Let us complete the
+picture by mentioning that the analogue of \cref{n-in-z-rat:problem} for $\Rat$
+and $\Rel$ is decidable precisely because $\Rat$ is a \kl{Fatou extension} of
 $\Rel$~\cite{BERE10}: on the one hand, one can guess a word $w$ such that $f(w)
 \notin \Rel$ to disprove membership in $\ZRat$, and on the other hand, one can
 a guess a $\ZRat$ representation of $f$ and check equality to prove membership
@@ -187,11 +229,10 @@ numbers) is a \kl{Fatou extension} of $\Nat$~\cite{BERE10}, hence $\ZRat \cap
 \cref{n-in-z-rat:problem} to another open problem in the area of weighted
 automata, namely, deciding whether a given $\Rat$-rational series is in fact a
 $\Rat_+$-rational series, which is of importance in the area of probabilistic
-automata \textbf{Todo cite}. In the following \cref{q-qplus-iff-z-nat:remark},
-we prove that this problem is essentially the same as
-\cref{n-in-z-rat:problem}. However, the reduction does not preserve
-\kl{polynomial growth}, hence it does not fit our context of \kl{polyregular
-functions}.
+automata. In the following \cref{q-qplus-iff-z-nat:remark}, we prove that this
+problem is essentially the same as \cref{n-in-z-rat:problem}. However, the
+reduction does not preserve \kl{polynomial growth}, hence it does not fit our
+context of \kl{polyregular functions}.
 
 \begin{remark}
   \label{q-qplus-iff-z-nat:remark}
@@ -219,13 +260,40 @@ functions}.
 \end{proof}
 
 
+
 \paragraph*{Aperiodicity for rational series.} Beware that several
 non-equivalent notions of aperiodicity coexist for rational series
 \cite{REUT80,DRGA19,CDTL23}, and that we only refer to the one applying to
-rational series of polynomial growths introduced in \cite{CDTL23}.
+rational series of polynomial growths introduced in \cite{CDTL23}. Let us
+briefly illustrate these difference and justify our choice to consider the one
+introduced in \cite{CDTL23}. 
 
-\todo[inline]{Write counter examples for weighted logics}.
+First, \cite[Proposition III.4.4, p. 477]{REUT80} introduces a notion of
+aperiodicity for rational series based on a characterization of aperiodic
+regular languages by Schützenberger \cite{SCHU65}: these are precisely those
+languages that can be obtained from letters, $\Sigma^*$, and closures under
+sum, concatenation, and complementation. Now, the analogue for rational series
+was chosen to be subalgebra of $\RatRat$ generated by the geometric series
+\cite[Paragraph 2.a]{REUT80} and characteristic functions of letters. In particular, the
+function $f \colon \set{a}^* \to \Rel$ mapping $w$ to $(-1)^{|w|}$ is aperiodic
+in this sense, and because one can consider sums and products of such functions, the
+indicator function of the language $(aa)^*$ is also aperiodic in this sense
+as $\ind{(aa)^*} = \frac{1}{2}(1 + f)$.
+We
+believe this to be problematic since $(aa)^*$ is not aperiodic as a language.
 
+Then, \cite[Section 5]{DRGA19} introduces a notion of aperiodicity for rational
+series based on weighted first-order logic. Similarly to the previous notion,
+this notion of aperiodicity allows one to express $w \mapsto (-1)^{|w|}$, by
+using the weighted first-order formula $\prod_x (-1)$. Because weighted
+first-order logic is closed under sums, one can express $2 \times \ind{(aa)^*}$
+using the formula $(\prod_x 1) + (\prod_x (-1)))$, which exhibits a similar
+problem as before.
+
+On the contrary, the notion of aperiodicity for rational series introduced in
+\cite{CDTL23} is based on the notion of \emph{star-free polyregular functions},
+and in particular the pre-image of any fixed output by an aperiodic rational
+series is an aperiodic language \cite{BOJA18}.
 
 \paragraph*{Aperiodicity for transducer models.}
 
@@ -496,48 +564,6 @@ polyregular functions.
 COUNT(*) FROM word WHERE ...} queries in SQL.
 \end{quote}
 
-
-\subsection{Contributions.}
-\label{contributions:sec}
-
-In this paper, we work under the extra
-assumption of \emph{commutativity}, that is, assuming that the function is
-invariant under the permutation of its input. In this setting, we prove that
-$\NPoly \cap \ZSF = \NSF$ \cite[Conjecture 7.61]{DOUE23} and design an
-algorithm that decides whether a function in $\ZPoly$ is in $\NPoly$ \cite[Open
-question 5.55]{DOUE23}. As a consequence, the upper left square of
-\cref{previously-known-inclusions:fig} has all of its arrows decidable and with
-effective conversion procedures under this extra assumption. Because
-\kl{$\Rel$-rational series} with \emph{polynomial growth} are exactly
-\kl{$\Rel$-polyregular functions} \cite{CDTL23}, this can be seen as decision
-procedure for \cref{n-in-z-rat:problem} under the extra assumption of
-\emph{commutativity} and \emph{polynomial growth}. Similarly, our results
-provide an algorithm for \cref{sf-polyregular:problem} under the extra
-assumption of \emph{commutativity} and \emph{unary output alphabet}.
-
-As an intermediate step, we provide a complete and decidable characterization
-of polynomials in $\Rat[\vec{X}]$ that can be computed using $\NRat$ (resp.
-$\ZRat)$. These characterizations uncover a fatal flaw in the proof of a former
-characterization of such polynomials \cite[Theorem 3.3, page 4]{KARH77}. We
-also prove that this previous results holds for polynomials with at most two
-indeterminates (\cref{lem:correct-covered-2}), which may explain why it was not
-detected earlier. Furthermore, these characterizations provide effective
-descriptions of polynomials that can be expressed in $\ZRat$ as those obtained
-using integer combinations of products of \emph{binomial coefficients} (called
-\kl{integer binomial polynomials}, defined page \kpageref{integer binomial
-polynomial}) and similarly for $\NRat$ by introducing the notion of
-\kl{strongly natural binomial polynomials} (defined page \kpageref{strongly
-natural binomial polynomial}), which we believe has its own interest. In turn,
-these characterizations demonstrate that polynomials expressible by $\ZRat$
-(resp. $\NRat$) are exactly those expressible by $\ZSF$ (resp. $\NSF$), that
-is, polynomials are inherently \emph{star free} functions.
-
-Finally, we show that non-commutative polyregular functions in $\NPoly$ (resp.
-$\NSF$) have a canonical representation in terms of their \emph{residuals}, and
-propose a definition of star-free $\Rel$-rational series and $\Nat$-rational
-series, that we believe is of independent interest. While aperiodicity is not
-clearly visible on the canonical representations we propose, they form a first
-step towards a better understanding of general functions in $\NPoly$.
 
 \subparagraph*{Outline of the paper.} In \cref{preliminaries:sec}, we provide a
 combinatorial definition of \kl{$\Nat$-polyregular functions} (resp.
