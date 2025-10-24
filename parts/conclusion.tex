@@ -23,6 +23,36 @@ the statements.
             of \kl{growth rate} $l \in \Nat$,
             $(f \circ h) \in \ZPoly[d \times l]$.
 \end{lemma}
+\begin{proof}
+    If $f \in \ZPoly[k]$, then 
+    for every \kl{polyregular function} $g \in \Poly[\ell]$,
+    $f \circ g \in \ZPoly[k \times \ell]$
+    \cite{CDTL23}.
+
+    Conversely, it was proven in \cite[Theorem III.3]{CDTL23}
+    that $f \in \ZPoly[k]$ if and only if
+    for all $\alpha_0, \cdots, \alpha_k$,
+    for all $w_1, \dots, w_k$,
+    we have 
+    \begin{equation}
+        \label{k-pumpable:eqn}
+        f\left(
+            \alpha_0 \prod_{i = 1}^k w_i^{X_i} \alpha_i
+        \right)
+        = \bigO( (X_1 + \cdots X_k)^{k} )
+        \quad .
+    \end{equation}
+    Now, the \kl{commutative} \kl{star-free polyregular function} 
+    $h \colon \set{1, \dots, k}^* \to \Sigma^*$ that maps
+    a word $u$
+    to $\alpha \prod_{i = 1}^k w_i^{\card[i]{u}}$
+    has \kl{growth rate} $1$.
+    Hence, 
+    $f \circ h \in \ZPoly[k]$, 
+    and we indeed conclude that 
+    \cref{k-pumpable:eqn}
+    holds, i.e. that $f \in \ZPoly[k]$.
+\end{proof}
 
 
 
@@ -32,6 +62,45 @@ the statements.
     if and only if for every \kl{commutative} \kl{star-free polyregular function} $h$,
             $(f \circ h) \in \ZSF$.
 \end{lemma}
+\begin{proof}
+    If $f \in \ZSF$, then for all $h \in \SF$,
+    $f \circ h \in \ZSF$, and \emph{a fortiori}
+    for \kl{commutative} functions $h$.
+
+    Conversely, assume that $f \circ h \in \ZSF$
+    for all \kl{commutative} functions $h \in \SF$.
+    Using \cite[Theorem V.13]{CDTL23},
+    to conclude that $f \in \ZSF$,
+    it suffices to prove that
+    for all $\alpha_0, \cdots, \alpha_k \in \Sigma^*$,
+    for all $w_1, \dots, w_k \in \Sigma^*$,
+    there exists a polynomial $P \in \Rel[X_1, \dots,X_k]$
+    and a constant $N_0 \in \Nat$,
+    such that if $X_1, \dots, X_k \geq N_0$:
+    \begin{equation}
+        \label{ultimate-polynomial:eqn}
+        f\left(
+            \alpha_0 \prod_{i = 1}^k w_i^{X_i} \alpha_i
+        \right)
+        = P(X_1, \dots, X_k)
+        \quad .
+    \end{equation}
+    Let us consider
+    the \kl{commutative} \kl{star-free polyregular function}
+    $h \colon \set{1, \dots, k}^* \to \Sigma^*$ that maps
+    a word $u$
+    to $\alpha \prod_{i = 1}^k w_i^{\card[i]{u}}$.
+    We know that
+    $f \circ h \in \ZSF$, hence, that 
+    there exists $Q \in \Rel[X_1, \dots, X_n]$
+    and $M_0 \in \Nat$,
+    such that for all $X_1, \dots, X_n \geq N_0$,
+    $f \circ h( \prod_{i = 1}^k \underline{i}^{X_i}) = Q(X_1, \dots, X_n)$.
+    In particular,
+    we can take $N_0 = M_0$, and $P = Q$ to conclude that
+    \cref{ultimate-polynomial:eqn} holds, hence, that
+    $f \in \ZSF$.
+\end{proof}
 
 Remark that if \cref{pre-compose-sf-commut:lemma} were to hold for
 \kl{$\Nat$-polyregular functions}, then the decidability of $\NPoly$ inside

@@ -2,6 +2,13 @@
 \section{Canonical Models for $\NPoly$}
 \label{noncommutative-integration:sec}
 
+In this section, we present a more open-ended research direction that aims at
+providing canonical models for \kl{$\Nat$-polyregular functions}. The hope with
+such models is to be able to decide membership, equivalence, and aperiodicity
+problems for \kl{$\Nat$-polyregular functions}, which are currently open. The
+key ingredient of our approach is the notion of \emph{noncommutative
+integration}, which allows to re-interpret \kl{$\Nat$-polyregular functions} as
+iterated integrals of the constant function equal to zero.
 
 \subsection{Noncommutative Integration}
 \label{noncommutative-integration:sec}
@@ -35,9 +42,18 @@ Where the semantics of such a model is to
 start in node $q_0$, and when reading a $1$, output the value of $\Delta[f]$
 on the rest of the input, and loop back to $q_0$. When the input is empty, the
 automaton outputs $f(0)$.
+It is a straightforward exercise to prove that a function $f \colon
+\set{1}^* \to \Rel$ corresponds to a polynomial of degree $k$
+if and only if its $k$th discrete derivative $(\Delta \circ \cdots \circ \Delta)[f]$ is constant.
 
-However, when the input alphabet is not unary, the notion of $\Delta[f]$ is not
-well-defined, and we need to consider a more general notion of \emph{integration operator}.
+To capture \kl{$\Nat$-polyregular functions} using this construction, we
+generalize the integration operator in two ways: first, we take into account
+that the input alphabet may contain more than one letter (picking one function
+per letter in the automaton above), and second, we allow our integration
+operators to have some finite inner state (adding states to the automaton
+presented above). These two yield the following definition of
+\kl{$\mathcal{H}$-transducers}.
+
 \begin{definition}
     \label{oracle-transducer:def}
     Let $\mathcal{H} \subseteq \Rel^{\Sigma^*}$ be a set of
@@ -328,7 +344,7 @@ Let us now introduce \cref{residual:algo} to compute the \kl{$k$-residual
 transducer} given a function $f$. Notice that this algorithm requires the
 ability to test if a function belongs to $\NPoly[k]$, which is only known to be
 feasible for \kl{commutative} \kl{polyregular functions}
-\cite[Theorem 31]{LOPEZ24}.
+(\cref{decidable-n-poly:thm}).
 However, the
 termination of this algorithm also proves the existence of the \kl{$k$-residual
 transducer}. The key argument proving the termination of \cref{residual:algo}
@@ -718,7 +734,8 @@ our example function will contain a \kl{counter}.
 In the specific case of $\NPoly[0]$, which corresponds to $\Nat$-linear
 combination of indicator functions of regular languages, we can however recover
 a characterization of \kl{star-free} functions in terms of the \kl{residual
-transducer}.
+transducer}.\footnote{This was remarked by Antonio Casares-Santos 
+in a personal communication.} 
 
 
 \begin{lemma} 

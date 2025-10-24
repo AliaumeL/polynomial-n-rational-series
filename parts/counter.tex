@@ -18,13 +18,40 @@ claimed to be solved in \cite{KARH77}, using the \cref{karh:def} to
 characterize \kl{$\Nat$-rational polynomials}, as restated in \cref{karh:thm}.
 
 \begin{lemma}[restate=n-poly-n-poly:example,label=n-poly-n-poly:example]
-    \proofref{n-poly-n-poly:example}
     Let $P \in \Nat[\vec{X}]$. Then, $P$
     is an \kl{$\Nat$-rational polynomial}.
 \end{lemma}
+\begin{proof}
+    The polynomials of $\Nat[\vec{X}]$
+    are obtained from basic functions (constant in $\Nat$,
+    $X_i$ for some $1 \leq i \leq n$)
+    by products and sums (\cref{stability-polyregular:lemma}). Because the basic functions are
+    \kl{represented} by \kl{star-free $\Nat$-polyregular} functions (see
+    \cref{size-of-word-nsf:ex}),
+    that are closed under these operations, we conclude.
+\end{proof}
+\begin{proof}
+    The function $w \mapsto |w|$ is a \kl{$\Nat$-polyregular function}.
+    Thus, 
+    $P(X) \defined X$ is
+    a \kl{$\Nat$-rational polynomial}. Similarly,
+    $w \mapsto |w|^2 + 3$ is a \kl{$\Nat$-polyregular function},
+    showing that $Q(X) \defined X^2 + 3$
+    is a \kl{$\Nat$-rational polynomial}.
+
+    Remark that $P = (X-1)^2 + 1$. Let $f  \colon \Sigma^* \to \Nat$
+    that maps $aw \mapsto |w|^2$, and $\varepsilon \mapsto 0$.
+    It is clear that $f \in \NPoly$, and that 
+    $P$ is \kl{represented} by
+    $\ind{|w| \geq 1} \times f + \ind{|w| = 0} + 1$.
+
+    Finally, 
+    $T(X) \defined - X$ cannot be 
+    a \kl{$\Nat$-rational polynomial} as \kl{$\Nat$-polyregular functions}
+    are non-negative.
+\end{proof}
 
 \begin{example}[restate=negative-but-npoly:ex,label=negative-but-npoly:ex]
-    \proofref{negative-but-npoly:ex}
     The polynomials $X$, $X^2 + 3$,
     and $X^2 - 2X + 2$
     are \kl{$\Nat$-rational polynomials},

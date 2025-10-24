@@ -56,12 +56,30 @@ undecidable classes $\CoveredPoly$ and the class of \kl{non-negative}
 polynomials.
 
 \begin{remark}[restate=undecidable-non-negative:lem,label=undecidable-non-negative:lem]
-    \proofref{undecidable-non-negative:lem}
     Checking whether a polynomial
     $P \in \Rel[\vec{X}]$ is \kl{non-negative} is undecidable.
     Similarly, checking whether a polynomial $P \in \Rel[\vec{X}]$
     belongs to $\CoveredPoly$ is undecidable.
 \end{remark}
+\begin{proof}
+    Recall that by the undecidability of the Hilbert's Tenth Problem \cite[Problem 10 page 22]{HILB1902}, it is
+    undecidable whether a given polynomial $P \in \Rel[X_1, \dots, X_k]$ has a solution in
+    $\Rel^k$ \cite{MATI1970,DAVIS1973}.
+    The result follows by observing that
+    checking whether a polynomial $P \in \Rel[\vec{X}]$ has no solutions in $\Rel^k$ if and only 
+    if $P^2 - 1$ is \kl{non-negative}. 
+
+    Let us prove that checking whether $P \in \CoveredPoly$ is undecidable. Let
+    $P \in \Rel[\vec{X}]$ be a polynomial, and let us write $P = P_+ - P_-$
+    where both $P_+$ and $P_-$ belong to $\Nat[\vec{X}]$. Let $Z$ be a fresh
+    indeterminate. We define $Q \defined P_+ + (Z - 1) P_-$. By construction, $Q$
+    has \kl{non-negative} \kl{maximal monomials}. Furthermore, $Q$ itself is
+    \kl{non-negative} if and only if $\restr{Q}{Z = 0} = P$ is \kl{non-negative},
+    since for every $n > 0$, $\restr{Q}{Z = n} \in \Nat[\vec{X}]$ is
+    \kl{non-negative}. We conclude that 
+    $P$ is \kl{non-negative} if and only if $Q$ is \kl{non-negative},
+    if and only if $Q \in \CoveredPoly$.
+\end{proof}
 
 
 The proof of \cref{corrected-version:thm} is divided into two parts. First, we
