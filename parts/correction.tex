@@ -27,6 +27,22 @@ obtained by fixing the variables of the domain of $\nu$.
 	$\restr{P}{\nu}$ is \kl{non-negative}.
 \end{definition}
 
+\begin{example}
+	\label{correct-poly:ex}
+	The polynomial $P(X,Y) \defined X^2 - 2XY + 2Y^2$ is in $\CorrectPoly[X,Y]$
+	but not in $\Nat[X,Y]$. Indeed, $P$ is \kl{non-negative} since
+	$P(X,Y) = (X-Y)^2 + Y^2 \geq 0$ for all $X,Y \in \Nat$.
+	Furthermore, the \kl{maximal monomials} of $P$ are $X^2$, $-2XY$, and $2Y^2$,
+	among which $X^2$ and $2Y^2$ are \kl{non-negative}.
+	For any partial valuation $\nu$:
+	if $\nu$ fixes $X = k$, then $\restr{P}{\nu} = k^2 - 2kY + 2Y^2 = 2(Y - k/2)^2 + k^2/2$
+	has \kl{maximal monomial} $2Y^2$ which is \kl{non-negative};
+	if $\nu$ fixes $Y = k$, then $\restr{P}{\nu} = X^2 - 2kX + 2k^2 = (X-k)^2 + k^2$
+	has \kl{maximal monomial} $X^2$ which is \kl{non-negative};
+	if $\nu$ fixes both variables, we get a constant.
+	Hence $P \in \CorrectPoly[X,Y]$.
+\end{example}
+
 First, let us remark that $\CorrectPoly \subseteq \CoveredPoly$, because
 polynomials in $\CorrectPoly$ are \kl{non-negative}. We also remarked at the
 beginning of this section that our counterexample $\BadPoly$ provided in
@@ -526,6 +542,21 @@ $P(X_1, \dots, X_k) = \sum_{i = 1}^n n_i \prod_{j = 1}^k \pbinom{X_j -
 p_{i,j}}{k_{i,j}}$. Similarly, we introduce the class of \intro{integer
 binomial polynomials}, which are obtained by $\Rel$-linear combinations of
 products of \kl{binomial monomials}.
+
+\begin{example}
+	\label{binomial-monomial:ex}
+	The \kl{binomial monomial} $\pbinom{X - 2}{3} = \frac{(X-2)(X-3)(X-4)}{6}$
+	evaluates to $0$ when $X \in \set{0, 1, 2}$, to $0$ when $X = 3$, to $1$ when $X = 4$,
+	and to $10$ when $X = 6$.
+	More generally, $\pbinom{X - \ell}{k}$ counts the number of ways to choose
+	$k$ elements from a set of $X - \ell$ elements, hence is always an integer
+	for $X \geq \ell$.
+	The polynomial $P(X,Y) = 2\pbinom{X - 1}{2} + 3\pbinom{Y}{1}$
+	is a \kl{natural binomial polynomial},
+	while $Q(X) = \pbinom{X}{2} - \pbinom{X - 1}{1} = \frac{X(X-1)}{2} - (X-1) = \frac{X^2 - 3X + 2}{2}$
+	is an \kl{integer binomial polynomial} but not a \kl{natural binomial polynomial}
+	because it has a negative coefficient.
+\end{example}
 
 \AP
 These definitions are justified by the classical result of Pólya that
