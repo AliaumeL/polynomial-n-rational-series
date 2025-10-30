@@ -240,6 +240,17 @@ relation characterizes $\ZPoly[k]$ in the following sense: given $f \colon
 \Sigma^* \to \Rel$, $f \in \ZPoly[k]$ if and only if $\resequiv{f}{k}$ has
 finite index.
 
+\AP Let us briefly pause here to remark that the characterization of
+$\ZPoly[k]$ using $\resequiv{f}{k}$ is reminiscent of the Myhill-Nerode theorem
+for \kl{$\Rel$-rational series}: a function $f \colon \Sigma^* \to \Rel$ is
+a \kl{$\Rel$-rational series} if and only if the set $\Res(f)$ of its \kl{residuals} is
+finitely generated as a $\Rel$-module, using only elements in $\Res(f)$
+\cite[Chapter 1, Corollary 5.4]{BERE10}. The latter statement exactly says
+that there are finitely many words $u_1, \dots, u_n$ such that for all $a \in \Sigma$,
+and $1 \leq i \leq n$, there exist $\alpha_{i,j} \in \Rel$ such that
+$\app{f}{u_i a} = \sum_{j=1}^n \alpha_{i,j} (\app{f}{u_j})$, providing a 
+recurrence relation to compute the value of $f$ on any input word.
+
 \AP The analogue notion for $\NPoly[k-1]$ is defined by $v \intro*\resleq{f}{k}
 u$ if and only if $\Deriv{f}{u}{v} \in \NPoly[k-1]$, this is only a partial
 ordering relation. Given a function $f$, our
@@ -827,12 +838,8 @@ Note that \cref{sf-no-periods-on-sequences:conj} cannot rely on the current
 definition of a \kl{residual transducer}, even when using its \emph{star-free}
 variant (with $\NSF[k-1]$ labels), because of
 \cref{non-aperiodic-residual-transd:ex}. However, we can already prove one
-direction of this conjecture, namely that if $f \in \NSF[k]$, then $(\Sigma^*,
-\resleqsf{f}{k})$ is an \kl(ordering){aperiodic} \kl{well-quasi-ordering}. This
-relies on the characterization of $\NSF[k]$ as the set of functions that count
-the number of realizations of some $\FO$ formulas, which gives us both the
-\kl{well-quasi-ordering} property and the \kl[aperiodic ordering]{aperiodic}
-property.
+direction of this conjecture: if $f \in \NSF[k]$, then $(\Sigma^*,
+\resleqsf{f}{k})$ is an \kl(ordering){aperiodic} \kl{well-quasi-ordering}.
 
 \begin{lemma}
     \label{sf-no-periods-on-sequences:lemma}
@@ -859,13 +866,14 @@ property.
 
     Let us now prove that $(\Sigma^*, \resleqsf{f}{k})$ is \kl[aperiodic
     ordering]{aperiodic}. First, let us notice that for us to conclude, it
-    suffices to prove that for some $n \in \Nat$, the inequality $\langle uw^n
-    \rangle \leq \langle uw^{n+1} \rangle$ holds, where $\langle u \rangle$ is
-    defined as in the proof of \cref{n-poly-k-implies-wqo:lemma}: $\langle u
-    \rangle$ is the vector containing $\mu(u)$ and the tables of the functions
-    $\theta_u^{\ell}$ for $1 \leq \ell \leq k+1$.
-    It is clear that there exists $N_0$ such that for all $n \geq N_0$,
-    $\mu(uw^n) = \mu(uw^{n+1})$ because $M$ is \kl(monoid){aperiodic}.
+    suffices to prove that for some $n \in \Nat$, the inequality $\langle
+    uw^{n+k} \rangle \leq \langle uw^{n+k+1} \rangle$ holds for every $k \in
+    \Nat$, where $\langle u \rangle$ is defined as in the proof of
+    \cref{n-poly-k-implies-wqo:lemma}: $\langle u \rangle$ is the vector
+    containing $\mu(u)$ and the tables of the functions $\theta_u^{\ell}$ for
+    $1 \leq \ell \leq k+1$. It is clear that there exists $N_0$ such that for
+    all $n \geq N_0$, $\mu(uw^n) = \mu(uw^{n+1})$ because $M$ is
+    \kl(monoid){aperiodic}.
 
     For the other components of the vector $\langle uw^n \rangle$, it suffices
     to notice that they can themselves be expressed as \kl{commutative}
@@ -874,6 +882,7 @@ property.
     \theta_{uw^X}^{\ell}(m_{\ell}, \dots, m_{k+1})$ for some $1 \leq \ell \leq
     k+1$ and $(m_{\ell}, \dots, m_{k+1}) \in M^{k + 2 - \ell}$. It is clear 
     that $g$ is a \kl{commutative} \kl{star-free} \kl{$\Nat$-polyregular function},
+    hence
     one can leverage 
     \cref{zsf-npoly-nsf:thm,decide-rat-poly-npoly:cor}
     and conclude that 

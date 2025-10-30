@@ -111,12 +111,26 @@ an \kl{$\Nat$-polyregular function} computed using a finite monoid in
 \emph{division} computed by a \kl{$\Nat$-polyregular function}.
 
 \begin{example}
+  \label{constant-function-nsf:ex}
+  Let $c \in \Nat$, and 
+  $f$ be the constant function $f \colon w \mapsto c$. 
+  Then, $f \in \NSF[0]$.
+\end{example}
+\begin{proof}
+  We consider the trivial monoid $M \defined (\set{1}, \times)$ (which is \kl(monoid){aperiodic})
+  the morphism $\mu \colon \Sigma^* \to M$ defined by $\mu(w) \defined 1$,
+  and the \kl{production function} $\pi \colon M \to \Nat$
+  defined by $\pi(1) \defined c$.
+\end{proof}
+
+\begin{example}
     \label{size-of-word-nsf:ex}
     The map $f \colon w \mapsto \card{w} + 1$
     belongs to $\NSF[1]$.
 \end{example}
 \begin{proof}
-    Let us define $M \defined (\set{1}, \times)$ which is 
+  Similarly to \cref{constant-function-nsf:ex},
+  let us define $M \defined (\set{1}, \times)$ which is 
     a finite \kl{aperiodic monoid}, $\mu \colon \Sigma^* \to M$
     defined by $\mu(w) \defined 1$, and
     $\pi \colon M^2 \to \Nat$

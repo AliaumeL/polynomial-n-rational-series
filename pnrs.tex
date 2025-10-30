@@ -10,6 +10,7 @@
 %   edit the `templates/plain-article.tex` file instead.
 \documentclass[9pt,a4paper,twosided]{article}
 
+
 % we setup a custom geometry because the default one is too narrow
 \usepackage{geometry}
 \geometry{margin=3.5cm}
@@ -17,6 +18,11 @@
 % utf-8 for old systems
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+
+% xelatex unicode setup
+\ifxetex
+  \usepackage{fontspec}
+\fi
 
 % babel for language settings
 \usepackage[english]{babel}
