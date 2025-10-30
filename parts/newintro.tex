@@ -7,7 +7,7 @@
 \AP\ Given a semiring $\mathbb{S}$, and a finite alphabet $\Sigma$, the class
 of \intro{(noncommutative) $\mathbb{S}$-rational series} is defined as
 functions from $\Sigma^*$ to $\mathbb{S}$ that are computed by
-\kl{$\mathbb{S}$-weighted automata}~\cite{BERE10}. This computational model is
+\kl{$\mathbb{S}$-weighted automata}~\cite[Chapter 1]{BERE10}. This computational model is
 a generalization of the classical notion of non-deterministic finite automata
 to the weighted setting, where transitions are labeled with elements of
 $\mathbb{S}$, and the set of accepting states is replaced by a function from
@@ -23,7 +23,7 @@ automata. When the semiring $\mathbb{S}$ is a commutative field, for instance
 in the case of the rational numbers $\Rat$, the class of
 \kl{$\mathbb{S}$-rational series} is well understood, and enjoys many
 decidability properties by virtue of its correspondence with \emph{linear
-representations}~\cite{BERE10}. However, the situation is much less clear when
+representations}~\cite[Theorem 7.1]{BERE10}. However, the situation is much less clear when
 $\mathbb{S}$ is merely a commutative ring  (e.g., $\Rel$) or worse, a
 commutative semiring (e.g. $\Nat$): the corresponding theories of \emph{modules}
 or \emph{semimodules} are much more involved than the one for vector spaces,
@@ -63,29 +63,24 @@ and many questions are left open.
       \path[->] (q_2) edge[bend right] node[below] {a / 1} (q_3);
       % q_3 -> q_2
       \path[->] (q_3) edge[bend right] node[above] {a / 1} (q_2);
-
-
-
-      
     \end{tikzpicture}
   \end{center}
 \end{example}
 
 \AP\ A well-studied question on \kl{rational series} is the characterization of
 $\mathbb{S}$-rational series among $\mathbb{T}$-rational series, when
-$\mathbb{S}$ is a subsemiring of $\mathbb{T}$. In the case of fields, e.g.
-$\Rat \subseteq \Real$, it is known that a $\Real$-rational series that takes
-values in $\Rat$ is in fact a $\Rat$-rational series~\cite{BERE10}. One says
-that $\Real$ is a \intro{Fatou extension} of $\Rat$, and in general, any field
-is a Fatou extension of its subfields~\cite{BERE10}. In this paper, we will
-focus on three specific semirings $\mathbb{S}$, and we will be talking about
-$\Nat$-rational series ($\intro*\NRat$), $\Rel$-rational series
+$\mathbb{S}$ is a subsemiring of $\mathbb{T}$. For instance, any
+$\Rat$-rational series taking values in $\Rel$ is a $\Rel$-rational
+series~\cite[Chapter 7, Theorem 1.1]{BERE10}. One says that $\Rat$ is a
+\intro{Fatou extension} of $\Rel$, and in general, any field is a \kl{Fatou
+extension} of its subfields~\cite[Chapter 7, Theorem 2.1]{BERE10}. In this
+paper, we will focus on three specific semirings $\mathbb{S}$, and we will be
+talking about $\Nat$-rational series ($\intro*\NRat$), $\Rel$-rational series
 ($\intro*\ZRat$), and $\Rat$-rational series ($\intro*\RatRat$). It is clear
-that $\NRat \subsetneq \ZRat \subsetneq \RatRat$, and it is also known that
-$\Rat$ is a \kl{Fatou extension} of $\Rel$~\cite{BERE10}. On the other hand,
-$\ZRat$ is not a Fatou extension of $\NRat$~\cite{KARH77}, and a longstanding
-open problem is to provide an algorithm that decides whether a given $\ZRat$ is
-in $\NRat$~\cite{KARH77}. 
+that $\NRat \subsetneq \ZRat \subsetneq \RatRat$, and we already stated that
+$\Rat$ is a \kl{Fatou extension} of $\Rel$. On the other hand, $\Rat$ is not a
+\kl{Fatou extension} of $\Nat$, and a longstanding open problem is to provide an
+algorithm that decides whether a given $\ZRat$ is in $\NRat$~\cite{KARH77}. 
 
 \begin{problem}\label{n-in-z-rat:problem}
     Input: A $\ZRat$ $f$. Output: Is $f$ in $\NRat$?
@@ -101,7 +96,7 @@ in terms of first order logic \cite{MNPA71}, counter-free automata
 languages are those that do not exhibit non-trivial periodic behaviour: for
 instance, the language $(aa)^*$ is not star-free, while the language $(ab)^*$
 is. Analogously, there exists a \emph{star-free} fragment of \kl{polyregular
-functions} called \kl{star-free polyregular functions} ($\intro*\SF$)
+functions} called \reintro{star-free polyregular functions} ($\intro*\SF$)
 \cite{BOJA18}. A typical example of a non-star-free \kl{polyregular function}
 is a function that replaces every letter ``$a$'' in an odd position of the
 input by a letter ``$b$''. One open question in this area is to decide whether
@@ -194,7 +189,9 @@ detected earlier.
 
 Failure of this previous characterization is welcomed, as it implied that it
 was not possible to decide if a polynomial belonged to $\NRat$
-(\cref{undecidable-non-negative:lem}). On the contrary, our new
+(\cref{undecidable-non-negative:lem}), therefore proving \cref{n-in-z-rat:problem}
+to be undecidable.
+On the contrary, our new (decidable)
 characterizations provide effective descriptions of polynomials that can be
 expressed in $\ZRat$ as those obtained using integer combinations of products
 of \emph{binomial coefficients} (called \kl{integer binomial polynomials},
@@ -206,30 +203,33 @@ polynomials expressible by $\ZRat$ (resp. $\NRat$) are exactly those
 expressible by $\ZSF$ (resp. $\NSF$), that is, polynomials are inherently
 \emph{star free} functions.
 
-Finally, we show that non-commutative polyregular functions in $\NPoly$ (resp.
-$\NSF$) have a canonical representation in terms of their \emph{residuals}, and
-propose a definition of star-free $\Rel$-rational series and $\Nat$-rational
-series, that we believe is of independent interest. While aperiodicity is not
+
+There are two limitations of our work: the assumption of \emph{polynomial
+growth}, and the assumption of \emph{commutative input}. As a first step
+towards removing the latter assumption, we show that non-commutative
+polyregular functions in $\NPoly$ (resp. $\NSF$) have a canonical
+representation in terms of their \emph{residuals}. While aperiodicity is not
 clearly visible on the canonical representations we propose, they form a first
 step towards a better understanding of general functions in $\NPoly$.
+
 
 
 \subsection{Related problems}
 \label{related-problems:sec}
 
-Let us now give more details on
+Let us now provide more context on
 \cref{n-in-z-rat:problem,sf-polyregular:problem}, and relate them to other
 subjects of interest in the literature of polyregular functions and rational
-series. This will also allow us to clarify the scope of our contributions.
+series. This will also clarify the scope of our contributions.
 
 \paragraph*{Fatou extensions and rational series.} \AP\ Let us complete the
 picture by mentioning that the analogue of \cref{n-in-z-rat:problem} for $\Rat$
 and $\Rel$ is decidable precisely because $\Rat$ is a \kl{Fatou extension} of
-$\Rel$~\cite{BERE10}: on the one hand, one can guess a word $w$ such that $f(w)
+$\Rel$~\cite[Chapter 7, Theorem 1.1]{BERE10}: on the one hand, one can guess a word $w$ such that $f(w)
 \notin \Rel$ to disprove membership in $\ZRat$, and on the other hand, one can
 a guess a $\ZRat$ representation of $f$ and check equality to prove membership
 in $\ZRat$. Furthermore, it is known that $\Rat_+$ (non-negative rational
-numbers) is a \kl{Fatou extension} of $\Nat$~\cite{BERE10}, hence $\ZRat \cap
+numbers) is a \kl{Fatou extension} of $\Nat$~\cite[Chapter 7, Theorem 2.2]{BERE10}, hence $\ZRat \cap
 \mathbb{Q}_+\mathsf{Series} = \NRat$. These two results allow us to relate
 \cref{n-in-z-rat:problem} to another open problem in the area of weighted
 automata, namely, deciding whether a given $\Rat$-rational series is in fact a
@@ -269,7 +269,7 @@ context of \kl{polyregular functions}.
 \paragraph*{Aperiodicity for rational series.} Beware that several
 non-equivalent notions of aperiodicity coexist for rational series
 \cite{REUT80,DRGA19,CDTL23}, and that we only refer to the one applying to
-rational series of polynomial growths introduced in \cite{CDTL23}. Let us
+rational series of polynomial growth introduced in \cite{CDTL23}. Let us
 briefly illustrate these difference and justify our choice to consider the one
 introduced in \cite{CDTL23}. 
 
@@ -313,8 +313,8 @@ We will only consider in this survey the following well-known models of
 string-to-string functions: Mealy Machines ($\intro*\Mealy$) \cite{MEAL55},
 sequential functions ($\intro*\Sequential$) \cite{SCHU77}, rational functions
 ($\intro*\Rational$) \cite{EILE74}, \intro{regular functions}
-($\intro*\Regular$) \cite{ENMA02}, and \intro{polyregular functions}
-($\intro*\Poly$) \cite{BOKL19}. These models stem from different
+($\intro*\Regular$) \cite{ENMA02}, and \reintro{polyregular functions}
+($\reintro*\Poly$) \cite{BOKL19}. These models stem from different
 characterizations of regular languages, respectively deterministic finite state
 automata for $\Mealy$ and $\Sequential$, non-deterministic finite state
 automata for $\Rational$, two-way deterministic finite state automata with
@@ -326,7 +326,7 @@ other, as depicted in \cref{computational-models:fig}.
 For all of these
 models, an \emph{aperiodic} counterpart can be defined (respectively,
 $\intro*\AMealy$, $\intro*\ASequential$, $\intro*\ARational$,
-$\intro*\ARegular$, $\intro*\SF$), lifting the correspondence between
+$\intro*\ARegular$, $\reintro*\SF$), lifting the correspondence between
 counter-free automata, star-free languages and aperiodic monoids to the
 functional setting~\cite{FKT14,BOJA14,CADA15,DJR16,BDK18,BOKL19,DGK21}. The
 inclusions between these classes of functions are all known to be strict, and
@@ -337,10 +337,10 @@ subclass). Note that in \cref{computational-models:fig}, if $\mathsf{B}$ is a
 proper subclass of $\mathsf{C}$, then the \emph{aperiodic} variant of
 $\mathsf{B}$ is precisely the intersection of $\mathsf{B}$ with the
 \emph{aperiodic} variant of the larger class $\mathsf{C}$
-\cref{aperiodic-intersection:remark}. As an example, to conclude that a
+(\cref{aperiodic-intersection:remark}). As an example, to conclude that a
 function can be computed by an \emph{aperiodic sequential function}
 ($\ASequential$) it is enough to prove that it is sequential ($\Sequential$),
-and computed by an \intro{aperiodic polyregular function} ($\SF$).
+and computed by an \kl{aperiodic polyregular function} ($\SF$).
 
 \begin{remark}
     \label{aperiodic-intersection:remark}
@@ -379,18 +379,8 @@ and computed by an \intro{aperiodic polyregular function} ($\SF$).
     f(u v^{n + N_0} w) = z_1 z_2^n z_3
     \quad . 
   \end{equation}
-  Let us compare \cref{eq:aperiodic-sequential-pumping}
-  to the classical definition of aperiodicity for languages: a regular language $L$ is
-  aperiodic if and only if there exists $N_0 \in \Nat$
-  such that for all $u,v,w \in \Sigma^*$,
-  \begin{equation}
-    \label{eq:aperiodic-language-pumping}
-    u v^{N_0} w \in L \iff u v^{N_0 + 1} w \in L
-    \quad .
-  \end{equation}
-  This characterization of aperiodicity was generalized to \kl{$\Rel$-polyregular functions}
-  in~\cite{CDTL23} by allowing polynomial behaviours on the output side of 
-  this pumping lemma.
+  Since this property is model-independent, we obtain in particular 
+  the desired equalities.
 
   Finally, $\ARegular = \Regular \cap \SF$ is proved in \cite{BOJA14},
   since it proves that $\ARegular$ is exactly the subclass of
@@ -408,7 +398,7 @@ subclass of \kl{polyregular functions} called \intro{polyblind functions}
 fails: the function $f \colon \set{a}^* \to \set{a}^*$ mapping $a^n$ to $a^{
   n(n+1)/2 }$ is \kl{star-free polyregular} (concatenating all prefixes of the
 input), and \kl{polyblind} (for every even letter, it outputs the whole input),
-but not \kl{star-free polyblind}.\footnote{This example was communicated to us
+but not \intro{star-free polyblind}.\footnote{This example was communicated to us
 by Nguyễn Lê Thành Dũng (Tito).}
 
 \begin{figure}
@@ -499,10 +489,14 @@ combinatorial definition of \kl{$\Nat$-polyregular functions} (resp.
 \cite[Theorem 3.3, page 4]{KARH77} (\cref{thm:counter-example}), and correct it
 by providing effective characterizations of polynomials computed by $\ZRat$
 (\cref{integer-binomial-polynomials:cor}) and $\NRat$
-(\cref{decide-rat-poly-npoly:cor}). Finally, in \cref{beyond-polynomials:sec},
-we answer positively to \cite[Open question 5.55]{DOUE23}
+(\cref{decide-rat-poly-npoly:cor}). Then, in \cref{beyond-polynomials:sec}, we
+answer positively to \cite[Open question 5.55]{DOUE23}
 (\cref{decidable-n-poly:thm}) and to \cite[Conjecture 7.61]{DOUE23}
 (\cref{zsf-npoly-nsf:thm}), both under the extra assumption of
-\emph{commutativity}.
+\emph{commutativity}. We open the way to removing the assumption of
+\emph{commutativity} by providing canonical representations of functions in
+\cref{canonical-models:sec}, where we provide a semantic characterization of
+\kl{$\Nat$-polyregular functions} using their \kl{residuals}
+(\cref{non-commutative-npoly:thm}).
 
 

@@ -27,13 +27,17 @@
  | $\Nat $-rational polynomials
 
 \knowledge{notion}
+ | Fatou extension
+\knowledge{notion}
  | (noncommutative) $\mathbb {S}$-rational series
+ | $\mathbb {S}$-rational series
  | weighted automata
  | $K$-rational series
  | $K$-weighted automata
  | $\mathbb {S}$-weighted automata
  | $\Nat $-weighted automaton
  | $\Rel $-rational series
+ | $\Rel $-weighted automaton
  | $\Nat $-rational series
  | rational series 
 
@@ -55,6 +59,11 @@
  | star-free
  | aperiodic@polyregular
  | aperiodicity@polyregular
+\knowledge{notion}
+ | polyblind functions
+ | polyblind
+\knowledge{notion}
+ | star-free polyblind
 
 \knowledge{notion}
  | $\Rel $-polyregular
@@ -131,6 +140,10 @@
  | translation operator
 
 \knowledge{notion}
+ | noncommutative derivative
+ | non-commutative derivatives
+
+\knowledge{notion}
  | well-quasi-ordering
  | well-quasi-orderings
  | well-quasi-ordered
@@ -158,7 +171,9 @@
  | residual transducer
  | $k$-residual transducer
  | $0$-residual transducer
+ | $1$-residual transducer
  | $k$-residual transducers
+ | residual transducers
 
 \knowledge{notion}
  | Hoare ordering
@@ -175,6 +190,8 @@
  | $\mathcal {H}$-transducers
  | $\mathcal {H}$-transducer
  | $\NPoly [k-1]$-transducer
+ | $\NPoly [1]$-transducer
+ | $\NSF [0]$-transducer
  | $\NSF [k-1]$-transducer
  | $\reintro *\ZPoly [k-1]$-transducer
  | $\reintro *\NPoly [k-1]$-transducer
@@ -190,6 +207,7 @@
 
 \knowledge{notion}
  | aperiodic ordering
+ | aperiodic@ordering
 
 
 
@@ -219,3 +237,6 @@
 \knowledge{notion}
  | integer-valued
  | integer-valued polynomials
+
+
+

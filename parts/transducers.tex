@@ -1,6 +1,6 @@
 % !TEX root = ../pnrs.tex
 \section{Canonical Models for $\NPoly$}
-\label{noncommutative-integration:sec}
+\label{canonical-models:sec}
 
 In this section, we present a more open-ended research direction that aims at
 providing canonical models for \kl{$\Nat$-polyregular functions}. The hope with
@@ -96,7 +96,7 @@ formally state \cref{H-transducers:thm}, we need to introduce the
 automata-theoretic counterpart of \FO, which is based on the notion of
 \kl{counter}: a \intro{counter} in a finite state automaton is a pair $(q,u)$
 where $q$ is a state and $u$ is a word such that $\delta(q,u) \neq q$ and
-$\delta(q,u^n) = q$ for some $n \geq 2$. An automaton is \intro{counter-free}
+$\delta(q,u^n) = q$ for some $n \geq 2$. An automaton is \reintro{counter-free}
 when it contains no \kl{counters}. This connection between \kl{counter-free}
 automata and \kl{star-free} functions (with boolean output) is well-known in
 automata theory \cite{MNPA71}.
@@ -346,12 +346,16 @@ ability to test if a function belongs to $\NPoly[k]$, which is only known to be
 feasible for \kl{commutative} \kl{polyregular functions}
 (\cref{decidable-n-poly:thm}).
 However, the
-termination of this algorithm also proves the existence of the \kl{$k$-residual
+termination of this algorithm will prove the existence of the \kl{$k$-residual
 transducer}. The key argument proving the termination of \cref{residual:algo}
 is based on the fact that for a function $f \in \NPoly[k]$, the quasi-ordering
-$(\resleq{f}{k})$ is a \kl{well-quasi-ordering}. This connection is made
-possible through the characterization of $\NPoly$ as counting the number of
-valuations of some $\MSO$ formulas (see \cref{polyregular-function:def}).
+$(\resleq{f}{k})$ is a \kl{well-quasi-ordering}.
+
+\AP A quasi-ordered set $(X, \leq)$ is a \intro{well-quasi-ordering} if every
+infinite sequence of elements $\seqof{x_n}{n \in \Nat}$ of $X$ contains two
+indices $i < j$ such that $x_i \leq x_j$. We say that such a sequence is a
+\intro{good sequence}, on the contrary, a sequence is \intro{bad} if it
+contains no such pair of indices.
 
 \begin{algorithm}[t]
     $Q \defined \{ \varepsilon \}$;
@@ -387,7 +391,7 @@ valuations of some $\MSO$ formulas (see \cref{polyregular-function:def}).
         $F(u) \defined f(u)$;
     }
     \Return{$(Q, \varepsilon, \delta, \lambda, F)$};
-    \caption{Computing a $k$-residual transducer of a function $f$.}
+    \caption{Computing a \kl{$k$-residual transducer} of a function $f$.}
     \label{residual:algo}
 \end{algorithm}
 
@@ -483,9 +487,7 @@ $\resleq{f}{k}$ is a \kl{well-quasi-ordering}.
     \label{wqo-implies-termination:lemma}
     Let $f \colon \Sigma^* \to \Nat$, and $k \in \Nat$ be such that
     every infinite, $\prefleq$-increasing sequence is \kl{good}
-    in $(\Sigma^*, \resleq{f}{k})$
-    (or equivalently, such that the relation $(\prefleq \Rightarrow \resleq{f}{k})$
-    is \kl{well}).
+    in $(\Sigma^*, \resleq{f}{k})$.
     Then, \cref{residual:algo} terminates on the input $(f,k)$.
 \end{lemma}
 \begin{proof}
@@ -502,7 +504,7 @@ $\resleq{f}{k}$ is a \kl{well-quasi-ordering}.
     \bigcup_{i \in \Nat} Q_i$. The set $Q_\infty$ is infinite, and is
     \kl{downwards closed} for $\prefleq$. As a consequence, it is an infinite
     tree with a finite branching (at most $\card{\Sigma}$), and has an infinite
-    branch $\seqof{u_j}[j \in \Nat]$ thanks to König's lemma.
+    branch $\seqof{u_j}{j \in \Nat}$ thanks to König's lemma.
 
     Let us prove that this infinite branch is a \kl{bad sequence} for the
     ordering $\resleq{f}{k}$.
@@ -523,11 +525,6 @@ Let us now prove that \cref{residual:algo} is correct terminates when $f \in \NP
 $\resleq{f}{k}$ is a \kl{well-quasi-ordering}, which 
 is the  content of \cref{n-poly-k-implies-wqo:lemma}.
 
-\todo[inline]{
-  Maybe redo this directly with 
-  the combinatorial definition of polyregular functions?
-}
-
 \begin{lemma}
     \label{n-poly-k-implies-wqo:lemma}
     Let $k \in \Nat$, and let $f \in \NPoly[k]$.
@@ -535,96 +532,114 @@ is the  content of \cref{n-poly-k-implies-wqo:lemma}.
     for $\Sigma^*$.
 \end{lemma}
 \begin{proof}
-    Because $f \in \NPoly[k]$, there exists
-    a tuple $\vec{x}$ of first order free variables,
-    $\MSO$ formulas $\seqof{\psi_i(\vec{x})}[1 \leq i \leq n]$,
-    and non-negative coefficients $\seqof{m_i}[1 \leq i \leq n]$,
-    such that
-    $f = \sum_{i = 1}^n m_i \times \counting{\varphi_i(\vec{x})}$.
+  Because $f \in \NPoly[k]$, there exists a finite monoid $M$,
+  a morphism $\mu \colon \Sigma^* \to M$ and a production 
+  function $\pi \colon M^{k+1} \to \NPoly[k]$
+  such that $f = \pi^\dagger$. We will use the fact that the
+  \kl{residuals} of a function represented in that way
+  can be explicitly expressed using $\mu$ and $\pi$, hence,
+  that their \kl{non-commutative derivatives} can also be computed.
 
-    Let $q$ be the maximal quantifier rank of formulas $\seqof{\psi_i}[1 \leq i
-    \leq n]$. To a word $u \in \Sigma^*$, we associate the vector $\MSO^q(u)$
-    that maps an $\MSO$-type with $\ell \leq |\vec{x}|$ free variables to the
-    number of realizations of this type in $u$.
+  Let $u,w \in \Sigma^*$ be words, then $uw = s_1 \cdots s_{k+1}$ implies that
+  there exists $\ell \leq k+1$, such that $u = u_1 \cdots u_{\ell}$, $w
+  = w_{\ell} \cdots w_{k+1}$, with $s_i = u_i$ for $1 \leq i \leq \ell - 1$,
+  $w_i = s_i$ for $\ell + 1 \leq i \leq k+1$, and $s_{\ell} = u_{\ell}
+  w_{\ell}$.
+  Therefore,
+  \begin{align*}
+    \app{f}{u}(w) &= f(uw) \\
+                  &=
+    \sum_{uw = s_1 \cdots s_{k+1}} \pi(\mu(s_1), \dots, \mu(s_{k+1})) \\
+    &=
+    \sum_{\ell = 1}^{k+1}
+    \sum_{w = w_{\ell} \cdots w_{k+1}}
+    \sum_{u = u_1 \cdots u_{\ell}}
+    \pi(\mu(u_1), \dots, \mu(u_{\ell-1}), \mu(u_{\ell} w_{\ell}), \mu(w_{\ell+1}), \dots, \mu(w_{k+1})) \\
+    &=
+    \sum_{\ell = 1}^{k+1}
+    \sum_{w = w_{\ell} \cdots w_{k+1}}
+    \underbrace{
+    \sum_{u = u_1 \cdots u_{\ell}}
+  \pi(\mu(u_1), \dots, \mu(u_{\ell-1}), \mu(u_\ell) \mu( w_\ell), \mu(w_{\ell +1}), \dots, \mu(w_{k+1}))}_{
+      \defined \theta_u^\ell(\mu(w_{\ell +1}), \dots, \mu(w_{k+1}))}
+    \\
+    &=
+    \sum_{\ell = 1}^{k+1}
+    \sum_{w = w_{\ell} \cdots w_{k+1}}
+    \theta_u^\ell(\mu(w_{\ell}), \dots, \mu(w_{k+1}))
+    \\
+    &=
+    \sum_{\ell = 1}^{k+1}
+    (\theta_u^\ell)^\dagger(w)
+  \end{align*}
 
-    Let $u, v \in \Sigma^*$ such that $\MSO^q(u) \leq \MSO^q(v)$, which means
-    that every $\MSO$ type (of quantifier rank $q$ and with at most $n$ free
-    variables) has at least as many realizations in $v$ than it has in $u$.
-    Remark that by the compositionality of $\MSO$ over words (this is an instance
-    of the more general
-    the Feferman-Vaught-Mostowski theorem \cite{FEVAU59,MAKOW04}), for all $\MSO^q$ types
-    $t(\vec{x})$, there are finitely many $\MSO^q$ types $t_l^j(\vec{y_i}),
-    t_r^j(\vec{z_i})$ with $\vec{x} = \vec{y_i} \uplus \vec{z_i}$
-    for $1 \leq j \leq N_0$, such that for every
-    tuple $\vec{a}$ of elements in a word $uv$, $\MSO^q(\vec{a} / uv) =
-    t(\vec{x})$ if and only if there exists $1 \leq j \leq N_0$,
-    such that $\vec{a} = \vec{b} \uplus \vec{c}$,
-    $\MSO^q(\vec{b} / u) =
-    t_l^j(\vec{y_i})$, and $\MSO^q(\vec{c} / v) = t_r^j(\vec{z_i})$.
-    We write $t = t_l \odot t_r$ to signify
-    that $\MSO^q(\vec{bc} / uv) = t$
-    if and only if $\MSO^q(\vec{b}/u) = t_l$
-    and $\MSO^q(\vec{c}/v) = t_r$.
+  In particular, given two words $u,v \in \Sigma^*$, we have
+  for every $w \in \Sigma^*$,
+  \begin{align*}
+      \Deriv{f}{v}{u}(w)
+      &= f(vw) - f(uw)
+      = 
+      \sum_{\ell = 1}^{k+1}
+      \left((\theta_v^\ell)^\dagger(w) - (\theta_u^\ell)^\dagger(w)\right)
+      \\
+      &=
+      \sum_{\ell = 1}^{k+1}
+      (\theta_{v}^{\ell} - \theta_{u}^{\ell})^\dagger(w)
+  \end{align*}
 
-    As a consequence, if $\MSO^q(u) \leq \MSO^q(v)$, then 
-    for all $w \in \Sigma^*$:
-    \begin{align*}
-        & \Deriv{f}{v}{u}(w) \\
-        &= f(vw) - f(uw) \\
-        &= 
-        \sum_{i = 1}^n m_i
-        \left[
-            \counting{\phi_i(\vec{x})} (vw) -
-            \counting{\phi_i(\vec{x})} (uw)
-        \right] \\
-        &= 
-        \sum_{i = 1}^n
-        m_i
-            \sum_{\phi_i \in t(\vec{x})}
-        \left[
-            \counting{t(\vec{x})}(vw)
-            -
-            \counting{t(\vec{x})}(uw)
-        \right] \\
-        &= 
-        \sum_{i = 1}^n
-        m_i
-        \sum_{1 \leq j \leq N_0}
-        \sum_{\phi_i \in t_l^j(\vec{y}) \odot t_r^j(\vec{z})}
-        \underbrace{
-        \left[
-            \counting{t_r^j(\vec{y})}(v)
-            -
-            \counting{t_r^j(\vec{y})}(u)
-        \right] 
-    }_{ \in \Nat }
-            \times 
-            \counting{t_l^j(\vec{z})}(w)
-            \\
-        &\Deriv{f}{v}{u} \in \NPoly[k-1]
-    \end{align*}
+  The functions $\theta_v^{\ell} - \theta_u^{\ell}$ are of the form $M^{k + 2 -
+  \ell} \to \Rel$, and if one could prove that they only output non-negative
+  values, we would immediately conclude that $\Deriv{f}{v}{u} \in \NPoly$.
+  Furthermore, if we can prove that $\theta_v^{1} - \theta_u^1$ is constant
+  equal to zero, we would conclude that $\Deriv{f}{v}{u} \in \NPoly[k-1]$.
 
-    We have proven that if $\MSO^q(u) \leq \MSO^q(v)$, then $u \resleq{f}{k}
-    v$. Recall that $\Nat^p$ is a \kl{well-quasi-ordering} when endowed with
-    the product ordering, and therefore that $\setof{\MSO^q(u)}{u \in
-    \Sigma^*}$ is a \kl{well-quasi-ordering}.
+  To that end, let us associate to a word $u \in \Sigma^*$ the following vector
+  of values: first, the value of $\mu(u) \in M$, then, the tables of the
+  functions $\theta_u^{\ell}$ for $1 \leq \ell \leq k+1$, that are described by
+  finitely many numbers in $\Nat$. Let us write $\langle u \rangle$ for this
+  vector. Note that $\langle u \rangle$ takes values in a naturally
+  quasi-ordered set: $\langle u \rangle \leq \langle v \rangle$ if and only if
+  $\mu(u) = \mu(v)$ and for all $1 \leq \ell \leq k+1$,
+  $\theta_u^{\ell} \leq \theta_v^{\ell}$ pointwise.
 
-    Let $\seqof{u_i}[i \in \Nat]$ be an infinite sequence of $\Sigma^*$.
-    Without loss of generality, one can assume that for all $i \neq j$, $u_i
-    \equiv_k u_j$, i.e., that the difference $\app{f}{u_i} - \app{f}{u_j}$
-    belongs to $\ZPoly[k-1]$, since the latter has finite index. Thanks to the
-    above remarks, there exists $i < j$ such that $\MSO^q(u_i) \leq
-    \MSO^q(u_j)$. As a consequence, $g \defined \app{f}{u_j} - \app{f}{u_i} \in
-    \NPoly$, and therefore $g \in \NPoly[k-1]$. We have proven that there
-    exists $i < j$ such that $u_i \resleq{f}{k} u_j$.
+  Let $u, v \in \Sigma^*$ such that $\langle u \rangle \leq \langle v \rangle$.
+  Then, for all $1 \leq \ell \leq k+1$,
+  $\theta_v^{\ell} - \theta_u^{\ell}$ only takes non-negative values, guaranteeing that
+  $\Deriv{f}{v}{u} \in \NPoly$.
+  Furthermore, for every tuple $(m_1, \dots, m_{k+1}) \in M^{k + 1}$,
+  \begin{align*}
+  \theta_v^1(m_1, \dots, m_{k+1})
+  &= 
+  \pi(\mu(v) m_1, m_2, \dots, m_{k+1}) \\ 
+  &=
+  \pi(\mu(u) m_1, m_2, \dots, m_{k+1}) \\
+  &=
+  \theta_u^1(m_1, \dots, m_{k+1})
+  \end{align*}
+  therefore, $\theta_v^1 - \theta_u^1$ is constant equal to zero,
+  and we conclude that $\Deriv{f}{v}{u} \in \NPoly[k-1]$.
+
+  Recall that $\Nat^p$ is a \kl{well-quasi-ordering} when endowed with the
+  product ordering, and that $M$ is finite. As a consequence of Dickson's
+  lemma, we conclude that the quasi-ordered set $\setof{\langle u \rangle}{u
+  \in \Sigma^*}$ is a \kl{well-quasi-ordering}.
+
+  Let $\seqof{u_i}{i \in \Nat}$ be an infinite sequence of $\Sigma^*$.
+  By definition of being a \kl{well-quasi-ordering}, there exists $i < j$ such that
+  $\langle u_i \rangle \leq \langle u_j \rangle$.
+  We conclude that $\Deriv{f}{u_i}{u_j} \in \NPoly[k-1]$,
+  i.e., that $u_i \resleq{f}{k} u_j$.
+  We just showed that every infinite sequence of $\Sigma^*$
+  contains two indices $i < j$ such that $u_i \resleq{f}{k} u_j$,
+  hence that $(\Sigma^*, \resleq{f}{k})$ is a \kl{well-quasi-ordering}.
 \end{proof}
 
-We now have all the ingredients to prove the main result of this paper, which
-is a characterization of $\NPoly$ in terms of the existence of \kl{$k$-residual
-transducers} and the \kl{well-quasi-ordering} of the relation
+\AP We now have all the ingredients to prove the main result of this section,
+which is a characterization of $\NPoly$ in terms of the existence of
+\kl{$k$-residual transducers} and the \kl{well-quasi-ordering} of the relation
 $(\resleq{f}{k})$. Note however that this theorem is not effective, as it
-requires the ability to decide if a function belongs to $\NPoly[k]$ which is an
-open problem \cite{LOPEZ24,DOUE23}.
+requires the ability to decide if a function belongs to $\NPoly[k]$ which 
+remains open in the non-commutative case.
 
 \begin{theorem}
     \label{non-commutative-npoly:thm}
@@ -663,7 +678,7 @@ open problem \cite{LOPEZ24,DOUE23}.
     is effective as soon as $\resleq{f}{k}$ is decidable, which 
     is the case when $f$ is a \kl{commutative}
     \kl{$\Rel$-polyregular} function, as shown in
-    \cite[Theorem 31]{LOPEZ24}.
+    \cref{decidable-n-poly:thm}.
 \end{proof}
 
 \subsection{Aperiodicity and Star-Free Functions}
@@ -790,13 +805,13 @@ in a personal communication.}
 \AP In the hope of generalizing this result to higher growth rates, we
 introduce the notion of \intro{aperiodic ordering} of $\Sigma^*$, designed to
 mimic the notion of \kl{aperiodic monoid} in the context of regular
-languages. Let us recall that a monoid $M$ is \intro(monoid){aperiodic} whenever for
+languages. Let us recall that a monoid $M$ is \kl(monoid){aperiodic} whenever for
 all $x \in M$, there exists $n \in \Nat$ such that $x^n = x^{n+1}$. In the
 specific case of finite monoids, this $n$ can be chosen uniformly for all
 elements of the monoid. We therefore state that an ordered set $(\Sigma^*,
 \leq)$ is \reintro[aperiodic ordering]{aperiodic} whenever for all $u, w \in
-\Sigma^*$, there exists $N_0 \in \Nat$, such that the sequence $\seqof{uw^n}[n
-\geq N_0]$ is non-decreasing. Finally, we introduce the \emph{star-free
+\Sigma^*$, there exists $N_0 \in \Nat$, such that the sequence $\seqof{uw^n}{n
+\geq N_0}$ is non-decreasing. Finally, we introduce the \emph{star-free
 variant} $(\intro*\resleqsf{f}{k})$ of $(\resleq{f}{k})$, defined by $u
 \reintro*\resleqsf{f}{k} v$ whenever $\Deriv{f}{v}{u} \in \NSF[k-1]$.
 With these definitions at hand, we are ready to state our main conjecture.
@@ -817,10 +832,7 @@ direction of this conjecture, namely that if $f \in \NSF[k]$, then $(\Sigma^*,
 relies on the characterization of $\NSF[k]$ as the set of functions that count
 the number of realizations of some $\FO$ formulas, which gives us both the
 \kl{well-quasi-ordering} property and the \kl[aperiodic ordering]{aperiodic}
-property. To simplify reasoning, we will leverage results from \cite{LOPEZ24}
-regarding \intro{commutative} \kl{star-free} \kl{$\Nat$-polyregular functions},
-whereby \kl{commutative} means that the function is invariant under
-permutations of its input word.
+property.
 
 \begin{lemma}
     \label{sf-no-periods-on-sequences:lemma}
@@ -829,31 +841,50 @@ permutations of its input word.
     \kl[aperiodic ordering]{aperiodic} \kl{well-quasi-ordering}.
 \end{lemma}
 \begin{proof}
-    Let $f \in \NSF[k]$, $q \in \Nat$, and 
-    write $f = \sum_{i=1}^n m_i \times \counting{\phi_i(\vec{x})}$, where
-    $\phi_i \in \FO$ has quantifier rank at most $q$
-    and $\card{\vec{x}} = k$.
+    This proof will be a refinement of the one in
+    \cref{n-poly-k-implies-wqo:lemma}.
+    Let $f \in \NSF[k]$. By definition, there exists 
+    an \kl{aperiodic monoid} $M$, a morphism $\mu \colon \Sigma^* \to M$,
+    and a production function $\pi \colon M^{k+1} \to \Nat$
+    such that $f = \pi^\dagger$.
 
-    As in the proof of \cref{n-poly-k-implies-wqo:lemma}, we are going to
-    assign a tuple of integers to a word $u \in \Sigma^*$ by counting the
-    number of realizations of each $\FO^q$ type of at most $k$ variables in
-    $u$. To that end, let us write $\FO^q(u)$ this vector.
+    We can do the exact same computations as in
+    \cref{n-poly-k-implies-wqo:lemma} to express the \kl{non-commutative
+    derivatives} of $f$ using \emph{the same monoid $M$} but changing the
+    production function $\pi$. In particular, reading the proof again, one
+    concludes not only that the derivatives are in $\NPoly[k-1]$, but even in
+    $\NSF[k-1]$, since they are computed using an \kl{aperiodic monoid}.
+    This shows that $\resleqsf{f}{k}$ is a \kl{well-quasi-ordering}
+    relation.
 
-    First, let us notice that for us to conclude, it suffices to prove that for
-    some $n \in \Nat$, the inequality $\FO^q(uw^n) \leq \FO^q(uw^{n+1})$ holds,
-    since $\Deriv{f}{uw^{n+1}}{uw^n} = \app{f}{uw^{n+1}} - \app{f}{uw^n}$ will
-    be obtained as a non-negative combination of counting first-order types in
-    the argument.
+    Let us now prove that $(\Sigma^*, \resleqsf{f}{k})$ is \kl[aperiodic
+    ordering]{aperiodic}. First, let us notice that for us to conclude, it
+    suffices to prove that for some $n \in \Nat$, the inequality $\langle uw^n
+    \rangle \leq \langle uw^{n+1} \rangle$ holds, where $\langle u \rangle$ is
+    defined as in the proof of \cref{n-poly-k-implies-wqo:lemma}: $\langle u
+    \rangle$ is the vector containing $\mu(u)$ and the tables of the functions
+    $\theta_u^{\ell}$ for $1 \leq \ell \leq k+1$.
+    It is clear that there exists $N_0$ such that for all $n \geq N_0$,
+    $\mu(uw^n) = \mu(uw^{n+1})$ because $M$ is \kl(monoid){aperiodic}.
 
-    Let $t$ be a first order type with at most $k$ free variables and
-    quantifier rank at most $q$. The map $g_t \colon X \mapsto
-    \counting{t}(uw^X)$ is a \kl{commutative} \kl{star-free $\Nat$-polyregular
-    function}. As a consequence, there exists $N_0$ and a $K$ such that $g_t(X)
-    = P(X)$ for all $X \geq N_0$, where $P(X+K) \in \Nat[X]$
-    \cite{LOPEZ24}. As a consequence, $g_t(X + N_0 + K+1) - g_t(X + N_0 + K)
-    \in \Nat$ for all $X \geq 0$.
-
-    Because there are finitely many non-equivalent $\FO^q$ types with at most 
-    $k$ free variables, we can take the maximum of the $K$'s obtained for each 
-    of those, and conclude.
+    For the other components of the vector $\langle uw^n \rangle$, it suffices
+    to notice that they can themselves be expressed as \kl{commutative}
+    \kl{star-free} \kl{$\Nat$-polyregular functions} taking $n$ as input! Let
+    us define $g \colon \Nat \to \Nat$ as $g(X) =
+    \theta_{uw^X}^{\ell}(m_{\ell}, \dots, m_{k+1})$ for some $1 \leq \ell \leq
+    k+1$ and $(m_{\ell}, \dots, m_{k+1}) \in M^{k + 2 - \ell}$. It is clear 
+    that $g$ is a \kl{commutative} \kl{star-free} \kl{$\Nat$-polyregular function},
+    one can leverage 
+    \cref{zsf-npoly-nsf:thm,decide-rat-poly-npoly:cor}
+    and conclude that 
+    \begin{equation*}
+      \exists N_0,  \exists P \in \Nat[X],
+      g(x) = P(x) \text{ for all } x \geq N_0 \quad .
+    \end{equation*}
+    Therefore,
+    $g(x + N_0 +1) - g(x + N_0) \in \Nat$, for all $x \geq 0$.
+    Because there are finitely many choices of $\ell$ and $(m_{\ell}, \dots,
+    m_{k+1})$, we can take the maximum of the $N_0$'s obtained for each of
+    those, and conclude that 
+    $\langle uw^n \rangle \leq \langle uw^{n+1} \rangle$ for all $n \geq N_0$,
 \end{proof}
