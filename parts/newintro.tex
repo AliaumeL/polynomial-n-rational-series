@@ -31,7 +31,7 @@ and many questions are left open.
 
 \begin{example}
   \label{weighted-automaton:example}
-  The function $f \colon \set{a}^* \to \Nat$, that maps a word $w$
+  The function $f \colon \set{a}^* \to \Rel$, that maps a word $w$
   to the size of $w$ if it is odd, and minus the size of $w$ if it is even, is a
   \kl{$\Rel$-rational series}, computed by the following $\Rel$-weighted automaton:
   \begin{center}
@@ -227,7 +227,7 @@ picture by mentioning that the analogue of \cref{n-in-z-rat:problem} for $\Rat$
 and $\Rel$ is decidable precisely because $\Rat$ is a \kl{Fatou extension} of
 $\Rel$~\cite[Chapter 7, Theorem 1.1]{BERE10}: on the one hand, one can guess a word $w$ such that $f(w)
 \notin \Rel$ to disprove membership in $\ZRat$, and on the other hand, one can
-a guess a $\ZRat$ representation of $f$ and check equality to prove membership
+guess a $\ZRat$ representation of $f$ and check equality to prove membership
 in $\ZRat$. Furthermore, it is known that $\Rat_+$ (non-negative rational
 numbers) is a \kl{Fatou extension} of $\Nat$~\cite[Chapter 7, Theorem 2.2]{BERE10}, hence $\ZRat \cap
 \mathbb{Q}_+\mathsf{Series} = \NRat$. These two results allow us to relate
