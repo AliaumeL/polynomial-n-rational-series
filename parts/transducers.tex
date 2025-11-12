@@ -90,16 +90,16 @@ That is, given a word $w$:
 \emph{noncommutative integral} of the function $\lambda$ with (final) condition
 $F$. The analogy between \cref{transducer-semantics:eq} and
 \cref{discrete-derivative:eq}, does not stop here, as the notion of
-\emph{polynomials} can be extended to \emph{polyregular functions} using the
+\emph{polynomials} can be extended to \kl{polyregular functions} using the
 following ``integration theorem for polyregular functions.'' In order to
 formally state \cref{H-transducers:thm}, we need to introduce the
-automata-theoretic counterpart of \FO, which is based on the notion of
-\kl{counter}: a \intro{counter} in a finite state automaton is a pair $(q,u)$
-where $q$ is a state and $u$ is a word such that $\delta(q,u) \neq q$ and
-$\delta(q,u^n) = q$ for some $n \geq 2$. An automaton is \reintro{counter-free}
-when it contains no \kl{counters}. This connection between \kl{counter-free}
-automata and \kl{star-free} functions (with boolean output) is well-known in
-automata theory \cite{MNPA71}.
+automata-theoretic counterpart of \kl{aperiodic monoids}, which is based on the
+notion of \kl{counter}: a \intro{counter} in a finite state automaton is a pair
+$(q,u)$ where $q$ is a state and $u$ is a word such that $\delta(q,u) \neq q$
+and $\delta(q,u^n) = q$ for some $n \geq 2$. An automaton is
+\reintro{counter-free} when it contains no \kl{counters}. This connection
+between \kl{counter-free} automata and \kl{star-free} functions (with boolean
+output) is well-known in automata theory \cite{MNPA71}.
 
 \begin{theorem}[\cite{DOUE23}]
     \label{H-transducers:thm}
@@ -113,14 +113,13 @@ automata theory \cite{MNPA71}.
     The same holds for the classes $\ZPoly[k]$ and $\ZSF[k]$.
 \end{theorem}
 
-However, \cref{H-transducers:thm} does not provide a
-\emph{canonical} model for computing a function $f$, and therefore cannot help
-in deciding membership, equivalence, or optimization problems. This can already
-be seen in the case of unary input functions, as illustrated by the two
-distinct minimal (in the number of states) \kl{$\NPoly[0]$-transducers} of
-\cref{non-canonical-transd:fig}
-computing
-the function $\BadExOk$ of \cref{non-canonical-transd:ex}.
+However, \cref{H-transducers:thm} does not provide a \emph{canonical} model for
+computing a function $f$, and therefore cannot help in deciding membership,
+equivalence, or optimization problems. This can already be seen in the case of
+unary input functions, as illustrated by the two distinct minimal (in the
+number of states) \kl{$\NPoly[0]$-transducers} of
+\cref{non-canonical-transd:fig} computing the function $\BadExOk$ of
+\cref{non-canonical-transd:ex}.
 
 \begin{figure}
     \centering
@@ -692,6 +691,7 @@ remains open in the non-commutative case.
     \cref{decidable-n-poly:thm}.
 \end{proof}
 
+
 \subsection{Aperiodicity and Star-Free Functions}
 \label{aperiodic-star-free:sec}
 
@@ -896,4 +896,242 @@ direction of this conjecture: if $f \in \NSF[k]$, then $(\Sigma^*,
     m_{k+1})$, we can take the maximum of the $N_0$'s obtained for each of
     those, and conclude that 
     $\langle uw^n \rangle \leq \langle uw^{n+1} \rangle$ for all $n \geq N_0$,
+\end{proof}
+
+Let us now prove \cref{sf-no-periods-on-sequences:conj} in the specific case of
+\kl{commutative} functions, where we can leverage the decidability results of
+\cref{decidable-n-poly:thm,zsf-npoly-nsf:thm}.
+
+\begin{theorem}
+  \label{sf-no-periods-commutative:thm}
+  Let $k \in \Nat$, and let $f \in \ZPoly[k]$ be a \kl{commutative}
+  function.
+  Then, the following are equivalent:
+  \begin{enumerate}
+    \item \label{sf-no-periods-commutative:item}
+      $f \in \NSF[k]$,
+    \item \label{sf-no-periods-commutative-wqo:item}
+      $(\Sigma^*, \resleqsf{f}{k})$ is an
+        \kl[aperiodic ordering]{aperiodic} \kl{well-quasi-ordering},
+    \item \label{sf-no-periods-commutative-ultpoly:item}
+      $f$ is \kl{ultimately polynomial}
+      and $f$ is \kl{combinatorial}.
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  We already proved that \cref{sf-no-periods-commutative:item} implies
+  \cref{sf-no-periods-commutative-wqo:item} in
+  \cref{sf-no-periods-on-sequences:lemma}.
+  We also know that \cref{sf-no-periods-commutative-ultpoly:item}
+  implies \cref{sf-no-periods-commutative:item}
+  from \cref{decidable-n-poly:thm,zsf-npoly-nsf:thm}.
+  It remains to prove that \cref{sf-no-periods-commutative-wqo:item}
+  implies \cref{sf-no-periods-commutative-ultpoly:item}.
+
+  Note that from \cref{non-commutative-npoly:thm}, we know that $f \in
+  \NPoly[k]$, hence that $f$ is \kl{combinatorial}. It remains to show that $f$
+  is \kl{ultimately polynomial}.
+  Let $q \colon \Nat^k \to \Sigma^*$ be a \kl{pumping pattern}.
+  Because $(\Sigma^*, \resleqsf{f}{k})$ is an \kl[aperiodic
+  ordering]{aperiodic} \kl{well-quasi-ordering}, there exists $N_0 \in \Nat$
+  such that for all $x_1 \geq N_0$,
+  $q(x_1, X_2, \dots, X_k) \resleqsf{f}{k} q(x_1 + 1, X_2, \dots, X_k)$.
+  This proves that 
+  $f(q(x_1 + 1, x_2, \dots, x_k)) - f(q(x_1, x_2, \dots, x_k))$
+  is definable in $\NSF[k-1]$ as a function of $(x_2, \dots, x_k)$.
+
+  \textbf{Todo?}
+
+\end{proof}
+
+\subsection{The special case of linear growth}
+\label{growth-rate-one:sec}
+
+\AP In this section, we will upgrade the results of
+\cref{aperiodic-star-free:sec} to a full characterization of \kl{star-free}
+\kl{$\Nat$-polyregular} functions with linear growth rate, that correspond to
+\kl{regular functions} ($\Regular$) with unary output alphabet. First, let us
+recall that a function $f \colon \Sigma^* \to \Nat$ can be in $\ZPoly \setminus
+\NPoly$, as \cref{non-neg-not-nrat:ex} shows. However, this specific example,
+based on the polynomial $(X - Y)^2$, has a quadratic \kl{growth rate}. We will
+prove in \cref{linear-npoly-zpoly:lem} that one recovers the \kl{Fatou
+property} in the case of linear growth rate: any function $f \in \ZPoly[1]$
+with non-negative values is in $\NPoly[1]$.
+
+\begin{lemma}
+    \label{linear-npoly-zpoly:lem}
+    Let $f \in \ZPoly[1]$ be a function with non-negative values.
+    Then, $f \in \NPoly[1]$.
+\end{lemma}
+\begin{proof}
+  Let us first remark that the claim is obvious when $f \in \ZPoly[0]$:
+  as $f$ is a finite linear combination of indicator functions of regular languages,
+  the pre-image of a given constant $c$ is a regular language, hence
+  $f$ can be re-computed as follows: 
+  \begin{equation*}
+    f(w) = \sum_{c \in \Nat} c \times \ind{f^{-1}(\set{c})}(w) \quad ,
+  \end{equation*}
+  which is a finite linear combination of indicator functions of regular languages
+  where all coefficients are non-negative (because $f$ has non-negative values).
+  If we knew that $f$ was in $\ZSF[0]$, we could even conclude that $f \in \NSF[0]$,
+  since all the languages $f^{-1}(\set{c})$ would be star-free.
+
+  Let us now turn to the difficult case, and consider a function $f \in
+  \ZPoly[1]$ with non-negative values. We want to prove that $f \in \NPoly[1]$,
+  and to do that, it suffices to prove that $(\Sigma^*, \resleq{f}{1})$ is a
+  \kl{well-quasi-ordering}. To that end, let us consider an infinite sequence
+  $\seqof{u_i}{i \in \Nat}$ of $\Sigma^*$. Without loss of generality, because
+  $f \in \ZPoly[1]$, we can assume that $u_i \resequiv{f}{1} u_{i+1}$ for all
+  $i \in \Nat$. To prove that $u_i \resleq{f}{1} u_j$ for some $i < j$, it
+  suffices to prove that $\Deriv{f}{u_j}{u_i} \in \NPoly[0]$, and we already
+  know that $\Deriv{f}{u_j}{u_i} \in \ZPoly[0]$. Leveraging the case of
+  constant growth rate treated above, it suffices to prove that
+  $\Deriv{f}{u_j}{u_i}$ has non-negative values for some $i < j$.
+
+  Because $f \in \ZPoly[1]$, there exists a finite monoid $M$, a surjective\footnote{One can always assume surjectivity by considering a submonoid of $M$.} morphism $\mu
+  \colon \Sigma^* \to M$ and a production function $\pi \colon M^{2} \to \Rel$
+  such that $f = \pi^\dagger$. To a word $u \in \Sigma^*$, we associate the
+  following vector of numbers in $\Rel^{\card{M}}$: $\llbracket u \rrbracket(m)
+  \defined \sum_{u = s_1 s_2} \pi(\mu(s_1), \mu(s_2) m)$.
+  If one could argue that there exists $i < j$ such that $\llbracket
+  u_i \rrbracket \leq \llbracket u_j \rrbracket$ pointwise, and $\mu(u_i) =
+  \mu(u_j)$,
+  then we would
+  immediately conclude, indeed,
+  \begin{align*}
+    \Deriv{f}{u_j}{u_i}(w)
+    &= f(u_j w) - f(u_i w) \\
+    &= \sum_{u_j = s_1 s_2} \pi(\mu(s_1), \mu(s_2) \mu(w))
+     + \sum_{w = t_1 t_2} \pi(\mu(u_j), \mu(t_1) \mu(t_2)) \\
+    &- \sum_{u_i = s_1 s_2} \pi(\mu(s_1), \mu(s_2) \mu(w))
+     - \sum_{w = t_1 t_2} \pi(\mu(u_i), \mu(t_1) \mu(t_2)) \\
+    &= \llbracket u_j \rrbracket(\mu(w)) - \llbracket u_i \rrbracket(\mu(w)) \geq 0 \quad .
+  \end{align*}
+
+  We will first prove that $\llbracket u_i \rrbracket$ cannot contain
+  arbitrarily large negative values, that is, there exists a finite $B \in
+  \Nat$ such that for all $i \in \Nat$, $\min_{m \in M} \llbracket u_i
+  \rrbracket(m) \geq -B$. Assume towards a contradiction that this is not the
+  case, then there exists an infinite subsequence $\seqof{u_{\alpha(i)}}{i \in
+  \Nat}$ such that $\min_{m \in M} \llbracket u_{\alpha(i)} \rrbracket(m)$
+  tends to $-\infty$ as $i$ tends to infinity. Without loss of generality
+  (because $M$ is finite), a single component $m_1 \in M$ tends to infinity,
+  and all the elements $u_{\alpha(i)}$ evaluate to some $m_0 \in M$ under
+  $\mu$. Since $\mu$ is surjective, there is a word $v$ such that $\mu(v) =
+  m_1$. Therefore, $f(u_{\alpha(i)} v) = \llbracket u_{\alpha(i)}
+  \rrbracket(m_1) + \sum_{v = t_1 t_2} \pi(m_0\mu(t_1), \mu(t_2))$, and since
+  the second term is constant (independent of $i$), we conclude that
+  $f(u_{\alpha(i)} v)$ tends to $-\infty$ as $i$ tends to infinity,
+  contradicting the fact that $f$ has non-negative values.
+
+  Therefore, up to adding a constant $B$ to all the functions $\llbracket u_i
+  \rrbracket$, we can assume that they all take non-negative values, and apply
+  Dickson's lemma to conclude that there exists $i < j$ such that $\llbracket
+  u_i \rrbracket \leq \llbracket u_j \rrbracket$ pointwise.
+  This concludes our proof for $\NPoly[1]$.
+\end{proof}
+
+Similarly, if $f \in \ZSF[1]$ has non-negative values, then $f \in \NSF[1]$.
+However, one cannot rely on the same argument, because we do not know whether
+\cref{sf-no-periods-on-sequences:conj} holds or not. This is why the following
+lemma requires an ad-hoc construction, based on the following fact: for every
+function $g \in \ZSF[1]$ with non-negative values, the languages $\setof{u \in
+\Sigma^*}{g(u) = c}$ are star-free for all $c \in \Nat$.
+
+\begin{lemma}
+  \label{linear-zsf-non-neg-languages:lem}
+  Let $f \in \ZSF[1]$ be a function with non-negative values.
+  Then, for every $c \in \Nat$,
+  the language $f^{-1}(\set{c})$ is star-free.
+\end{lemma}
+\begin{proof}
+  Let $f \in \ZSF[1]$ be a function with non-negative values.
+  We want to prove that for every $c \in \Nat$,
+  the language $f^{-1}(\set{c})$ is star-free.
+
+  We base our proof on the same starting point as in \cref{linear-npoly-zpoly:lem}:
+  given a function $f \in \ZSF[1]$ with non-negative values,
+  we are given a finite \kl{aperiodic monoid} $M$,
+  a surjective morphism $\mu \colon \Sigma^* \to M$,
+  and a \kl{production function} $\pi \colon M^2 \to \Rel$.
+
+  As in the proof of \cref{linear-npoly-zpoly:lem},
+  we build a vector of functions $\llbracket u \rrbracket \colon M \to \Rel$ for each
+  word $u \in \Sigma^*$ defined by
+  \begin{equation*}
+    \llbracket u \rrbracket(m)
+    \defined
+    \sum_{u = s_1 s_2}
+    \pi(\mu(s_1), \mu(s_2) m) \quad .
+  \end{equation*}
+
+  Now, let us fix $c \in \Nat$.
+  We can express the language $f^{-1}(\set{c})$ as follows:
+  \begin{equation*}
+    f^{-1}(\set{c})
+    =
+    \bigcup_{\substack{
+      v \in M \\ 
+      \llbracket v \rrbracket(m) + 
+      \sum_{w = t_1 t_2} 
+      \pi(\mu(v), \mu(t_1) m) = c
+    }}
+    \mu^{-1}(v) 
+    \cdot
+    \setof{w \in \Sigma^*}{
+      \sum_{w = t_1 t_2} 
+      \pi(\mu(v), \mu(t_1) m) = c - \llbracket v \rrbracket(m)
+    } \quad .
+  \end{equation*}
+\end{proof}
+
+\begin{lemma}
+    \label{linear-zsf-nsf:lem}
+    Let $f \in \ZSF[1]$ be a function with non-negative values.
+    Then, $f \in \NSF[1]$.
+\end{lemma}
+\begin{proof}
+  We base our proof on the same starting point as in \cref{linear-npoly-zpoly:lem}:
+  given a function $f \in \ZSF[1]$ with non-negative values,
+  we are given a finite \kl{aperiodic monoid} $M$,
+  a surjective morphism $\mu \colon \Sigma^* \to M$,
+  and a \kl{production function} $\pi \colon M^2 \to \Rel$.
+
+  As in the proof of \cref{linear-npoly-zpoly:lem},
+  we build a vector of functions $\llbracket u \rrbracket \colon M \to \Rel$ for each
+  word $u \in \Sigma^*$ defined by
+  \begin{equation*}
+    \llbracket u \rrbracket(m)
+    \defined
+    \sum_{u = s_1 s_2}
+    \pi(\mu(s_1), \mu(s_2) m) \quad .
+  \end{equation*}
+  And we know that these vectors are bounded below by some $-B$, where 
+  $B \in \Nat$ is a constant independent of $u$.
+
+  Not having access to \cref{sf-no-periods-on-sequences:conj}, or a way to
+  build a \kl{residual transducer} for $f$, we will tweak the monoid $M$ and
+  the production function $\pi$ to make it non-negative. To that end, let us
+  first remark that for every $m \in M$, the function $u \mapsto \llbracket u
+  \rrbracket(m)$ belongs to $\ZSF[1]$, and is bounded below by $-B$.
+
+  We want to build an \kl{aperiodic monoid} $M'$, and a surjective morphism
+  $\mu' \colon \Sigma^* \to M'$, such that for every $u \in \Sigma^*$,
+  $\mu'(u)$ contains enough information to compute all the values of
+  $\llbracket u \rrbracket(m)$ between $-B$ and $B$. This is possible because
+  for every $m \in M$, for every $c \in \set{-B, \dots, B}$, the language
+  $\setof{u \in \Sigma^*}{\llbracket u \rrbracket(m) = c}$ is star-free.
+
+  We can now use $M \times M'$ as our new \kl{aperiodic monoid}, and define
+  $\tau \colon \Sigma^* \to M \times M'$ as $\tau(u) = (\mu(u), \mu'(u))$.
+  Finally, the production function will be as follows:
+  we compute as $\pi$, but
+  \begin{itemize}
+    \item whenever the result is below $0$, we output $0$ instead.
+    \item whenever the result is above $0$, if the value of $\llbracket u \rrbracket(m)$
+      is negative equal to $y$, we only output $\pi - y$ (also capped to $0$).
+  \end{itemize}
+  This ensures that all the produced values are non-negative, and that 
+  the monoid used is \kl(monoid){aperiodic}. A straightforward induction
+  proves that this new function computes $f$.
 \end{proof}
