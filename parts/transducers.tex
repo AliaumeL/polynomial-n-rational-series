@@ -930,18 +930,25 @@ Let us now prove \cref{sf-no-periods-on-sequences:conj} in the specific case of
 
   Note that from \cref{non-commutative-npoly:thm}, we know that $f \in
   \NPoly[k]$, hence that $f$ is \kl{combinatorial}. It remains to show that $f$
-  is \kl{ultimately polynomial}.
-  Let $q \colon \Nat^k \to \Sigma^*$ be a \kl{pumping pattern}.
+  is \kl{ultimately polynomial}. Let $q \colon \Nat^k \to \Sigma^*$ be a
+  \kl{pumping pattern}, because we already know that $f \in \NPoly[k]$, it
+  suffices to consider patterns of the form $q(X) = u v^X w$ for some $u, v, w
+  \in \Sigma^*$ \cite[Remark V.19]{CDTL23}.
   Because $(\Sigma^*, \resleqsf{f}{k})$ is an \kl[aperiodic
   ordering]{aperiodic} \kl{well-quasi-ordering}, there exists $N_0 \in \Nat$
-  such that for all $x_1 \geq N_0$,
-  $q(x_1, X_2, \dots, X_k) \resleqsf{f}{k} q(x_1 + 1, X_2, \dots, X_k)$.
-  This proves that 
-  $f(q(x_1 + 1, x_2, \dots, x_k)) - f(q(x_1, x_2, \dots, x_k))$
-  is definable in $\NSF[k-1]$ as a function of $(x_2, \dots, x_k)$.
+  such that for all $x_1 \geq N_0$, $q(x_1) \resleqsf{f}{k} q(x_1 + 1)$.
 
-  \textbf{Todo?}
-
+  As a
+  consequence, one can build an \kl{aperiodic  transducer} for $f \circ
+  q$ as follows: the states are numbers up to $N_0$, and the transitions are of
+  the form $x \rightarrow x+1$ for all $x < N_0$, and $N_0 \rightarrow N_0$. The
+  labels are defined as $0$ for all transitions $x \rightarrow x+1$, and
+  $\Deriv{f}{q(N_0 + 1)}{q(N_0)}$ for the loop on $N_0$. Finally, the final
+  output associated to state $x$ is $\app{f}{q(x)}$ for all $x \leq N_0$. This
+  transducer \kl{computes} $f \circ q$, and has no \kl{counters}, hence $f \circ q \in
+  \NSF$, and in particular, \kl{ultimately polynomial}. Using the identity 
+  map $p \colon n \mapsto n$, we conclude that $f \circ q \circ p$
+  is ultimately a polynomial, i.e., that $f$ is \kl{ultimately polynomial}.
 \end{proof}
 
 \subsection{The special case of linear growth}
@@ -1031,6 +1038,47 @@ with non-negative values is in $\NPoly[1]$.
   This concludes our proof for $\NPoly[1]$.
 \end{proof}
 
-If $f \in \ZSF[1]$ and is non-negative, one cannot rely on a similar argument 
+If $f \in \ZSF[1]$ and is non-negative, one cannot rely on a similar argument
 to conclude that $f \in \NSF[1]$, because we do not know whether
-\cref{sf-no-periods-on-sequences:conj} holds or not. 
+\cref{sf-no-periods-on-sequences:conj} holds or not. However, it was noticed in
+\cref{aperiodic-intersection:remark} that in the specific case of
+\emph{rational functions} $\Rational$, an analogue of \kl{ultimately
+polynomial} (adapted to non-unary outputs) guarantees belonging to $\ARational$
+(see \cref{eq:aperiodic-sequential-pumping}). The following lemma restates one
+of the main results of \cite[Section 4]{RESCH95} to the specific case of unary
+outputs.
+
+\begin{lemma}
+    \label{rational-ultpoly-aperiodic:lem}
+    Let $f \in \NPoly[1]$ be \kl{ultimately polynomial}.
+    Then, $f \in \NSF[1]$.
+\end{lemma}
+\begin{proof}
+  As $f \in \NPoly[1]$, one can see $f$ as a \kl{rational function}
+  with unary output alphabet. Because $f$ is \kl{ultimately polynomial},
+  it satisfies \cref{eq:aperiodic-sequential-pumping}, hence 
+  it is computable by an \kl{aperiodic rational function} \cite[Section 4, page 236]{RESCH95}.
+  Therefore, $f \in \NSF[1]$.
+\end{proof}
+
+Combining \cref{linear-npoly-zpoly:lem,rational-ultpoly-aperiodic:lem}, we
+obtain the following characterization of \kl{star-free} \kl{$\Nat$-polyregular}
+functions with linear growth rate: we have proven that for such functions,
+$\ZSF[1] \cap \NPoly[1] = \NSF[1]$, and that $\ZPoly[1] \cap \set{
+\text{non-negative functions} } = \NPoly[1]$. From these observations, we
+deduce interesting corollaries.
+
+\begin{corollary}
+  \label{linear-commutative-nsf:cor}
+  Let $f \in \ZPoly[1]$.
+  \begin{itemize}
+    \item One can decide whether $f$ is in $\NPoly[1]$,
+    \item One can decide whether $f$ is non-negative,
+    \item One can decide whether $f$ is in $\NSF[1]$,
+    \item If $f$ is non-negative, the preimage of any $n \in \Nat$ is a
+      regular language, and one can compute a finite automaton recognizing it,
+    \item If $f$ is non-negative and in $\ZSF[1]$, then the preimages of finite sets
+      are even
+      star-free languages.
+  \end{itemize}
+\end{corollary}
