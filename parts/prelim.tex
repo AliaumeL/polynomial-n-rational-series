@@ -28,6 +28,16 @@ permutations $\sigma$ of $\set{1, \dots, \card{w}}$, $f(\sigma(u)) = f(u)$.
 Equivalently, it is \reintro{commutative} whenever there exists a map $g \colon
 \Nat^\Sigma \to X$ such that $g \circ \commute = f$.
 
+\begin{example}
+	\label{commutative-function:ex}
+	The function $f \colon \set{a,b}^* \to \Nat$ defined by $f(w) \defined \card[a]{w} + 2\card[b]{w}$
+	is \kl{commutative}. Indeed, for any permutation of the letters in $w$,
+	the number of occurrences of $a$ and $b$ remains the same, hence $f$ is constant
+	on permutations. For instance, $f(aab) = 1 + 2 \cdot 2 = 5 = f(aba) = f(baa)$.
+	This function factors through the Parikh vector as $f = g \circ \commute$,
+	where $g \colon \Nat^{\set{a,b}} \to \Nat$ is defined by $g(n_a, n_b) \defined n_a + 2n_b$.
+\end{example}
+
 \AP Let $k \in \Nat$, and let $\Sigma$ be a finite alphabet. Given a function
 $\eta \colon \set{1, \dots, k} \to \Sigma$, we define the $\eta^\dagger \colon
 \Nat^k \to \Sigma^*$ as $\eta^\dagger(\vec{x}) \defined \eta(1)^{x_1} \dots
