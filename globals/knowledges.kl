@@ -1,6 +1,7 @@
 \knowledge{notion}
  | aperiodic monoid
  | aperiodic@monoid
+ | aperiodic monoids
 
 \knowledge{notion}
  | production function
@@ -28,6 +29,7 @@
 
 \knowledge{notion}
  | Fatou extension
+ | Fatou property
 \knowledge{notion}
  | (noncommutative) $\mathbb {S}$-rational series
  | $\mathbb {S}$-rational series
@@ -186,6 +188,7 @@
 
 \knowledge{notion}
  | $\NPoly [0]$-transducers
+ | $\NSF $-transducer
  | $\NPoly [0]$-transducer
  | $\mathcal {H}$-transducers
  | $\mathcal {H}$-transducer
@@ -239,4 +242,8 @@
  | integer-valued polynomials
 
 
+
+\knowledge{notion}
+  | rational function
+  | rational functions
 

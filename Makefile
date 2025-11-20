@@ -10,8 +10,7 @@ TEX=pnrs.tex\
 pnrs.tex: paper.md paper-meta.yaml
 	pandoc -t latex \
 		--output pnrs.tex \
-		--defaults arxiv-plain \
-		paper.md
+		--defaults ~/Documents/papers/pandoc-papers/pandoc-papers/defaults/plain.yaml
 
 pnrs.pdf: $(TEX) 
 	# use a build/ directory for latexmk
@@ -36,13 +35,10 @@ arxiv.tex: pnrs.pdf
 arxiv.tar.gz: arxiv.tex
 	mkdir -p arxiv
 	mkdir -p arxiv/tikz
+	cp -r ./tikz/ arxiv/tikz
+	cp -r ./low-co2-resources arxiv/low-co2-resources
+	cp ./lowco2.sty arxiv/
 	cp arxiv.tex arxiv/
-	cp ./lipics-v2021.cls arxiv/
-	cp ./tikz/class-inclusions.tex arxiv/tikz/
-	cp ./orcid.pdf arxiv/
-	cp ./orcid.pdf arxiv/orcid
-	cp ./cc-by.pdf arxiv/
-	cp ./lipics-logo-bw.pdf arxiv/
 	cp ./LICENSE arxiv/
 	# Create an archive in tar.gz format
 	# with the content of the arxiv directory

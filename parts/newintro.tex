@@ -7,7 +7,7 @@
 \AP\ Given a semiring $\mathbb{S}$, and a finite alphabet $\Sigma$, the class
 of \intro{(noncommutative) $\mathbb{S}$-rational series} is defined as
 functions from $\Sigma^*$ to $\mathbb{S}$ that are computed by
-\kl{$\mathbb{S}$-weighted automata}~\cite[Chapter 1]{BERE10}. This computational model is
+\kl{$\mathbb{S}$-weighted automata}~\cite[Chapter~1]{BERE10}. This computational model is
 a generalization of the classical notion of non-deterministic finite automata
 to the weighted setting, where transitions are labeled with elements of
 $\mathbb{S}$, and the set of accepting states is replaced by a function from
@@ -309,9 +309,10 @@ aperiodic language, or more generally, that the pre-image of an aperiodic
 language is aperiodic. Let us briefly survey some of these transducer models 
 and their aperiodic counterparts.\footnote{This list is far from exhaustive.} 
 
+\AP
 We will only consider in this survey the following well-known models of
 string-to-string functions: Mealy Machines ($\intro*\Mealy$) \cite{MEAL55},
-sequential functions ($\intro*\Sequential$) \cite{SCHU77}, rational functions
+sequential functions ($\intro*\Sequential$) \cite{SCHU77}, \intro{rational functions}
 ($\intro*\Rational$) \cite{EILE74}, \intro{regular functions}
 ($\intro*\Regular$) \cite{ENMA02}, and \reintro{polyregular functions}
 ($\reintro*\Poly$) \cite{BOKL19}. These models stem from different
@@ -394,8 +395,8 @@ In light of \cref{computational-models:fig}, and
 of the general phenomenon that the \emph{aperiodicity} is orthogonal to
 \emph{computing power}. For completeness, let us briefly mention that for some
 subclass of \kl{polyregular functions} called \intro{polyblind functions}
-\cite{LENP21}, one can find examples where \cref{aperiodic-intersection:remark}
-fails: the function $f \colon \set{a}^* \to \set{a}^*$ mapping $a^n$ to $a^{
+\cite{LENP21}, one can find examples for which \cref{aperiodic-intersection:remark}
+does not generalize: the function $f \colon \set{a}^* \to \set{a}^*$ mapping $a^n$ to $a^{
   n(n+1)/2 }$ is \kl{star-free polyregular} (concatenating all prefixes of the
 input), and \kl{polyblind} (for every even letter, it outputs the whole input),
 but not \intro{star-free polyblind}.\footnote{This example was communicated to us

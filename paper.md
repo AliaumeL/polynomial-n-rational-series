@@ -1,7 +1,7 @@
 ---
 bibliography: short.bib
-draft: true
-final: false
+draft: false
+final: true
 anonymous: false
 libraries:
     - globals/mathdefs.tex
@@ -22,3 +22,5 @@ of air travel.
 \input{parts/starfree.tex}
 \input{parts/transducers.tex}
 \input{parts/conclusion.tex}
+
+\clearpage

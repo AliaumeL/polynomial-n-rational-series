@@ -368,6 +368,8 @@ indices $i < j$ such that $x_i \leq x_j$. We say that such a sequence is a
 contains no such pair of indices.
 
 \begin{algorithm}[t]
+    \caption{Computing a \kl{$k$-residual transducer} of a function $f$.}
+    \label{residual:algo}
     $Q \defined \{ \varepsilon \}$;
 
     $O \defined \setof{ a }{ a \in \Sigma}$;
@@ -401,8 +403,7 @@ contains no such pair of indices.
         $F(u) \defined f(u)$;
     }
     \Return{$(Q, \varepsilon, \delta, \lambda, F)$};
-    \caption{Computing a \kl{$k$-residual transducer} of a function $f$.}
-    \label{residual:algo}
+
 \end{algorithm}
 
 \paragraph{Correctness of the Algorithm.} Let us now prove that
@@ -939,7 +940,7 @@ Let us now prove \cref{sf-no-periods-on-sequences:conj} in the specific case of
   such that for all $x_1 \geq N_0$, $q(x_1) \resleqsf{f}{k} q(x_1 + 1)$.
 
   As a
-  consequence, one can build an \kl{aperiodic  transducer} for $f \circ
+  consequence, one can build a \kl{counter-free}  \kl{$\NSF$-transducer} for $f \circ
   q$ as follows: the states are numbers up to $N_0$, and the transitions are of
   the form $x \rightarrow x+1$ for all $x < N_0$, and $N_0 \rightarrow N_0$. The
   labels are defined as $0$ for all transitions $x \rightarrow x+1$, and
@@ -1057,7 +1058,9 @@ outputs.
   As $f \in \NPoly[1]$, one can see $f$ as a \kl{rational function}
   with unary output alphabet. Because $f$ is \kl{ultimately polynomial},
   it satisfies \cref{eq:aperiodic-sequential-pumping}, hence 
-  it is computable by an \kl{aperiodic rational function} \cite[Section 4, page 236]{RESCH95}.
+  it is computable by a function in
+  $\ARational$, that is an aperiodic rational function 
+  \cite[Section 4, page 236]{RESCH95}.
   Therefore, $f \in \NSF[1]$.
 \end{proof}
 

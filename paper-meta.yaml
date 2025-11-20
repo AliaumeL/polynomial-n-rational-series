@@ -2,7 +2,7 @@ title: "Commutative $\\Nat$-rational Series of Polynomial Growth"
 short-title: Polyregular $\Nat$-rational series
 repository: "https://github.com/AliaumeL/polynomial-n-rational-series"
 relatedversion:
-  - kind: conference
+  - kind: Conference version
     name: STACS'25
     url: https://doi.org/10.4230/LIPIcs.STACS.2025.67
     cite: lopez:LIPIcs.STACS.2025.67
@@ -26,7 +26,11 @@ abstract: |
   leverage this effective characterization to decide whether a function computed
   by a commutative $\Nat$-weighted automaton of polynomial growth is star-free, a
   notion borrowed from the theory of regular languages that has been the subject
-  of many investigations in the context of string-to-string functions
+  of many investigations in the context of string-to-string functions. 
+  Furthermore, we open the road to a generalization of our results to
+  non-commutative functions, by formalizing a canonical computational
+  model for $\Nat$-weighted automata of polynomial growth based
+  on the notion of residual transducer.
 classification:
   acm_12:
   - id: "10003752.10003766.10003773.10003775"
